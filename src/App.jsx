@@ -8,17 +8,23 @@ import VirtualKeyboard from './components/VirtualKeyboard';
 function App() {
   const allLessons = getAllLessons();
   const [currentView, setCurrentView] = useState('dashboard');
-  const [currentLesson, setCurrentLesson] = useState(allLessons[0]);
+  const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
+  const currentLesson = allLessons[currentLessonIndex];
   const [engineKey, setEngineKey] = useState(0);
   const [completedLessons, setCompletedLessons] = useState(new Set());
 
   const startLesson = (lesson) => {
-    setCurrentLesson(lesson);
-    setEngineKey(prev => prev + 1);
+    setCurrentLessonIndex(allLessons.findIndex(l => l.id === lesson.id));
     setCurrentView('session');
+    setEngineKey(prev => prev + 1);
+    
+    // Reset scroll immediately before render
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) {
+      mainContent.scrollTo({ top: 0, behavior: 'instant' });
+    }
   };
 
-  const currentLessonIndex = allLessons.findIndex(l => l.id === currentLesson?.id);
   const hasPrev = currentLessonIndex > 0;
   const hasNext = currentLessonIndex < allLessons.length - 1;
 
@@ -329,14 +335,12 @@ const SettingsView = () => (
 const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext, hasPrev }) => {
   const { engineState, stats } = useTypingEngine(lesson.text, krutidev010Layout);
 
-  React.useEffect(() => {
-    setTimeout(() => {
-      const mainContent = document.getElementById('main-content');
-      if (mainContent) {
-        mainContent.scrollTo({ top: 0, behavior: 'instant' });
-      }
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }, 10);
+  React.useLayoutEffect(() => {
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) {
+      mainContent.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
   React.useEffect(() => {
