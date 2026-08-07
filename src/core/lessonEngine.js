@@ -1,10 +1,8 @@
 import chapter1 from '../data/chapter1.json';
 import chapter2 from '../data/chapter2.json';
 import chapter3 from '../data/chapter3.json';
-import chapter4 from '../data/chapter4.json';
-import chapter5 from '../data/chapter5.json';
 
-const allLessons = [...chapter1, ...chapter2, ...chapter3, ...chapter4, ...chapter5];
+const allLessons = [...chapter1, ...chapter2, ...chapter3];
 
 export const getLessonById = (id) => {
   return allLessons.find(l => l.id === id);
