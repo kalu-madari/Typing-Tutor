@@ -4,6 +4,7 @@ import { krutidev010Layout } from './core/layouts/krutidev010';
 import { getAllLessons, getLessonById, getNextLesson, getChapters } from './core/lessonEngine';
 import TypingArea from './components/TypingArea';
 import VirtualKeyboard from './components/VirtualKeyboard';
+import { useAppStore } from './store/useAppStore';
 
 function App() {
   const allLessons = getAllLessons();
@@ -335,6 +336,7 @@ const SettingsView = () => (
 
 const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext, hasPrev }) => {
   const { engineState, stats, altCodeState } = useTypingEngine(lesson.text, krutidev010Layout);
+  const storeState = useAppStore();
 
   React.useLayoutEffect(() => {
     const mainContent = document.getElementById('main-content');
@@ -425,7 +427,55 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
         <VirtualKeyboard layout={krutidev010Layout} engineState={engineState} altCodeState={altCodeState} />
       </div>
 
-      <div></div>
+      {/* Settings Column - Right Side */}
+      <div className="settings-column" style={{ width: '150px', display: 'flex', flexDirection: 'column', gap: '16px', flexShrink: 0 }}>
+        <h4 style={{ margin: '0 0 5px 0', color: 'var(--text-primary)', fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px' }}>Toggles</h4>
+        
+        <Switch 
+          checked={storeState.allowBackspace} 
+          onChange={val => storeState.updateSetting('allowBackspace', val)}
+          label="Backspace"
+        />
+        
+        <Switch 
+          checked={storeState.soundEffects} 
+          onChange={val => storeState.updateSetting('soundEffects', val)}
+          label="Key sounds"
+        />
+        
+        <Switch 
+          checked={storeState.errorSounds} 
+          onChange={val => storeState.updateSetting('errorSounds', val)}
+          label="Error sounds"
+        />
+        
+        <Switch 
+          checked={storeState.showVirtualKeyboard} 
+          onChange={val => storeState.updateSetting('showVirtualKeyboard', val)}
+          label="Virtual keyboard"
+        />
+        
+        <Switch 
+          checked={storeState.moveOnError} 
+          onChange={val => storeState.updateSetting('moveOnError', val)}
+          label="Move on error"
+        />
+        
+        {storeState.moveOnError && (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '8px', borderTop: '1px solid var(--border-color)' }}>
+            <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Max errors:</span>
+            <select 
+              value={storeState.maxErrorsToSkip} 
+              onChange={(e) => storeState.updateSetting('maxErrorsToSkip', parseInt(e.target.value, 10))}
+              style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '2px 6px', outline: 'none', cursor: 'pointer' }}
+            >
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+            </select>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
@@ -465,6 +515,38 @@ const KeyLogger = () => {
       {logs.map((l, i) => <div key={i}>{l}</div>)}
       {logs.length === 0 && <div>Press Alt + numbers...</div>}
     </div>
+  );
+};
+
+const Switch = ({ checked, onChange, label }) => {
+  return (
+    <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', gap: '10px' }}>
+      <span style={{ fontSize: '13px', color: 'var(--text-primary)' }}>{label}</span>
+      <div style={{
+        position: 'relative',
+        width: '36px',
+        height: '20px',
+        backgroundColor: checked ? '#10b981' : '#ef4444',
+        borderRadius: '10px',
+        transition: 'background-color 0.2s',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '2px',
+        boxSizing: 'border-box',
+        flexShrink: 0
+      }}>
+        <div style={{
+          width: '16px',
+          height: '16px',
+          backgroundColor: '#fff',
+          borderRadius: '50%',
+          transition: 'transform 0.2s',
+          transform: checked ? 'translateX(16px)' : 'translateX(0)',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.3)'
+        }} />
+      </div>
+      <input type="checkbox" checked={checked} onChange={e => onChange(e.target.checked)} style={{ display: 'none' }} />
+    </label>
   );
 };
 
