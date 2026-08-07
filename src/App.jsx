@@ -48,7 +48,7 @@ function App() {
         {currentView === 'dashboard' && <DashboardView setCurrentView={setCurrentView} onStart={startLesson} currentLesson={currentLesson} completedLessons={completedLessons} allLessons={allLessons} />}
         {currentView === 'lessons' && <LessonsView lessons={allLessons} onStart={startLesson} completedLessons={completedLessons} />}
         {currentView === 'session' && (
-          <section id="view-lesson-detail" className="view active" style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, minHeight: 'calc(100vh - 40px)' }}>
+          <section id="view-lesson-detail" className="view active" style={{ display: 'flex', flexDirection: 'column' }}>
             <div className="view-header" style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', padding: '0 20px' }}>
               <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-start' }}>
                 <button className="btn btn-secondary" onClick={() => setCurrentView('lessons')}>← Library</button>
@@ -74,7 +74,7 @@ function App() {
               hasNext={hasNext}
               hasPrev={hasPrev}
             />
-            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px 40px', marginTop: 'auto', paddingTop: '20px', borderTop: '1px solid var(--border-soft)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px 40px', marginTop: '150px', borderTop: '1px solid var(--border-soft)' }}>
               <button className="btn btn-secondary" onClick={goPrev} disabled={!hasPrev} style={{ opacity: hasPrev ? 1 : 0.5 }}>← Previous</button>
               <button className="btn btn-primary" onClick={goNext} disabled={!hasNext} style={{ opacity: hasNext ? 1 : 0.5 }}>Next →</button>
             </div>
@@ -421,7 +421,7 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
           <div className="stat-card-value" style={{ color: 'var(--accent-blue)' }}>{stats.timeInSeconds}s</div>
         </div>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', minWidth: '1000px', maxWidth: '1000px', gap: '120px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', minWidth: '1000px', maxWidth: '1000px', gap: '120px', minHeight: '650px' }}>
         <TypingArea engineState={engineState} />
         <VirtualKeyboard layout={krutidev010Layout} engineState={engineState} altCodeState={altCodeState} />
       </div>
