@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useAppStore } from '../store/useAppStore';
 
-const VirtualKeyboard = ({ layout, engineState }) => {
+const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
   const { showVirtualKeyboard, highlightFingers } = useAppStore();
 
   if (!showVirtualKeyboard || !layout.keyboardMap) return null;
@@ -43,7 +43,16 @@ const VirtualKeyboard = ({ layout, engineState }) => {
   };
   
   if (nextChar && altCodes[nextChar]) {
-    expectedKeys = [...expectedKeys, ...altCodes[nextChar]];
+    const sequence = altCodes[nextChar];
+    const typedLength = altCodeState ? altCodeState.length : 0;
+    
+    // Always highlight Alt
+    expectedKeys = [...expectedKeys, 'AltLeft', 'AltRight'];
+    
+    // Highlight the next required number (offset by 2 because AltLeft/AltRight are at index 0 and 1)
+    if (typedLength + 2 < sequence.length) {
+      expectedKeys.push(sequence[typedLength + 2]);
+    }
   }
 
   const requiresShift = expectedKeys.includes('ShiftLeft') || expectedKeys.includes('ShiftRight');

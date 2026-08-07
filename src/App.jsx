@@ -333,7 +333,7 @@ const SettingsView = () => (
 );
 
 const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext, hasPrev }) => {
-  const { engineState, stats } = useTypingEngine(lesson.text, krutidev010Layout);
+  const { engineState, stats, altCodeState } = useTypingEngine(lesson.text, krutidev010Layout);
 
   React.useLayoutEffect(() => {
     const mainContent = document.getElementById('main-content');
@@ -421,7 +421,7 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
 
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '712px', gap: '20px' }}>
         <TypingArea engineState={engineState} />
-        <VirtualKeyboard layout={krutidev010Layout} engineState={engineState} />
+        <VirtualKeyboard layout={krutidev010Layout} engineState={engineState} altCodeState={altCodeState} />
       </div>
 
       <div></div>

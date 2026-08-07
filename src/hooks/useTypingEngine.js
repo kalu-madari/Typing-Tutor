@@ -37,6 +37,8 @@ export const useTypingEngine = (text, layout) => {
     };
   }, [text, layout, soundEffects, errorSounds]);
 
+  const [altCodeState, setAltCodeState] = useState("");
+
   useEffect(() => {
     let altCodeStr = "";
 
@@ -45,6 +47,7 @@ export const useTypingEngine = (text, layout) => {
 
       if (e.key === 'Alt') {
         altCodeStr = "";
+        setAltCodeState(altCodeStr);
         return;
       }
 
@@ -54,6 +57,7 @@ export const useTypingEngine = (text, layout) => {
         if (e.location === 3 || (e.code && e.code.startsWith('Numpad'))) {
           if (/^[0-9]$/.test(e.key)) {
             altCodeStr += e.key;
+            setAltCodeState(altCodeStr);
             e.preventDefault();
           }
         }
@@ -73,6 +77,10 @@ export const useTypingEngine = (text, layout) => {
             engineRef.current.handleKeyPress(char);
           }
           altCodeStr = "";
+          setAltCodeState(altCodeStr);
+        } else {
+          altCodeStr = "";
+          setAltCodeState(altCodeStr);
         }
       }
     };
@@ -85,7 +93,7 @@ export const useTypingEngine = (text, layout) => {
     };
   }, []);
 
-  return { engineState, stats, resetEngine: () => {
+  return { engineState, stats, altCodeState, resetEngine: () => {
     // Basic reset logic by recreating the engine could go here
     // or handled by unmounting/remounting component
   }};
