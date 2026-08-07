@@ -331,8 +331,11 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
 
   React.useEffect(() => {
     setTimeout(() => {
+      const mainContent = document.getElementById('main-content');
+      if (mainContent) {
+        mainContent.scrollTo({ top: 0, behavior: 'instant' });
+      }
       window.scrollTo({ top: 0, behavior: 'instant' });
-      document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
     }, 10);
   }, []);
 
