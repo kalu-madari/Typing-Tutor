@@ -48,26 +48,26 @@
       "id": "chap5-les4",
       "chapterId": 5,
       "lessonNumber": 4,
-      "title": "Tra (Alt+0221)",
-      "description": "Learn to type Tra (ट्र) using Alt + 0221",
+      "title": "Fra (Alt+0221)",
+      "description": "Learn to type Fra (फ्र) using Alt + 0221",
       "difficulty": 3,
       "estimatedTimeMinutes": 2,
       "minAccuracy": 95,
       "targetWpm": 25,
-      "text": "Ýd Ýsu jk\"Ý jk\"Ýh; A Ýsu ls ;k=k djuk lqjf{kr gS A gesa vius jk\"Ý ls izse djuk pkfg, A",
+      "text": "Ýh Ýkal vÝhdk A Ýkal ,d ns'k gS A lc Ýh jguk ilan djrs gSa A",
       "type": "practice"
     },
     {
       "id": "chap5-les5",
       "chapterId": 5,
       "lessonNumber": 5,
-      "title": "Ddh (Alt+0197)",
-      "description": "Learn to type Ddh (द्ध) using Alt + 0197",
+      "title": "Oo / Bada U (Alt+0197)",
+      "description": "Learn to type Oo (ऊ) using Alt + 0197",
       "difficulty": 3,
       "estimatedTimeMinutes": 2,
       "minAccuracy": 95,
       "targetWpm": 25,
-      "text": "cqÅ 'kqÅ ;qÅ JÅkku A xkSre cqÅ us 'kkafr dk lans'k fn;k A 'kqÅ ty ihuk LokLF; ds fy, vPNk gS A",
+      "text": "Åu Åij ÅtkZ A Åu cgqr xje gS A gedks dk;Z ds fy, ÅtkZ pkfg, A",
       "type": "practice"
     }
   ]
