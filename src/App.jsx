@@ -330,14 +330,121 @@ const AchievementsView = () => (
   </section>
 );
 
-const SettingsView = () => (
-  <section className="view active">
-    <div className="view-header">
-      <h1>Settings</h1>
-      <p className="view-subtitle">Customize your experience</p>
-    </div>
-  </section>
-);
+const SettingsView = () => {
+  const store = useAppStore();
+  
+  return (
+    <section className="view active">
+      <div className="view-header">
+        <h1 style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--brand)' }}>
+            <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+          </svg>
+          Settings
+        </h1>
+        <p className="view-subtitle">Customize your experience</p>
+      </div>
+
+      <div className="settings-list">
+        <div className="setting-group glass-card">
+          <h3>Appearance</h3>
+          <div className="setting-item">
+            <div className="setting-info">
+              <span className="setting-label">Theme</span>
+              <span className="setting-desc">Choose your preferred color scheme</span>
+            </div>
+            <select className="select-input" value={store.theme} onChange={(e) => store.updateSetting('theme', e.target.value)}>
+              <option value="vscode-dark">VS Code Dark</option>
+              <option value="light">Light</option>
+              <option value="midnight-indigo">Midnight Indigo</option>
+              <option value="nord">Nord</option>
+              <option value="solarized-dark">Solarized Dark</option>
+              <option value="vscode-light">VS Code Light</option>
+            </select>
+          </div>
+          <div className="setting-item">
+            <div className="setting-info">
+              <span className="setting-label">Lesson Text Size</span>
+              <span className="setting-desc">Adjust the lesson reading font size</span>
+            </div>
+            <select className="select-input" value={store.fontSize} onChange={(e) => store.updateSetting('fontSize', e.target.value)}>
+              <option value="small">Small</option>
+              <option value="medium">Medium</option>
+              <option value="large">Large</option>
+            </select>
+          </div>
+          <div className="setting-item">
+            <div className="setting-info">
+              <span className="setting-label">Text Alignment</span>
+              <span className="setting-desc">Align lesson text to left, center, or right</span>
+            </div>
+            <select className="select-input" value={store.textAlign} onChange={(e) => store.updateSetting('textAlign', e.target.value)}>
+              <option value="left">Left</option>
+              <option value="center">Center</option>
+              <option value="right">Right</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="setting-group glass-card">
+          <h3>Typing Engine</h3>
+          <div className="setting-item">
+            <div className="setting-info">
+              <span className="setting-label">Virtual Keyboard</span>
+              <span className="setting-desc">Show on-screen keyboard guidance</span>
+            </div>
+            <Switch checked={store.showVirtualKeyboard} onChange={(val) => store.updateSetting('showVirtualKeyboard', val)} />
+          </div>
+          <div className="setting-item">
+            <div className="setting-info">
+              <span className="setting-label">Allow Backspace</span>
+              <span className="setting-desc">Allow correcting mistakes using backspace</span>
+            </div>
+            <Switch checked={store.allowBackspace} onChange={(val) => store.updateSetting('allowBackspace', val)} />
+          </div>
+          <div className="setting-item">
+            <div className="setting-info">
+              <span className="setting-label">Move On Error</span>
+              <span className="setting-desc">Automatically move cursor forward after making a mistake</span>
+            </div>
+            <Switch checked={store.moveOnError} onChange={(val) => store.updateSetting('moveOnError', val)} />
+          </div>
+          {store.moveOnError && (
+            <div className="setting-item">
+              <div className="setting-info">
+                <span className="setting-label">Max Errors to Skip</span>
+                <span className="setting-desc">Number of consecutive errors before skipping character</span>
+              </div>
+              <select className="select-input" value={store.maxErrorsToSkip} onChange={(e) => store.updateSetting('maxErrorsToSkip', parseInt(e.target.value, 10))}>
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+              </select>
+            </div>
+          )}
+        </div>
+
+        <div className="setting-group glass-card">
+          <h3>Audio</h3>
+          <div className="setting-item">
+            <div className="setting-info">
+              <span className="setting-label">Key Sounds</span>
+              <span className="setting-desc">Play typing sounds on every key press</span>
+            </div>
+            <Switch checked={store.soundEffects} onChange={(val) => store.updateSetting('soundEffects', val)} />
+          </div>
+          <div className="setting-item">
+            <div className="setting-info">
+              <span className="setting-label">Error Sounds</span>
+              <span className="setting-desc">Play error beep when typing an incorrect character</span>
+            </div>
+            <Switch checked={store.errorSounds} onChange={(val) => store.updateSetting('errorSounds', val)} />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext, hasPrev }) => {
   const { engineState, stats, altCodeState } = useTypingEngine(lesson.text, krutidev010Layout);
@@ -425,101 +532,15 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
           <div className="stat-card-label" style={{ marginBottom: '8px' }}>Time</div>
           <div className="stat-card-value" style={{ color: 'var(--accent-blue)' }}>{stats.timeInSeconds}s</div>
         </div>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', minWidth: '1000px', maxWidth: '1000px', gap: '120px', minHeight: '650px' }}>
+         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', minWidth: '1000px', maxWidth: '1000px', gap: '120px', minHeight: '650px' }}>
         <TypingArea engineState={engineState} />
         <VirtualKeyboard layout={krutidev010Layout} engineState={engineState} altCodeState={altCodeState} />
       </div>
 
-      {/* Settings Column - Right Side */}
-      <div className="settings-column" style={{ width: '150px', display: 'flex', flexDirection: 'column', gap: '16px', flexShrink: 0 }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-          <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Theme:</span>
-          <select 
-            value={storeState.theme} 
-            onChange={(e) => storeState.updateSetting('theme', e.target.value)}
-            style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '4px', outline: 'none', cursor: 'pointer', fontSize: '12px' }}
-          >
-            <option value="vscode-dark">VS Code Dark</option>
-            <option value="light">Light</option>
-            <option value="midnight-indigo">Midnight Indigo</option>
-            <option value="nord">Nord</option>
-            <option value="solarized-dark">Solarized Dark</option>
-            <option value="vscode-light">VS Code Light</option>
-          </select>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-          <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Font Size:</span>
-          <select 
-            value={storeState.fontSize} 
-            onChange={(e) => storeState.updateSetting('fontSize', e.target.value)}
-            style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '4px', outline: 'none', cursor: 'pointer', fontSize: '12px' }}
-          >
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
-          </select>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-          <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Text Align:</span>
-          <select 
-            value={storeState.textAlign} 
-            onChange={(e) => storeState.updateSetting('textAlign', e.target.value)}
-            style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '4px', outline: 'none', cursor: 'pointer', fontSize: '12px' }}
-          >
-            <option value="left">Left</option>
-            <option value="center">Center</option>
-            <option value="right">Right</option>
-          </select>
-        </div>
-        
-        <Switch 
-          checked={storeState.allowBackspace} 
-          onChange={val => storeState.updateSetting('allowBackspace', val)}
-          label="Backspace"
-        />
-        
-        <Switch 
-          checked={storeState.soundEffects} 
-          onChange={val => storeState.updateSetting('soundEffects', val)}
-          label="Key sounds"
-        />
-        
-        <Switch 
-          checked={storeState.errorSounds} 
-          onChange={val => storeState.updateSetting('errorSounds', val)}
-          label="Error sounds"
-        />
-        
-        <Switch 
-          checked={storeState.showVirtualKeyboard} 
-          onChange={val => storeState.updateSetting('showVirtualKeyboard', val)}
-          label="Virtual keyboard"
-        />
-        
-        <Switch 
-          checked={storeState.moveOnError} 
-          onChange={val => storeState.updateSetting('moveOnError', val)}
-          label="Move on error"
-        />
-        
-        {storeState.moveOnError && (
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '8px', borderTop: '1px solid var(--border-color)' }}>
-            <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Max errors:</span>
-            <select 
-              value={storeState.maxErrorsToSkip} 
-              onChange={(e) => storeState.updateSetting('maxErrorsToSkip', parseInt(e.target.value, 10))}
-              style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '2px 6px', outline: 'none', cursor: 'pointer' }}
-            >
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-            </select>
-          </div>
-        )}
+      {/* Settings Column - Right Side (Empty to maintain grid balance) */}
+      <div className="settings-column" style={{ width: '150px', flexShrink: 0 }}>
       </div>
+    </div>
     </div>
   );
 };
@@ -565,7 +586,7 @@ const KeyLogger = () => {
 const Switch = ({ checked, onChange, label }) => {
   return (
     <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', gap: '10px' }}>
-      <span style={{ fontSize: '13px', color: 'var(--text-primary)' }}>{label}</span>
+      {label && <span style={{ fontSize: '13px', color: 'var(--text-primary)' }}>{label}</span>}
       <div style={{
         position: 'relative',
         width: '36px',
