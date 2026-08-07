@@ -4,7 +4,23 @@ import chapter3 from '../data/chapter3.json';
 import chapter4 from '../data/chapter4.json';
 import chapter5 from '../data/chapter-05-basic-level-1.json';
 
-const allLessons = [...chapter1, ...chapter2, ...chapter3, ...chapter4, ...chapter5.lessons];
+const mappedChapter5 = (chapter5.lessons || []).map(l => ({
+  id: l["Lesson ID"],
+  chapterId: 5,
+  lessonNumber: l["Lesson Number"],
+  title: l["Lesson Name"],
+  description: l["Lesson Description"],
+  difficulty: l["Difficulty"] === "Medium" ? 3 : 2,
+  estimatedTimeMinutes: l["Estimated Time"],
+  minAccuracy: l["Target Accuracy"],
+  targetWpm: l["Target WPM"],
+  unlockedAfter: l["Required Previous Lesson"],
+  newKeys: [],
+  previouslyUsedKeys: ["a","s","d","f","g","h","j","k","l",";","q","w","e","r","t","y","u","i","o","p","z","x","c","v","b","n","m"],
+  text: Object.values(l["Typing Prompts"]).filter(Boolean).join(" ")
+}));
+
+const allLessons = [...chapter1, ...chapter2, ...chapter3, ...chapter4, ...mappedChapter5];
 
 export const getLessonById = (id) => {
   return allLessons.find(l => l.id === id);
