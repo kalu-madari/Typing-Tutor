@@ -1,26 +1,45 @@
-import chapter1 from '../data/chapter1.json';
-import chapter2 from '../data/chapter2.json';
-import chapter3 from '../data/chapter3.json';
-import chapter4 from '../data/chapter4.json';
-import chapter5 from '../data/chapter-05-basic-level-1.json';
+const modules = {
+  ...import.meta.glob('../data/chapter*.{json,js}', { eager: true }),
+  ...import.meta.glob('../data/chapters/*.{json,js}', { eager: true })
+};
 
-const mappedChapter5 = (chapter5.lessons || []).map(l => ({
-  id: l["Lesson ID"],
-  chapterId: 5,
-  lessonNumber: l["Lesson Number"],
-  title: l["Lesson Name"],
-  description: l["Lesson Description"],
-  difficulty: l["Difficulty"] === "Medium" ? 3 : 2,
-  estimatedTimeMinutes: l["Estimated Time"],
-  minAccuracy: l["Target Accuracy"],
-  targetWpm: l["Target WPM"],
-  unlockedAfter: l["Required Previous Lesson"],
-  newKeys: [],
-  previouslyUsedKeys: ["a","s","d","f","g","h","j","k","l",";","q","w","e","r","t","y","u","i","o","p","z","x","c","v","b","n","m"],
-  text: Object.values(l["Typing Prompts"]).filter(Boolean).join(" ")
-}));
+let allLessons = [];
 
-const allLessons = [...chapter1, ...chapter2, ...chapter3, ...chapter4, ...mappedChapter5];
+Object.entries(modules).forEach(([path, module]) => {
+  const content = module.default || module;
+  let lessonsArray = [];
+  
+  if (Array.isArray(content)) {
+    // Legacy internal schema (like chapter1.json, chapter2.json)
+    lessonsArray = content;
+  } else if (content && content.lessons && Array.isArray(content.lessons)) {
+    // New strict schema (like chapter-05-basic-level-1.json)
+    lessonsArray = content.lessons.map(l => ({
+      id: l["Lesson ID"] || l.id,
+      chapterId: content.chapterId || l.chapterId || 1,
+      lessonNumber: l["Lesson Number"] || l.lessonNumber,
+      title: l["Lesson Name"] || l.title,
+      description: l["Lesson Description"] || l.description,
+      difficulty: (l["Difficulty"] === "Medium" ? 3 : (l["Difficulty"] === "Hard" ? 4 : 2)) || l.difficulty || 2,
+      estimatedTimeMinutes: l["Estimated Time"] || l.estimatedTimeMinutes,
+      minAccuracy: l["Target Accuracy"] || l.minAccuracy,
+      targetWpm: l["Target WPM"] || l.targetWpm,
+      unlockedAfter: l["Required Previous Lesson"] || l.unlockedAfter,
+      newKeys: l.newKeys || [],
+      previouslyUsedKeys: l.previouslyUsedKeys || ["a","s","d","f","g","h","j","k","l",";","q","w","e","r","t","y","u","i","o","p","z","x","c","v","b","n","m"],
+      text: l["Typing Prompts"] ? Object.values(l["Typing Prompts"]).filter(Boolean).join(" ") : l.text,
+      type: l["Practice Type"]?.toLowerCase() === 'test' ? 'test' : l.type || 'practice'
+    }));
+  }
+  
+  allLessons = allLessons.concat(lessonsArray);
+});
+
+// Sort by chapterId and then lessonNumber to ensure correct ordering
+allLessons.sort((a, b) => {
+  if (a.chapterId !== b.chapterId) return a.chapterId - b.chapterId;
+  return a.lessonNumber - b.lessonNumber;
+});
 
 export const getLessonById = (id) => {
   return allLessons.find(l => l.id === id);
