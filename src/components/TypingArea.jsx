@@ -27,35 +27,61 @@ const TypingArea = ({ engineState }) => {
 
   const { text, currentIndex, errors, status } = engineState;
 
-  // Split text into characters to render them individually
+  // Split text into words to prevent mid-word line breaking
   const renderText = () => {
-    return text.split('').map((char, index) => {
-      let statusClass = 'pending';
-      if (index < currentIndex) {
-        statusClass = errors.has(index) ? 'error' : 'correct';
+    const words = [];
+    let currentWord = [];
+    
+    text.split('').forEach((char, index) => {
+      if (char === ' ' || char === '\n') {
+        if (currentWord.length > 0) {
+          words.push(currentWord);
+          currentWord = [];
+        }
+        words.push([{ char, index }]);
+      } else {
+        currentWord.push({ char, index });
       }
+    });
+    if (currentWord.length > 0) {
+      words.push(currentWord);
+    }
 
-      const isActive = index === currentIndex;
-      const isError = isActive && errors.has(index); // If they just typed error on this active one
-
+    return words.map((wordTokens, wIdx) => {
+      const isWhitespace = wordTokens.length === 1 && (wordTokens[0].char === ' ' || wordTokens[0].char === '\n');
+      
       return (
-        <motion.span
-          key={index}
-          ref={isActive ? activeCharRef : null}
-          style={{
-            ...styles.char,
-            color: isActive ? '#eab308' : getCharColor(statusClass),
-            textShadow: isActive ? '0 0 8px rgba(250, 204, 21, 0.4)' : 'none',
-            backgroundColor: (isActive && char === ' ') ? 'rgba(250, 204, 21, 0.4)' : 'transparent',
-            borderRadius: (isActive && char === ' ') ? '4px' : '0',
-            borderBottom: isActive ? '2px solid var(--accent-blue)' : '2px solid transparent',
-            fontFamily: char === '\n' ? 'sans-serif' : 'inherit'
-          }}
-          animate={isError ? { x: [-2, 2, -2, 2, 0] } : (isActive ? { opacity: [1, 0.8, 1] } : {})}
-          transition={isError ? { duration: 0.3 } : (isActive ? { repeat: Infinity, duration: 1 } : {})}
-        >
-          {char === ' ' ? '\u00A0' : char === '\n' ? '↵\n' : char}
-        </motion.span>
+        <span key={wIdx} style={{ display: isWhitespace ? 'inline' : 'inline-block', whiteSpace: 'pre' }}>
+          {wordTokens.map(({ char, index }) => {
+            let statusClass = 'pending';
+            if (index < currentIndex) {
+              statusClass = errors.has(index) ? 'error' : 'correct';
+            }
+
+            const isActive = index === currentIndex;
+            const isError = isActive && errors.has(index);
+
+            return (
+              <motion.span
+                key={index}
+                ref={isActive ? activeCharRef : null}
+                style={{
+                  ...styles.char,
+                  color: isActive ? '#eab308' : getCharColor(statusClass),
+                  textShadow: isActive ? '0 0 8px rgba(250, 204, 21, 0.4)' : 'none',
+                  backgroundColor: (isActive && char === ' ') ? 'rgba(250, 204, 21, 0.4)' : 'transparent',
+                  borderRadius: (isActive && char === ' ') ? '4px' : '0',
+                  borderBottom: isActive ? '2px solid var(--accent-blue)' : '2px solid transparent',
+                  fontFamily: char === '\n' ? 'sans-serif' : 'inherit'
+                }}
+                animate={isError ? { x: [-2, 2, -2, 2, 0] } : (isActive ? { opacity: [1, 0.8, 1] } : {})}
+                transition={isError ? { duration: 0.3 } : (isActive ? { repeat: Infinity, duration: 1 } : {})}
+              >
+                {char === ' ' ? '\u00A0' : char === '\n' ? '↵\n' : char}
+              </motion.span>
+            );
+          })}
+        </span>
       );
     });
   };
