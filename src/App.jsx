@@ -421,8 +421,7 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
           <div className="stat-card-value" style={{ color: 'var(--accent-blue)' }}>{stats.timeInSeconds}s</div>
         </div>
       </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', minWidth: '1000px', maxWidth: '1000px', gap: '40px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', minWidth: '1000px', maxWidth: '1000px', gap: '120px' }}>
         <TypingArea engineState={engineState} />
         <VirtualKeyboard layout={krutidev010Layout} engineState={engineState} altCodeState={altCodeState} />
       </div>
