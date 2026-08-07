@@ -55,8 +55,15 @@ export const useTypingEngine = (text, layout) => {
       if (e.altKey) {
         // Enforce physical Numpad keys for authentic MS Word behavior
         if (e.location === 3 || (e.code && e.code.startsWith('Numpad'))) {
-          if (/^[0-9]$/.test(e.key)) {
-            altCodeStr += e.key;
+          let digit = "";
+          if (e.code && e.code.startsWith('Numpad') && e.code.length === 8) {
+            digit = e.code.charAt(6); // Extract '0' from 'Numpad0'
+          } else if (/^[0-9]$/.test(e.key)) {
+            digit = e.key;
+          }
+
+          if (/^[0-9]$/.test(digit)) {
+            altCodeStr += digit;
             setAltCodeState(altCodeStr);
             e.preventDefault();
           }
