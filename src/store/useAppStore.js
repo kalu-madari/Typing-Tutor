@@ -9,6 +9,9 @@ export const useAppStore = create((set) => ({
   showVirtualKeyboard: true,
   highlightFingers: true,
   timerMode: 'none', // none, 1min, 3min, 5min
+  allowBackspace: false,
+  moveOnError: false,
+  maxErrorsToSkip: 3,
 
   // Progress Stats (mirrored from DB for quick UI access)
   bestWpm: 0,

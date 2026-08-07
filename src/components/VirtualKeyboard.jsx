@@ -5,10 +5,12 @@ import { useAppStore } from '../store/useAppStore';
 const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
   const { showVirtualKeyboard, highlightFingers } = useAppStore();
 
-  if (!showVirtualKeyboard || !layout.keyboardMap) return null;
-
+  // (Early return moved below hooks)
   const [isShiftActive, setIsShiftActive] = React.useState(false);
   const [isCapsActive, setIsCapsActive] = React.useState(false);
+  const prevIndex = React.useRef(engineState?.currentIndex || 0);
+  const prevWrong = React.useRef(engineState?.incorrectChars || 0);
+  const [animationEvent, setAnimationEvent] = React.useState({ type: 'none', id: 0 });
 
   React.useEffect(() => {
     const handleKeyDown = (e) => {
@@ -28,6 +30,22 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
       window.removeEventListener('keyup', handleKeyUp);
     };
   }, []);
+
+  React.useEffect(() => {
+    const currentWrong = engineState?.incorrectChars || 0;
+    const currentIndex = engineState?.currentIndex || 0;
+    
+    if (currentWrong > prevWrong.current) {
+      setAnimationEvent(prev => ({ type: 'shake', id: prev.id + 1 }));
+    } else if (currentIndex !== prevIndex.current) {
+      setAnimationEvent(prev => ({ type: 'pulse', id: prev.id + 1 }));
+    }
+    
+    prevIndex.current = currentIndex;
+    prevWrong.current = currentWrong;
+  }, [engineState?.currentIndex, engineState?.incorrectChars]);
+
+  if (!showVirtualKeyboard || !layout.keyboardMap) return null;
 
   const nextChar = engineState?.status !== 'finished' ? engineState?.text[engineState?.currentIndex] : null;
   let expectedKeys = nextChar ? layout.getExpectedKeys(nextChar) : [];
@@ -65,23 +83,8 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
 
   const requiresShift = expectedKeys.includes('ShiftLeft') || expectedKeys.includes('ShiftRight');
 
-  const prevIndex = React.useRef(engineState?.currentIndex || 0);
-  const prevWrong = React.useRef(engineState?.incorrectChars || 0);
-  const [animationEvent, setAnimationEvent] = React.useState({ type: 'none', id: 0 });
-
-  React.useEffect(() => {
-    const currentWrong = engineState?.incorrectChars || 0;
-    const currentIndex = engineState?.currentIndex || 0;
-    
-    if (currentWrong > prevWrong.current) {
-      setAnimationEvent(prev => ({ type: 'shake', id: prev.id + 1 }));
-    } else if (currentIndex !== prevIndex.current) {
-      setAnimationEvent(prev => ({ type: 'pulse', id: prev.id + 1 }));
-    }
-    
-    prevIndex.current = currentIndex;
-    prevWrong.current = currentWrong;
-  }, [engineState?.currentIndex, engineState?.incorrectChars]);
+  // (Hooks moved up)
+  // (useEffect moved up)
 
   const showShiftDisplay = (keyObj) => {
     if (!keyObj.shiftDisplay) return false;

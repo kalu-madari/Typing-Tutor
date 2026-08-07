@@ -11,7 +11,19 @@ export const calculateAccuracy = (correctChars, totalTypedChars) => {
 };
 
 export const getTypingStats = (state) => {
-  const timeInSeconds = (Date.now() - state.startTime) / 1000;
+  // calculate time from totalActiveTimeMs
+  let ms = state.totalActiveTimeMs || 0;
+  if (state.status === 'running') {
+    // add any pending time less than 3000ms
+    const now = Date.now();
+    const timeSinceLast = now - (state.lastInteractionTime || now);
+    if (timeSinceLast < 3000) {
+      ms += timeSinceLast;
+    }
+  }
+  
+  const timeInSeconds = ms / 1000;
+  
   return {
     wpm: calculateWPM(state.correctChars, timeInSeconds),
     accuracy: calculateAccuracy(state.correctChars, state.totalTypedChars),

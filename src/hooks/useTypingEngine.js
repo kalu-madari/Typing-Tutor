@@ -37,6 +37,18 @@ export const useTypingEngine = (text, layout) => {
     };
   }, [text, layout, soundEffects, errorSounds]);
 
+  useEffect(() => {
+    let interval;
+    if (engineState?.status === 'running') {
+      interval = setInterval(() => {
+        if (engineRef.current && engineRef.current.status === 'running') {
+          setStats(getTypingStats(engineRef.current.getState()));
+        }
+      }, 500);
+    }
+    return () => clearInterval(interval);
+  }, [engineState?.status]);
+
   const [altCodeState, setAltCodeState] = useState("");
 
   useEffect(() => {

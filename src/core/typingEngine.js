@@ -1,3 +1,5 @@
+import { useAppStore } from '../store/useAppStore';
+
 export class TypingEngine {
   constructor(text, layout) {
     this.text = text;
@@ -12,6 +14,11 @@ export class TypingEngine {
     this.errors = new Set(); // indices where an error occurred
     this.typedCharacters = [];
     this.lastTypedChar = null;
+    this.currentConsecutiveErrors = 0;
+    
+    // Live timer properties
+    this.totalActiveTimeMs = 0;
+    this.lastInteractionTime = null;
     
     // Callbacks for UI updates
     this.onStateChange = null;
@@ -23,6 +30,7 @@ export class TypingEngine {
     if (this.status === 'idle') {
       this.status = 'running';
       this.startTime = Date.now();
+      this.lastInteractionTime = Date.now();
       this.notify();
     }
   }
@@ -30,13 +38,36 @@ export class TypingEngine {
   handleKeyPress(key) {
     if (this.status === 'finished') return;
     if (this.status === 'idle') this.start();
-
-    const targetChar = this.text[this.currentIndex];
     
+    const now = Date.now();
+    if (this.status === 'running') {
+      const timeSinceLast = now - (this.lastInteractionTime || now);
+      if (timeSinceLast < 3000) {
+        this.totalActiveTimeMs += timeSinceLast;
+      }
+      this.lastInteractionTime = now;
+    }
+
+    const { allowBackspace, moveOnError, maxErrorsToSkip } = useAppStore.getState();
+
     // Ignore modifier keys like Shift, Control, Alt
     if (key === 'Shift' || key === 'Control' || key === 'Alt' || key === 'Meta' || key === 'CapsLock' || key === 'Tab') {
       return;
     }
+    
+    if (key === 'Backspace' && allowBackspace) {
+      if (this.currentIndex > 0) {
+        this.currentIndex--;
+        this.typedCharacters.pop();
+        this.currentConsecutiveErrors = 0;
+        this.notify();
+      }
+      return;
+    }
+    
+    if (key === 'Backspace') return;
+
+    const targetChar = this.text[this.currentIndex];
     
     if (key === 'Enter' && targetChar !== '\n') {
       return;
@@ -52,6 +83,7 @@ export class TypingEngine {
       this.typedCharacters.push({ char: this.text[this.currentIndex], isError: false });
       this.correctChars++;
       this.currentIndex++;
+      this.currentConsecutiveErrors = 0;
       if (this.onPlaySound) this.onPlaySound('keystroke');
 
       if (this.currentIndex >= this.text.length) {
@@ -61,12 +93,24 @@ export class TypingEngine {
       }
     } else {
       // Incorrect
-      // If we want to allow typing incorrect chars and moving forward, we can, but currently it blocks.
-      // Let's store the incorrect keystroke for the UI to blink it or show it.
       this.lastTypedChar = key;
       this.incorrectChars++;
       this.errors.add(this.currentIndex);
+      this.currentConsecutiveErrors++;
       if (this.onPlaySound) this.onPlaySound('error');
+      
+      if (moveOnError && this.currentConsecutiveErrors >= maxErrorsToSkip) {
+        // Force skip the character
+        this.typedCharacters.push({ char: key, isError: true });
+        this.currentIndex++;
+        this.currentConsecutiveErrors = 0;
+        
+        if (this.currentIndex >= this.text.length) {
+          this.status = 'finished';
+          this.endTime = Date.now();
+          if (this.onFinish) this.onFinish(this.getState());
+        }
+      }
     }
 
     this.notify();
@@ -84,6 +128,9 @@ export class TypingEngine {
       currentIndex: this.currentIndex,
       status: this.status,
       startTime: this.startTime,
+      endTime: this.endTime,
+      totalActiveTimeMs: this.totalActiveTimeMs,
+      lastInteractionTime: this.lastInteractionTime,
       correctChars: this.correctChars,
       incorrectChars: this.incorrectChars,
       totalTypedChars: this.totalTypedChars,
