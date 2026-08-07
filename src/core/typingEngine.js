@@ -31,12 +31,17 @@ export class TypingEngine {
     if (this.status === 'finished') return;
     if (this.status === 'idle') this.start();
 
+    const targetChar = this.text[this.currentIndex];
+    
     // Ignore modifier keys like Shift, Control, Alt
-    if (key === 'Shift' || key === 'Control' || key === 'Alt' || key === 'Meta' || key === 'CapsLock' || key === 'Tab' || key === 'Enter') {
+    if (key === 'Shift' || key === 'Control' || key === 'Alt' || key === 'Meta' || key === 'CapsLock' || key === 'Tab') {
+      return;
+    }
+    
+    if (key === 'Enter' && targetChar !== '\n') {
       return;
     }
 
-    const targetChar = this.text[this.currentIndex];
     // Use layout to get expected key(s)
     const expectedKeys = this.layout.getExpectedKeys(targetChar);
 

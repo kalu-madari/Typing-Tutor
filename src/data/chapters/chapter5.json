@@ -1,0 +1,113 @@
+{
+  "chapterId": 5,
+  "chapterTitle": "Basic Level 1",
+  "totalLessons": 8,
+  "goalWpm": 21,
+  "minimumAccuracy": 95,
+  "lessons": [
+    {
+      "id": "chap5-les1",
+      "chapterId": 5,
+      "lessonNumber": 1,
+      "title": "Using Ten Fingers",
+      "description": "Practice lesson for Using Ten Fingers",
+      "difficulty": 2,
+      "estimatedTimeMinutes": 2,
+      "minAccuracy": 95,
+      "targetWpm": 21,
+      "text": "asdf jkl;\nasdfg hjkl;\nqwer uiop\nzxcv nm,.\nfj fj fj fj\ndk dk dk dk\nsl sl sl sl\ngh gh gh gh\nasdf qwer zxcv\njkl; uiop nm,.",
+      "type": "practice"
+    },
+    {
+      "id": "chap5-les2",
+      "chapterId": 5,
+      "lessonNumber": 2,
+      "title": "Increase Speed",
+      "description": "Practice lesson for Increase Speed",
+      "difficulty": 2,
+      "estimatedTimeMinutes": 2,
+      "minAccuracy": 95,
+      "targetWpm": 21,
+      "text": "asdfg hjkl;\nqwert yuiop\nzxcvb nm,./\nasdfg qwert\npoiuy trewq\nlkjhg fdsa\nqaz wsx edc\nrfv tgb yhn\nujm ik, ol.\nasdfg hjkl qwert yuiop",
+      "type": "practice"
+    },
+    {
+      "id": "chap5-les3",
+      "chapterId": 5,
+      "lessonNumber": 3,
+      "title": "Practice",
+      "description": "Practice lesson for Practice",
+      "difficulty": 2,
+      "estimatedTimeMinutes": 2,
+      "minAccuracy": 95,
+      "targetWpm": 21,
+      "text": "fdsa jkl;\n\nghjk asdf\n\nqwer tyui\n\nzxcv bnm,\n\nasdfg hjkl;\n\nqaz wsx edc\n\nrfv tgb yhn\n\nujm ik, ol.\n\npl; qaz wsx\n\nasdf qwer zxcv hjkl uiop nm,.",
+      "type": "practice"
+    },
+    {
+      "id": "chap5-les4",
+      "chapterId": 5,
+      "lessonNumber": 4,
+      "title": "Don't Look Down",
+      "description": "Practice lesson for Don't Look Down",
+      "difficulty": 2,
+      "estimatedTimeMinutes": 2,
+      "minAccuracy": 95,
+      "targetWpm": 21,
+      "text": "ffff jjjj\n\ndddd kkkk\n\nssss llll\n\naaaa ;;;;\n\nasdf jkl;\n\nghgh ghgh\n\nqwer poiu\n\nzxcv nm,.\n\nasdfg hjkl;\n\nqwerty asdfgh zxcvbn",
+      "type": "practice"
+    },
+    {
+      "id": "chap5-les5",
+      "chapterId": 5,
+      "lessonNumber": 5,
+      "title": "Practice Right Hand",
+      "description": "Practice lesson for Practice Right Hand",
+      "difficulty": 2,
+      "estimatedTimeMinutes": 2,
+      "minAccuracy": 95,
+      "targetWpm": 21,
+      "text": "ffff jjjj\n\ndddd kkkk\n\nssss llll\n\naaaa ;;;;\n\nasdf jkl;\n\nghgh ghgh\n\nqwer poiu\n\nzxcv nm,.\n\nasdfg hjkl;\n\nqwerty asdfgh zxcvbn",
+      "type": "practice"
+    },
+    {
+      "id": "chap5-les6",
+      "chapterId": 5,
+      "lessonNumber": 6,
+      "title": "Practice Right Hand",
+      "description": "Practice lesson for Practice Right Hand",
+      "difficulty": 2,
+      "estimatedTimeMinutes": 2,
+      "minAccuracy": 95,
+      "targetWpm": 21,
+      "text": "ffff jjjj\n\ndddd kkkk\n\nssss llll\n\naaaa ;;;;\n\nasdf jkl;\n\nghgh ghgh\n\nqwer poiu\n\nzxcv nm,.\n\nasdfg hjkl;\n\nqwerty asdfgh zxcvbn",
+      "type": "practice"
+    },
+    {
+      "id": "chap5-les7",
+      "chapterId": 5,
+      "lessonNumber": 7,
+      "title": "Practice Right Hand",
+      "description": "Practice lesson for Practice Right Hand",
+      "difficulty": 2,
+      "estimatedTimeMinutes": 2,
+      "minAccuracy": 95,
+      "targetWpm": 21,
+      "text": "ffff jjjj\n\ndddd kkkk\n\nssss llll\n\naaaa ;;;;\n\nasdf jkl;\n\nghgh ghgh\n\nqwer poiu\n\nzxcv nm,.\n\nasdfg hjkl;\n\nqwerty asdfgh zxcvbn",
+      "type": "practice"
+    },
+    {
+      "id": "chap5-les8",
+      "chapterId": 5,
+      "lessonNumber": 8,
+      "title": "Practice Right Hand",
+      "description": "Practice lesson for Practice Right Hand",
+      "difficulty": 2,
+      "estimatedTimeMinutes": 2,
+      "minAccuracy": 95,
+      "targetWpm": 21,
+      "text": "ffff jjjj\n\ndddd kkkk\n\nssss llll\n\naaaa ;;;;\n\nasdf jkl;\n\nghgh ghgh\n\nqwer poiu\n\nzxcv nm,.\n\nasdfg hjkl;\n\nqwerty asdfgh zxcvbn",
+      "type": "practice"
+    }
+  ]
+}

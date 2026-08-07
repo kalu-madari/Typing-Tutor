@@ -8,6 +8,8 @@ export const krutidev010Layout = {
   // In KrutiDev, the lesson text is stored as English characters (e.g., 'k' renders as 'क').
   // So the user simply needs to press 'k'.
   getExpectedKeys: function(targetChar) {
+    if (targetChar === '\n') return ['Enter'];
+
     const allKeys = this.keyboardMap.flat();
     
     // If it matches a base key

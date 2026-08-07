@@ -29,12 +29,13 @@ const TypingArea = ({ engineState }) => {
             textShadow: isActive ? '0 0 8px rgba(250, 204, 21, 0.4)' : 'none',
             backgroundColor: (isActive && char === ' ') ? 'rgba(250, 204, 21, 0.4)' : 'transparent',
             borderRadius: (isActive && char === ' ') ? '4px' : '0',
-            borderBottom: isActive ? '2px solid var(--accent-blue)' : '2px solid transparent'
+            borderBottom: isActive ? '2px solid var(--accent-blue)' : '2px solid transparent',
+            fontFamily: char === '\n' ? 'sans-serif' : 'inherit'
           }}
           animate={isError ? { x: [-2, 2, -2, 2, 0] } : (isActive ? { opacity: [1, 0.8, 1] } : {})}
           transition={isError ? { duration: 0.3 } : (isActive ? { repeat: Infinity, duration: 1 } : {})}
         >
-          {char === ' ' ? '\u00A0' : char}
+          {char === ' ' ? '\u00A0' : char === '\n' ? '↵\n' : char}
         </motion.span>
       );
     });
