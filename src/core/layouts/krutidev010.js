@@ -20,7 +20,7 @@ export const krutidev010Layout = {
       // Always use opposite hand shift
       const isLeftHand = shiftMatch.finger.startsWith('left-');
       const shiftKey = isLeftHand ? 'ShiftRight' : 'ShiftLeft';
-      return [shiftMatch.key, shiftKey];
+      return [targetChar, shiftMatch.key, shiftKey];
     }
     
     return [targetChar];
