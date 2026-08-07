@@ -60,7 +60,7 @@ const TypingArea = ({ engineState }) => {
       ...styles.container,
       fontSize: fontSize === 'large' ? '32px' : fontSize === 'small' ? '20px' : '26px'
     }}>
-      <div style={styles.textContainer}>
+      <div className="no-scrollbar" style={styles.textContainer}>
         {renderText()}
       </div>
       {status === 'finished' && (
@@ -94,7 +94,7 @@ const styles = {
     whiteSpace: 'pre-wrap',
     wordWrap: 'break-word',
     maxHeight: '160px',
-    overflowY: 'hidden',
+    overflowY: 'auto',
     position: 'relative'
   },
   char: {

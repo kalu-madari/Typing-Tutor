@@ -30,6 +30,14 @@
   }
 }
 
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --text: #9ca3af;
