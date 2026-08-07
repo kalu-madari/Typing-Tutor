@@ -56,15 +56,6 @@ function App() {
                 </button>
               </div>
             </div>
-            
-            {currentLesson.teachingText && (
-              <div style={{ maxWidth: '712px', margin: '0 auto 20px auto', width: '100%' }}>
-                <div style={{ padding: '16px', backgroundColor: 'var(--bg-card)', borderLeft: '4px solid var(--brand)', borderRadius: '0 8px 8px 0', color: 'var(--text-primary)', fontSize: '15px', lineHeight: '1.6', border: '1px solid var(--border-soft)', borderLeftWidth: '4px' }}>
-                  {currentLesson.teachingText}
-                </div>
-              </div>
-            )}
-            
             <TypingSession 
               key={engineKey} 
               lesson={currentLesson} 
