@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTypingEngine } from './hooks/useTypingEngine';
 import { krutidev010Layout } from './core/layouts/krutidev010';
-import { getAllLessons } from './core/lessonEngine';
+import { getAllLessons, getLessonById, getNextLesson, getChapters } from './core/lessonEngine';
 import TypingArea from './components/TypingArea';
 import VirtualKeyboard from './components/VirtualKeyboard';
 
@@ -128,13 +128,7 @@ const Sidebar = ({ currentView, setCurrentView }) => {
 };
 
 const DashboardView = ({ setCurrentView, onStart, currentLesson, completedLessons, allLessons }) => {
-  const chapters = [
-    { id: 1, title: 'Home Row', description: 'Build muscle memory for the KrutiDev keyboard layout.', lessons: allLessons.filter(l => l.chapterId === 1) },
-    { id: 2, title: 'The Top Row', description: 'Learn to use your fingers on the top row (qwert yuiop).', lessons: allLessons.filter(l => l.chapterId === 2) },
-    { id: 3, title: 'The Bottom Row', description: 'Learn to stretch down to the bottom row (zxcvb nm,./).', lessons: allLessons.filter(l => l.chapterId === 3) },
-    { id: 4, title: 'Shift Key Basics', description: 'Master the Shift key to type half-letters and special matras.', lessons: allLessons.filter(l => l.chapterId === 4) },
-    { id: 5, title: 'Basic Level 1', description: 'Master previously learned keys with higher fluency.', lessons: allLessons.filter(l => l.chapterId === 5) }
-  ];
+  const chapters = getChapters();
   
   const totalLessons = allLessons.length;
   const globalProgress = totalLessons > 0 ? Math.round((completedLessons.size / totalLessons) * 100) : 0;
@@ -214,13 +208,7 @@ const DashboardView = ({ setCurrentView, onStart, currentLesson, completedLesson
 const LessonsView = ({ lessons, onStart, completedLessons }) => {
   const [expandedChapter, setExpandedChapter] = useState(1);
   
-  const chapters = [
-    { id: 1, title: 'Home Row', description: 'Build muscle memory for the KrutiDev keyboard layout.', lessons: lessons.filter(l => l.chapterId === 1) },
-    { id: 2, title: 'The Top Row', description: 'Learn to use your fingers on the top row (qwert yuiop).', lessons: lessons.filter(l => l.chapterId === 2) },
-    { id: 3, title: 'The Bottom Row', description: 'Learn to stretch down to the bottom row (zxcvb nm,./).', lessons: lessons.filter(l => l.chapterId === 3) },
-    { id: 4, title: 'Shift Key Basics', description: 'Master the Shift key to type half-letters and special matras.', lessons: lessons.filter(l => l.chapterId === 4) },
-    { id: 5, title: 'Basic Level 1', description: 'Master previously learned keys with higher fluency.', lessons: lessons.filter(l => l.chapterId === 5) }
-  ];
+  const chapters = getChapters();
   
   return (
     <section id="view-lessons" className="view active">

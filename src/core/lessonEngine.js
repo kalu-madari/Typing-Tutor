@@ -41,6 +41,49 @@ allLessons.sort((a, b) => {
   return a.lessonNumber - b.lessonNumber;
 });
 
+const defaultTitles = {
+  1: 'Home Row',
+  2: 'The Top Row',
+  3: 'The Bottom Row',
+  4: 'Shift Key Basics'
+};
+const defaultDescs = {
+  1: 'Build muscle memory for the KrutiDev keyboard layout.',
+  2: 'Learn to use your fingers on the top row (qwert yuiop).',
+  3: 'Learn to stretch down to the bottom row (zxcvb nm,./).',
+  4: 'Master the Shift key to type half-letters and special matras.'
+};
+
+const chapters = [];
+const chapterIds = [...new Set(allLessons.map(l => l.chapterId))].sort((a, b) => a - b);
+
+chapterIds.forEach(id => {
+  const chLessons = allLessons.filter(l => l.chapterId === id);
+  // Find title from original module if possible, or fallback
+  let title = defaultTitles[id] || `Chapter ${id}`;
+  let desc = defaultDescs[id] || `Practice exercises for Chapter ${id}`;
+  
+  // Attempt to find original chapterTitle in modules
+  Object.values(modules).forEach(m => {
+    const c = m.default || m;
+    if (c && !Array.isArray(c) && c.chapterId === id) {
+      if (c.chapterTitle) title = c.chapterTitle;
+      if (c.chapterDescription) desc = c.chapterDescription;
+    }
+  });
+
+  chapters.push({
+    id,
+    title,
+    description: desc,
+    lessons: chLessons
+  });
+});
+
+export const getChapters = () => {
+  return chapters;
+};
+
 export const getLessonById = (id) => {
   return allLessons.find(l => l.id === id);
 };
