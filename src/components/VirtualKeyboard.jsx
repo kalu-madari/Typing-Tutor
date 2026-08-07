@@ -154,7 +154,7 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
         <span style={{ 
           ...styles.keyLabelPrimary, 
           fontSize: keyObj.isNumpad ? '16px' : styles.keyLabelPrimary.fontSize,
-          ...(keyObj.key.length > 1 && !keyObj.isNumpad ? { fontFamily: 'var(--font-ui)' } : {}),
+          ...((keyObj.key.length > 1 || keyObj.isNumpad) ? { fontFamily: 'var(--font-ui)' } : {}),
           ...(keyObj.labelStyle || {}) 
         }}>{showShiftDisplay(keyObj) ? keyObj.shiftDisplay : keyObj.display}</span>
         {keyObj.shiftDisplay && keyObj.key.length === 1 && keyObj.key !== ' ' && (
