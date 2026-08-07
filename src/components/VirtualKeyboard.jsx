@@ -30,7 +30,22 @@ const VirtualKeyboard = ({ layout, engineState }) => {
   }, []);
 
   const nextChar = engineState?.status !== 'finished' ? engineState?.text[engineState?.currentIndex] : null;
-  const expectedKeys = nextChar ? layout.getExpectedKeys(nextChar) : [];
+  let expectedKeys = nextChar ? layout.getExpectedKeys(nextChar) : [];
+  
+  // Custom highlight logic for Alt codes (Kruti Dev special characters)
+  const altCodes = {
+    '¡': ['AltLeft', 'AltRight', '0', '1', '6', '1'],
+    '¿': ['AltLeft', 'AltRight', '0', '1', '9', '1'],
+    'Ø': ['AltLeft', 'AltRight', '0', '2', '1', '6'],
+    'Ý': ['AltLeft', 'AltRight', '0', '2', '2', '1'],
+    'Å': ['AltLeft', 'AltRight', '0', '1', '9', '7'],
+    'â': ['AltLeft', 'AltRight', '0', '2', '2', '6'],
+  };
+  
+  if (nextChar && altCodes[nextChar]) {
+    expectedKeys = [...expectedKeys, ...altCodes[nextChar]];
+  }
+
   const requiresShift = expectedKeys.includes('ShiftLeft') || expectedKeys.includes('ShiftRight');
 
   const prevIndex = React.useRef(engineState?.currentIndex || 0);

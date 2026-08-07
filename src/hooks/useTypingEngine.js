@@ -38,15 +38,51 @@ export const useTypingEngine = (text, layout) => {
   }, [text, layout, soundEffects, errorSounds]);
 
   useEffect(() => {
+    let altCodeStr = "";
+
     const handleKeyDown = (e) => {
-      if (engineRef.current) {
-        if (e.key === ' ' || e.key === 'Enter') e.preventDefault();
-        engineRef.current.handleKeyPress(e.key);
+      if (!engineRef.current) return;
+
+      if (e.key === 'Alt') {
+        altCodeStr = "";
+        return;
+      }
+
+      // Handle Alt codes for special characters (like Chandrabindu Alt+0161)
+      if (e.altKey) {
+        // Numpad keys usually have location 3 or code starting with Numpad
+        if (e.location === 3 || (e.code && e.code.startsWith('Numpad'))) {
+          if (/^[0-9]$/.test(e.key)) {
+            altCodeStr += e.key;
+            e.preventDefault();
+          }
+        }
+        return;
+      }
+
+      if (e.key === ' ' || e.key === 'Enter') e.preventDefault();
+      engineRef.current.handleKeyPress(e.key);
+    };
+
+    const handleKeyUp = (e) => {
+      if (e.key === 'Alt') {
+        if (altCodeStr.length > 0 && engineRef.current) {
+          const charCode = parseInt(altCodeStr, 10);
+          if (!isNaN(charCode)) {
+            const char = String.fromCharCode(charCode);
+            engineRef.current.handleKeyPress(char);
+          }
+          altCodeStr = "";
+        }
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+    };
   }, []);
 
   return { engineState, stats, resetEngine: () => {
