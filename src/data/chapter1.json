@@ -10,11 +10,18 @@
     "minAccuracy": 90,
     "targetWpm": 12,
     "unlockedAfter": null,
-    "newKeys": ["f", "j"],
+    "newKeys": [
+      "f",
+      "j"
+    ],
     "previouslyUsedKeys": [],
-    "fingersUsed": ["left-index", "right-index"],
+    "fingersUsed": [
+      "left-index",
+      "right-index"
+    ],
     "type": "practice",
-    "text": "f j f j f j ff jj fj jf fff jjj fjf jfj f j f j ff jj fjf jfj"
+    "text": "f j f j f j ff jj fj jf fff jjj fjf jfj f j f j ff jj fjf jfj",
+    "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
   },
   {
     "id": "chap1-les1-3",
@@ -27,11 +34,21 @@
     "minAccuracy": 90,
     "targetWpm": 12,
     "unlockedAfter": "chap1-les1-2",
-    "newKeys": ["d", "k"],
-    "previouslyUsedKeys": ["f", "j"],
-    "fingersUsed": ["left-middle", "right-middle"],
+    "newKeys": [
+      "d",
+      "k"
+    ],
+    "previouslyUsedKeys": [
+      "f",
+      "j"
+    ],
+    "fingersUsed": [
+      "left-middle",
+      "right-middle"
+    ],
     "type": "practice",
-    "text": "d k d k dd kk dk kd df kj fd jk ddf kkj dfj kjd fd jk df kj"
+    "text": "d k d k dd kk dk kd df kj fd jk ddf kkj dfj kjd fd jk df kj",
+    "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
   },
   {
     "id": "chap1-les1-4",
@@ -44,11 +61,23 @@
     "minAccuracy": 90,
     "targetWpm": 12,
     "unlockedAfter": "chap1-les1-3",
-    "newKeys": ["s", "l"],
-    "previouslyUsedKeys": ["f", "j", "d", "k"],
-    "fingersUsed": ["left-ring", "right-ring"],
+    "newKeys": [
+      "s",
+      "l"
+    ],
+    "previouslyUsedKeys": [
+      "f",
+      "j",
+      "d",
+      "k"
+    ],
+    "fingersUsed": [
+      "left-ring",
+      "right-ring"
+    ],
     "type": "practice",
-    "text": "s l s l ss ll sl ls sf lj ds kl ssl llj fsl jkl s l s l"
+    "text": "s l s l ss ll sl ls sf lj ds kl ssl llj fsl jkl s l s l",
+    "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
   },
   {
     "id": "chap1-les1-5",
@@ -61,11 +90,25 @@
     "minAccuracy": 90,
     "targetWpm": 12,
     "unlockedAfter": "chap1-les1-4",
-    "newKeys": ["a", ";"],
-    "previouslyUsedKeys": ["f", "j", "d", "k", "s", "l"],
-    "fingersUsed": ["left-pinky", "right-pinky"],
+    "newKeys": [
+      "a",
+      ";"
+    ],
+    "previouslyUsedKeys": [
+      "f",
+      "j",
+      "d",
+      "k",
+      "s",
+      "l"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "right-pinky"
+    ],
     "type": "practice",
-    "text": "a ; a ; aa ;; a; ;a as l; ad k; af j; aas ;;l asd kl; a ; a ;"
+    "text": "a ; a ; aa ;; a; ;a as l; ad k; af j; aas ;;l asd kl; a ; a ;",
+    "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
   },
   {
     "id": "chap1-les1-6",
@@ -78,11 +121,27 @@
     "minAccuracy": 90,
     "targetWpm": 12,
     "unlockedAfter": "chap1-les1-5",
-    "newKeys": ["g", "h"],
-    "previouslyUsedKeys": ["f", "j", "d", "k", "s", "l", "a", ";"],
-    "fingersUsed": ["left-index", "right-index"],
+    "newKeys": [
+      "g",
+      "h"
+    ],
+    "previouslyUsedKeys": [
+      "f",
+      "j",
+      "d",
+      "k",
+      "s",
+      "l",
+      "a",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-index",
+      "right-index"
+    ],
     "type": "practice",
-    "text": "g h g h gg hh gh hg gf hj gd hk gs hl ga h; g h gg hh gh hg"
+    "text": "g h g h gg hh gh hg gf hj gd hk gs hl ga h; g h gg hh gh hg",
+    "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
   },
   {
     "id": "chap1-les1-7",
@@ -96,10 +155,31 @@
     "targetWpm": 15,
     "unlockedAfter": "chap1-les1-6",
     "newKeys": [],
-    "previouslyUsedKeys": ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-pinky", "left-ring", "left-middle", "left-index", "right-index", "right-middle", "right-ring", "right-pinky"],
+    "previouslyUsedKeys": [
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "left-ring",
+      "left-middle",
+      "left-index",
+      "right-index",
+      "right-middle",
+      "right-ring",
+      "right-pinky"
+    ],
     "type": "review",
-    "text": "asdf jkl; g h fd jk sa l; gh hg a s d f g h j k l ; asdfg hjkl;"
+    "text": "asdf jkl; g h fd jk sa l; gh hg a s d f g h j k l ; asdfg hjkl;",
+    "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
   },
   {
     "id": "chap1-les1-8",
@@ -113,10 +193,31 @@
     "targetWpm": 15,
     "unlockedAfter": "chap1-les1-7",
     "newKeys": [],
-    "previouslyUsedKeys": ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-pinky", "left-ring", "left-middle", "left-index", "right-index", "right-middle", "right-ring", "right-pinky"],
+    "previouslyUsedKeys": [
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "left-ring",
+      "left-middle",
+      "left-index",
+      "right-index",
+      "right-middle",
+      "right-ring",
+      "right-pinky"
+    ],
     "type": "practice",
-    "text": "dj dgh lhg jl gkj jgh flj gfj jkl lkj lgk gd ld dl dk gk"
+    "text": "dj dgh lhg jl gkj jgh flj gfj jkl lkj lgk gd ld dl dk gk",
+    "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
   },
   {
     "id": "chap1-les1-9",
@@ -130,10 +231,31 @@
     "targetWpm": 20,
     "unlockedAfter": "chap1-les1-8",
     "newKeys": [],
-    "previouslyUsedKeys": ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-pinky", "left-ring", "left-middle", "left-index", "right-index", "right-middle", "right-ring", "right-pinky"],
+    "previouslyUsedKeys": [
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "left-ring",
+      "left-middle",
+      "left-index",
+      "right-index",
+      "right-middle",
+      "right-ring",
+      "right-pinky"
+    ],
     "type": "speed",
-    "text": "jl gkj jgh dgh lhg jl flj gfj dgh lgk lkj dj dk gk"
+    "text": "jl gkj jgh dgh lhg jl flj gfj dgh lgk lkj dj dk gk",
+    "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
   },
   {
     "id": "chap1-les1-10",
@@ -147,9 +269,30 @@
     "targetWpm": 20,
     "unlockedAfter": "chap1-les1-9",
     "newKeys": [],
-    "previouslyUsedKeys": ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-pinky", "left-ring", "left-middle", "left-index", "right-index", "right-middle", "right-ring", "right-pinky"],
+    "previouslyUsedKeys": [
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "left-ring",
+      "left-middle",
+      "left-index",
+      "right-index",
+      "right-middle",
+      "right-ring",
+      "right-pinky"
+    ],
     "type": "test",
-    "text": "dj dgh lhg jl gkj jgh flj gfj jkl lkj lgk gd ld dl dk gk"
+    "text": "dj dgh lhg jl gkj jgh flj gfj jkl lkj lgk gd ld dl dk gk",
+    "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
   }
 ]

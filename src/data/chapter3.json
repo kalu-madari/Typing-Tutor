@@ -10,11 +10,29 @@
     "minAccuracy": 90,
     "targetWpm": 12,
     "unlockedAfter": "chap2-les2-10",
-    "newKeys": ["v", "m"],
-    "previouslyUsedKeys": ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-index", "right-index"],
+    "newKeys": [
+      "v",
+      "m"
+    ],
+    "previouslyUsedKeys": [
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-index",
+      "right-index"
+    ],
     "type": "practice",
-    "text": "f v f v j m j m fv jm vf mj fvv jmm vvf mmj f v j m"
+    "text": "f v f v j m j m fv jm vf mj fvv jmm vvf mmj f v j m",
+    "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
     "id": "chap3-les3-2",
@@ -27,11 +45,31 @@
     "minAccuracy": 90,
     "targetWpm": 12,
     "unlockedAfter": "chap3-les3-1",
-    "newKeys": ["c", ","],
-    "previouslyUsedKeys": ["v", "m", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-middle", "right-middle"],
+    "newKeys": [
+      "c",
+      ","
+    ],
+    "previouslyUsedKeys": [
+      "v",
+      "m",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-middle",
+      "right-middle"
+    ],
     "type": "practice",
-    "text": "d c d c k , k , dc k, cd ,k dcc k,, ccd ,,k d c k ,"
+    "text": "d c d c k , k , dc k, cd ,k dcc k,, ccd ,,k d c k ,",
+    "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
     "id": "chap3-les3-3",
@@ -44,11 +82,33 @@
     "minAccuracy": 90,
     "targetWpm": 12,
     "unlockedAfter": "chap3-les3-2",
-    "newKeys": ["x", "."],
-    "previouslyUsedKeys": ["c", ",", "v", "m", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-ring", "right-ring"],
+    "newKeys": [
+      "x",
+      "."
+    ],
+    "previouslyUsedKeys": [
+      "c",
+      ",",
+      "v",
+      "m",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-ring",
+      "right-ring"
+    ],
     "type": "practice",
-    "text": "s x s x l . l . sx l. xs .l sxx l.. xxs ..l s x l ."
+    "text": "s x s x l . l . sx l. xs .l sxx l.. xxs ..l s x l .",
+    "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
     "id": "chap3-les3-4",
@@ -61,11 +121,35 @@
     "minAccuracy": 90,
     "targetWpm": 12,
     "unlockedAfter": "chap3-les3-3",
-    "newKeys": ["z", "/"],
-    "previouslyUsedKeys": ["x", ".", "c", ",", "v", "m", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-pinky", "right-pinky"],
+    "newKeys": [
+      "z",
+      "/"
+    ],
+    "previouslyUsedKeys": [
+      "x",
+      ".",
+      "c",
+      ",",
+      "v",
+      "m",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "right-pinky"
+    ],
     "type": "practice",
-    "text": "a z a z ; / ; / az ;/ za /; azz ;// zaa /;; a z ; /"
+    "text": "a z a z ; / ; / az ;/ za /; azz ;// zaa /;; a z ; /",
+    "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
     "id": "chap3-les3-5",
@@ -78,11 +162,37 @@
     "minAccuracy": 90,
     "targetWpm": 12,
     "unlockedAfter": "chap3-les3-4",
-    "newKeys": ["b", "n"],
-    "previouslyUsedKeys": ["z", "x", "c", "v", "m", ",", ".", "/", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-index", "right-index"],
+    "newKeys": [
+      "b",
+      "n"
+    ],
+    "previouslyUsedKeys": [
+      "z",
+      "x",
+      "c",
+      "v",
+      "m",
+      ",",
+      ".",
+      "/",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-index",
+      "right-index"
+    ],
     "type": "practice",
-    "text": "f b f b j n j n fb jn bf nb fbb jnn bff njj f b j n"
+    "text": "f b f b j n j n fb jn bf nb fbb jnn bff njj f b j n",
+    "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
     "id": "chap3-les3-6",
@@ -96,10 +206,31 @@
     "targetWpm": 15,
     "unlockedAfter": "chap3-les3-5",
     "newKeys": [],
-    "previouslyUsedKeys": ["z", "x", "c", "v", "b", "n", "m", ",", ".", "/"],
-    "fingersUsed": ["left-pinky", "left-ring", "left-middle", "left-index", "right-index", "right-middle", "right-ring", "right-pinky"],
+    "previouslyUsedKeys": [
+      "z",
+      "x",
+      "c",
+      "v",
+      "b",
+      "n",
+      "m",
+      ",",
+      ".",
+      "/"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "left-ring",
+      "left-middle",
+      "left-index",
+      "right-index",
+      "right-middle",
+      "right-ring",
+      "right-pinky"
+    ],
     "type": "review",
-    "text": "zxcvb nm,./ z x c v b n m , . / bnm vcx z/., mnb cvz"
+    "text": "zxcvb nm,./ z x c v b n m , . / bnm vcx z/., mnb cvz",
+    "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
     "id": "chap3-les3-7",
@@ -113,10 +244,51 @@
     "targetWpm": 15,
     "unlockedAfter": "chap3-les3-6",
     "newKeys": [],
-    "previouslyUsedKeys": ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/"],
-    "fingersUsed": ["left-pinky", "left-ring", "left-middle", "left-index", "right-index", "right-middle", "right-ring", "right-pinky"],
+    "previouslyUsedKeys": [
+      "q",
+      "w",
+      "e",
+      "r",
+      "t",
+      "y",
+      "u",
+      "i",
+      "o",
+      "p",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";",
+      "z",
+      "x",
+      "c",
+      "v",
+      "b",
+      "n",
+      "m",
+      ",",
+      ".",
+      "/"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "left-ring",
+      "left-middle",
+      "left-index",
+      "right-index",
+      "right-middle",
+      "right-ring",
+      "right-pinky"
+    ],
     "type": "practice",
-    "text": "vc vkt vke vki ckr cky ckj xky xku xkr fnu fny dfo jfo nkc nku"
+    "text": "vc vkt vke vki ckr cky ckj xky xku xkr fnu fny dfo jfo nkc nku",
+    "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
     "id": "chap3-les3-8",
@@ -130,10 +302,51 @@
     "targetWpm": 15,
     "unlockedAfter": "chap3-les3-7",
     "newKeys": [],
-    "previouslyUsedKeys": ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/"],
-    "fingersUsed": ["left-pinky", "left-ring", "left-middle", "left-index", "right-index", "right-middle", "right-ring", "right-pinky"],
+    "previouslyUsedKeys": [
+      "q",
+      "w",
+      "e",
+      "r",
+      "t",
+      "y",
+      "u",
+      "i",
+      "o",
+      "p",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";",
+      "z",
+      "x",
+      "c",
+      "v",
+      "b",
+      "n",
+      "m",
+      ",",
+      ".",
+      "/"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "left-ring",
+      "left-middle",
+      "left-index",
+      "right-index",
+      "right-middle",
+      "right-ring",
+      "right-pinky"
+    ],
     "type": "practice",
-    "text": "nky xk; ck; vk; vc vkt vke vki ckr cky ckj xky xku xkr"
+    "text": "nky xk; ck; vk; vc vkt vke vki ckr cky ckj xky xku xkr",
+    "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
     "id": "chap3-les3-9",
@@ -147,10 +360,51 @@
     "targetWpm": 25,
     "unlockedAfter": "chap3-les3-8",
     "newKeys": [],
-    "previouslyUsedKeys": ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/"],
-    "fingersUsed": ["left-pinky", "left-ring", "left-middle", "left-index", "right-index", "right-middle", "right-ring", "right-pinky"],
+    "previouslyUsedKeys": [
+      "q",
+      "w",
+      "e",
+      "r",
+      "t",
+      "y",
+      "u",
+      "i",
+      "o",
+      "p",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";",
+      "z",
+      "x",
+      "c",
+      "v",
+      "b",
+      "n",
+      "m",
+      ",",
+      ".",
+      "/"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "left-ring",
+      "left-middle",
+      "left-index",
+      "right-index",
+      "right-middle",
+      "right-ring",
+      "right-pinky"
+    ],
     "type": "speed",
-    "text": "vc vkt vke vki ckr cky ckj xky xku xkr fnu fny dfo jfo nkc nku nky xk; ck; vk;"
+    "text": "vc vkt vke vki ckr cky ckj xky xku xkr fnu fny dfo jfo nkc nku nky xk; ck; vk;",
+    "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
     "id": "chap3-les3-10",
@@ -164,9 +418,50 @@
     "targetWpm": 25,
     "unlockedAfter": "chap3-les3-9",
     "newKeys": [],
-    "previouslyUsedKeys": ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/"],
-    "fingersUsed": ["left-pinky", "left-ring", "left-middle", "left-index", "right-index", "right-middle", "right-ring", "right-pinky"],
+    "previouslyUsedKeys": [
+      "q",
+      "w",
+      "e",
+      "r",
+      "t",
+      "y",
+      "u",
+      "i",
+      "o",
+      "p",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";",
+      "z",
+      "x",
+      "c",
+      "v",
+      "b",
+      "n",
+      "m",
+      ",",
+      ".",
+      "/"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "left-ring",
+      "left-middle",
+      "left-index",
+      "right-index",
+      "right-middle",
+      "right-ring",
+      "right-pinky"
+    ],
     "type": "test",
-    "text": "vkt ckr xky fny dfo nkc nku nky xk; ck; vk; vc vke vki ckj xku xkr fnu jfo"
+    "text": "vkt ckr xky fny dfo nkc nku nky xk; ck; vk; vc vke vki ckj xku xkr fnu jfo",
+    "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   }
 ]

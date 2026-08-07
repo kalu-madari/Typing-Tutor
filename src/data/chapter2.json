@@ -10,11 +10,29 @@
     "minAccuracy": 90,
     "targetWpm": 12,
     "unlockedAfter": "chap1-les1-10",
-    "newKeys": ["r", "u"],
-    "previouslyUsedKeys": ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-index", "right-index"],
+    "newKeys": [
+      "r",
+      "u"
+    ],
+    "previouslyUsedKeys": [
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-index",
+      "right-index"
+    ],
     "type": "practice",
-    "text": "f r f r j u j u fr ju rf uj frr juu rrf uuj f r j u"
+    "text": "f r f r j u j u fr ju rf uj frr juu rrf uuj f r j u",
+    "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
     "id": "chap2-les2-2",
@@ -27,11 +45,31 @@
     "minAccuracy": 90,
     "targetWpm": 12,
     "unlockedAfter": "chap2-les2-1",
-    "newKeys": ["e", "i"],
-    "previouslyUsedKeys": ["r", "u", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-middle", "right-middle"],
+    "newKeys": [
+      "e",
+      "i"
+    ],
+    "previouslyUsedKeys": [
+      "r",
+      "u",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-middle",
+      "right-middle"
+    ],
     "type": "practice",
-    "text": "d e d e k i k i de ki ed ik dee kii edd ikk d e k i"
+    "text": "d e d e k i k i de ki ed ik dee kii edd ikk d e k i",
+    "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
     "id": "chap2-les2-3",
@@ -44,11 +82,33 @@
     "minAccuracy": 90,
     "targetWpm": 12,
     "unlockedAfter": "chap2-les2-2",
-    "newKeys": ["w", "o"],
-    "previouslyUsedKeys": ["e", "i", "r", "u", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-ring", "right-ring"],
+    "newKeys": [
+      "w",
+      "o"
+    ],
+    "previouslyUsedKeys": [
+      "e",
+      "i",
+      "r",
+      "u",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-ring",
+      "right-ring"
+    ],
     "type": "practice",
-    "text": "s w s w l o l o sw lo ws ol sww loo wss oll s w l o"
+    "text": "s w s w l o l o sw lo ws ol sww loo wss oll s w l o",
+    "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
     "id": "chap2-les2-4",
@@ -61,11 +121,35 @@
     "minAccuracy": 90,
     "targetWpm": 12,
     "unlockedAfter": "chap2-les2-3",
-    "newKeys": ["q", "p"],
-    "previouslyUsedKeys": ["w", "o", "e", "i", "r", "u", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-pinky", "right-pinky"],
+    "newKeys": [
+      "q",
+      "p"
+    ],
+    "previouslyUsedKeys": [
+      "w",
+      "o",
+      "e",
+      "i",
+      "r",
+      "u",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "right-pinky"
+    ],
     "type": "practice",
-    "text": "a q a q ; p ; p aq ;p qa p; aqq ;pp qaa p;; a q ; p"
+    "text": "a q a q ; p ; p aq ;p qa p; aqq ;pp qaa p;; a q ; p",
+    "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
     "id": "chap2-les2-5",
@@ -78,11 +162,37 @@
     "minAccuracy": 90,
     "targetWpm": 12,
     "unlockedAfter": "chap2-les2-4",
-    "newKeys": ["t", "y"],
-    "previouslyUsedKeys": ["q", "w", "e", "r", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-index", "right-index"],
+    "newKeys": [
+      "t",
+      "y"
+    ],
+    "previouslyUsedKeys": [
+      "q",
+      "w",
+      "e",
+      "r",
+      "u",
+      "i",
+      "o",
+      "p",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-index",
+      "right-index"
+    ],
     "type": "practice",
-    "text": "f t f t j y j y ft jy tf yt ftt jyy tff yjj f t j y"
+    "text": "f t f t j y j y ft jy tf yt ftt jyy tff yjj f t j y",
+    "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
     "id": "chap2-les2-6",
@@ -96,10 +206,31 @@
     "targetWpm": 15,
     "unlockedAfter": "chap2-les2-5",
     "newKeys": [],
-    "previouslyUsedKeys": ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
-    "fingersUsed": ["left-pinky", "left-ring", "left-middle", "left-index", "right-index", "right-middle", "right-ring", "right-pinky"],
+    "previouslyUsedKeys": [
+      "q",
+      "w",
+      "e",
+      "r",
+      "t",
+      "y",
+      "u",
+      "i",
+      "o",
+      "p"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "left-ring",
+      "left-middle",
+      "left-index",
+      "right-index",
+      "right-middle",
+      "right-ring",
+      "right-pinky"
+    ],
     "type": "review",
-    "text": "qwert yuiop q w e r t y u i o p req out put your rut tou"
+    "text": "qwert yuiop q w e r t y u i o p req out put your rut tou",
+    "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
     "id": "chap2-les2-7",
@@ -113,10 +244,41 @@
     "targetWpm": 15,
     "unlockedAfter": "chap2-les2-6",
     "newKeys": [],
-    "previouslyUsedKeys": ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-pinky", "left-ring", "left-middle", "left-index", "right-index", "right-middle", "right-ring", "right-pinky"],
+    "previouslyUsedKeys": [
+      "q",
+      "w",
+      "e",
+      "r",
+      "t",
+      "y",
+      "u",
+      "i",
+      "o",
+      "p",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "left-ring",
+      "left-middle",
+      "left-index",
+      "right-index",
+      "right-middle",
+      "right-ring",
+      "right-pinky"
+    ],
     "type": "practice",
-    "text": "de dy ty tu ru ij iy er ey iou ueu pep dke uke jke rkt"
+    "text": "de dy ty tu ru ij iy er ey iou ueu pep dke uke jke rkt",
+    "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
     "id": "chap2-les2-8",
@@ -130,10 +292,41 @@
     "targetWpm": 15,
     "unlockedAfter": "chap2-les2-7",
     "newKeys": [],
-    "previouslyUsedKeys": ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-pinky", "left-ring", "left-middle", "left-index", "right-index", "right-middle", "right-ring", "right-pinky"],
+    "previouslyUsedKeys": [
+      "q",
+      "w",
+      "e",
+      "r",
+      "t",
+      "y",
+      "u",
+      "i",
+      "o",
+      "p",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "left-ring",
+      "left-middle",
+      "left-index",
+      "right-index",
+      "right-middle",
+      "right-ring",
+      "right-pinky"
+    ],
     "type": "practice",
-    "text": "rky yky jkr eku tku iku pky oky uko ukj eky etk de dy ty"
+    "text": "rky yky jkr eku tku iku pky oky uko ukj eky etk de dy ty",
+    "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
     "id": "chap2-les2-9",
@@ -147,10 +340,41 @@
     "targetWpm": 20,
     "unlockedAfter": "chap2-les2-8",
     "newKeys": [],
-    "previouslyUsedKeys": ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-pinky", "left-ring", "left-middle", "left-index", "right-index", "right-middle", "right-ring", "right-pinky"],
+    "previouslyUsedKeys": [
+      "q",
+      "w",
+      "e",
+      "r",
+      "t",
+      "y",
+      "u",
+      "i",
+      "o",
+      "p",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "left-ring",
+      "left-middle",
+      "left-index",
+      "right-index",
+      "right-middle",
+      "right-ring",
+      "right-pinky"
+    ],
     "type": "speed",
-    "text": "de dke ueu pky rky yky jkr tu ty dy ey er ij iy iou ueu pep"
+    "text": "de dke ueu pky rky yky jkr tu ty dy ey er ij iy iou ueu pep",
+    "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
     "id": "chap2-les2-10",
@@ -164,9 +388,40 @@
     "targetWpm": 20,
     "unlockedAfter": "chap2-les2-9",
     "newKeys": [],
-    "previouslyUsedKeys": ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    "fingersUsed": ["left-pinky", "left-ring", "left-middle", "left-index", "right-index", "right-middle", "right-ring", "right-pinky"],
+    "previouslyUsedKeys": [
+      "q",
+      "w",
+      "e",
+      "r",
+      "t",
+      "y",
+      "u",
+      "i",
+      "o",
+      "p",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "left-ring",
+      "left-middle",
+      "left-index",
+      "right-index",
+      "right-middle",
+      "right-ring",
+      "right-pinky"
+    ],
     "type": "test",
-    "text": "dke uke jke rkt rky yky jkr eku tku iku pky oky uko ukj eky etk"
+    "text": "dke uke jke rkt rky yky jkr eku tku iku pky oky uko ukj eky etk",
+    "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   }
 ]

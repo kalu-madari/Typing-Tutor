@@ -15,6 +15,7 @@ const mappedChapter5 = (chapter5.lessons || []).map(l => ({
   minAccuracy: l["Target Accuracy"],
   targetWpm: l["Target WPM"],
   unlockedAfter: l["Required Previous Lesson"],
+  teachingText: l["Teaching Text"],
   newKeys: [],
   previouslyUsedKeys: ["a","s","d","f","g","h","j","k","l",";","q","w","e","r","t","y","u","i","o","p","z","x","c","v","b","n","m"],
   text: Object.values(l["Typing Prompts"]).filter(Boolean).join(" ")
