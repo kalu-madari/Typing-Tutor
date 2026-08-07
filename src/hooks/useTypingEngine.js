@@ -53,20 +53,22 @@ export const useTypingEngine = (text, layout) => {
 
       // Track Alt codes for visual highlighting in the Virtual Keyboard
       if (e.altKey) {
-        // Only track physical Numpad keys (authentic MS Word behavior)
-        if (e.location === 3 || (e.code && e.code.startsWith('Numpad') && e.code.length === 7)) {
-          let digit = "";
-          if (e.code && e.code.startsWith('Numpad') && e.code.length === 7) {
-            digit = e.code.charAt(6); // Extract '0' from 'Numpad0'
-          } else if (/^[0-9]$/.test(e.key)) {
-            digit = e.key;
-          }
+        // Explicitly block standard top-row keys to enforce Numpad-only behavior
+        if (e.code && e.code.startsWith('Digit')) {
+          return; // Ignore top-row numbers
+        }
 
-          if (/^[0-9]$/.test(digit)) {
-            altCodeStr += digit;
-            setAltCodeState(altCodeStr);
-            e.preventDefault(); // Prevent browser interference; we will manually inject on keyUp
-          }
+        let digit = "";
+        if (e.code && e.code.startsWith('Numpad') && e.code.length === 7) {
+          digit = e.code.charAt(6); // Extract '0' from 'Numpad0' (works even if NumLock is off)
+        } else if (/^[0-9]$/.test(e.key)) {
+          digit = e.key; // Fallback for laptop Fn-Numpads (e.g. Fn+M = '0')
+        }
+
+        if (/^[0-9]$/.test(digit)) {
+          altCodeStr += digit;
+          setAltCodeState(altCodeStr);
+          e.preventDefault(); // Prevent browser interference; we will manually inject on keyUp
         }
         return;
       }
