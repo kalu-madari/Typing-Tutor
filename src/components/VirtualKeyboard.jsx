@@ -131,8 +131,8 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
         } : false}
         style={{
           ...styles.key,
-          width: keyObj.width || styles.key.minWidth,
-          height: keyObj.height || '46px',
+          width: keyObj.gridArea ? '100%' : (keyObj.width || styles.key.minWidth),
+          height: keyObj.gridArea ? '100%' : (keyObj.height || '46px'),
           gridArea: keyObj.gridArea || 'auto',
           borderColor: isExpected ? 'var(--accent-blue)' : 'var(--glass-border)',
           boxShadow: isExpected ? '0 0 10px var(--accent-blue)' : 'none',
@@ -153,7 +153,8 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
       >
         <span style={{ 
           ...styles.keyLabelPrimary, 
-          ...(keyObj.key.length > 1 ? { fontFamily: 'var(--font-ui)' } : {}),
+          fontSize: keyObj.isNumpad ? '16px' : styles.keyLabelPrimary.fontSize,
+          ...(keyObj.key.length > 1 && !keyObj.isNumpad ? { fontFamily: 'var(--font-ui)' } : {}),
           ...(keyObj.labelStyle || {}) 
         }}>{showShiftDisplay(keyObj) ? keyObj.shiftDisplay : keyObj.display}</span>
         {keyObj.shiftDisplay && keyObj.key.length === 1 && keyObj.key !== ' ' && (
@@ -177,7 +178,7 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
       
       {layout.numpadKeys && (
         <div style={styles.numpad}>
-          {layout.numpadKeys.map(renderKey)}
+          {layout.numpadKeys.map(k => renderKey({ ...k, isNumpad: true }))}
         </div>
       )}
     </div>
