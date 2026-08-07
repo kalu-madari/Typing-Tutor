@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState } from 'react';
 import { useTypingEngine } from './hooks/useTypingEngine';
 import { krutidev010Layout } from './core/layouts/krutidev010';
 import { getAllLessons, getLessonById, getNextLesson, getChapters } from './core/lessonEngine';
@@ -8,16 +8,11 @@ import { useAppStore } from './store/useAppStore';
 
 function App() {
   const allLessons = getAllLessons();
-  const store = useAppStore();
   const [currentView, setCurrentView] = useState('dashboard');
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
   const currentLesson = allLessons[currentLessonIndex];
   const [engineKey, setEngineKey] = useState(0);
   const [completedLessons, setCompletedLessons] = useState(new Set());
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', store.theme);
-  }, [store.theme]);
 
   const startLesson = (lesson) => {
     setCurrentLessonIndex(allLessons.findIndex(l => l.id === lesson.id));
@@ -56,7 +51,7 @@ function App() {
           <section id="view-lesson-detail" className="view active" style={{ display: 'flex', flexDirection: 'column' }}>
             <div className="view-header" style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', padding: '0 20px' }}>
               <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-start' }}>
-                <button className="btn btn-secondary" onClick={() => setCurrentView('lessons')}>← Library</button>
+                <button className="btn btn-secondary" onClick={() => setCurrentView('lessons')}>ÔåÉ Library</button>
               </div>
               <div style={{ textAlign: 'center' }}>
                 <h1 style={{ margin: 0, fontSize: '28px' }}>{currentLesson.title}</h1>
@@ -80,8 +75,8 @@ function App() {
               hasPrev={hasPrev}
             />
             <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px 40px', marginTop: '150px', borderTop: '1px solid var(--border-soft)' }}>
-              <button className="btn btn-secondary" onClick={goPrev} disabled={!hasPrev} style={{ opacity: hasPrev ? 1 : 0.5 }}>← Previous</button>
-              <button className="btn btn-primary" onClick={goNext} disabled={!hasNext} style={{ opacity: hasNext ? 1 : 0.5 }}>Next →</button>
+              <button className="btn btn-secondary" onClick={goPrev} disabled={!hasPrev} style={{ opacity: hasPrev ? 1 : 0.5 }}>ÔåÉ Previous</button>
+              <button className="btn btn-primary" onClick={goNext} disabled={!hasNext} style={{ opacity: hasNext ? 1 : 0.5 }}>Next ÔåÆ</button>
             </div>
           </section>
         )}
@@ -149,7 +144,7 @@ const DashboardView = ({ setCurrentView, onStart, currentLesson, completedLesson
   return (
   <section id="view-dashboard" className="view active">
     <div className="view-header">
-      <h1>Welcome back! 👋</h1>
+      <h1>Welcome back! ­ƒæï</h1>
       <p className="view-subtitle">Continue your KrutiDev journey</p>
     </div>
 
@@ -330,121 +325,14 @@ const AchievementsView = () => (
   </section>
 );
 
-const SettingsView = () => {
-  const store = useAppStore();
-  
-  return (
-    <section className="view active">
-      <div className="view-header">
-        <h1 style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--brand)' }}>
-            <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
-          </svg>
-          Settings
-        </h1>
-        <p className="view-subtitle">Customize your experience</p>
-      </div>
-
-      <div className="settings-list">
-        <div className="setting-group glass-card">
-          <h3>Appearance</h3>
-          <div className="setting-item">
-            <div className="setting-info">
-              <span className="setting-label">Theme</span>
-              <span className="setting-desc">Choose your preferred color scheme</span>
-            </div>
-            <select className="select-input" value={store.theme} onChange={(e) => store.updateSetting('theme', e.target.value)}>
-              <option value="vscode-dark">VS Code Dark</option>
-              <option value="light">Light</option>
-              <option value="midnight-indigo">Midnight Indigo</option>
-              <option value="nord">Nord</option>
-              <option value="solarized-dark">Solarized Dark</option>
-              <option value="vscode-light">VS Code Light</option>
-            </select>
-          </div>
-          <div className="setting-item">
-            <div className="setting-info">
-              <span className="setting-label">Lesson Text Size</span>
-              <span className="setting-desc">Adjust the lesson reading font size</span>
-            </div>
-            <select className="select-input" value={store.fontSize} onChange={(e) => store.updateSetting('fontSize', e.target.value)}>
-              <option value="small">Small</option>
-              <option value="medium">Medium</option>
-              <option value="large">Large</option>
-            </select>
-          </div>
-          <div className="setting-item">
-            <div className="setting-info">
-              <span className="setting-label">Text Alignment</span>
-              <span className="setting-desc">Align lesson text to left, center, or right</span>
-            </div>
-            <select className="select-input" value={store.textAlign} onChange={(e) => store.updateSetting('textAlign', e.target.value)}>
-              <option value="left">Left</option>
-              <option value="center">Center</option>
-              <option value="right">Right</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="setting-group glass-card">
-          <h3>Typing Engine</h3>
-          <div className="setting-item">
-            <div className="setting-info">
-              <span className="setting-label">Virtual Keyboard</span>
-              <span className="setting-desc">Show on-screen keyboard guidance</span>
-            </div>
-            <Switch checked={store.showVirtualKeyboard} onChange={(val) => store.updateSetting('showVirtualKeyboard', val)} />
-          </div>
-          <div className="setting-item">
-            <div className="setting-info">
-              <span className="setting-label">Allow Backspace</span>
-              <span className="setting-desc">Allow correcting mistakes using backspace</span>
-            </div>
-            <Switch checked={store.allowBackspace} onChange={(val) => store.updateSetting('allowBackspace', val)} />
-          </div>
-          <div className="setting-item">
-            <div className="setting-info">
-              <span className="setting-label">Move On Error</span>
-              <span className="setting-desc">Automatically move cursor forward after making a mistake</span>
-            </div>
-            <Switch checked={store.moveOnError} onChange={(val) => store.updateSetting('moveOnError', val)} />
-          </div>
-          {store.moveOnError && (
-            <div className="setting-item">
-              <div className="setting-info">
-                <span className="setting-label">Max Errors to Skip</span>
-                <span className="setting-desc">Number of consecutive errors before skipping character</span>
-              </div>
-              <select className="select-input" value={store.maxErrorsToSkip} onChange={(e) => store.updateSetting('maxErrorsToSkip', parseInt(e.target.value, 10))}>
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-                <option value={3}>3</option>
-              </select>
-            </div>
-          )}
-        </div>
-
-        <div className="setting-group glass-card">
-          <h3>Audio</h3>
-          <div className="setting-item">
-            <div className="setting-info">
-              <span className="setting-label">Key Sounds</span>
-              <span className="setting-desc">Play typing sounds on every key press</span>
-            </div>
-            <Switch checked={store.soundEffects} onChange={(val) => store.updateSetting('soundEffects', val)} />
-          </div>
-          <div className="setting-item">
-            <div className="setting-info">
-              <span className="setting-label">Error Sounds</span>
-              <span className="setting-desc">Play error beep when typing an incorrect character</span>
-            </div>
-            <Switch checked={store.errorSounds} onChange={(val) => store.updateSetting('errorSounds', val)} />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
+const SettingsView = () => (
+  <section className="view active">
+    <div className="view-header">
+      <h1>Settings</h1>
+      <p className="view-subtitle">Customize your experience</p>
+    </div>
+  </section>
+);
 
 const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext, hasPrev }) => {
   const { engineState, stats, altCodeState } = useTypingEngine(lesson.text, krutidev010Layout);
@@ -514,7 +402,7 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
               <button className="btn btn-secondary" onClick={onRestart} style={{ flex: 1 }}>Restart</button>
               <button className="btn btn-primary" onClick={onNext} disabled={!hasNext} style={{ flex: 1, opacity: hasNext ? 1 : 0.5 }}>Next Lesson</button>
             </div>
-            <button className="btn btn-secondary" onClick={onPrev} disabled={!hasPrev} style={{ width: '100%', marginTop: '10px', opacity: hasPrev ? 1 : 0.5, background: 'transparent' }}>← Previous</button>
+            <button className="btn btn-secondary" onClick={onPrev} disabled={!hasPrev} style={{ width: '100%', marginTop: '10px', opacity: hasPrev ? 1 : 0.5, background: 'transparent' }}>ÔåÉ Previous</button>
           </div>
         </div>
       )}
@@ -540,6 +428,8 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
 
       {/* Settings Column - Right Side */}
       <div className="settings-column" style={{ width: '150px', display: 'flex', flexDirection: 'column', gap: '16px', flexShrink: 0 }}>
+        <h4 style={{ margin: '0 0 5px 0', color: 'var(--text-primary)', fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px' }}>Toggles</h4>
+        
         <Switch 
           checked={storeState.allowBackspace} 
           onChange={val => storeState.updateSetting('allowBackspace', val)}
@@ -630,12 +520,12 @@ const KeyLogger = () => {
 const Switch = ({ checked, onChange, label }) => {
   return (
     <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', gap: '10px' }}>
-      {label && <span style={{ fontSize: '13px', color: 'var(--text-primary)' }}>{label}</span>}
+      <span style={{ fontSize: '13px', color: 'var(--text-primary)' }}>{label}</span>
       <div style={{
         position: 'relative',
         width: '36px',
         height: '20px',
-        backgroundColor: checked ? '#10b981' : '#9ca3af',
+        backgroundColor: checked ? '#10b981' : '#ef4444',
         borderRadius: '10px',
         transition: 'background-color 0.2s',
         display: 'flex',
