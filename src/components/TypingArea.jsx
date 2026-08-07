@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useAppStore } from '../store/useAppStore';
 
 const TypingArea = ({ engineState }) => {
   const { fontSize } = useAppStore();
+  const activeCharRef = useRef(null);
+
+  useEffect(() => {
+    if (activeCharRef.current) {
+      activeCharRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [engineState?.currentIndex]);
 
   if (!engineState || !engineState.text) return null;
 
@@ -23,6 +30,7 @@ const TypingArea = ({ engineState }) => {
       return (
         <motion.span
           key={index}
+          ref={isActive ? activeCharRef : null}
           style={{
             ...styles.char,
             color: isActive ? '#eab308' : getCharColor(statusClass),
@@ -84,7 +92,10 @@ const styles = {
     display: 'block',
     textAlign: 'center',
     whiteSpace: 'pre-wrap',
-    wordWrap: 'break-word'
+    wordWrap: 'break-word',
+    maxHeight: '160px',
+    overflowY: 'hidden',
+    position: 'relative'
   },
   char: {
     position: 'relative',

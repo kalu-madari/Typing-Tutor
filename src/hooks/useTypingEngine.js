@@ -40,7 +40,7 @@ export const useTypingEngine = (text, layout) => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (engineRef.current) {
-        if (e.key === ' ') e.preventDefault();
+        if (e.key === ' ' || e.key === 'Enter') e.preventDefault();
         engineRef.current.handleKeyPress(e.key);
       }
     };
