@@ -26,10 +26,10 @@
       "Motivational Message": "Keep it up!",
       "Completion Message": "Lesson complete. Great accuracy!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "ckjckj vH;kl djus ls xfr c<sxh bl ikB esa ge vH;kl djsaxs",
-        "Review Practice": "ckjckj vH;kl djus ls xfr c<sxh",
-        "Challenge Practice": "bl ikB esa ge vH;kl djsaxs cgqr xyrh er djsa lqcg lqcg rktk ikuh fi;s",
+        "Warm-up": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Main Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Review Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Challenge Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
         "Mini Test": null,
         "Final Test": null
       },
@@ -74,10 +74,10 @@
       "Motivational Message": "Every keystroke makes you faster.",
       "Completion Message": "You are one step closer to mastery.",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lgh maxyh dk gh bLrseky djsa ckjckj vH;kl djus ls xfr c<sxh",
-        "Review Practice": "lgh maxyh dk gh bLrseky djsa",
-        "Challenge Practice": "cgqr xyrh er djsa ckjckj vH;kl djus ls xfr c<sxh bl ikB esa ge vH;kl djsaxs",
+        "Warm-up": "lgh fy[kus ls xfr vius vki rst gksxk",
+        "Main Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
+        "Review Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
+        "Challenge Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
         "Mini Test": null,
         "Final Test": null
       },
@@ -122,10 +122,10 @@
       "Motivational Message": "Muscle memory is building.",
       "Completion Message": "Perfect rhythm!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "igys viuk fopkj lgh djsa cgqr xyrh er djsa",
-        "Review Practice": "lHkh v{kj dks ;kn djsa",
-        "Challenge Practice": "lHkh v{kj dks ;kn djsa bl ikB esa ge vH;kl djsaxs ckjckj vH;kl djus ls xfr c<sxh",
+        "Warm-up": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
+        "Main Practice": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
+        "Review Practice": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
+        "Challenge Practice": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
         "Mini Test": null,
         "Final Test": null
       },
@@ -170,10 +170,10 @@
       "Motivational Message": "Fantastic focus!",
       "Completion Message": "Outstanding performance!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lgh maxyh dk gh bLrseky djsa lgh maxyh dk gh bLrseky djsa",
-        "Review Practice": "igys viuk fopkj lgh djsa",
-        "Challenge Practice": "bl ikB esa ge vH;kl djsaxs lgh maxyh dk gh bLrseky djsa bl ikB esa ge vH;kl djsaxs",
+        "Warm-up": "yxkrkj vH;kl djus ls fnekx dks lc txg ;kn gksrk gw",
+        "Main Practice": "yxkrkj vH;kl djus ls fnekx dks lc txg ;kn gksrk gw",
+        "Review Practice": "yxkrkj vH;kl djus ls fnekx dks lc txg ;kn gksrk gw",
+        "Challenge Practice": "yxkrkj vH;kl djus ls fnekx dks lc txg ;kn gksrk gw",
         "Mini Test": null,
         "Final Test": null
       },
@@ -218,11 +218,11 @@
       "Motivational Message": "You're doing great!",
       "Completion Message": "Excellent work!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lgh maxyh dk gh bLrseky djsa lgh maxyh dk gh bLrseky djsa",
-        "Review Practice": "igys viuk fopkj lgh djsa",
-        "Challenge Practice": "bl ikB esa ge vH;kl djsaxs lqcg lqcg rktk ikuh fi;s lHkh v{kj dks ;kn djsa",
-        "Mini Test": "lHkh v{kj dks ;kn djsa igys viuk fopkj lgh djsa lgh maxyh dk gh bLrseky djsa ckjckj vH;kl djus ls xfr c<sxh",
+        "Warm-up": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
+        "Main Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
+        "Review Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
+        "Challenge Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
+        "Mini Test": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
         "Final Test": null
       },
       "Stars": {
@@ -266,10 +266,10 @@
       "Motivational Message": "Keep it up!",
       "Completion Message": "Lesson complete. Great accuracy!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "bl ikB esa ge vH;kl djsaxs lqcg lqcg rktk ikuh fi;s",
-        "Review Practice": "lHkh v{kj dks ;kn djsa",
-        "Challenge Practice": "lgh maxyh dk gh bLrseky djsa cgqr xyrh er djsa bl ikB esa ge vH;kl djsaxs",
+        "Warm-up": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
+        "Main Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
+        "Review Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
+        "Challenge Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
         "Mini Test": null,
         "Final Test": null
       },
@@ -314,10 +314,10 @@
       "Motivational Message": "Every keystroke makes you faster.",
       "Completion Message": "You are one step closer to mastery.",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lHkh v{kj dks ;kn djsa lgh maxyh dk gh bLrseky djsa",
-        "Review Practice": "cgqr xyrh er djsa",
-        "Challenge Practice": "bl ikB esa ge vH;kl djsaxs ckjckj vH;kl djus ls xfr c<sxh cgqr xyrh er djsa",
+        "Warm-up": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Main Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Review Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Challenge Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
         "Mini Test": null,
         "Final Test": null
       },
@@ -362,10 +362,10 @@
       "Motivational Message": "Muscle memory is building.",
       "Completion Message": "Perfect rhythm!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "igys viuk fopkj lgh djsa bl ikB esa ge vH;kl djsaxs",
-        "Review Practice": "igys viuk fopkj lgh djsa",
-        "Challenge Practice": "igys viuk fopkj lgh djsa ckjckj vH;kl djus ls xfr c<sxh lHkh v{kj dks ;kn djsa",
+        "Warm-up": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Main Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Review Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Challenge Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
         "Mini Test": null,
         "Final Test": null
       },
@@ -410,10 +410,10 @@
       "Motivational Message": "Fantastic focus!",
       "Completion Message": "Outstanding performance!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lqcg lqcg rktk ikuh fi;s lgh maxyh dk gh bLrseky djsa",
-        "Review Practice": "lgh maxyh dk gh bLrseky djsa",
-        "Challenge Practice": "bl ikB esa ge vH;kl djsaxs cgqr xyrh er djsa lgh maxyh dk gh bLrseky djsa",
+        "Warm-up": "lgh fy[kus ls xfr vius vki rst gksxk",
+        "Main Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
+        "Review Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
+        "Challenge Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
         "Mini Test": null,
         "Final Test": null
       },
@@ -458,11 +458,11 @@
       "Motivational Message": "You're doing great!",
       "Completion Message": "Excellent work!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lqcg lqcg rktk ikuh fi;s bl ikB esa ge vH;kl djsaxs",
-        "Review Practice": "bl ikB esa ge vH;kl djsaxs",
-        "Challenge Practice": "bl ikB esa ge vH;kl djsaxs lgh maxyh dk gh bLrseky djsa bl ikB esa ge vH;kl djsaxs",
-        "Mini Test": "lqcg lqcg rktk ikuh fi;s bl ikB esa ge vH;kl djsaxs lHkh v{kj dks ;kn djsa lqcg lqcg rktk ikuh fi;s",
+        "Warm-up": "ikB dks ckjckj djus ls ;kn gksrk gw",
+        "Main Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
+        "Review Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
+        "Challenge Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
+        "Mini Test": "ikB dks ckjckj djus ls ;kn gksrk gw",
         "Final Test": null
       },
       "Stars": {
@@ -506,10 +506,10 @@
       "Motivational Message": "Keep it up!",
       "Completion Message": "Lesson complete. Great accuracy!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "igys viuk fopkj lgh djsa lHkh v{kj dks ;kn djsa",
-        "Review Practice": "lgh maxyh dk gh bLrseky djsa",
-        "Challenge Practice": "igys viuk fopkj lgh djsa lqcg lqcg rktk ikuh fi;s lgh maxyh dk gh bLrseky djsa",
+        "Warm-up": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Main Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Review Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Challenge Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
         "Mini Test": null,
         "Final Test": null
       },
@@ -554,10 +554,10 @@
       "Motivational Message": "Every keystroke makes you faster.",
       "Completion Message": "You are one step closer to mastery.",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lgh maxyh dk gh bLrseky djsa lHkh v{kj dks ;kn djsa lHkh v{kj dks ;kn djsa",
-        "Review Practice": "lgh maxyh dk gh bLrseky djsa igys viuk fopkj lgh djsa",
-        "Challenge Practice": "lqcg lqcg rktk ikuh fi;s igys viuk fopkj lgh djsa igys viuk fopkj lgh djsa lqcg lqcg rktk ikuh fi;s",
+        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
         "Mini Test": null,
         "Final Test": null
       },
@@ -602,10 +602,10 @@
       "Motivational Message": "Muscle memory is building.",
       "Completion Message": "Perfect rhythm!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lHkh v{kj dks ;kn djsa lgh maxyh dk gh bLrseky djsa cgqr xyrh er djsa",
-        "Review Practice": "igys viuk fopkj lgh djsa lqcg lqcg rktk ikuh fi;s",
-        "Challenge Practice": "ckjckj vH;kl djus ls xfr c<sxh igys viuk fopkj lgh djsa bl ikB esa ge vH;kl djsaxs lHkh v{kj dks ;kn djsa",
+        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
         "Mini Test": null,
         "Final Test": null
       },
@@ -650,10 +650,10 @@
       "Motivational Message": "Fantastic focus!",
       "Completion Message": "Outstanding performance!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lgh maxyh dk gh bLrseky djsa ckjckj vH;kl djus ls xfr c<sxh lHkh v{kj dks ;kn djsa",
-        "Review Practice": "cgqr xyrh er djsa igys viuk fopkj lgh djsa",
-        "Challenge Practice": "ckjckj vH;kl djus ls xfr c<sxh ckjckj vH;kl djus ls xfr c<sxh lHkh v{kj dks ;kn djsa lgh maxyh dk gh bLrseky djsa",
+        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
         "Mini Test": null,
         "Final Test": null
       },
@@ -698,11 +698,11 @@
       "Motivational Message": "You're doing great!",
       "Completion Message": "Excellent work!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "ckjckj vH;kl djus ls xfr c<sxh cgqr xyrh er djsa lHkh v{kj dks ;kn djsa",
-        "Review Practice": "cgqr xyrh er djsa cgqr xyrh er djsa",
-        "Challenge Practice": "ckjckj vH;kl djus ls xfr c<sxh bl ikB esa ge vH;kl djsaxs ckjckj vH;kl djus ls xfr c<sxh ckjckj vH;kl djus ls xfr c<sxh",
-        "Mini Test": "cgqr xyrh er djsa igys viuk fopkj lgh djsa cgqr xyrh er djsa bl ikB esa ge vH;kl djsaxs lgh maxyh dk gh bLrseky djsa",
+        "Warm-up": "ikB dks ckjckj djus ls ;kn gksrk gw",
+        "Main Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
+        "Review Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
+        "Challenge Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
+        "Mini Test": "ikB dks ckjckj djus ls ;kn gksrk gw",
         "Final Test": null
       },
       "Stars": {
@@ -746,10 +746,10 @@
       "Motivational Message": "Keep it up!",
       "Completion Message": "Lesson complete. Great accuracy!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lgh maxyh dk gh bLrseky djsa lHkh v{kj dks ;kn djsa lqcg lqcg rktk ikuh fi;s",
-        "Review Practice": "igys viuk fopkj lgh djsa cgqr xyrh er djsa",
-        "Challenge Practice": "lqcg lqcg rktk ikuh fi;s lHkh v{kj dks ;kn djsa lHkh v{kj dks ;kn djsa cgqr xyrh er djsa",
+        "Warm-up": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Main Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Review Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Challenge Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
         "Mini Test": null,
         "Final Test": null
       },
@@ -794,10 +794,10 @@
       "Motivational Message": "Every keystroke makes you faster.",
       "Completion Message": "You are one step closer to mastery.",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lqcg lqcg rktk ikuh fi;s lHkh v{kj dks ;kn djsa lHkh v{kj dks ;kn djsa",
-        "Review Practice": "lgh maxyh dk gh bLrseky djsa cgqr xyrh er djsa",
-        "Challenge Practice": "ckjckj vH;kl djus ls xfr c<sxh lHkh v{kj dks ;kn djsa igys viuk fopkj lgh djsa lgh maxyh dk gh bLrseky djsa",
+        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
         "Mini Test": null,
         "Final Test": null
       },
@@ -842,10 +842,10 @@
       "Motivational Message": "Muscle memory is building.",
       "Completion Message": "Perfect rhythm!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lgh maxyh dk gh bLrseky djsa bl ikB esa ge vH;kl djsaxs lHkh v{kj dks ;kn djsa",
-        "Review Practice": "cgqr xyrh er djsa ckjckj vH;kl djus ls xfr c<sxh",
-        "Challenge Practice": "igys viuk fopkj lgh djsa igys viuk fopkj lgh djsa ckjckj vH;kl djus ls xfr c<sxh cgqr xyrh er djsa",
+        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
         "Mini Test": null,
         "Final Test": null
       },
@@ -890,10 +890,10 @@
       "Motivational Message": "Fantastic focus!",
       "Completion Message": "Outstanding performance!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "bl ikB esa ge vH;kl djsaxs bl ikB esa ge vH;kl djsaxs lHkh v{kj dks ;kn djsa",
-        "Review Practice": "lHkh v{kj dks ;kn djsa bl ikB esa ge vH;kl djsaxs",
-        "Challenge Practice": "lqcg lqcg rktk ikuh fi;s cgqr xyrh er djsa igys viuk fopkj lgh djsa igys viuk fopkj lgh djsa",
+        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
         "Mini Test": null,
         "Final Test": null
       },
@@ -938,11 +938,11 @@
       "Motivational Message": "You're doing great!",
       "Completion Message": "Excellent work!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lqcg lqcg rktk ikuh fi;s lqcg lqcg rktk ikuh fi;s ckjckj vH;kl djus ls xfr c<sxh",
-        "Review Practice": "lqcg lqcg rktk ikuh fi;s bl ikB esa ge vH;kl djsaxs",
-        "Challenge Practice": "ckjckj vH;kl djus ls xfr c<sxh igys viuk fopkj lgh djsa lqcg lqcg rktk ikuh fi;s bl ikB esa ge vH;kl djsaxs",
-        "Mini Test": "lHkh v{kj dks ;kn djsa lqcg lqcg rktk ikuh fi;s lqcg lqcg rktk ikuh fi;s lgh maxyh dk gh bLrseky djsa lqcg lqcg rktk ikuh fi;s",
+        "Warm-up": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Main Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Review Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Challenge Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Mini Test": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
         "Final Test": null
       },
       "Stars": {
@@ -986,10 +986,10 @@
       "Motivational Message": "Keep it up!",
       "Completion Message": "Lesson complete. Great accuracy!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lgh maxyh dk gh bLrseky djsa ckjckj vH;kl djus ls xfr c<sxh cgqr xyrh er djsa",
-        "Review Practice": "ckjckj vH;kl djus ls xfr c<sxh lqcg lqcg rktk ikuh fi;s",
-        "Challenge Practice": "lqcg lqcg rktk ikuh fi;s bl ikB esa ge vH;kl djsaxs igys viuk fopkj lgh djsa lHkh v{kj dks ;kn djsa",
+        "Warm-up": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Main Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Review Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Challenge Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
         "Mini Test": null,
         "Final Test": null
       },
@@ -1034,10 +1034,10 @@
       "Motivational Message": "Every keystroke makes you faster.",
       "Completion Message": "You are one step closer to mastery.",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "bl ikB esa ge vH;kl djsaxs igys viuk fopkj lgh djsa bl ikB esa ge vH;kl djsaxs lqcg lqcg rktk ikuh fi;s",
-        "Review Practice": "ckjckj vH;kl djus ls xfr c<sxh lHkh v{kj dks ;kn djsa lgh maxyh dk gh bLrseky djsa",
-        "Challenge Practice": "bl ikB esa ge vH;kl djsaxs lHkh v{kj dks ;kn djsa ckjckj vH;kl djus ls xfr c<sxh cgqr xyrh er djsa lqcg lqcg rktk ikuh fi;s",
+        "Warm-up": "ikB dks ckjckj djus ls ;kn gksrk gw",
+        "Main Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
+        "Review Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
+        "Challenge Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
         "Mini Test": null,
         "Final Test": null
       },
@@ -1082,10 +1082,10 @@
       "Motivational Message": "Muscle memory is building.",
       "Completion Message": "Perfect rhythm!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lqcg lqcg rktk ikuh fi;s lHkh v{kj dks ;kn djsa lgh maxyh dk gh bLrseky djsa lqcg lqcg rktk ikuh fi;s",
-        "Review Practice": "igys viuk fopkj lgh djsa cgqr xyrh er djsa ckjckj vH;kl djus ls xfr c<sxh",
-        "Challenge Practice": "lgh maxyh dk gh bLrseky djsa cgqr xyrh er djsa cgqr xyrh er djsa cgqr xyrh er djsa ckjckj vH;kl djus ls xfr c<sxh",
+        "Warm-up": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Main Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Review Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Challenge Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
         "Mini Test": null,
         "Final Test": null
       },
@@ -1130,10 +1130,10 @@
       "Motivational Message": "Fantastic focus!",
       "Completion Message": "Outstanding performance!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "cgqr xyrh er djsa ckjckj vH;kl djus ls xfr c<sxh bl ikB esa ge vH;kl djsaxs lgh maxyh dk gh bLrseky djsa",
-        "Review Practice": "igys viuk fopkj lgh djsa cgqr xyrh er djsa lHkh v{kj dks ;kn djsa",
-        "Challenge Practice": "lHkh v{kj dks ;kn djsa bl ikB esa ge vH;kl djsaxs ckjckj vH;kl djus ls xfr c<sxh bl ikB esa ge vH;kl djsaxs lqcg lqcg rktk ikuh fi;s",
+        "Warm-up": "lgh fy[kus ls xfr vius vki rst gksxk",
+        "Main Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
+        "Review Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
+        "Challenge Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
         "Mini Test": null,
         "Final Test": null
       },
@@ -1178,11 +1178,11 @@
       "Motivational Message": "You're doing great!",
       "Completion Message": "Excellent work!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lgh maxyh dk gh bLrseky djsa lgh maxyh dk gh bLrseky djsa lgh maxyh dk gh bLrseky djsa lHkh v{kj dks ;kn djsa",
-        "Review Practice": "ckjckj vH;kl djus ls xfr c<sxh igys viuk fopkj lgh djsa cgqr xyrh er djsa",
-        "Challenge Practice": "bl ikB esa ge vH;kl djsaxs bl ikB esa ge vH;kl djsaxs lqcg lqcg rktk ikuh fi;s cgqr xyrh er djsa lHkh v{kj dks ;kn djsa",
-        "Mini Test": "ckjckj vH;kl djus ls xfr c<sxh lHkh v{kj dks ;kn djsa ckjckj vH;kl djus ls xfr c<sxh lHkh v{kj dks ;kn djsa lgh maxyh dk gh bLrseky djsa lqcg lqcg rktk ikuh fi;s",
+        "Warm-up": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
+        "Main Practice": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
+        "Review Practice": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
+        "Challenge Practice": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
+        "Mini Test": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
         "Final Test": null
       },
       "Stars": {
@@ -1226,10 +1226,10 @@
       "Motivational Message": "Keep it up!",
       "Completion Message": "Lesson complete. Great accuracy!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "igys viuk fopkj lgh djsa lqcg lqcg rktk ikuh fi;s ckjckj vH;kl djus ls xfr c<sxh lgh maxyh dk gh bLrseky djsa",
-        "Review Practice": "lqcg lqcg rktk ikuh fi;s cgqr xyrh er djsa lqcg lqcg rktk ikuh fi;s",
-        "Challenge Practice": "ckjckj vH;kl djus ls xfr c<sxh bl ikB esa ge vH;kl djsaxs cgqr xyrh er djsa igys viuk fopkj lgh djsa igys viuk fopkj lgh djsa",
+        "Warm-up": "yxkrkj vH;kl djus ls fnekx dks lc txg ;kn gksrk gw",
+        "Main Practice": "yxkrkj vH;kl djus ls fnekx dks lc txg ;kn gksrk gw",
+        "Review Practice": "yxkrkj vH;kl djus ls fnekx dks lc txg ;kn gksrk gw",
+        "Challenge Practice": "yxkrkj vH;kl djus ls fnekx dks lc txg ;kn gksrk gw",
         "Mini Test": null,
         "Final Test": null
       },
@@ -1274,10 +1274,10 @@
       "Motivational Message": "Every keystroke makes you faster.",
       "Completion Message": "You are one step closer to mastery.",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lqcg lqcg rktk ikuh fi;s lqcg lqcg rktk ikuh fi;s lqcg lqcg rktk ikuh fi;s ckjckj vH;kl djus ls xfr c<sxh",
-        "Review Practice": "igys viuk fopkj lgh djsa lHkh v{kj dks ;kn djsa cgqr xyrh er djsa",
-        "Challenge Practice": "igys viuk fopkj lgh djsa ckjckj vH;kl djus ls xfr c<sxh igys viuk fopkj lgh djsa cgqr xyrh er djsa bl ikB esa ge vH;kl djsaxs",
+        "Warm-up": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
+        "Main Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
+        "Review Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
+        "Challenge Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
         "Mini Test": null,
         "Final Test": null
       },
@@ -1322,10 +1322,10 @@
       "Motivational Message": "Muscle memory is building.",
       "Completion Message": "Perfect rhythm!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lqcg lqcg rktk ikuh fi;s lqcg lqcg rktk ikuh fi;s bl ikB esa ge vH;kl djsaxs cgqr xyrh er djsa",
-        "Review Practice": "cgqr xyrh er djsa igys viuk fopkj lgh djsa ckjckj vH;kl djus ls xfr c<sxh",
-        "Challenge Practice": "ckjckj vH;kl djus ls xfr c<sxh ckjckj vH;kl djus ls xfr c<sxh bl ikB esa ge vH;kl djsaxs igys viuk fopkj lgh djsa cgqr xyrh er djsa",
+        "Warm-up": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
+        "Main Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
+        "Review Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
+        "Challenge Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
         "Mini Test": null,
         "Final Test": null
       },
@@ -1370,10 +1370,10 @@
       "Motivational Message": "Fantastic focus!",
       "Completion Message": "Outstanding performance!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "bl ikB esa ge vH;kl djsaxs igys viuk fopkj lgh djsa lgh maxyh dk gh bLrseky djsa lgh maxyh dk gh bLrseky djsa",
-        "Review Practice": "lHkh v{kj dks ;kn djsa lqcg lqcg rktk ikuh fi;s bl ikB esa ge vH;kl djsaxs",
-        "Challenge Practice": "ckjckj vH;kl djus ls xfr c<sxh lHkh v{kj dks ;kn djsa ckjckj vH;kl djus ls xfr c<sxh lgh maxyh dk gh bLrseky djsa lqcg lqcg rktk ikuh fi;s",
+        "Warm-up": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Main Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Review Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Challenge Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
         "Mini Test": null,
         "Final Test": null
       },
@@ -1418,11 +1418,11 @@
       "Motivational Message": "You're doing great!",
       "Completion Message": "Excellent work!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "ckjckj vH;kl djus ls xfr c<sxh lgh maxyh dk gh bLrseky djsa cgqr xyrh er djsa lqcg lqcg rktk ikuh fi;s",
-        "Review Practice": "igys viuk fopkj lgh djsa lqcg lqcg rktk ikuh fi;s lHkh v{kj dks ;kn djsa",
-        "Challenge Practice": "cgqr xyrh er djsa ckjckj vH;kl djus ls xfr c<sxh lgh maxyh dk gh bLrseky djsa cgqr xyrh er djsa lgh maxyh dk gh bLrseky djsa",
-        "Mini Test": "igys viuk fopkj lgh djsa bl ikB esa ge vH;kl djsaxs bl ikB esa ge vH;kl djsaxs igys viuk fopkj lgh djsa bl ikB esa ge vH;kl djsaxs lgh maxyh dk gh bLrseky djsa",
+        "Warm-up": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Main Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Review Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Challenge Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Mini Test": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
         "Final Test": null
       },
       "Stars": {
@@ -1466,10 +1466,10 @@
       "Motivational Message": "Keep it up!",
       "Completion Message": "Lesson complete. Great accuracy!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "bl ikB esa ge vH;kl djsaxs ckjckj vH;kl djus ls xfr c<sxh igys viuk fopkj lgh djsa lgh maxyh dk gh bLrseky djsa",
-        "Review Practice": "bl ikB esa ge vH;kl djsaxs lqcg lqcg rktk ikuh fi;s cgqr xyrh er djsa",
-        "Challenge Practice": "bl ikB esa ge vH;kl djsaxs lgh maxyh dk gh bLrseky djsa bl ikB esa ge vH;kl djsaxs ckjckj vH;kl djus ls xfr c<sxh lgh maxyh dk gh bLrseky djsa",
+        "Warm-up": "lgh fy[kus ls xfr vius vki rst gksxk",
+        "Main Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
+        "Review Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
+        "Challenge Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
         "Mini Test": null,
         "Final Test": null
       },
@@ -1514,10 +1514,10 @@
       "Motivational Message": "Every keystroke makes you faster.",
       "Completion Message": "You are one step closer to mastery.",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lHkh v{kj dks ;kn djsa cgqr xyrh er djsa cgqr xyrh er djsa cgqr xyrh er djsa igys viuk fopkj lgh djsa",
-        "Review Practice": "lqcg lqcg rktk ikuh fi;s igys viuk fopkj lgh djsa cgqr xyrh er djsa igys viuk fopkj lgh djsa",
-        "Challenge Practice": "lgh maxyh dk gh bLrseky djsa lgh maxyh dk gh bLrseky djsa bl ikB esa ge vH;kl djsaxs cgqr xyrh er djsa lqcg lqcg rktk ikuh fi;s ckjckj vH;kl djus ls xfr c<sxh",
+        "Warm-up": "ikB dks ckjckj djus ls ;kn gksrk gw",
+        "Main Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
+        "Review Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
+        "Challenge Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
         "Mini Test": null,
         "Final Test": null
       },
@@ -1562,10 +1562,10 @@
       "Motivational Message": "Muscle memory is building.",
       "Completion Message": "Perfect rhythm!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lHkh v{kj dks ;kn djsa cgqr xyrh er djsa lqcg lqcg rktk ikuh fi;s lHkh v{kj dks ;kn djsa lgh maxyh dk gh bLrseky djsa",
-        "Review Practice": "lHkh v{kj dks ;kn djsa ckjckj vH;kl djus ls xfr c<sxh ckjckj vH;kl djus ls xfr c<sxh bl ikB esa ge vH;kl djsaxs",
-        "Challenge Practice": "igys viuk fopkj lgh djsa bl ikB esa ge vH;kl djsaxs cgqr xyrh er djsa ckjckj vH;kl djus ls xfr c<sxh lqcg lqcg rktk ikuh fi;s lgh maxyh dk gh bLrseky djsa",
+        "Warm-up": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Main Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Review Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Challenge Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
         "Mini Test": null,
         "Final Test": null
       },
@@ -1610,10 +1610,10 @@
       "Motivational Message": "Fantastic focus!",
       "Completion Message": "Outstanding performance!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "ckjckj vH;kl djus ls xfr c<sxh lHkh v{kj dks ;kn djsa lgh maxyh dk gh bLrseky djsa ckjckj vH;kl djus ls xfr c<sxh lgh maxyh dk gh bLrseky djsa",
-        "Review Practice": "lgh maxyh dk gh bLrseky djsa ckjckj vH;kl djus ls xfr c<sxh lgh maxyh dk gh bLrseky djsa igys viuk fopkj lgh djsa",
-        "Challenge Practice": "lgh maxyh dk gh bLrseky djsa lHkh v{kj dks ;kn djsa cgqr xyrh er djsa lgh maxyh dk gh bLrseky djsa cgqr xyrh er djsa lgh maxyh dk gh bLrseky djsa",
+        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
         "Mini Test": null,
         "Final Test": null
       },
@@ -1658,11 +1658,11 @@
       "Motivational Message": "You're doing great!",
       "Completion Message": "Excellent work!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "ckjckj vH;kl djus ls xfr c<sxh cgqr xyrh er djsa lqcg lqcg rktk ikuh fi;s lqcg lqcg rktk ikuh fi;s lqcg lqcg rktk ikuh fi;s",
-        "Review Practice": "lHkh v{kj dks ;kn djsa lHkh v{kj dks ;kn djsa lqcg lqcg rktk ikuh fi;s lgh maxyh dk gh bLrseky djsa",
-        "Challenge Practice": "lqcg lqcg rktk ikuh fi;s lHkh v{kj dks ;kn djsa cgqr xyrh er djsa lHkh v{kj dks ;kn djsa lgh maxyh dk gh bLrseky djsa igys viuk fopkj lgh djsa",
-        "Mini Test": "ckjckj vH;kl djus ls xfr c<sxh ckjckj vH;kl djus ls xfr c<sxh lgh maxyh dk gh bLrseky djsa ckjckj vH;kl djus ls xfr c<sxh ckjckj vH;kl djus ls xfr c<sxh igys viuk fopkj lgh djsa lgh maxyh dk gh bLrseky djsa",
+        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Mini Test": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
         "Final Test": null
       },
       "Stars": {
@@ -1706,10 +1706,10 @@
       "Motivational Message": "Keep it up!",
       "Completion Message": "Lesson complete. Great accuracy!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lHkh v{kj dks ;kn djsa lHkh v{kj dks ;kn djsa lgh maxyh dk gh bLrseky djsa lqcg lqcg rktk ikuh fi;s lHkh v{kj dks ;kn djsa",
-        "Review Practice": "bl ikB esa ge vH;kl djsaxs ckjckj vH;kl djus ls xfr c<sxh ckjckj vH;kl djus ls xfr c<sxh lHkh v{kj dks ;kn djsa",
-        "Challenge Practice": "lgh maxyh dk gh bLrseky djsa cgqr xyrh er djsa bl ikB esa ge vH;kl djsaxs bl ikB esa ge vH;kl djsaxs cgqr xyrh er djsa bl ikB esa ge vH;kl djsaxs",
+        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
         "Mini Test": null,
         "Final Test": null
       },
@@ -1754,10 +1754,10 @@
       "Motivational Message": "Every keystroke makes you faster.",
       "Completion Message": "You are one step closer to mastery.",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "lqcg lqcg rktk ikuh fi;s cgqr xyrh er djsa ckjckj vH;kl djus ls xfr c<sxh bl ikB esa ge vH;kl djsaxs lqcg lqcg rktk ikuh fi;s",
-        "Review Practice": "lHkh v{kj dks ;kn djsa ckjckj vH;kl djus ls xfr c<sxh igys viuk fopkj lgh djsa lqcg lqcg rktk ikuh fi;s",
-        "Challenge Practice": "bl ikB esa ge vH;kl djsaxs ckjckj vH;kl djus ls xfr c<sxh lgh maxyh dk gh bLrseky djsa lgh maxyh dk gh bLrseky djsa lHkh v{kj dks ;kn djsa lqcg lqcg rktk ikuh fi;s",
+        "Warm-up": "ikB dks ckjckj djus ls ;kn gksrk gw",
+        "Main Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
+        "Review Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
+        "Challenge Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
         "Mini Test": null,
         "Final Test": null
       },
@@ -1802,12 +1802,12 @@
       "Motivational Message": "Muscle memory is building.",
       "Completion Message": "Perfect rhythm!",
       "Typing Prompts": {
-        "Warm-up": "bl ikB esa ge vH;kl djsaxs",
-        "Main Practice": "bl ikB esa ge vH;kl djsaxs bl ikB esa ge vH;kl djsaxs bl ikB esa ge vH;kl djsaxs bl ikB esa ge vH;kl djsaxs lgh maxyh dk gh bLrseky djsa",
-        "Review Practice": "lqcg lqcg rktk ikuh fi;s lHkh v{kj dks ;kn djsa lHkh v{kj dks ;kn djsa lqcg lqcg rktk ikuh fi;s",
-        "Challenge Practice": "igys viuk fopkj lgh djsa igys viuk fopkj lgh djsa cgqr xyrh er djsa lHkh v{kj dks ;kn djsa lHkh v{kj dks ;kn djsa bl ikB esa ge vH;kl djsaxs",
+        "Warm-up": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Main Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Review Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Challenge Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
         "Mini Test": null,
-        "Final Test": "lgh maxyh dk gh bLrseky djsa cgqr xyrh er djsa lHkh v{kj dks ;kn djsa lHkh v{kj dks ;kn djsa igys viuk fopkj lgh djsa igys viuk fopkj lgh djsa bl ikB esa ge vH;kl djsaxs bl ikB esa ge vH;kl djsaxs"
+        "Final Test": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks"
       },
       "Stars": {
         "1": {
