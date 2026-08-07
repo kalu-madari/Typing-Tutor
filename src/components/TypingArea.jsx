@@ -4,7 +4,7 @@ import { useAppStore } from '../store/useAppStore';
 
 const TypingArea = ({ engineState }) => {
   const store = useAppStore();
-  const { fontSize } = store;
+  const { fontSize, showVirtualKeyboard } = store;
   const activeCharRef = useRef(null);
   const containerRef = useRef(null);
 
@@ -98,7 +98,14 @@ const TypingArea = ({ engineState }) => {
       ...styles.container,
       fontSize: fontSize === 'large' ? '32px' : fontSize === 'small' ? '20px' : '26px'
     }}>
-      <div ref={containerRef} className="no-scrollbar" style={styles.textContainer}>
+      <div 
+        ref={containerRef} 
+        className="no-scrollbar" 
+        style={{
+          ...styles.textContainer,
+          maxHeight: showVirtualKeyboard ? '160px' : '320px'
+        }}
+      >
         {renderText()}
       </div>
       {status === 'finished' && (
@@ -131,9 +138,9 @@ const styles = {
     textAlign: 'center',
     whiteSpace: 'pre-wrap',
     wordWrap: 'break-word',
-    maxHeight: '160px',
     overflowY: 'auto',
-    position: 'relative'
+    position: 'relative',
+    transition: 'max-height 0.3s ease'
   },
   char: {
     position: 'relative',

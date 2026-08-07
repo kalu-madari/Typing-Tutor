@@ -422,7 +422,7 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
         </div>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', maxWidth: '1000px', gap: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', minWidth: '1000px', maxWidth: '1000px', gap: '40px' }}>
         <TypingArea engineState={engineState} />
         <VirtualKeyboard layout={krutidev010Layout} engineState={engineState} altCodeState={altCodeState} />
       </div>
