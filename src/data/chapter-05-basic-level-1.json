@@ -1,35 +1,35 @@
 {
   "chapterId": 5,
   "chapterTitle": "Basic Level 1",
-  "totalLessons": 38,
+  "totalLessons": 10,
   "goalWpm": 21,
   "minimumAccuracy": 95,
   "lessons": [
     {
       "Lesson ID": "chap5-les5-1",
       "Lesson Number": 1,
-      "Lesson Name": "Review - Part 1",
-      "Lesson Description": "This lesson focuses on review to build muscle memory and rhythm.",
+      "Lesson Name": "Practice",
+      "Lesson Description": "Focus on practice to build your typing foundations.",
       "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
+      "Estimated Time": 2,
       "Target WPM": 21,
       "Target Accuracy": 95,
       "Difficulty": "Medium",
-      "Practice Type": "Review",
+      "Practice Type": "Practice",
       "Required Previous Lesson": "chap4-les4-20",
       "Unlock Condition": "Complete previous lesson",
       "Keyboard Layout": "KrutiDev 010",
       "Finger Usage": "All fingers",
       "Virtual Keyboard Enabled": true,
-      "Hints": "Look at the screen, not the keyboard.",
+      "Hints": "Breathe and relax your shoulders.",
       "Common Mistakes": "Looking down at the keyboard, tense wrists.",
       "Motivational Message": "Keep it up!",
-      "Completion Message": "Lesson complete. Great accuracy!",
+      "Completion Message": "Outstanding performance!",
       "Typing Prompts": {
-        "Warm-up": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Main Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Review Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Challenge Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Warm-up": null,
+        "Main Practice": "bl ikB esa ge lh[ksaxs fd dwls vH;kl djuk pkfg, vkidks vius nksuksa gkFkksa dk lgh dke djuk gksxk ,d vPNh `q:vkr ges`k vkidh xfr c<krh gw",
+        "Review Practice": null,
+        "Challenge Practice": null,
         "Mini Test": null,
         "Final Test": null
       },
@@ -47,7 +47,7 @@
           "accuracy": 95
         }
       },
-      "XP": 110,
+      "XP": 100,
       "Validation Rules": {
         "caseSensitive": true,
         "allowBackspace": false
@@ -56,28 +56,28 @@
     {
       "Lesson ID": "chap5-les5-2",
       "Lesson Number": 2,
-      "Lesson Name": "Speed - Part 2",
-      "Lesson Description": "This lesson focuses on speed to build muscle memory and rhythm.",
+      "Lesson Name": "Muscle Memory",
+      "Lesson Description": "Focus on muscle memory to build your typing foundations.",
       "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
+      "Estimated Time": 2,
       "Target WPM": 21,
       "Target Accuracy": 95,
       "Difficulty": "Medium",
-      "Practice Type": "Speed",
+      "Practice Type": "Muscle Memory",
       "Required Previous Lesson": "chap5-les5-1",
       "Unlock Condition": "Complete previous lesson",
       "Keyboard Layout": "KrutiDev 010",
       "Finger Usage": "All fingers",
       "Virtual Keyboard Enabled": true,
-      "Hints": "Focus on accuracy first, speed will follow.",
+      "Hints": "Breathe and relax your shoulders.",
       "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Every keystroke makes you faster.",
-      "Completion Message": "You are one step closer to mastery.",
+      "Motivational Message": "Keep it up!",
+      "Completion Message": "Outstanding performance!",
       "Typing Prompts": {
-        "Warm-up": "lgh fy[kus ls xfr vius vki rst gksxk",
-        "Main Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
-        "Review Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
-        "Challenge Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
+        "Warm-up": null,
+        "Main Practice": "fnekx ls T;knk vkidh maxfy;ksa dks ;kn j[kuk gksxk ckj ckj ,d gh v{kj fy[kus ls maxyh [kqn ml txg ij tkrh gw bls ely eseksjh dgrs gwa",
+        "Review Practice": null,
+        "Challenge Practice": null,
         "Mini Test": null,
         "Final Test": null
       },
@@ -104,14 +104,14 @@
     {
       "Lesson ID": "chap5-les5-3",
       "Lesson Number": 3,
-      "Lesson Name": "Accuracy - Part 3",
-      "Lesson Description": "This lesson focuses on accuracy to build muscle memory and rhythm.",
+      "Lesson Name": "Don't Look Down",
+      "Lesson Description": "Focus on don't look down to build your typing foundations.",
       "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
+      "Estimated Time": 2,
       "Target WPM": 21,
       "Target Accuracy": 95,
       "Difficulty": "Medium",
-      "Practice Type": "Accuracy",
+      "Practice Type": "Don't Look Down",
       "Required Previous Lesson": "chap5-les5-2",
       "Unlock Condition": "Complete previous lesson",
       "Keyboard Layout": "KrutiDev 010",
@@ -119,61 +119,13 @@
       "Virtual Keyboard Enabled": true,
       "Hints": "Breathe and relax your shoulders.",
       "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Muscle memory is building.",
-      "Completion Message": "Perfect rhythm!",
-      "Typing Prompts": {
-        "Warm-up": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
-        "Main Practice": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
-        "Review Practice": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
-        "Challenge Practice": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 130,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-4",
-      "Lesson Number": 4,
-      "Lesson Name": "Muscle Memory - Part 4",
-      "Lesson Description": "This lesson focuses on muscle memory to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Muscle Memory",
-      "Required Previous Lesson": "chap5-les5-3",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Use the home row bumps to find your position.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Fantastic focus!",
+      "Motivational Message": "Keep it up!",
       "Completion Message": "Outstanding performance!",
       "Typing Prompts": {
-        "Warm-up": "yxkrkj vH;kl djus ls fnekx dks lc txg ;kn gksrk gw",
-        "Main Practice": "yxkrkj vH;kl djus ls fnekx dks lc txg ;kn gksrk gw",
-        "Review Practice": "yxkrkj vH;kl djus ls fnekx dks lc txg ;kn gksrk gw",
-        "Challenge Practice": "yxkrkj vH;kl djus ls fnekx dks lc txg ;kn gksrk gw",
+        "Warm-up": null,
+        "Main Practice": "uhps dh rjQ ns[kuk can djks vxj vkidks dksbZ v{kj ;kn ugha vk jgk rks lkeus ns[kks vkSj lkspus dk dke djks uhps ns[kus ls xfr de gksxh",
+        "Review Practice": null,
+        "Challenge Practice": null,
         "Mini Test": null,
         "Final Test": null
       },
@@ -198,78 +150,30 @@
       }
     },
     {
-      "Lesson ID": "chap5-les5-5",
-      "Lesson Number": 5,
-      "Lesson Name": "Don't Look Down - Part 5",
-      "Lesson Description": "This lesson focuses on don't look down to build muscle memory and rhythm.",
+      "Lesson ID": "chap5-les5-4",
+      "Lesson Number": 4,
+      "Lesson Name": "Accuracy",
+      "Lesson Description": "Focus on accuracy to build your typing foundations.",
       "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
+      "Estimated Time": 2,
       "Target WPM": 21,
       "Target Accuracy": 95,
       "Difficulty": "Medium",
-      "Practice Type": "Don't Look Down",
-      "Required Previous Lesson": "chap5-les5-4",
+      "Practice Type": "Accuracy",
+      "Required Previous Lesson": "chap5-les5-3",
       "Unlock Condition": "Complete previous lesson",
       "Keyboard Layout": "KrutiDev 010",
       "Finger Usage": "All fingers",
       "Virtual Keyboard Enabled": true,
-      "Hints": "Keep your wrists elevated.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "You're doing great!",
-      "Completion Message": "Excellent work!",
-      "Typing Prompts": {
-        "Warm-up": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
-        "Main Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
-        "Review Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
-        "Challenge Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
-        "Mini Test": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 150,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-6",
-      "Lesson Number": 6,
-      "Lesson Name": "Look Away - Part 6",
-      "Lesson Description": "This lesson focuses on look away to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Look Away",
-      "Required Previous Lesson": "chap5-les5-5",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Look at the screen, not the keyboard.",
+      "Hints": "Breathe and relax your shoulders.",
       "Common Mistakes": "Looking down at the keyboard, tense wrists.",
       "Motivational Message": "Keep it up!",
-      "Completion Message": "Lesson complete. Great accuracy!",
+      "Completion Message": "Outstanding performance!",
       "Typing Prompts": {
-        "Warm-up": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
-        "Main Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
-        "Review Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
-        "Challenge Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
+        "Warm-up": null,
+        "Main Practice": "rst fy[kus ls cgqr igys vkidks lgh fy[kuk lh[kuk gksxk xyfr;ksa dks de djus ij _;ku nks tc vki fcuk xyrh ds fy[kksxs rks xfr [kqn gh c< tk,xh",
+        "Review Practice": null,
+        "Challenge Practice": null,
         "Mini Test": null,
         "Final Test": null
       },
@@ -294,78 +198,30 @@
       }
     },
     {
-      "Lesson ID": "chap5-les5-7",
-      "Lesson Number": 7,
-      "Lesson Name": "Take Breaks - Part 7",
-      "Lesson Description": "This lesson focuses on take breaks to build muscle memory and rhythm.",
+      "Lesson ID": "chap5-les5-5",
+      "Lesson Number": 5,
+      "Lesson Name": "Speed",
+      "Lesson Description": "Focus on speed to build your typing foundations.",
       "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
+      "Estimated Time": 2,
       "Target WPM": 21,
       "Target Accuracy": 95,
       "Difficulty": "Medium",
-      "Practice Type": "Take Breaks",
-      "Required Previous Lesson": "chap5-les5-6",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Focus on accuracy first, speed will follow.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Every keystroke makes you faster.",
-      "Completion Message": "You are one step closer to mastery.",
-      "Typing Prompts": {
-        "Warm-up": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Main Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Review Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Challenge Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 170,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-8",
-      "Lesson Number": 8,
-      "Lesson Name": "Brain Power - Part 8",
-      "Lesson Description": "This lesson focuses on brain power to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Brain Power",
-      "Required Previous Lesson": "chap5-les5-7",
+      "Practice Type": "Speed",
+      "Required Previous Lesson": "chap5-les5-4",
       "Unlock Condition": "Complete previous lesson",
       "Keyboard Layout": "KrutiDev 010",
       "Finger Usage": "All fingers",
       "Virtual Keyboard Enabled": true,
       "Hints": "Breathe and relax your shoulders.",
       "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Muscle memory is building.",
-      "Completion Message": "Perfect rhythm!",
+      "Motivational Message": "Keep it up!",
+      "Completion Message": "Outstanding performance!",
       "Typing Prompts": {
-        "Warm-up": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Main Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Review Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Challenge Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
+        "Warm-up": null,
+        "Main Practice": "vc vkidh maxfy;ksa dks viuh txg ekyWe gw bl ikB esa ge FkksMk rst fy[kus dh dksf`k`k djsaxs cl lgh v{kjksa ij maxyh ys tkus esa nsj er djks",
+        "Review Practice": null,
+        "Challenge Practice": null,
         "Mini Test": null,
         "Final Test": null
       },
@@ -390,79 +246,31 @@
       }
     },
     {
-      "Lesson ID": "chap5-les5-9",
-      "Lesson Number": 9,
-      "Lesson Name": "Moving Forward - Part 9",
-      "Lesson Description": "This lesson focuses on moving forward to build muscle memory and rhythm.",
+      "Lesson ID": "chap5-les5-6",
+      "Lesson Number": 6,
+      "Lesson Name": "Take Breaks",
+      "Lesson Description": "Focus on take breaks to build your typing foundations.",
       "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
+      "Estimated Time": 2,
       "Target WPM": 21,
       "Target Accuracy": 95,
       "Difficulty": "Medium",
-      "Practice Type": "Moving Forward",
-      "Required Previous Lesson": "chap5-les5-8",
+      "Practice Type": "Take Breaks",
+      "Required Previous Lesson": "chap5-les5-5",
       "Unlock Condition": "Complete previous lesson",
       "Keyboard Layout": "KrutiDev 010",
       "Finger Usage": "All fingers",
       "Virtual Keyboard Enabled": true,
-      "Hints": "Use the home row bumps to find your position.",
+      "Hints": "Breathe and relax your shoulders.",
       "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Fantastic focus!",
+      "Motivational Message": "Keep it up!",
       "Completion Message": "Outstanding performance!",
       "Typing Prompts": {
-        "Warm-up": "lgh fy[kus ls xfr vius vki rst gksxk",
-        "Main Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
-        "Review Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
-        "Challenge Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
+        "Warm-up": null,
+        "Main Practice": "yxkrkj dke djus ls vkids gkFk Fkd ldrs gwa vxj vkidks nnZ gks jgk gw rks dke jksd nks vkjke djus ds ckn vki vkSj vPNk fy[k ik,axs",
+        "Review Practice": null,
+        "Challenge Practice": null,
         "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 190,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-10",
-      "Lesson Number": 10,
-      "Lesson Name": "Repeat Lessons - Part 10",
-      "Lesson Description": "This lesson focuses on repeat lessons to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Repeat Lessons",
-      "Required Previous Lesson": "chap5-les5-9",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Keep your wrists elevated.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "You're doing great!",
-      "Completion Message": "Excellent work!",
-      "Typing Prompts": {
-        "Warm-up": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Main Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Review Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Challenge Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Mini Test": "ikB dks ckjckj djus ls ;kn gksrk gw",
         "Final Test": null
       },
       "Stars": {
@@ -486,78 +294,30 @@
       }
     },
     {
-      "Lesson ID": "chap5-les5-11",
-      "Lesson Number": 11,
-      "Lesson Name": "Trust Yourself - Part 11",
-      "Lesson Description": "This lesson focuses on trust yourself to build muscle memory and rhythm.",
+      "Lesson ID": "chap5-les5-7",
+      "Lesson Number": 7,
+      "Lesson Name": "Trust Yourself",
+      "Lesson Description": "Focus on trust yourself to build your typing foundations.",
       "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
+      "Estimated Time": 2,
       "Target WPM": 21,
       "Target Accuracy": 95,
       "Difficulty": "Medium",
       "Practice Type": "Trust Yourself",
-      "Required Previous Lesson": "chap5-les5-10",
+      "Required Previous Lesson": "chap5-les5-6",
       "Unlock Condition": "Complete previous lesson",
       "Keyboard Layout": "KrutiDev 010",
       "Finger Usage": "All fingers",
       "Virtual Keyboard Enabled": true,
-      "Hints": "Look at the screen, not the keyboard.",
+      "Hints": "Breathe and relax your shoulders.",
       "Common Mistakes": "Looking down at the keyboard, tense wrists.",
       "Motivational Message": "Keep it up!",
-      "Completion Message": "Lesson complete. Great accuracy!",
+      "Completion Message": "Outstanding performance!",
       "Typing Prompts": {
-        "Warm-up": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Main Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Review Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Challenge Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 210,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-12",
-      "Lesson Number": 12,
-      "Lesson Name": "Virtual Guide - Part 12",
-      "Lesson Description": "This lesson focuses on virtual guide to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Virtual Guide",
-      "Required Previous Lesson": "chap5-les5-11",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Focus on accuracy first, speed will follow.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Every keystroke makes you faster.",
-      "Completion Message": "You are one step closer to mastery.",
-      "Typing Prompts": {
-        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Warm-up": null,
+        "Main Practice": "vius [kqn ij iWjk Hkjkslk j[kks tc vki fcuk ns[ks fy[krs gks rks dbZ ckj xyrh gksrh gw ysfdu blh rjg ls vki ,d vPNs balku cu ldrs gks",
+        "Review Practice": null,
+        "Challenge Practice": null,
         "Mini Test": null,
         "Final Test": null
       },
@@ -582,78 +342,30 @@
       }
     },
     {
-      "Lesson ID": "chap5-les5-13",
-      "Lesson Number": 13,
-      "Lesson Name": "Play Lesson - Part 13",
-      "Lesson Description": "This lesson focuses on play lesson to build muscle memory and rhythm.",
+      "Lesson ID": "chap5-les5-8",
+      "Lesson Number": 8,
+      "Lesson Name": "Moving Forward",
+      "Lesson Description": "Focus on moving forward to build your typing foundations.",
       "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
+      "Estimated Time": 2,
       "Target WPM": 21,
       "Target Accuracy": 95,
       "Difficulty": "Medium",
-      "Practice Type": "Play Lesson",
-      "Required Previous Lesson": "chap5-les5-12",
+      "Practice Type": "Moving Forward",
+      "Required Previous Lesson": "chap5-les5-7",
       "Unlock Condition": "Complete previous lesson",
       "Keyboard Layout": "KrutiDev 010",
       "Finger Usage": "All fingers",
       "Virtual Keyboard Enabled": true,
       "Hints": "Breathe and relax your shoulders.",
       "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Muscle memory is building.",
-      "Completion Message": "Perfect rhythm!",
-      "Typing Prompts": {
-        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 230,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-14",
-      "Lesson Number": 14,
-      "Lesson Name": "Timed Lesson - Part 14",
-      "Lesson Description": "This lesson focuses on timed lesson to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Timed Lesson",
-      "Required Previous Lesson": "chap5-les5-13",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Use the home row bumps to find your position.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Fantastic focus!",
+      "Motivational Message": "Keep it up!",
       "Completion Message": "Outstanding performance!",
       "Typing Prompts": {
-        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Warm-up": null,
+        "Main Practice": ";g cgqr vPNh ckr gw fd vki ;gk¡ rd vk x, vc vki lkjs v{kj tkurs gks cl gj fnu FkksMk le; fudky dj ,sls gh esgur djks",
+        "Review Practice": null,
+        "Challenge Practice": null,
         "Mini Test": null,
         "Final Test": null
       },
@@ -678,78 +390,30 @@
       }
     },
     {
-      "Lesson ID": "chap5-les5-15",
-      "Lesson Number": 15,
-      "Lesson Name": "Dynamic Practice - Part 15",
-      "Lesson Description": "This lesson focuses on dynamic practice to build muscle memory and rhythm.",
+      "Lesson ID": "chap5-les5-9",
+      "Lesson Number": 9,
+      "Lesson Name": "Brain Power",
+      "Lesson Description": "Focus on brain power to build your typing foundations.",
       "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
+      "Estimated Time": 2,
       "Target WPM": 21,
       "Target Accuracy": 95,
       "Difficulty": "Medium",
-      "Practice Type": "Dynamic Practice",
-      "Required Previous Lesson": "chap5-les5-14",
+      "Practice Type": "Brain Power",
+      "Required Previous Lesson": "chap5-les5-8",
       "Unlock Condition": "Complete previous lesson",
       "Keyboard Layout": "KrutiDev 010",
       "Finger Usage": "All fingers",
       "Virtual Keyboard Enabled": true,
-      "Hints": "Keep your wrists elevated.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "You're doing great!",
-      "Completion Message": "Excellent work!",
-      "Typing Prompts": {
-        "Warm-up": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Main Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Review Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Challenge Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Mini Test": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 250,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-16",
-      "Lesson Number": 16,
-      "Lesson Name": "Mini Game - Part 16",
-      "Lesson Description": "This lesson focuses on mini game to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Mini Game",
-      "Required Previous Lesson": "chap5-les5-15",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Look at the screen, not the keyboard.",
+      "Hints": "Breathe and relax your shoulders.",
       "Common Mistakes": "Looking down at the keyboard, tense wrists.",
       "Motivational Message": "Keep it up!",
-      "Completion Message": "Lesson complete. Great accuracy!",
+      "Completion Message": "Outstanding performance!",
       "Typing Prompts": {
-        "Warm-up": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Main Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Review Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Challenge Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
+        "Warm-up": null,
+        "Main Practice": "fnekx dks `kar j[kdj dke djuk lcls vPNk gksrk gw tc vki ijs`ku gksrs gwa rks xyfr;k¡ c< tkrh gwa BaMs fnekx ls lc vklku gks tkrk gw",
+        "Review Practice": null,
+        "Challenge Practice": null,
         "Mini Test": null,
         "Final Test": null
       },
@@ -774,78 +438,30 @@
       }
     },
     {
-      "Lesson ID": "chap5-les5-17",
-      "Lesson Number": 17,
-      "Lesson Name": "Left Hand Practice - Part 17",
-      "Lesson Description": "This lesson focuses on left hand practice to build muscle memory and rhythm.",
+      "Lesson ID": "chap5-les5-10",
+      "Lesson Number": 10,
+      "Lesson Name": "Final Review",
+      "Lesson Description": "Focus on final review to build your typing foundations.",
       "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
+      "Estimated Time": 2,
       "Target WPM": 21,
       "Target Accuracy": 95,
       "Difficulty": "Medium",
-      "Practice Type": "Left Hand Practice",
-      "Required Previous Lesson": "chap5-les5-16",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Focus on accuracy first, speed will follow.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Every keystroke makes you faster.",
-      "Completion Message": "You are one step closer to mastery.",
-      "Typing Prompts": {
-        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 270,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-18",
-      "Lesson Number": 18,
-      "Lesson Name": "Right Hand Practice - Part 18",
-      "Lesson Description": "This lesson focuses on right hand practice to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Right Hand Practice",
-      "Required Previous Lesson": "chap5-les5-17",
+      "Practice Type": "Final Review",
+      "Required Previous Lesson": "chap5-les5-9",
       "Unlock Condition": "Complete previous lesson",
       "Keyboard Layout": "KrutiDev 010",
       "Finger Usage": "All fingers",
       "Virtual Keyboard Enabled": true,
       "Hints": "Breathe and relax your shoulders.",
       "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Muscle memory is building.",
-      "Completion Message": "Perfect rhythm!",
+      "Motivational Message": "Keep it up!",
+      "Completion Message": "Outstanding performance!",
       "Typing Prompts": {
-        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
+        "Warm-up": null,
+        "Main Practice": ";g bl v_;k; dk vkf[kjh ikB gw vHkh rd geus tks Hkh fu;e lh[ks gwa mudks ;kn djsa blds ckn ge ,d ubZ `q:vkr ds fy, rw;kj gksaxs",
+        "Review Practice": null,
+        "Challenge Practice": null,
         "Mini Test": null,
         "Final Test": null
       },
@@ -864,966 +480,6 @@
         }
       },
       "XP": 280,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-19",
-      "Lesson Number": 19,
-      "Lesson Name": "Mixed Practice - Part 19",
-      "Lesson Description": "This lesson focuses on mixed practice to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Mixed Practice",
-      "Required Previous Lesson": "chap5-les5-18",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Use the home row bumps to find your position.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Fantastic focus!",
-      "Completion Message": "Outstanding performance!",
-      "Typing Prompts": {
-        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 290,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-20",
-      "Lesson Number": 20,
-      "Lesson Name": "Challenge - Part 20",
-      "Lesson Description": "This lesson focuses on challenge to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Challenge",
-      "Required Previous Lesson": "chap5-les5-19",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Keep your wrists elevated.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "You're doing great!",
-      "Completion Message": "Excellent work!",
-      "Typing Prompts": {
-        "Warm-up": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Main Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Review Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Challenge Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Mini Test": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 300,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-21",
-      "Lesson Number": 21,
-      "Lesson Name": "Final Review - Part 21",
-      "Lesson Description": "This lesson focuses on final review to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Final Review",
-      "Required Previous Lesson": "chap5-les5-20",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Look at the screen, not the keyboard.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Keep it up!",
-      "Completion Message": "Lesson complete. Great accuracy!",
-      "Typing Prompts": {
-        "Warm-up": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Main Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Review Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Challenge Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 310,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-22",
-      "Lesson Number": 22,
-      "Lesson Name": "Practice - Part 22",
-      "Lesson Description": "This lesson focuses on practice to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Practice",
-      "Required Previous Lesson": "chap5-les5-21",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Focus on accuracy first, speed will follow.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Every keystroke makes you faster.",
-      "Completion Message": "You are one step closer to mastery.",
-      "Typing Prompts": {
-        "Warm-up": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Main Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Review Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Challenge Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 320,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-23",
-      "Lesson Number": 23,
-      "Lesson Name": "Review - Part 23",
-      "Lesson Description": "This lesson focuses on review to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Review",
-      "Required Previous Lesson": "chap5-les5-22",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Breathe and relax your shoulders.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Muscle memory is building.",
-      "Completion Message": "Perfect rhythm!",
-      "Typing Prompts": {
-        "Warm-up": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Main Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Review Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Challenge Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 330,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-24",
-      "Lesson Number": 24,
-      "Lesson Name": "Speed - Part 24",
-      "Lesson Description": "This lesson focuses on speed to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Speed",
-      "Required Previous Lesson": "chap5-les5-23",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Use the home row bumps to find your position.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Fantastic focus!",
-      "Completion Message": "Outstanding performance!",
-      "Typing Prompts": {
-        "Warm-up": "lgh fy[kus ls xfr vius vki rst gksxk",
-        "Main Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
-        "Review Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
-        "Challenge Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 340,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-25",
-      "Lesson Number": 25,
-      "Lesson Name": "Accuracy - Part 25",
-      "Lesson Description": "This lesson focuses on accuracy to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Accuracy",
-      "Required Previous Lesson": "chap5-les5-24",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Keep your wrists elevated.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "You're doing great!",
-      "Completion Message": "Excellent work!",
-      "Typing Prompts": {
-        "Warm-up": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
-        "Main Practice": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
-        "Review Practice": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
-        "Challenge Practice": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
-        "Mini Test": "rst fy[kus ls igys lgh fy[kuk lh[ksa",
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 350,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-26",
-      "Lesson Number": 26,
-      "Lesson Name": "Muscle Memory - Part 26",
-      "Lesson Description": "This lesson focuses on muscle memory to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Muscle Memory",
-      "Required Previous Lesson": "chap5-les5-25",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Look at the screen, not the keyboard.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Keep it up!",
-      "Completion Message": "Lesson complete. Great accuracy!",
-      "Typing Prompts": {
-        "Warm-up": "yxkrkj vH;kl djus ls fnekx dks lc txg ;kn gksrk gw",
-        "Main Practice": "yxkrkj vH;kl djus ls fnekx dks lc txg ;kn gksrk gw",
-        "Review Practice": "yxkrkj vH;kl djus ls fnekx dks lc txg ;kn gksrk gw",
-        "Challenge Practice": "yxkrkj vH;kl djus ls fnekx dks lc txg ;kn gksrk gw",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 360,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-27",
-      "Lesson Number": 27,
-      "Lesson Name": "Don't Look Down - Part 27",
-      "Lesson Description": "This lesson focuses on don't look down to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Don't Look Down",
-      "Required Previous Lesson": "chap5-les5-26",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Focus on accuracy first, speed will follow.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Every keystroke makes you faster.",
-      "Completion Message": "You are one step closer to mastery.",
-      "Typing Prompts": {
-        "Warm-up": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
-        "Main Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
-        "Review Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
-        "Challenge Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 370,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-28",
-      "Lesson Number": 28,
-      "Lesson Name": "Look Away - Part 28",
-      "Lesson Description": "This lesson focuses on look away to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Look Away",
-      "Required Previous Lesson": "chap5-les5-27",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Breathe and relax your shoulders.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Muscle memory is building.",
-      "Completion Message": "Perfect rhythm!",
-      "Typing Prompts": {
-        "Warm-up": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
-        "Main Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
-        "Review Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
-        "Challenge Practice": "tc ;kn uk gks rks uhps er ns[ks cl ;kn djus dk dke djks",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 380,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-29",
-      "Lesson Number": 29,
-      "Lesson Name": "Take Breaks - Part 29",
-      "Lesson Description": "This lesson focuses on take breaks to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Take Breaks",
-      "Required Previous Lesson": "chap5-les5-28",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Use the home row bumps to find your position.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Fantastic focus!",
-      "Completion Message": "Outstanding performance!",
-      "Typing Prompts": {
-        "Warm-up": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Main Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Review Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Challenge Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 390,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-30",
-      "Lesson Number": 30,
-      "Lesson Name": "Brain Power - Part 30",
-      "Lesson Description": "This lesson focuses on brain power to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Brain Power",
-      "Required Previous Lesson": "chap5-les5-29",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Keep your wrists elevated.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "You're doing great!",
-      "Completion Message": "Excellent work!",
-      "Typing Prompts": {
-        "Warm-up": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Main Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Review Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Challenge Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Mini Test": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 400,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-31",
-      "Lesson Number": 31,
-      "Lesson Name": "Moving Forward - Part 31",
-      "Lesson Description": "This lesson focuses on moving forward to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Moving Forward",
-      "Required Previous Lesson": "chap5-les5-30",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Look at the screen, not the keyboard.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Keep it up!",
-      "Completion Message": "Lesson complete. Great accuracy!",
-      "Typing Prompts": {
-        "Warm-up": "lgh fy[kus ls xfr vius vki rst gksxk",
-        "Main Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
-        "Review Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
-        "Challenge Practice": "lgh fy[kus ls xfr vius vki rst gksxk",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 410,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-32",
-      "Lesson Number": 32,
-      "Lesson Name": "Repeat Lessons - Part 32",
-      "Lesson Description": "This lesson focuses on repeat lessons to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Repeat Lessons",
-      "Required Previous Lesson": "chap5-les5-31",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Focus on accuracy first, speed will follow.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Every keystroke makes you faster.",
-      "Completion Message": "You are one step closer to mastery.",
-      "Typing Prompts": {
-        "Warm-up": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Main Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Review Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Challenge Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 420,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-33",
-      "Lesson Number": 33,
-      "Lesson Name": "Trust Yourself - Part 33",
-      "Lesson Description": "This lesson focuses on trust yourself to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Trust Yourself",
-      "Required Previous Lesson": "chap5-les5-32",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Breathe and relax your shoulders.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Muscle memory is building.",
-      "Completion Message": "Perfect rhythm!",
-      "Typing Prompts": {
-        "Warm-up": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Main Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Review Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Challenge Practice": "yxkrkj dke er djks jqdks vkSj [kqn ij Hkjkslk j[ksa",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 430,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-34",
-      "Lesson Number": 34,
-      "Lesson Name": "Virtual Guide - Part 34",
-      "Lesson Description": "This lesson focuses on virtual guide to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Virtual Guide",
-      "Required Previous Lesson": "chap5-les5-33",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Use the home row bumps to find your position.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Fantastic focus!",
-      "Completion Message": "Outstanding performance!",
-      "Typing Prompts": {
-        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 440,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-35",
-      "Lesson Number": 35,
-      "Lesson Name": "Play Lesson - Part 35",
-      "Lesson Description": "This lesson focuses on play lesson to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Play Lesson",
-      "Required Previous Lesson": "chap5-les5-34",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Keep your wrists elevated.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "You're doing great!",
-      "Completion Message": "Excellent work!",
-      "Typing Prompts": {
-        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Mini Test": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 450,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-36",
-      "Lesson Number": 36,
-      "Lesson Name": "Timed Lesson - Part 36",
-      "Lesson Description": "This lesson focuses on timed lesson to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Timed Lesson",
-      "Required Previous Lesson": "chap5-les5-35",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Look at the screen, not the keyboard.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Keep it up!",
-      "Completion Message": "Lesson complete. Great accuracy!",
-      "Typing Prompts": {
-        "Warm-up": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Main Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Review Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Challenge Practice": "vki cgqr rst fy[kuk lh[k ysaxs cl dke djrs jgks",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 460,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-37",
-      "Lesson Number": 37,
-      "Lesson Name": "Dynamic Practice - Part 37",
-      "Lesson Description": "This lesson focuses on dynamic practice to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Dynamic Practice",
-      "Required Previous Lesson": "chap5-les5-36",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Focus on accuracy first, speed will follow.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Every keystroke makes you faster.",
-      "Completion Message": "You are one step closer to mastery.",
-      "Typing Prompts": {
-        "Warm-up": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Main Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Review Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Challenge Practice": "ikB dks ckjckj djus ls ;kn gksrk gw",
-        "Mini Test": null,
-        "Final Test": null
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 470,
-      "Validation Rules": {
-        "caseSensitive": true,
-        "allowBackspace": false
-      }
-    },
-    {
-      "Lesson ID": "chap5-les5-38",
-      "Lesson Number": 38,
-      "Lesson Name": "Mini Game - Part 38",
-      "Lesson Description": "This lesson focuses on mini game to build muscle memory and rhythm.",
-      "Learning Objective": "Master previously learned keys with higher fluency.",
-      "Estimated Time": 3,
-      "Target WPM": 21,
-      "Target Accuracy": 95,
-      "Difficulty": "Medium",
-      "Practice Type": "Mini Game",
-      "Required Previous Lesson": "chap5-les5-37",
-      "Unlock Condition": "Complete previous lesson",
-      "Keyboard Layout": "KrutiDev 010",
-      "Finger Usage": "All fingers",
-      "Virtual Keyboard Enabled": true,
-      "Hints": "Breathe and relax your shoulders.",
-      "Common Mistakes": "Looking down at the keyboard, tense wrists.",
-      "Motivational Message": "Muscle memory is building.",
-      "Completion Message": "Perfect rhythm!",
-      "Typing Prompts": {
-        "Warm-up": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Main Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Review Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Challenge Practice": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks",
-        "Mini Test": null,
-        "Final Test": ";g ikB vkidk VsLV gw lc dqN ;kn djds fy[kks"
-      },
-      "Stars": {
-        "1": {
-          "wpm": 15,
-          "accuracy": 90
-        },
-        "2": {
-          "wpm": 18,
-          "accuracy": 93
-        },
-        "3": {
-          "wpm": 21,
-          "accuracy": 95
-        }
-      },
-      "XP": 480,
       "Validation Rules": {
         "caseSensitive": true,
         "allowBackspace": false
