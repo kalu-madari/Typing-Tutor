@@ -31,6 +31,7 @@ const VirtualKeyboard = ({ layout, engineState }) => {
 
   const nextChar = engineState?.status !== 'finished' ? engineState?.text[engineState?.currentIndex] : null;
   const expectedKeys = nextChar ? layout.getExpectedKeys(nextChar) : [];
+  const requiresShift = expectedKeys.includes('ShiftLeft') || expectedKeys.includes('ShiftRight');
 
   const prevIndex = React.useRef(engineState?.currentIndex || 0);
   const prevWrong = React.useRef(engineState?.incorrectChars || 0);
@@ -83,7 +84,18 @@ const VirtualKeyboard = ({ layout, engineState }) => {
       {layout.keyboardMap.map((row, rowIndex) => (
         <div key={rowIndex} style={styles.row}>
           {row.map((keyObj) => {
-            const isExpected = expectedKeys.includes(keyObj.key);
+            let isExpected = false;
+            
+            if (expectedKeys.includes(keyObj.key)) {
+              if (keyObj.key === 'ShiftLeft' || keyObj.key === 'ShiftRight') {
+                isExpected = true; // Always highlight required shift
+              } else if (requiresShift) {
+                isExpected = isShiftActive; // Highlight base key only if shift is held down
+              } else {
+                isExpected = true;
+              }
+            }
+
             const animationKey = isExpected ? `${keyObj.key}-active-${animationEvent.id}` : keyObj.key;
             
             return (
