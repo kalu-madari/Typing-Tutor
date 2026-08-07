@@ -73,6 +73,7 @@ export const useTypingEngine = (text, layout) => {
               const charCode = parseInt(altCodeStr, 10);
               if (!isNaN(charCode)) {
                 const char = String.fromCharCode(charCode);
+                window.dispatchEvent(new CustomEvent('debugLog', { detail: `INJECT: ${char} (code=${charCode})` }));
                 engineRef.current.handleKeyPress(char);
               }
             }

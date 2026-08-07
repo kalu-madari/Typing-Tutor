@@ -445,14 +445,17 @@ const KeyLogger = () => {
     const down = (e) => handleKey('down', e);
     const up = (e) => handleKey('up', e);
     const press = (e) => handleKey('press', e);
+    const debugLog = (e) => setLogs(prev => [...prev.slice(-14), e.detail]);
 
     window.addEventListener('keydown', down);
     window.addEventListener('keyup', up);
     window.addEventListener('keypress', press);
+    window.addEventListener('debugLog', debugLog);
     return () => {
       window.removeEventListener('keydown', down);
       window.removeEventListener('keyup', up);
       window.removeEventListener('keypress', press);
+      window.removeEventListener('debugLog', debugLog);
     };
   }, []);
 
