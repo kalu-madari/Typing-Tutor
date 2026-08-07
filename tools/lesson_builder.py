@@ -2,6 +2,7 @@ import os
 import json
 import customtkinter as ctk
 from tkinter import messagebox
+import unicode_to_krutidev
 
 # Set appearance mode and color theme
 ctk.set_appearance_mode("Dark")
@@ -51,10 +52,48 @@ class LessonBuilderApp(ctk.CTk):
         self.btn_add_lesson.pack(pady=5)
         
         self.btn_save = ctk.CTkButton(self, text="Generate JSON", command=self.save_json, fg_color="#28a745", hover_color="#218838")
-        self.btn_save.pack(pady=15)
+        self.btn_save.pack(pady=5)
+        
+        self.btn_reset = ctk.CTkButton(self, text="Reset Form", command=self.reset_form, fg_color="#dc3545", hover_color="#c82333")
+        self.btn_reset.pack(pady=5)
+        
+        self.btn_delete_chapter = ctk.CTkButton(self, text="Delete Chapter", command=self.delete_chapter, fg_color="#dc3545", hover_color="#c82333")
+        self.btn_delete_chapter.pack(pady=5)
         
         # Add first lesson by default
         self.add_lesson()
+
+    def reset_form(self):
+        self.entry_chap_num.delete(0, 'end')
+        self.entry_chap_name.delete(0, 'end')
+        self.entry_wpm.delete(0, 'end')
+        self.entry_acc.delete(0, 'end')
+        
+        for l in self.lessons:
+            l["frame"].destroy()
+        self.lessons.clear()
+        self.add_lesson()
+
+    def delete_chapter(self):
+        chap_num_str = self.entry_chap_num.get().strip()
+        if not chap_num_str:
+            messagebox.showerror("Error", "Please enter the Chapter Number to delete.")
+            return
+            
+        try:
+            chap_num = int(chap_num_str)
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            target_file = os.path.join(base_dir, "src", "data", "chapters", f"chapter{chap_num}.json")
+            
+            if os.path.exists(target_file):
+                os.remove(target_file)
+                messagebox.showinfo("Success", f"Deleted chapter{chap_num}.json")
+            else:
+                messagebox.showwarning("Not Found", f"chapter{chap_num}.json does not exist.")
+        except ValueError:
+            messagebox.showerror("Error", "Chapter Number must be an integer.")
+        except Exception as e:
+            messagebox.showerror("Error", f"Could not delete chapter: {e}")
 
     def add_lesson(self):
         lesson_idx = len(self.lessons) + 1
@@ -75,13 +114,27 @@ class LessonBuilderApp(ctk.CTk):
         entry_text = ctk.CTkTextbox(frame, width=500, height=80)
         entry_text.grid(row=1, column=1, columnspan=2, padx=10, pady=5, sticky="w")
         
-        self.lessons.append({
+        lesson_data = {
             "frame": frame,
             "serial": lesson_idx,
             "name": entry_name,
-            "text": entry_text
-        })
+            "text": entry_text,
+            "lbl_num": lbl_num
+        }
         
+        btn_remove = ctk.CTkButton(frame, text="Remove", width=60, fg_color="#dc3545", hover_color="#c82333", command=lambda: self.remove_lesson(lesson_data))
+        btn_remove.grid(row=0, column=3, padx=10, pady=10, sticky="e")
+        
+        self.lessons.append(lesson_data)
+        
+    def remove_lesson(self, lesson_data):
+        lesson_data["frame"].destroy()
+        self.lessons.remove(lesson_data)
+        # Renumber remaining
+        for i, l in enumerate(self.lessons):
+            l["serial"] = i + 1
+            l["lbl_num"].configure(text=f"Serial Number: {l['serial']}")
+            
     def save_json(self):
         try:
             chap_num_str = self.entry_chap_num.get().strip()
@@ -108,6 +161,9 @@ class LessonBuilderApp(ctk.CTk):
                 if not name or not text:
                     raise ValueError(f"Lesson {serial} is missing a name or text.")
                     
+                # Convert Unicode Hindi to Kruti Dev 010 keystrokes
+                converted_text = unicode_to_krutidev.unicode_to_krutidev(text)
+                
                 lessons_data.append({
                     "id": f"chap{chap_num}-les{serial}",
                     "chapterId": chap_num,
@@ -118,7 +174,7 @@ class LessonBuilderApp(ctk.CTk):
                     "estimatedTimeMinutes": 2,
                     "minAccuracy": min_acc,
                     "targetWpm": min_wpm,
-                    "text": text,
+                    "text": converted_text,
                     "type": "practice"
                 })
                 
