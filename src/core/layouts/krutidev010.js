@@ -7,7 +7,22 @@ export const krutidev010Layout = {
   // For the typing engine: Given a character from the lesson text, what key(s) does the user need to press?
   // In KrutiDev, the lesson text is stored as English characters (e.g., 'k' renders as 'क').
   // So the user simply needs to press 'k'.
-  getExpectedKeys: (targetChar) => {
+  getExpectedKeys: function(targetChar) {
+    const allKeys = this.keyboardMap.flat();
+    
+    // If it matches a base key
+    const directMatch = allKeys.find(k => k.key === targetChar);
+    if (directMatch) return [targetChar];
+    
+    // If it matches a shift state character
+    const shiftMatch = allKeys.find(k => k.shiftDisplay === targetChar && k.shiftDisplay !== k.display);
+    if (shiftMatch) {
+      // Always use opposite hand shift
+      const isLeftHand = shiftMatch.finger.startsWith('left-');
+      const shiftKey = isLeftHand ? 'ShiftRight' : 'ShiftLeft';
+      return [shiftMatch.key, shiftKey];
+    }
+    
     return [targetChar];
   },
   
