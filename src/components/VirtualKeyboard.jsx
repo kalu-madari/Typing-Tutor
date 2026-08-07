@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import { useAppStore } from '../store/useAppStore';
 
 const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
-  const { showVirtualKeyboard, highlightFingers } = useAppStore();
+  const storeState = useAppStore();
+  const { showVirtualKeyboard, highlightFingers } = storeState;
 
   // (Early return moved below hooks)
   const [isShiftActive, setIsShiftActive] = React.useState(false);
@@ -45,7 +46,9 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
     prevWrong.current = currentWrong;
   }, [engineState?.currentIndex, engineState?.incorrectChars]);
 
-  if (!showVirtualKeyboard || !layout.keyboardMap) return null;
+  if (!layout.keyboardMap) return null;
+
+  // We already have showVirtualKeyboard from: const { showVirtualKeyboard, highlightFingers } = storeState;
 
   const nextChar = engineState?.status !== 'finished' ? engineState?.text[engineState?.currentIndex] : null;
   let expectedKeys = nextChar ? layout.getExpectedKeys(nextChar) : [];
@@ -178,21 +181,107 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
   };
 
   return (
-    <div className="virtual-keyboard glass" style={styles.container}>
-      <div style={styles.mainKeyboard}>
-        {layout.keyboardMap.map((row, rowIndex) => (
-          <div key={rowIndex} style={styles.row}>
-            {row.map(renderKey)}
-          </div>
-        ))}
-      </div>
+    <div className="virtual-keyboard-wrapper" style={{ display: 'flex', gap: '40px', justifyContent: 'center', marginTop: '30px', width: '100%', maxWidth: '1050px' }}>
       
-      {layout.numpadKeys && (
-        <div style={styles.numpad}>
-          {layout.numpadKeys.map(k => renderKey({ ...k, isNumpad: true }))}
+      {showVirtualKeyboard && (
+        <div className="virtual-keyboard glass" style={styles.container}>
+          <div style={styles.mainKeyboard}>
+            {layout.keyboardMap.map((row, rowIndex) => (
+              <div key={rowIndex} style={styles.row}>
+                {row.map(renderKey)}
+              </div>
+            ))}
+          </div>
+          
+          {layout.numpadKeys && (
+            <div style={styles.numpad}>
+              {layout.numpadKeys.map(k => renderKey({ ...k, isNumpad: true }))}
+            </div>
+          )}
         </div>
       )}
+      
+      <div className="glass-panel" style={styles.settingsColumn}>
+        <h4 style={styles.settingsTitle}>Toggles</h4>
+        
+        <Switch 
+          checked={storeState.allowBackspace} 
+          onChange={val => storeState.updateSetting('allowBackspace', val)}
+          label="Allow Backspace"
+        />
+        
+        <Switch 
+          checked={storeState.soundEffects} 
+          onChange={val => storeState.updateSetting('soundEffects', val)}
+          label="Key sounds"
+        />
+        
+        <Switch 
+          checked={storeState.errorSounds} 
+          onChange={val => storeState.updateSetting('errorSounds', val)}
+          label="Error sounds"
+        />
+        
+        <Switch 
+          checked={storeState.showVirtualKeyboard} 
+          onChange={val => storeState.updateSetting('showVirtualKeyboard', val)}
+          label="Virtual keyboard"
+        />
+        
+        <Switch 
+          checked={storeState.moveOnError} 
+          onChange={val => storeState.updateSetting('moveOnError', val)}
+          label="Move on error"
+        />
+        
+        {storeState.moveOnError && (
+          <div style={styles.subSetting}>
+            <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Max errors:</span>
+            <select 
+              value={storeState.maxErrorsToSkip} 
+              onChange={(e) => storeState.updateSetting('maxErrorsToSkip', parseInt(e.target.value, 10))}
+              style={styles.selectInput}
+            >
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+            </select>
+          </div>
+        )}
+      </div>
+
     </div>
+  );
+};
+
+const Switch = ({ checked, onChange, label }) => {
+  return (
+    <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', gap: '15px' }}>
+      <span style={{ fontSize: '13px', color: 'var(--text-primary)' }}>{label}</span>
+      <div style={{
+        position: 'relative',
+        width: '36px',
+        height: '20px',
+        backgroundColor: checked ? 'var(--accent-blue)' : 'var(--bg-tertiary)',
+        borderRadius: '10px',
+        transition: 'background-color 0.2s',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '2px',
+        boxSizing: 'border-box'
+      }}>
+        <div style={{
+          width: '16px',
+          height: '16px',
+          backgroundColor: '#fff',
+          borderRadius: '50%',
+          transition: 'transform 0.2s',
+          transform: checked ? 'translateX(16px)' : 'translateX(0)',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.3)'
+        }} />
+      </div>
+      <input type="checkbox" checked={checked} onChange={e => onChange(e.target.checked)} style={{ display: 'none' }} />
+    </label>
   );
 };
 
@@ -205,9 +294,38 @@ const styles = {
     gap: '40px',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    marginTop: '30px',
-    width: '100%',
-    maxWidth: '1000px'
+  },
+  settingsColumn: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+    padding: '20px',
+    borderRadius: '12px',
+    minWidth: '200px',
+    alignSelf: 'stretch'
+  },
+  settingsTitle: {
+    margin: '0 0 5px 0',
+    color: 'var(--text-primary)',
+    fontSize: '14px',
+    textTransform: 'uppercase',
+    letterSpacing: '1px'
+  },
+  subSetting: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: '8px',
+    borderTop: '1px solid var(--border-color)'
+  },
+  selectInput: {
+    backgroundColor: 'var(--bg-secondary)',
+    color: 'var(--text-primary)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '4px',
+    padding: '2px 6px',
+    outline: 'none',
+    cursor: 'pointer'
   },
   mainKeyboard: {
     display: 'flex',
