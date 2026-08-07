@@ -63,7 +63,22 @@ export const useTypingEngine = (text, layout) => {
         if (/^[0-9]$/.test(digit)) {
           altCodeStr += digit;
           setAltCodeState(altCodeStr);
-          e.preventDefault(); // Stop Windows from interfering; we will inject manually on keyUp
+          e.preventDefault(); // Stop Windows from interfering
+
+          // Numpad Alt codes often suppress the keyup event on Windows.
+          // Since our target KrutiDev Alt codes are exactly 4 digits long (e.g. 0161),
+          // we can bypass the OS entirely and inject instantly on the 4th digit!
+          if (altCodeStr.length === 4) {
+            if (engineRef.current) {
+              const charCode = parseInt(altCodeStr, 10);
+              if (!isNaN(charCode)) {
+                const char = String.fromCharCode(charCode);
+                engineRef.current.handleKeyPress(char);
+              }
+            }
+            altCodeStr = "";
+            setAltCodeState(altCodeStr);
+          }
         }
         return;
       }
@@ -75,14 +90,9 @@ export const useTypingEngine = (text, layout) => {
     };
 
     const handleKeyUp = (e) => {
-      if (e.key === 'Alt') {
-        if (altCodeStr.length > 0 && engineRef.current) {
-          const charCode = parseInt(altCodeStr, 10);
-          if (!isNaN(charCode)) {
-            const char = String.fromCharCode(charCode);
-            engineRef.current.handleKeyPress(char);
-          }
-        }
+      // Clean up the tracking string if they release Alt before finishing 4 digits
+      // (Using !e.altKey is safer than e.key === 'Alt' because the OS might change the key string)
+      if (!e.altKey && altCodeStr.length > 0) {
         altCodeStr = "";
         setAltCodeState(altCodeStr);
       }
