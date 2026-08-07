@@ -106,5 +106,26 @@ export const krutidev010Layout = {
       { key: 'Menu', display: 'Menu', shiftDisplay: 'Menu', finger: 'right-pinky', width: '50px', labelStyle: { fontSize: '11px', padding: '4px' } },
       { key: 'CtrlRight', display: 'Ctrl', shiftDisplay: 'Ctrl', finger: 'right-pinky', width: '60px', labelStyle: { fontSize: '11px', alignSelf: 'flex-end', padding: '4px' } }
     ]
+  ],
+
+  // For the Virtual Keyboard Numpad: Defines the CSS grid area layout
+  numpadKeys: [
+    { key: 'NumLock', display: 'Num', finger: 'right-index', gridArea: '1 / 1 / 2 / 2' },
+    { key: 'NumpadDivide', display: '/', finger: 'right-index', gridArea: '1 / 2 / 2 / 3' },
+    { key: 'NumpadMultiply', display: '*', finger: 'right-middle', gridArea: '1 / 3 / 2 / 4' },
+    { key: 'NumpadSubtract', display: '-', finger: 'right-ring', gridArea: '1 / 4 / 2 / 5' },
+    { key: 'Numpad7', display: '7', finger: 'right-index', gridArea: '2 / 1 / 3 / 2' },
+    { key: 'Numpad8', display: '8', finger: 'right-middle', gridArea: '2 / 2 / 3 / 3' },
+    { key: 'Numpad9', display: '9', finger: 'right-ring', gridArea: '2 / 3 / 3 / 4' },
+    { key: 'NumpadAdd', display: '+', finger: 'right-pinky', gridArea: '2 / 4 / 4 / 5' },
+    { key: 'Numpad4', display: '4', finger: 'right-index', gridArea: '3 / 1 / 4 / 2' },
+    { key: 'Numpad5', display: '5', finger: 'right-middle', gridArea: '3 / 2 / 4 / 3' },
+    { key: 'Numpad6', display: '6', finger: 'right-ring', gridArea: '3 / 3 / 4 / 4' },
+    { key: 'Numpad1', display: '1', finger: 'right-index', gridArea: '4 / 1 / 5 / 2' },
+    { key: 'Numpad2', display: '2', finger: 'right-middle', gridArea: '4 / 2 / 5 / 3' },
+    { key: 'Numpad3', display: '3', finger: 'right-ring', gridArea: '4 / 3 / 5 / 4' },
+    { key: 'NumpadEnter', display: 'Ent', finger: 'right-pinky', gridArea: '4 / 4 / 6 / 5' },
+    { key: 'Numpad0', display: '0', finger: 'right-index', gridArea: '5 / 1 / 6 / 3' },
+    { key: 'NumpadDecimal', display: '.', finger: 'right-ring', gridArea: '5 / 3 / 6 / 4' }
   ]
 };

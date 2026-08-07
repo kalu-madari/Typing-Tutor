@@ -34,12 +34,12 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
   
   // Custom highlight logic for Alt codes (Kruti Dev special characters)
   const altCodes = {
-    '¡': ['AltLeft', 'AltRight', '0', '1', '6', '1'],
-    '¿': ['AltLeft', 'AltRight', '0', '1', '9', '1'],
-    'Ø': ['AltLeft', 'AltRight', '0', '2', '1', '6'],
-    'Ý': ['AltLeft', 'AltRight', '0', '2', '2', '1'],
-    'Å': ['AltLeft', 'AltRight', '0', '1', '9', '7'],
-    'â': ['AltLeft', 'AltRight', '0', '2', '2', '6'],
+    '¡': ['AltLeft', 'AltRight', 'Numpad0', 'Numpad1', 'Numpad6', 'Numpad1'],
+    '¿': ['AltLeft', 'AltRight', 'Numpad0', 'Numpad1', 'Numpad9', 'Numpad1'],
+    'Ø': ['AltLeft', 'AltRight', 'Numpad0', 'Numpad2', 'Numpad1', 'Numpad6'],
+    'Ý': ['AltLeft', 'AltRight', 'Numpad0', 'Numpad2', 'Numpad2', 'Numpad1'],
+    'Å': ['AltLeft', 'AltRight', 'Numpad0', 'Numpad1', 'Numpad9', 'Numpad7'],
+    'â': ['AltLeft', 'AltRight', 'Numpad0', 'Numpad2', 'Numpad2', 'Numpad6'],
   };
   
   if (nextChar && altCodes[nextChar]) {
@@ -103,82 +103,110 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
     }
   };
 
+  const renderKey = (keyObj) => {
+    let isExpected = false;
+    
+    if (expectedKeys.includes(keyObj.key)) {
+      if (keyObj.key === 'ShiftLeft' || keyObj.key === 'ShiftRight') {
+        isExpected = true;
+      } else if (requiresShift) {
+        isExpected = isShiftActive;
+      } else {
+        isExpected = true;
+      }
+    }
+
+    const animationKey = isExpected ? `${keyObj.key}-active-${animationEvent.id}` : keyObj.key;
+    
+    if (keyObj.noBg) {
+      return <div key={animationKey} style={{ width: keyObj.width }}></div>;
+    }
+
+    return (
+      <motion.div
+        key={animationKey}
+        initial={isExpected ? { 
+          scale: animationEvent.type === 'shake' ? 1.05 : 0.95, 
+          backgroundColor: getFingerColor(keyObj.finger, false) 
+        } : false}
+        style={{
+          ...styles.key,
+          width: keyObj.width || styles.key.minWidth,
+          height: keyObj.height || '46px',
+          gridArea: keyObj.gridArea || 'auto',
+          borderColor: isExpected ? 'var(--accent-blue)' : 'var(--glass-border)',
+          boxShadow: isExpected ? '0 0 10px var(--accent-blue)' : 'none',
+        }}
+        animate={{
+          scale: isExpected ? 1.05 : 1,
+          y: isExpected ? -2 : 0,
+          x: (isExpected && animationEvent.type === 'shake') ? [0, 10, -10, 6, -6, 0] : 0,
+          backgroundColor: (isExpected && animationEvent.type === 'shake') 
+            ? ['rgba(239, 68, 68, 0.8)', 'rgba(239, 68, 68, 0.8)', 'rgba(239, 68, 68, 0.8)', getFingerColor(keyObj.finger, true)] 
+            : getFingerColor(keyObj.finger, isExpected),
+        }}
+        transition={{ 
+          type: 'spring', stiffness: 400, damping: 25,
+          x: { type: 'keyframes', duration: 0.4 },
+          backgroundColor: { type: 'keyframes', duration: 0.4 }
+        }}
+      >
+        <span style={{ 
+          ...styles.keyLabelPrimary, 
+          ...(keyObj.key.length > 1 ? { fontFamily: 'var(--font-ui)' } : {}),
+          ...(keyObj.labelStyle || {}) 
+        }}>{showShiftDisplay(keyObj) ? keyObj.shiftDisplay : keyObj.display}</span>
+        {keyObj.shiftDisplay && keyObj.key.length === 1 && keyObj.key !== ' ' && (
+          <span style={styles.keyLabelSecondary}>
+            {showShiftDisplay(keyObj) ? keyObj.shiftDisplay : keyObj.display}
+          </span>
+        )}
+      </motion.div>
+    );
+  };
+
   return (
     <div className="virtual-keyboard glass" style={styles.container}>
-      {layout.keyboardMap.map((row, rowIndex) => (
-        <div key={rowIndex} style={styles.row}>
-          {row.map((keyObj) => {
-            let isExpected = false;
-            
-            if (expectedKeys.includes(keyObj.key)) {
-              if (keyObj.key === 'ShiftLeft' || keyObj.key === 'ShiftRight') {
-                isExpected = true; // Always highlight required shift
-              } else if (requiresShift) {
-                isExpected = isShiftActive; // Highlight base key only if shift is held down
-              } else {
-                isExpected = true;
-              }
-            }
-
-            const animationKey = isExpected ? `${keyObj.key}-active-${animationEvent.id}` : keyObj.key;
-            
-            return (
-              <motion.div
-                key={animationKey}
-                initial={isExpected ? { 
-                  scale: animationEvent.type === 'shake' ? 1.05 : 0.95, 
-                  backgroundColor: getFingerColor(keyObj.finger, false) 
-                } : false}
-                style={{
-                  ...styles.key,
-                  width: keyObj.width || styles.key.minWidth,
-                  borderColor: isExpected ? 'var(--accent-blue)' : 'var(--glass-border)',
-                  boxShadow: isExpected ? '0 0 10px var(--accent-blue)' : 'none',
-                }}
-                animate={{
-                  scale: isExpected ? 1.05 : 1,
-                  y: isExpected ? -2 : 0,
-                  x: (isExpected && animationEvent.type === 'shake') ? [0, 10, -10, 6, -6, 0] : 0,
-                  backgroundColor: (isExpected && animationEvent.type === 'shake') 
-                    ? ['rgba(239, 68, 68, 0.8)', 'rgba(239, 68, 68, 0.8)', 'rgba(239, 68, 68, 0.8)', getFingerColor(keyObj.finger, true)] 
-                    : getFingerColor(keyObj.finger, isExpected),
-                }}
-                transition={{ 
-                  type: 'spring', stiffness: 400, damping: 25,
-                  x: { type: 'keyframes', duration: 0.4 },
-                  backgroundColor: { type: 'keyframes', duration: 0.4 }
-                }}
-              >
-                <span style={{ 
-                  ...styles.keyLabelPrimary, 
-                  ...(keyObj.key.length > 1 ? { fontFamily: 'var(--font-ui)' } : {}),
-                  ...(keyObj.labelStyle || {}) 
-                }}>{showShiftDisplay(keyObj) ? keyObj.shiftDisplay : keyObj.display}</span>
-                {keyObj.shiftDisplay && keyObj.key.length === 1 && keyObj.key !== ' ' && (
-                  <span style={styles.keyLabelSecondary}>
-                    {showShiftDisplay(keyObj) ? keyObj.shiftDisplay : keyObj.display}
-                  </span>
-                )}
-              </motion.div>
-            );
-          })}
+      <div style={styles.mainKeyboard}>
+        {layout.keyboardMap.map((row, rowIndex) => (
+          <div key={rowIndex} style={styles.row}>
+            {row.map(renderKey)}
+          </div>
+        ))}
+      </div>
+      
+      {layout.numpadKeys && (
+        <div style={styles.numpad}>
+          {layout.numpadKeys.map(renderKey)}
         </div>
-      ))}
+      )}
     </div>
   );
 };
 
 const styles = {
   container: {
-    padding: '20px 0',
+    padding: '20px',
     borderRadius: '12px',
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '40px',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    marginTop: '30px',
+    width: '100%',
+    maxWidth: '1000px'
+  },
+  mainKeyboard: {
     display: 'flex',
     flexDirection: 'column',
     gap: '8px',
-    alignItems: 'center',
-    marginTop: '30px',
-    width: '100%',
-    maxWidth: '712px'
+  },
+  numpad: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(4, 46px)',
+    gridTemplateRows: 'repeat(5, 46px)',
+    gap: '8px',
   },
   row: {
     display: 'flex',
