@@ -190,9 +190,9 @@ const DashboardView = ({ setCurrentView, onStart, currentLesson, completedLesson
           const pct = chapter.lessons.length > 0 ? Math.round((chCompleted / chapter.lessons.length) * 100) : 0;
           return (
             <div key={chapter.id} className="chapter-progress-card glass-card" style={{opacity: pct === 0 ? 0.6 : 1}}>
-              <div className="progress-card-header">
-                <span className="progress-card-title">Chapter {chapter.id}</span>
-                <span className="progress-card-pct">{pct}%</span>
+              <div className="progress-card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                <span className="progress-card-title" style={{ fontWeight: '600', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Chapter {chapter.id}</span>
+                <span className="progress-card-pct" style={{ fontWeight: 'bold', color: 'var(--brand)' }}>{pct}%</span>
               </div>
               <div className="progress-card-name">{chapter.title}</div>
               <div className="chapter-progress-bar"><div className="chapter-progress-fill" style={{width: `${pct}%`, backgroundColor: pct === 100 ? 'var(--success)' : 'var(--brand)', transition: 'width 0.3s ease'}}></div></div>
