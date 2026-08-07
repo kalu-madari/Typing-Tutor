@@ -53,13 +53,11 @@ export const useTypingEngine = (text, layout) => {
 
       // Handle Alt codes for special characters (like Chandrabindu Alt+0161)
       if (e.altKey) {
-        // Numpad keys usually have location 3 or code starting with Numpad
-        if (e.location === 3 || (e.code && e.code.startsWith('Numpad'))) {
-          if (/^[0-9]$/.test(e.key)) {
-            altCodeStr += e.key;
-            setAltCodeState(altCodeStr);
-            e.preventDefault();
-          }
+        // Allow any number key (numpad or top row) to act as Alt code input for laptops
+        if (/^[0-9]$/.test(e.key)) {
+          altCodeStr += e.key;
+          setAltCodeState(altCodeStr);
+          e.preventDefault();
         }
         return;
       }
