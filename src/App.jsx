@@ -330,6 +330,10 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
   const { engineState, stats } = useTypingEngine(lesson.text, krutidev010Layout);
 
   React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  React.useEffect(() => {
     if (engineState?.status === 'finished') {
       onComplete(lesson.id);
     }
@@ -356,7 +360,7 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
   const strokeDashoffset = isFinished ? 283 - (283 * acc) / 100 : 283;
 
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'center', marginTop: '20px', position: 'relative', gap: '40px', width: '100%', maxWidth: '1000px', margin: '20px auto 0' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'flex-start', marginTop: '20px', position: 'relative', width: '100%', padding: '0 20px' }}>
       {isFinished && (
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
           <div className="glass-card" style={{ padding: '40px', borderRadius: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '400px', textAlign: 'center', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }}>
@@ -405,10 +409,12 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
         </div>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, maxWidth: '712px', gap: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '712px', gap: '20px' }}>
         <TypingArea engineState={engineState} />
         <VirtualKeyboard layout={krutidev010Layout} engineState={engineState} />
       </div>
+
+      <div></div>
     </div>
   );
 };
