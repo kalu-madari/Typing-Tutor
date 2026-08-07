@@ -1,4 +1,7 @@
-{
+const fs = require('fs');
+const path = require('path');
+
+const chapter5 = {
   "chapterId": 5,
   "chapterTitle": "Special Symbols",
   "totalLessons": 5,
@@ -71,4 +74,12 @@
       "type": "practice"
     }
   ]
-}
+};
+
+fs.writeFileSync(
+  path.join(__dirname, 'src/data/chapters/chapter5.json'),
+  JSON.stringify(chapter5, null, 2),
+  'utf-8'
+);
+
+console.log("Chapter 5 replaced successfully!");
