@@ -1,119 +1,82 @@
 def unicode_to_krutidev(unicode_string):
-    array_one = [
-        # Numbers
-        "०", "१", "२", "३", "४", "५", "६", "७", "८", "९",
-        # Half letters
-        "फ़्", "क़", "ख़", "ग़", "ज़", "ड़", "ढ़", "फ़", "क़्", "ख़्", "ग़्", "ज़्",
-        "त्त्", "ड़्", "ढ़्",
-        # Symbols and specials
-        "ॐ", "₹", "।", "॥", "ँ", "ं", "ः",
-        "अ", "आ", "इ", "ई", "उ", "ऊ", "ऋ", "ए", "ऐ", "ओ", "औ",
-        "क", "ख", "ग", "घ", "ङ",
-        "च", "छ", "ज", "झ", "ञ",
-        "ट", "ठ", "ड", "ढ", "ण",
-        "त", "थ", "द", "ध", "न",
-        "प", "फ", "ब", "भ", "म",
-        "य", "र", "ल", "व", "श", "ष", "स", "ह",
-        "क्ष", "त्र", "ज्ञ", "श्र",
-        "ा", "ि", "ी", "ु", "ू", "ृ", "े", "ै", "ो", "ौ", "्",
-        "ॉ", "ऑ", "ओ", "औ",
-        # Half combinations
-        "क्", "ख्", "ग्", "घ्", "च्", "छ्", "ज्", "झ्", "ट्", "ठ्", "ड्", "ढ्", "ण्",
-        "त्", "थ्", "द्", "ध्", "न्", "प्", "फ्", "ब्", "भ्", "म्",
-        "य्", "ल्", "व्", "श्", "ष्", "स्", "ह्",
-        "क्ष्", "त्र्", "ज्ञ्", "श्र्"
-    ]
-
-    array_two = [
-        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-        "¶", "क़", "ख़", "ग़", "ज़", "ड़", "ढ़", "फ़", "क़्", "ख़्", "ग़्", "ज़्",
-        "™", "ड़्", "ढ़्",
-        "¡", "₹", "A", "A", "¡", "a", "%",
-        "v", "vk", "b", "bZ", "m", "Å", "_", "e", "S", "vks", "vkS",
-        "d", "[k", "x", "?k", "³",
-        "p", "N", "t", ">", "¥",
-        "V", "B", "M", "<", ".k",
-        "r", "Fk", "o", "èk", "u",
-        "i", "Q", "c", "Hk", "e",
-        "; ", "j", "y", "o", "”k", "’k", "l", "g",
-        "{k", "=k", "K", "J",
-        "k", "f", "h", "q", "w", "`", "s", "S", "ks", "kS", "~",
-        "kW", "vkW", "vks", "vkS",
-        "D", "[", "X", "?", "P", "N", "T", ">", "V", "B", "M", "<", ".",
-        "R", "F", "n", "è", "U", "I", "Q", "C", "H", "E",
-        ";", "Y", "O", "”", "’", "L", "g",
-        "{", "=", "K", "J"
-    ]
-
-    # Handle Special cases first
-    modified_substring = unicode_string
+    array_one = ["‘",   "’",   "“",   "”",   "(",    ")",   "{",    "}",   "=", "।",  "?",  "-",  "µ", "॰", ",", ".", "् ", 
+    "०",  "१",  "२",  "३",     "४",   "५",  "६",   "७",   "८",   "९", "x", 
+    "फ़्",  "क़",  "ख़",  "ग़", "ज़्", "ज़",  "ड़",  "ढ़",   "फ़",  "य़",  "ऱ",  "ऩ",  
+    "त्त्",   "त्त",     "क्त",  "दृ",  "कृ",
+    "ह्न",  "ह्य",  "हृ",  "ह्म",  "ह्र",  "ह्",   "द्द",  "क्ष्", "क्ष", "त्र्", "त्र","ज्ञ",
+    "छ्य",  "ट्य",  "ठ्य",  "ड्य",  "ढ्य", "द्य","द्व",
+    "श्र",  "ट्र",    "ड्र",    "ढ्र",    "छ्र",   "क्र",  "फ्र",  "द्र",   "प्र",   "ग्र", "रु",  "रू",
+    "्र",
+    "ओ",  "औ",  "आ",   "अ",   "ई",   "इ",  "उ",   "ऊ",  "ऐ",  "ए", "ऋ",
+    "क्",  "क",  "क्क",  "ख्",   "ख",    "ग्",   "ग",  "घ्",  "घ",    "ङ",
+    "चै",   "च्",   "च",   "छ",  "ज्", "ज",   "झ्",  "झ",   "ञ",
+    "ट्ट",   "ट्ठ",   "ट",   "ठ",   "ड्ड",   "ड्ढ",  "ड",   "ढ",  "ण्", "ण",  
+    "त्",  "त",  "थ्", "थ",  "द्ध",  "द", "ध्", "ध",  "न्",  "न",  
+    "प्",  "प",  "फ्", "फ",  "ब्",  "ब", "भ्",  "भ",  "म्",  "म",
+    "य्",  "य",  "र",  "ल्", "ल",  "ळ",  "व्",  "व", 
+    "श्", "श",  "ष्", "ष",  "स्",   "स",   "ह",     
+    "ऑ",   "ॉ",  "ो",   "ौ",   "ा",   "ी",   "ु",   "ू",   "ृ",   "े",   "ै",
+    "ं",   "ँ",   "ः",   "ॅ",    "ऽ",  "् ", "्", "ि"]
     
-    # Simple replacement mappings
-    mapping = {
-        "‘": "\\",
-        "’": "\\",
-        "“": '"',
-        "”": '"',
-        "(": "(",
-        ")": ")",
-        "{": "{",
-        "}": "}",
-        "=": "=",
-        "+": "+",
-        "-": "-",
-        "_": "_",
-        "*": "*",
-        "&": "&",
-        "^": "^",
-        "%": "%",
-        "$": "$",
-        "#": "#",
-        "@": "@",
-        "!": "!",
-        "~": "~",
-        "`": "`",
-        "|": "|",
-        "\\": "\\",
-        "/": "/",
-        ":": ":",
-        ";": ";",
-        ",": ",",
-        ".": ".",
-        "<": "<",
-        ">": ">",
-        "?": "?",
-        "०": "0", "१": "1", "२": "2", "३": "3", "४": "4", "५": "5", "६": "6", "७": "7", "८": "8", "९": "9",
-        "फ़्": "¶", "क़": "क़", "ख़": "ख़", "ग़": "ग़", "ज़": "ज़", "ड़": "ड़", "ढ़": "ढ़", "फ़": "फ़", "क़्": "क़्", "ख़्": "ख़्", "ग़्": "ग़्", "ज़्": "ज़्",
-        "त्त्": "™", "ड़्": "ड़्", "ढ़्": "ढ़्", "ॐ": "¡", "₹": "₹", "।": "A", "॥": "A", "ँ": "¡", "ं": "a", "ः": "%",
-        "अ": "v", "आ": "vk", "इ": "b", "ई": "bZ", "उ": "m", "ऊ": "Å", "ऋ": "_", "ए": "e", "ऐ": "S", "ओ": "vks", "औ": "vkS",
-        "क": "d", "ख": "[k", "ग": "x", "घ": "?k", "ङ": "³", "च": "p", "छ": "N", "ज": "t", "झ": ">", "ञ": "¥",
-        "ट": "V", "ठ": "B", "ड": "M", "ढ": "<", "ण": ".k", "त": "r", "थ": "Fk", "द": "o", "ध": "èk", "न": "u",
-        "प": "i", "फ": "Q", "ब": "c", "भ": "Hk", "म": "e", "य": ";", "र": "j", "ल": "y", "व": "o", "श": "”k", "ष": "’k", "स": "l", "ह": "g",
-        "क्ष": "{k", "त्र": "=k", "ज्ञ": "K", "श्र": "J",
-        "ा": "k", "ि": "f", "ी": "h", "ु": "q", "ू": "w", "ृ": "`", "े": "s", "ै": "S", "ो": "ks", "ौ": "kS", "्": "~",
-        "ॉ": "kW", "ऑ": "vkW",
-        "क्": "D", "ख्": "[", "ग्": "X", "घ्": "?", "च्": "P", "छ्": "N", "ज्": "T", "झ्": ">", "ट्": "V", "ठ्": "B", "ड्": "M", "ढ्": "<", "ण्": ".",
-        "त्": "R", "थ्": "F", "द्": "n", "ध्": "è", "न्": "U", "प्": "I", "फ्": "Q", "ब्": "C", "भ्": "H", "म्": "E",
-        "य्": ";", "ल्": "Y", "व्": "O", "श्": "”", "ष्": "’", "स्": "L", "ह्": "g",
-        "क्ष्": "{", "त्र्": "=", "ज्ञ्": "K", "श्र्": "J"
-    }
+    array_two = ["^", "*",  "Þ", "ß", "¼", "½", "¿", "À", "¾", "A", "\\", "&", "&", "Œ", "]","-","~ ", 
+    "å",  "ƒ",  "„",   "…",   "†",   "‡",   "ˆ",   "‰",   "Š",   "‹","Û",
+    "¶",   "d",    "[k",  "x",  "T",  "t",   "M+", "<+", "Q",  ";",    "j",   "u",
+    "Ù",   "Ùk",   "Dr",    "–",   "—",       
+    "à",   "á",    "â",   "ã",   "ºz",  "º",   "í", "{", "{k",  "«", "=","K", 
+    "Nî",   "Vî",    "Bî",   "Mî",   "<î", "|","}",
+    "J",   "Vª",   "Mª",  "<ªª",  "Nª",   "Ø",  "Ý",   "æ", "ç", "xz", "#", ":",
+    "z",
+    "vks",  "vkS",  "vk",    "v",   "bZ",  "b",  "m",  "Å",  ",s",  ",",   "_",
+    "D",  "d",    "ô",     "[",     "[k",    "X",   "x",  "?",    "?k",   "³", 
+    "pkS",  "P",    "p",  "N",   "T",    "t",   "÷",  ">",   "¥",
+    "ê",      "ë",      "V",  "B",   "ì",       "ï",     "M",  "<",  ".", ".k",   
+    "R",  "r",   "F", "Fk",  ")",    "n", "/",  "/k",  "U", "u",   
+    "I",  "i",   "¶", "Q",   "C",  "c",  "H",  "Hk", "E",   "e",
+    "¸",   ";",    "j",  "Y",   "y",  "G",  "O",  "o",
+    "'", "'k",  "\"", "\"k", "L",   "l",   "g",      
+    "v‚",    "‚",    "ks",   "kS",   "k",     "h",    "q",   "w",   "`",    "s",    "S",
+    "a",    "¡",    "%",     "W",   "·",   "~ ", "~", "f"]
 
-    # First, handle the 'ि' (chhoti ee ki matra) which needs to move BEFORE the consonant
+    modified_substring = unicode_string
+
+    # 1. Handle 'ि' (chhoti ee) by moving it BEFORE the consonant cluster
     position_of_i = modified_substring.find("ि")
     while position_of_i != -1:
         cluster_start = position_of_i - 1
         while cluster_start >= 2 and modified_substring[cluster_start - 1] == '्':
             cluster_start -= 2
-            
+        
         charecter_next_to_i = modified_substring[cluster_start:position_of_i]
         modified_substring = modified_substring[:cluster_start] + "ि" + charecter_next_to_i + modified_substring[position_of_i + 1:]
         position_of_i = modified_substring.find("ि", position_of_i + 1)
-        
-    # Apply standard replacements (sort by length descending to match longest sequences first)
-    for k in sorted(mapping.keys(), key=len, reverse=True):
-        modified_substring = modified_substring.replace(k, mapping[k])
-        
-    # Cleanup special cases
-    modified_substring = modified_substring.replace("Z", "Z")
+
+    # 2. Specialty replacements
+    modified_substring = modified_substring.replace("क़", "क़")
+    modified_substring = modified_substring.replace("ख़‌", "ख़")
+    modified_substring = modified_substring.replace("ग़", "ग़")
+    modified_substring = modified_substring.replace("ज़", "ज़")
+    modified_substring = modified_substring.replace("ड़", "ड़")
+    modified_substring = modified_substring.replace("ढ़", "ढ़")
+    modified_substring = modified_substring.replace("ऩ", "ऩ")
+    modified_substring = modified_substring.replace("फ़", "फ़")
+    modified_substring = modified_substring.replace("य़", "य़")
+    modified_substring = modified_substring.replace("ऱ", "ऱ")
+
+    # 3. Main mapping loop
+    for i in range(len(array_one)):
+        modified_substring = modified_substring.replace(array_one[i], array_two[i])
+
+    # 4. Handle "र्" (ref) represented as "j~"
+    modified_substring = "  " + modified_substring + "  "
+    position_of_r = modified_substring.find("j~")
+    set_of_matras = ["‚", "ks", "kS", "k", "h", "q", "w", "`", "s", "S", "a", "¡", "%", "W", "·", "~ ", "~"]
+    while position_of_r != -1:
+        modified_substring = modified_substring.replace("j~", "", 1)
+        if modified_substring[position_of_r + 1] in set_of_matras:
+            modified_substring = modified_substring[:position_of_r + 2] + "Z" + modified_substring[position_of_r + 2:]
+        else:
+            modified_substring = modified_substring[:position_of_r + 1] + "Z" + modified_substring[position_of_r + 1:]
+        position_of_r = modified_substring.find("j~")
     
+    modified_substring = modified_substring.strip()
     return modified_substring
