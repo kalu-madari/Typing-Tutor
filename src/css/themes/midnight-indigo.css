@@ -1,0 +1,72 @@
+/* ==========================================================================
+   Theme: Midnight Indigo (Redesigned Premium Glass)
+   ========================================================================== */
+[data-theme="midnight-indigo"] {
+  --bg-app:        #060614;
+  --bg-surface:    rgba(16, 16, 40, 0.6);
+  --bg-elevated:   rgba(20, 20, 50, 0.7);
+  --bg-raised:     rgba(26, 26, 68, 0.8);
+  --bg-inset:      rgba(8, 8, 26, 0.9);
+  --bg-sidebar:    rgba(13, 13, 36, 0.55);
+  --bg-titlebar:   rgba(8, 8, 28, 0.5);
+  --bg-input:      rgba(15, 15, 42, 0.8);
+  
+  --brand:         #6366f1;
+  --brand-hover:   #818cf8;
+  --brand-pressed: #4f46e5;
+  --brand-soft:    rgba(99, 102, 241, 0.2);
+  --brand-glow:    rgba(99, 102, 241, 0.6);
+  
+  --border-hair:   rgba(255, 255, 255, 0.03);
+  --border-soft:   rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  --border-brand:  rgba(99, 102, 241, 0.5);
+}
+
+body[data-theme="midnight-indigo"], html[data-theme="midnight-indigo"] {
+  background: 
+    radial-gradient(circle at 15% 50%, rgba(79, 70, 229, 0.15), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.15), transparent 25%),
+    var(--bg-app);
+  background-attachment: fixed;
+}
+
+[data-theme="midnight-indigo"] #sidebar,
+[data-theme="midnight-indigo"] #titlebar,
+[data-theme="midnight-indigo"] .glass-card,
+[data-theme="midnight-indigo"] .lesson-content-panel {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+[data-theme="midnight-indigo"] .glass-card {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+[data-theme="midnight-indigo"] .glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="midnight-indigo"] .btn-primary {
+  background: linear-gradient(135deg, #4f46e5, #ec4899);
+  border: none;
+  box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+  transition: all 0.3s ease;
+}
+
+[data-theme="midnight-indigo"] .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(236, 72, 153, 0.6);
+}
+
+[data-theme="midnight-indigo"] .nav-item {
+  transition: all 0.3s ease;
+}
+
+[data-theme="midnight-indigo"] .nav-item:hover {
+  transform: translateX(5px);
+  background: linear-gradient(90deg, var(--bg-hover), transparent);
+}

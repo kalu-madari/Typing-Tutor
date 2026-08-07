@@ -1,0 +1,79 @@
+/* ==========================================================================
+   Theme: Nord (Redesigned Premium Glass)
+   ========================================================================== */
+[data-theme="nord"] {
+  --bg-app:        #2e3440;
+  --bg-surface:    rgba(59, 66, 82, 0.7);
+  --bg-elevated:   rgba(67, 76, 94, 0.8);
+  --bg-raised:     rgba(76, 86, 106, 0.9);
+  --bg-inset:      rgba(36, 41, 51, 0.9);
+  --bg-sidebar:    rgba(41, 46, 57, 0.6);
+  --bg-titlebar:   rgba(36, 41, 51, 0.5);
+  --bg-input:      rgba(59, 66, 82, 0.8);
+
+  --text-primary:   #eceff4;
+  --text-secondary: #e5e9f0;
+  --text-muted:     #d8dee9;
+  --text-faint:     #4c566a;
+
+  --brand:         #88c0d0;
+  --brand-hover:   #8fbcbb;
+  --brand-pressed: #5e81ac;
+  --brand-soft:    rgba(136, 192, 208, 0.15);
+  --brand-glow:    rgba(136, 192, 208, 0.4);
+
+  --border-hair:   rgba(236, 239, 244, 0.05);
+  --border-soft:   rgba(236, 239, 244, 0.1);
+  --border-strong: rgba(236, 239, 244, 0.2);
+  --border-brand:  rgba(136, 192, 208, 0.5);
+
+  --success: #a3be8c;
+  --warning: #ebcb8b;
+  --danger:  #bf616a;
+  --info:    #81a1c1;
+}
+
+body[data-theme="nord"], html[data-theme="nord"] {
+  background: linear-gradient(135deg, #2e3440 0%, #3b4252 100%);
+  background-attachment: fixed;
+}
+
+[data-theme="nord"] #sidebar,
+[data-theme="nord"] #titlebar,
+[data-theme="nord"] .glass-card,
+[data-theme="nord"] .lesson-content-panel {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-soft);
+}
+
+[data-theme="nord"] .glass-card {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+[data-theme="nord"] .glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="nord"] .btn-primary {
+  background: linear-gradient(135deg, #88c0d0, #8fbcbb);
+  color: #2e3440;
+  border: none;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(136, 192, 208, 0.3);
+  transition: all 0.3s ease;
+}
+
+[data-theme="nord"] .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(136, 192, 208, 0.5);
+}
+
+[data-theme="nord"] .nav-item {
+  transition: all 0.2s ease-in-out;
+}
+[data-theme="nord"] .nav-item:hover {
+  transform: scale(1.02);
+  background: var(--bg-hover);
+  border-left: 3px solid var(--brand);
+}

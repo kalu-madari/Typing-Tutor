@@ -1,0 +1,187 @@
+/* ==========================================================================
+   Theme: Light  (data-theme="vscode-light")  — Reversed copy of Dark Theme
+   ========================================================================== */
+[data-theme="vscode-light"] {
+  --bg-app:        #f5f5f5;
+  --bg-surface:    #ffffff;
+  --bg-elevated:   #ffffff;
+  --bg-raised:     #f0f0f0;
+  --bg-inset:      #ebebeb;
+  --bg-sidebar:    #f3f3f3;
+  --bg-titlebar:   #dddddd;
+  --bg-input:      #ffffff;
+  --bg-hover:      rgba(14, 99, 156, 0.1);
+  --bg-active:     rgba(14, 99, 156, 0.2);
+
+  --text-primary:   #333333;
+  --text-secondary: #555555;
+  --text-muted:     #777777;
+  --text-faint:     #999999;
+
+  --brand:         #007acc;
+  --brand-hover:   #005a9e;
+  --brand-pressed: #004578;
+  --brand-soft:    rgba(0, 122, 204, 0.15);
+  --brand-glow:    rgba(0, 122, 204, 0.3);
+  --brand-ring:    rgba(0, 122, 204, 0.5);
+
+  --border-hair:   #cccccc;
+  --border-soft:   #dddddd;
+  --border-strong: #999999;
+  --border-brand:  #007acc;
+}
+
+[data-theme="vscode-light"] body,
+[data-theme="vscode-light"] html {
+  background: var(--bg-app);
+  color: var(--text-primary);
+}
+
+[data-theme="vscode-light"] #sidebar,
+[data-theme="vscode-light"] #titlebar,
+[data-theme="vscode-light"] .glass-card,
+[data-theme="vscode-light"] .lesson-content-panel {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+[data-theme="vscode-light"] .glass-card {
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-soft) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: none;
+}
+[data-theme="vscode-light"] .glass-card:hover { 
+  transform: none; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10); 
+}
+
+[data-theme="vscode-light"] .nav-item {
+  transition: none;
+}
+[data-theme="vscode-light"] .nav-item:hover {
+  transform: none;
+}
+
+[data-theme="vscode-light"] .nav-item.active::before { background: #007acc; }
+
+/* VS Code Light: reversed accents and action buttons */
+[data-theme="vscode-light"] .btn-run {
+  background: linear-gradient(180deg, #f8f8f8, #e5e5e5);
+  border: 1px solid #cccccc;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+  color: #333333;
+}
+[data-theme="vscode-light"] .btn-run:hover {
+  background: linear-gradient(180deg, #ffffff, #f0f0f0);
+  filter: none;
+}
+[data-theme="vscode-light"] .btn-primary {
+  background: linear-gradient(180deg, #007acc, #005a9e);
+  border-color: #005a9e;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+  color: #ffffff;
+  transition: none;
+}
+[data-theme="vscode-light"] .btn-primary:hover {
+  background: linear-gradient(180deg, #1a8ad4, #007acc);
+  transform: none;
+  box-shadow: none;
+}
+[data-theme="vscode-light"] .continue-card {
+  background:
+    radial-gradient(600px 200px at 100% 0%, rgba(0,122,204,0.15), transparent 70%),
+    linear-gradient(135deg, var(--bg-elevated), var(--bg-raised));
+  border-color: #007acc;
+}
+[data-theme="vscode-light"] .continue-card::before {
+  background: linear-gradient(90deg, transparent, rgba(0,122,204,0.4), transparent);
+}
+[data-theme="vscode-light"] .continue-chapter,
+[data-theme="vscode-light"] .practice-card-chapter { color: #0e639c; }
+[data-theme="vscode-light"] .nav-item.active svg { color: #0e639c; }
+[data-theme="vscode-light"] .profile-level { color: #0e639c; }
+
+/* --- lesson header / editor chrome / code inlines --- */
+[data-theme="vscode-light"] .lesson-content-panel {
+  background: var(--bg-app);
+  border: none;
+  box-shadow: none;
+}
+[data-theme="vscode-light"] .lesson-nav-bar {
+  background: #f3f3f3;
+  border-bottom: 1px solid #e5e5e5;
+  backdrop-filter: none;
+}
+[data-theme="vscode-light"] .lesson-title {
+  background: none;
+  -webkit-text-fill-color: #2b2b2b;
+  color: #2b2b2b;
+}
+[data-theme="vscode-light"] .lesson-body { color: #333333; }
+[data-theme="vscode-light"] .lesson-body p,
+[data-theme="vscode-light"] .lesson-body li { color: #555555; }
+[data-theme="vscode-light"] .lesson-body strong { color: #111111; }
+[data-theme="vscode-light"] .lesson-body code {
+  background: #f0f0f0;
+  color: #a31515;
+  border: 1px solid #cccccc;
+}
+[data-theme="vscode-light"] .lesson-body pre {
+  background: #f5f5f5;
+  border: 1px solid #cccccc;
+}
+[data-theme="vscode-light"] .lesson-body pre code {
+  color: #000000;
+  background: transparent;
+  border: none;
+}
+
+[data-theme="vscode-light"] .editor-toolbar {
+  background: #f3f3f3;
+  border-bottom: 1px solid #e5e5e5;
+}
+[data-theme="vscode-light"] .editor-file-tab {
+  background: #ececec;
+  border-color: #cccccc;
+  color: #555555;
+}
+[data-theme="vscode-light"] .editor-file-tab.active {
+  background: #ffffff;
+  border-color: #007acc;
+  box-shadow: inset 0 -2px 0 #007acc;
+  color: #111111;
+}
+[data-theme="vscode-light"] #monaco-container { background: #ffffff; }
+[data-theme="vscode-light"] .editor-panel { background: #ffffff; }
+
+[data-theme="vscode-light"] .output-toolbar {
+  background: #f3f3f3;
+  border-bottom: 1px solid #e5e5e5;
+}
+[data-theme="vscode-light"] .output-tab { color: #555555; }
+[data-theme="vscode-light"] .output-tab:hover { background: rgba(0,0,0,0.05); color: #111111; }
+[data-theme="vscode-light"] .output-tab.active {
+  background: #ffffff;
+  color: #111111;
+  box-shadow: inset 0 -2px 0 #007acc;
+  border-radius: 0;
+}
+
+/* --- output tab active state --- */
+[data-theme="vscode-light"] .output-tab.active {
+  background: rgba(0,122,204,0.1);
+  color: #0e639c;
+  box-shadow: inset 0 0 0 1px rgba(0,122,204,0.35);
+  border-radius: var(--r-full) !important;
+}
+
+/* Terminal and verification backgrounds */
+[data-theme="vscode-light"] .terminal-panel, 
+[data-theme="vscode-light"] .terminal-transcript,
+[data-theme="vscode-light"] .output-content, 
+[data-theme="vscode-light"] .verification-content {
+  background: #ffffff !important; 
+  color: #1e1e1e !important;
+  backdrop-filter: none;
+}
