@@ -356,7 +356,7 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
   const strokeDashoffset = isFinished ? 283 - (283 * acc) / 100 : 283;
 
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px', position: 'relative' }}>
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'center', marginTop: '20px', position: 'relative', gap: '40px', width: '100%', maxWidth: '1000px', margin: '20px auto 0' }}>
       {isFinished && (
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
           <div className="glass-card" style={{ padding: '40px', borderRadius: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '400px', textAlign: 'center', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }}>
@@ -390,22 +390,25 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
         </div>
       )}
 
-      <div className="stats-grid" style={{ width: '100%', maxWidth: '712px', marginBottom: '40px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
-        <div className="stat-card glass-card">
+      <div className="stats-grid" style={{ width: '150px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div className="stat-card glass-card" style={{ padding: '20px' }}>
           <div className="stat-card-label" style={{ marginBottom: '8px' }}>WPM</div>
           <div className="stat-card-value" style={{ color: 'var(--accent-blue)' }}>{stats.wpm}</div>
         </div>
-        <div className="stat-card glass-card">
+        <div className="stat-card glass-card" style={{ padding: '20px' }}>
           <div className="stat-card-label" style={{ marginBottom: '8px' }}>Accuracy</div>
           <div className="stat-card-value" style={{ color: 'var(--accent-blue)' }}>{stats.accuracy}%</div>
         </div>
-        <div className="stat-card glass-card">
+        <div className="stat-card glass-card" style={{ padding: '20px' }}>
           <div className="stat-card-label" style={{ marginBottom: '8px' }}>Time</div>
           <div className="stat-card-value" style={{ color: 'var(--accent-blue)' }}>{stats.timeInSeconds}s</div>
         </div>
       </div>
-      <TypingArea engineState={engineState} />
-      <VirtualKeyboard layout={krutidev010Layout} engineState={engineState} />
+
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, maxWidth: '712px', gap: '20px' }}>
+        <TypingArea engineState={engineState} />
+        <VirtualKeyboard layout={krutidev010Layout} engineState={engineState} />
+      </div>
     </div>
   );
 };

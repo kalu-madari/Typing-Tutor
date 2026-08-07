@@ -88,7 +88,7 @@ def unicode_to_krutidev(unicode_string):
         "अ": "v", "आ": "vk", "इ": "b", "ई": "bZ", "उ": "m", "ऊ": "Å", "ऋ": "_", "ए": "e", "ऐ": "S", "ओ": "vks", "औ": "vkS",
         "क": "d", "ख": "[k", "ग": "x", "घ": "?k", "ङ": "³", "च": "p", "छ": "N", "ज": "t", "झ": ">", "ञ": "¥",
         "ट": "V", "ठ": "B", "ड": "M", "ढ": "<", "ण": ".k", "त": "r", "थ": "Fk", "द": "o", "ध": "èk", "न": "u",
-        "प": "i", "फ": "Q", "ब": "c", "भ": "Hk", "म": "e", "य": "; ", "र": "j", "ल": "y", "व": "o", "श": "”k", "ष": "’k", "स": "l", "ह": "g",
+        "प": "i", "फ": "Q", "ब": "c", "भ": "Hk", "म": "e", "य": ";", "र": "j", "ल": "y", "व": "o", "श": "”k", "ष": "’k", "स": "l", "ह": "g",
         "क्ष": "{k", "त्र": "=k", "ज्ञ": "K", "श्र": "J",
         "ा": "k", "ि": "f", "ी": "h", "ु": "q", "ू": "w", "ृ": "`", "े": "s", "ै": "S", "ो": "ks", "ौ": "kS", "्": "~",
         "ॉ": "kW", "ऑ": "vkW",
@@ -101,8 +101,12 @@ def unicode_to_krutidev(unicode_string):
     # First, handle the 'ि' (chhoti ee ki matra) which needs to move BEFORE the consonant
     position_of_i = modified_substring.find("ि")
     while position_of_i != -1:
-        charecter_next_to_i = modified_substring[position_of_i - 1]
-        modified_substring = modified_substring[:position_of_i - 1] + "ि" + charecter_next_to_i + modified_substring[position_of_i + 1:]
+        cluster_start = position_of_i - 1
+        while cluster_start >= 2 and modified_substring[cluster_start - 1] == '्':
+            cluster_start -= 2
+            
+        charecter_next_to_i = modified_substring[cluster_start:position_of_i]
+        modified_substring = modified_substring[:cluster_start] + "ि" + charecter_next_to_i + modified_substring[position_of_i + 1:]
         position_of_i = modified_substring.find("ि", position_of_i + 1)
         
     # Apply standard replacements (sort by length descending to match longest sequences first)
