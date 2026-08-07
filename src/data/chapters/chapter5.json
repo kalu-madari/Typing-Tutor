@@ -1,7 +1,7 @@
 {
   "chapterId": 5,
   "chapterTitle": "Basic Level 1",
-  "totalLessons": 5,
+  "totalLessons": 1,
   "goalWpm": 21,
   "minimumAccuracy": 95,
   "lessons": [
@@ -15,59 +15,7 @@
       "estimatedTimeMinutes": 2,
       "minAccuracy": 95,
       "targetWpm": 21,
-      "text": "vc rd vkius dhcksj~M dh lHkh ewy dqaft; k¡ lh[k yh gSaA\n\nvc dsoy maxfy; ksa ls ugha, cfYd lHkh olksa maxfy; ksa dk lgh mi; ksx djuk ”kqjw djsaA\n\ngj dqath ds fye fuj~èkkfjr maxyh dk gh Ij; ksx djsaA\n\n”kqjqvkr esa xfr de gks ldrh gS, ysfdu lgh rduhd viukus ls vkidh Vkbfiax rst vkSj vfèkd lVhd gksxhA\n\nvkt dk y{;  dsoy lgh maxyh dk mi; ksx djuk gS, xfr dh fpark u djsaA",
-      "type": "practice"
-    },
-    {
-      "id": "chap5-les2",
-      "chapterId": 5,
-      "lessonNumber": 2,
-      "title": "Increase Speed",
-      "description": "Practice lesson for Increase Speed",
-      "difficulty": 2,
-      "estimatedTimeMinutes": 2,
-      "minAccuracy": 95,
-      "targetWpm": 21,
-      "text": "vc vkidh maxfy; k¡ lgh LFkku igpkuus yxh gSaA\n\nèkhjs-èkhjs viuh Vkbfiax dh xfr c<़kus dk Ij; kl djsaA\n\ngj ”kCo dks fcuk jqds yxkrkj Vkbi djsaA\n\nxyfr; k¡ de j[kuk rst Vkbi djus ls vfèkd egRoiwj~.k gSA\n\nfu; fer vH; kl ds lkFk vkidh xfr vius vki c<़ tkexhA",
-      "type": "practice"
-    },
-    {
-      "id": "chap5-les3",
-      "chapterId": 5,
-      "lessonNumber": 3,
-      "title": "Practice",
-      "description": "Practice lesson for Practice",
-      "difficulty": 2,
-      "estimatedTimeMinutes": 2,
-      "minAccuracy": 95,
-      "targetWpm": 21,
-      "text": "vH; kl gh vPNh Vkbfiax dh lcls cM़h dqath gSA\n\ngj ckj vH; kl djus ij vkidh maxfy; k¡ dhcksj~M dks vkSj csgrj igpkuus yxrh gSaA\n\nckj-ckj oksgjkus ls ely eseksjh fodflr gksrh gSA\n\n; fo dksbZ ikB dfBu yxs rks mls dbZ ckj oksgjke¡A\n\ngj vH; kl vkidks igys ls csgrj VkbfiLV cukrk gSA",
-      "type": "practice"
-    },
-    {
-      "id": "chap5-les4",
-      "chapterId": 5,
-      "lessonNumber": 4,
-      "title": "Don't Look Down",
-      "description": "Practice lesson for Don't Look Down",
-      "difficulty": 2,
-      "estimatedTimeMinutes": 2,
-      "minAccuracy": 95,
-      "targetWpm": 21,
-      "text": "Vkbi djrs le;  ckj-ckj dhcksj~M dh vksj os[kus dh vkor NksM़saA\n\nviuh ut़j ges”kk LDjhu ij j[ksaA\n\n”kqjqvkr esa dfBu yxsxk, ysfdu ; gh vkor vkidh xfr vkSj lVhdrk oksuksa c<़kexhA\n\nviuh maxfy; ksa ij Hkjkslk j[ksaA\n\ngj fou FkksM़k vH; kl djus ls fcuk os[ks Vkbi djuk vklku gks tkexkA",
-      "type": "practice"
-    },
-    {
-      "id": "chap5-les5",
-      "chapterId": 5,
-      "lessonNumber": 5,
-      "title": "Staring at Screen",
-      "description": "Practice lesson for Staring at Screen",
-      "difficulty": 2,
-      "estimatedTimeMinutes": 2,
-      "minAccuracy": 95,
-      "targetWpm": 21,
-      "text": "Vkbi djrs le;  viuk iwjk è; ku LDjhu ij j[ksaA\n\ngj v{kj dks è; ku ls i<़sa vkSj mlh Dje esa Vkbi djsaA\n\n; fo vkidh ut़j LDjhu ij jgsxh rks xyfr; k¡ tYoh fo[kkbZ osaxh vkSj mUgsa rqjar lqèkkj ldsaxsA\n\ndhcksj~M dh ctk;  LDjhu dks os[kus dh vkor ed dq”ky VkbfiLV dh igpku gSA\n\n”kkar jgsa, è; ku cuke j[ksa vkSj yxkrkj Vkbi djsaA",
+      "text": "vc rd vkius dhcksj~M dh lHkh ewy dqaft; k¡ lh[k yh gSaA\n\nvc dsoy maxfy; ksa ls ugha, cYfd lHkh olksa maxfy; ksa dk lgh mi; ksx djuk ”kqjw djsaA\n\ngj dqath ds fye fuj~èkkfjr maxyh dk gh Ij; ksx djsaA\n\n”kqjqvkr esa xfr de gks ldrh gS, ysfdu lgh rduhd viukus ls vkidh Vkbfiax rst vkSj vfèkd lVhd gksxhA\n\nvkt dk y{;  dsoy lgh maxyh dk mi; ksx djuk gS, xfr dh fpark u djsaA",
       "type": "practice"
     }
   ]

@@ -206,7 +206,7 @@ const DashboardView = ({ setCurrentView, onStart, currentLesson, completedLesson
 };
 
 const LessonsView = ({ lessons, onStart, completedLessons }) => {
-  const [expandedChapter, setExpandedChapter] = useState(1);
+  const [expandedChapter, setExpandedChapter] = useState(null);
   
   const chapters = getChapters();
   
@@ -330,7 +330,10 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
   const { engineState, stats } = useTypingEngine(lesson.text, krutidev010Layout);
 
   React.useEffect(() => {
-    window.scrollTo(0, 0);
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+    }, 10);
   }, []);
 
   React.useEffect(() => {
