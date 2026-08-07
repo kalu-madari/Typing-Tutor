@@ -131,7 +131,8 @@ const DashboardView = ({ setCurrentView, onStart, currentLesson, completedLesson
   const chapters = [
     { id: 1, title: 'Home Row', description: 'Build muscle memory for the KrutiDev keyboard layout.', lessons: allLessons.filter(l => l.chapterId === 1) },
     { id: 2, title: 'The Top Row', description: 'Learn to use your fingers on the top row (qwert yuiop).', lessons: allLessons.filter(l => l.chapterId === 2) },
-    { id: 3, title: 'The Bottom Row', description: 'Learn to stretch down to the bottom row (zxcvb nm,./).', lessons: allLessons.filter(l => l.chapterId === 3) }
+    { id: 3, title: 'The Bottom Row', description: 'Learn to stretch down to the bottom row (zxcvb nm,./).', lessons: allLessons.filter(l => l.chapterId === 3) },
+    { id: 4, title: 'Shift Key Basics', description: 'Master the Shift key to type half-letters and special matras.', lessons: allLessons.filter(l => l.chapterId === 4) }
   ];
   
   const totalLessons = allLessons.length;
@@ -215,7 +216,8 @@ const LessonsView = ({ lessons, onStart, completedLessons }) => {
   const chapters = [
     { id: 1, title: 'Home Row', description: 'Build muscle memory for the KrutiDev keyboard layout.', lessons: lessons.filter(l => l.chapterId === 1) },
     { id: 2, title: 'The Top Row', description: 'Learn to use your fingers on the top row (qwert yuiop).', lessons: lessons.filter(l => l.chapterId === 2) },
-    { id: 3, title: 'The Bottom Row', description: 'Learn to stretch down to the bottom row (zxcvb nm,./).', lessons: lessons.filter(l => l.chapterId === 3) }
+    { id: 3, title: 'The Bottom Row', description: 'Learn to stretch down to the bottom row (zxcvb nm,./).', lessons: lessons.filter(l => l.chapterId === 3) },
+    { id: 4, title: 'Shift Key Basics', description: 'Master the Shift key to type half-letters and special matras.', lessons: lessons.filter(l => l.chapterId === 4) }
   ];
   
   return (
