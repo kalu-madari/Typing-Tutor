@@ -38,6 +38,7 @@ function App() {
 
   return (
     <div id="app-container">
+      {window.location.search.includes('debug=true') && <KeyLogger />}
       {currentView !== 'session' && (
         <Sidebar currentView={currentView} setCurrentView={setCurrentView} />
       )}
@@ -425,6 +426,41 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
       </div>
 
       <div></div>
+    </div>
+  );
+};
+
+const KeyLogger = () => {
+  const [logs, setLogs] = useState([]);
+
+  React.useEffect(() => {
+    const handleKey = (type, e) => {
+      // Only log if Alt is held, OR if it's the Alt key itself, OR if it's a keypress
+      if (e.altKey || e.key === 'Alt' || type === 'keypress' || type === 'textInput') {
+        const logStr = `${type}: key='${e.key}', code='${e.code}', loc=${e.location}, alt=${e.altKey}`;
+        setLogs(prev => [...prev.slice(-14), logStr]);
+      }
+    };
+
+    const down = (e) => handleKey('down', e);
+    const up = (e) => handleKey('up', e);
+    const press = (e) => handleKey('press', e);
+
+    window.addEventListener('keydown', down);
+    window.addEventListener('keyup', up);
+    window.addEventListener('keypress', press);
+    return () => {
+      window.removeEventListener('keydown', down);
+      window.removeEventListener('keyup', up);
+      window.removeEventListener('keypress', press);
+    };
+  }, []);
+
+  return (
+    <div style={{ position: 'fixed', bottom: 10, left: 10, background: 'rgba(0,0,0,0.9)', color: '#0f0', padding: 10, zIndex: 9999, fontFamily: 'monospace', fontSize: 12, borderRadius: 5, pointerEvents: 'none' }}>
+      <strong>Hardware Key Logger (Alt codes)</strong>
+      {logs.map((l, i) => <div key={i}>{l}</div>)}
+      {logs.length === 0 && <div>Press Alt + numbers...</div>}
     </div>
   );
 };
