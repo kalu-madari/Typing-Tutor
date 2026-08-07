@@ -5,10 +5,21 @@ import { useAppStore } from '../store/useAppStore';
 const TypingArea = ({ engineState }) => {
   const { fontSize } = useAppStore();
   const activeCharRef = useRef(null);
+  const containerRef = useRef(null);
 
   useEffect(() => {
-    if (activeCharRef.current) {
-      activeCharRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (activeCharRef.current && containerRef.current) {
+      const container = containerRef.current;
+      const activeChar = activeCharRef.current;
+      
+      const containerHalfHeight = container.clientHeight / 2;
+      const charTop = activeChar.offsetTop;
+      const charHalfHeight = activeChar.clientHeight / 2;
+      
+      container.scrollTo({
+        top: charTop - containerHalfHeight + charHalfHeight,
+        behavior: 'smooth'
+      });
     }
   }, [engineState?.currentIndex]);
 
@@ -60,7 +71,7 @@ const TypingArea = ({ engineState }) => {
       ...styles.container,
       fontSize: fontSize === 'large' ? '32px' : fontSize === 'small' ? '20px' : '26px'
     }}>
-      <div className="no-scrollbar" style={styles.textContainer}>
+      <div ref={containerRef} className="no-scrollbar" style={styles.textContainer}>
         {renderText()}
       </div>
       {status === 'finished' && (
