@@ -54,7 +54,7 @@ export const useTypingEngine = (text, layout) => {
       // Handle Alt codes for special characters (like Chandrabindu Alt+0161)
       if (e.altKey) {
         let digit = "";
-        if (e.code && e.code.startsWith('Numpad') && e.code.length === 8) {
+        if (e.code && e.code.startsWith('Numpad') && e.code.length === 7) {
           digit = e.code.charAt(6); // Extract '0' from 'Numpad0'
         } else if (/^[0-9]$/.test(e.key)) {
           digit = e.key;
