@@ -55,12 +55,17 @@ export const useTypingEngine = (text, layout) => {
       if (e.altKey) {
         // Only track physical Numpad keys (authentic MS Word behavior)
         if (e.location === 3 || (e.code && e.code.startsWith('Numpad') && e.code.length === 7)) {
-          const digit = e.code.charAt(6); // Extract '0' from 'Numpad0'
+          let digit = "";
+          if (e.code && e.code.startsWith('Numpad') && e.code.length === 7) {
+            digit = e.code.charAt(6); // Extract '0' from 'Numpad0'
+          } else if (/^[0-9]$/.test(e.key)) {
+            digit = e.key;
+          }
+
           if (/^[0-9]$/.test(digit)) {
             altCodeStr += digit;
             setAltCodeState(altCodeStr);
-            // We intentionally DO NOT e.preventDefault() here.
-            // We want Windows to natively synthesize and send the resulting character when Alt is released.
+            e.preventDefault(); // Prevent browser interference; we will manually inject on keyUp
           }
         }
         return;
@@ -72,11 +77,15 @@ export const useTypingEngine = (text, layout) => {
 
     const handleKeyUp = (e) => {
       if (e.key === 'Alt') {
-        // Clear the visual tracking state
+        if (altCodeStr.length > 0 && engineRef.current) {
+          const charCode = parseInt(altCodeStr, 10);
+          if (!isNaN(charCode)) {
+            const char = String.fromCharCode(charCode);
+            engineRef.current.handleKeyPress(char);
+          }
+        }
         altCodeStr = "";
         setAltCodeState(altCodeStr);
-        // We do NOT manually inject the character here.
-        // Windows natively fires a keydown/keypress event with the synthesized character immediately after Alt is released.
       }
     };
 
