@@ -55,42 +55,51 @@ export const useTypingEngine = (text, layout) => {
       if (e.altKey) {
         let digit = "";
         if (e.code && e.code.startsWith('Numpad') && e.code.length === 7) {
-          digit = e.code.charAt(6); // Extract '0' from 'Numpad0' (works even if NumLock is off)
+          digit = e.code.charAt(6); 
         } else if (/^[0-9]$/.test(e.key)) {
-          digit = e.key; // Fallback for numpads that emulate top-row keys
+          digit = e.key; 
         }
 
         if (/^[0-9]$/.test(digit)) {
           altCodeStr += digit;
           setAltCodeState(altCodeStr);
-          e.preventDefault(); // Prevent browser interference; we will manually inject on keyUp
+          // Do NOT preventDefault! We want the OS to natively inject the resulting character via keypress.
         }
         return;
       }
 
-      if (e.key === ' ' || e.key === 'Enter') e.preventDefault();
+      if (e.key.length === 1) {
+        e.preventDefault(); // Prevent normal keys from firing keypress and double-typing
+      } else if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+      }
       engineRef.current.handleKeyPress(e.key);
     };
 
     const handleKeyUp = (e) => {
       if (e.key === 'Alt') {
-        if (altCodeStr.length > 0 && engineRef.current) {
-          const charCode = parseInt(altCodeStr, 10);
-          if (!isNaN(charCode)) {
-            const char = String.fromCharCode(charCode);
-            engineRef.current.handleKeyPress(char);
-          }
-        }
         altCodeStr = "";
         setAltCodeState(altCodeStr);
       }
     };
 
+    const handleKeyPress = (e) => {
+      if (!engineRef.current) return;
+      // This captures native OS-injected Alt code characters (like ¡) 
+      // because they often don't trigger keydown, but do trigger keypress.
+      // Normal keys won't reach here because we called e.preventDefault() in keydown.
+      if (e.key && e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
+        engineRef.current.handleKeyPress(e.key);
+      }
+    };
+
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
+    window.addEventListener('keypress', handleKeyPress);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
+      window.removeEventListener('keypress', handleKeyPress);
     };
   }, []);
 
