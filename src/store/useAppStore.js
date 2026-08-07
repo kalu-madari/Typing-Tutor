@@ -2,8 +2,9 @@ import { create } from 'zustand';
 
 export const useAppStore = create((set) => ({
   // Settings
-  theme: 'dark',
+  theme: 'vscode-dark',
   fontSize: 'medium',
+  textAlign: 'left',
   soundEffects: true,
   errorSounds: true,
   showVirtualKeyboard: true,

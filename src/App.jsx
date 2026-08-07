@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTypingEngine } from './hooks/useTypingEngine';
 import { krutidev010Layout } from './core/layouts/krutidev010';
 import { getAllLessons, getLessonById, getNextLesson, getChapters } from './core/lessonEngine';
@@ -8,11 +8,16 @@ import { useAppStore } from './store/useAppStore';
 
 function App() {
   const allLessons = getAllLessons();
+  const store = useAppStore();
   const [currentView, setCurrentView] = useState('dashboard');
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
   const currentLesson = allLessons[currentLessonIndex];
   const [engineKey, setEngineKey] = useState(0);
   const [completedLessons, setCompletedLessons] = useState(new Set());
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', store.theme);
+  }, [store.theme]);
 
   const startLesson = (lesson) => {
     setCurrentLessonIndex(allLessons.findIndex(l => l.id === lesson.id));
@@ -428,7 +433,47 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
 
       {/* Settings Column - Right Side */}
       <div className="settings-column" style={{ width: '150px', display: 'flex', flexDirection: 'column', gap: '16px', flexShrink: 0 }}>
-        <h4 style={{ margin: '0 0 5px 0', color: 'var(--text-primary)', fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px' }}>Toggles</h4>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Theme:</span>
+          <select 
+            value={storeState.theme} 
+            onChange={(e) => storeState.updateSetting('theme', e.target.value)}
+            style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '4px', outline: 'none', cursor: 'pointer', fontSize: '12px' }}
+          >
+            <option value="vscode-dark">VS Code Dark</option>
+            <option value="light">Light</option>
+            <option value="midnight-indigo">Midnight Indigo</option>
+            <option value="nord">Nord</option>
+            <option value="solarized-dark">Solarized Dark</option>
+            <option value="vscode-light">VS Code Light</option>
+          </select>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Font Size:</span>
+          <select 
+            value={storeState.fontSize} 
+            onChange={(e) => storeState.updateSetting('fontSize', e.target.value)}
+            style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '4px', outline: 'none', cursor: 'pointer', fontSize: '12px' }}
+          >
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+          </select>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Text Align:</span>
+          <select 
+            value={storeState.textAlign} 
+            onChange={(e) => storeState.updateSetting('textAlign', e.target.value)}
+            style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '4px', outline: 'none', cursor: 'pointer', fontSize: '12px' }}
+          >
+            <option value="left">Left</option>
+            <option value="center">Center</option>
+            <option value="right">Right</option>
+          </select>
+        </div>
         
         <Switch 
           checked={storeState.allowBackspace} 
@@ -525,7 +570,7 @@ const Switch = ({ checked, onChange, label }) => {
         position: 'relative',
         width: '36px',
         height: '20px',
-        backgroundColor: checked ? '#10b981' : '#ef4444',
+        backgroundColor: checked ? '#10b981' : '#9ca3af',
         borderRadius: '10px',
         transition: 'background-color 0.2s',
         display: 'flex',

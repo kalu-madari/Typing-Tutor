@@ -4,7 +4,7 @@ import { useAppStore } from '../store/useAppStore';
 
 const TypingArea = ({ engineState }) => {
   const store = useAppStore();
-  const { fontSize, showVirtualKeyboard } = store;
+  const { fontSize, showVirtualKeyboard, textAlign } = store;
   const activeCharRef = useRef(null);
   const containerRef = useRef(null);
 
@@ -103,7 +103,8 @@ const TypingArea = ({ engineState }) => {
         className="no-scrollbar" 
         style={{
           ...styles.textContainer,
-          maxHeight: showVirtualKeyboard ? '160px' : '320px'
+          maxHeight: showVirtualKeyboard ? '160px' : '320px',
+          textAlign: textAlign || 'center'
         }}
       >
         {renderText()}
