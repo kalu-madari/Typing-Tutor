@@ -10,6 +10,7 @@ function App() {
   const [currentView, setCurrentView] = useState('dashboard');
   const [currentLesson, setCurrentLesson] = useState(allLessons[0]);
   const [engineKey, setEngineKey] = useState(0);
+  const [completedLessons, setCompletedLessons] = useState(new Set());
 
   const startLesson = (lesson) => {
     setCurrentLesson(lesson);
@@ -17,23 +18,58 @@ function App() {
     setCurrentView('session');
   };
 
+  const currentLessonIndex = allLessons.findIndex(l => l.id === currentLesson?.id);
+  const hasPrev = currentLessonIndex > 0;
+  const hasNext = currentLessonIndex < allLessons.length - 1;
+
+  const goPrev = () => hasPrev && startLesson(allLessons[currentLessonIndex - 1]);
+  const goNext = () => hasNext && startLesson(allLessons[currentLessonIndex + 1]);
+  const doRestart = () => setEngineKey(prev => prev + 1);
+
+  const handleLessonComplete = (id) => {
+    setCompletedLessons(prev => new Set(prev).add(id));
+  };
+
   return (
     <div id="app-container">
-      <Sidebar currentView={currentView} setCurrentView={setCurrentView} />
+      {currentView !== 'session' && (
+        <Sidebar currentView={currentView} setCurrentView={setCurrentView} />
+      )}
 
       <main id="main-content">
-        {currentView === 'dashboard' && <DashboardView setCurrentView={setCurrentView} />}
-        {currentView === 'lessons' && <LessonsView lessons={allLessons} onStart={startLesson} />}
+        {currentView === 'dashboard' && <DashboardView setCurrentView={setCurrentView} onStart={startLesson} currentLesson={currentLesson} completedLessons={completedLessons} allLessons={allLessons} />}
+        {currentView === 'lessons' && <LessonsView lessons={allLessons} onStart={startLesson} completedLessons={completedLessons} />}
         {currentView === 'session' && (
           <section id="view-lesson-detail" className="view active" style={{ display: 'flex', flexDirection: 'column' }}>
-            <div className="view-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div>
-                <h1 style={{ margin: 0, fontSize: '28px' }}>{currentLesson.title}</h1>
-                <p className="view-subtitle">{currentLesson.description}</p>
+            <div className="view-header" style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', padding: '0 20px' }}>
+              <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-start' }}>
+                <button className="btn btn-secondary" onClick={() => setCurrentView('lessons')}>← Library</button>
               </div>
-              <button className="btn btn-secondary" onClick={() => setCurrentView('lessons')}>← Back to Library</button>
+              <div style={{ textAlign: 'center' }}>
+                <h1 style={{ margin: 0, fontSize: '28px' }}>{currentLesson.title}</h1>
+                <p className="view-subtitle" style={{ margin: '4px 0 0', padding: 0 }}>{currentLesson.description}</p>
+              </div>
+              <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+                <button className="btn btn-secondary" onClick={() => setEngineKey(prev => prev + 1)}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '6px' }}><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                  Restart
+                </button>
+              </div>
             </div>
-            <TypingSession key={engineKey} lesson={currentLesson} />
+            <TypingSession 
+              key={engineKey} 
+              lesson={currentLesson} 
+              onComplete={handleLessonComplete}
+              onNext={goNext}
+              onPrev={goPrev}
+              onRestart={doRestart}
+              hasNext={hasNext}
+              hasPrev={hasPrev}
+            />
+            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px 40px', marginTop: '150px', borderTop: '1px solid var(--border-soft)' }}>
+              <button className="btn btn-secondary" onClick={goPrev} disabled={!hasPrev} style={{ opacity: hasPrev ? 1 : 0.5 }}>← Previous</button>
+              <button className="btn btn-primary" onClick={goNext} disabled={!hasNext} style={{ opacity: hasNext ? 1 : 0.5 }}>Next →</button>
+            </div>
           </section>
         )}
         {currentView === 'practice' && <PracticeView />}
@@ -91,7 +127,18 @@ const Sidebar = ({ currentView, setCurrentView }) => {
   );
 };
 
-const DashboardView = ({ setCurrentView }) => (
+const DashboardView = ({ setCurrentView, onStart, currentLesson, completedLessons, allLessons }) => {
+  const chapters = [
+    { id: 1, title: 'Home Row', description: 'Build muscle memory for the KrutiDev keyboard layout.', lessons: allLessons.filter(l => l.chapterId === 1) },
+    { id: 2, title: 'The Top Row', description: 'Learn to use your fingers on the top row (qwert yuiop).', lessons: allLessons.filter(l => l.chapterId === 2) },
+    { id: 3, title: 'The Bottom Row', description: 'Learn to stretch down to the bottom row (zxcvb nm,./).', lessons: allLessons.filter(l => l.chapterId === 3) },
+    { id: 4, title: 'Basic Level 1 Words', description: 'Practice fluent typing with simple unshifted words.', lessons: allLessons.filter(l => l.chapterId === 4) }
+  ];
+  
+  const totalLessons = allLessons.length;
+  const globalProgress = totalLessons > 0 ? Math.round((completedLessons.size / totalLessons) * 100) : 0;
+  
+  return (
   <section id="view-dashboard" className="view active">
     <div className="view-header">
       <h1>Welcome back! 👋</h1>
@@ -101,9 +148,9 @@ const DashboardView = ({ setCurrentView }) => (
     <div className="stats-grid" id="dashboard-stats">
       <div className="stat-card glass-card">
         <div className="stat-card-icon" style={{'--accent': '#818cf8'}}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></div>
-        <div className="stat-card-value" id="stat-lessons-done">0</div>
+        <div className="stat-card-value" id="stat-lessons-done">{completedLessons.size}</div>
         <div className="stat-card-label">Lessons Completed</div>
-        <div className="stat-card-bar"><div className="stat-bar-fill" id="stat-bar-lessons" style={{width: '0%'}}></div></div>
+        <div className="stat-card-bar"><div className="stat-bar-fill" id="stat-bar-lessons" style={{width: `${globalProgress}%`}}></div></div>
       </div>
       <div className="stat-card glass-card">
         <div className="stat-card-icon" style={{'--accent': '#34d399'}}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
@@ -130,10 +177,10 @@ const DashboardView = ({ setCurrentView }) => (
       <div className="continue-card glass-card" id="continue-card">
         <div className="continue-info">
           <span className="continue-chapter" id="continue-chapter">Chapter 1</span>
-          <h3 className="continue-title" id="continue-title">Learn Finger Placement</h3>
-          <p className="continue-desc" id="continue-desc">Build muscle memory for the KrutiDev keyboard layout.</p>
+          <h3 className="continue-title" id="continue-title">{currentLesson?.title || "Home Row"}</h3>
+          <p className="continue-desc" id="continue-desc">{currentLesson?.description || "Build muscle memory for the KrutiDev keyboard layout."}</p>
         </div>
-        <button className="btn btn-primary btn-glow" id="continue-btn" onClick={() => setCurrentView('lessons')}>
+        <button className="btn btn-primary btn-glow" id="continue-btn" onClick={() => onStart(currentLesson)}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           Continue
         </button>
@@ -143,29 +190,35 @@ const DashboardView = ({ setCurrentView }) => (
     <div className="section-block">
       <h2 className="section-title">Chapter Progress</h2>
       <div className="chapter-progress-grid" id="chapter-progress-grid">
-        <div className="chapter-progress-card glass-card">
-          <div className="progress-card-header">
-            <span className="progress-card-title">Chapter 1</span>
-            <span className="progress-card-pct">0%</span>
-          </div>
-          <div className="progress-card-name">Learn Finger Placement</div>
-          <div className="chapter-progress-bar"><div className="chapter-progress-fill" style={{width: '0%', backgroundColor: 'var(--brand)'}}></div></div>
-        </div>
-        <div className="chapter-progress-card glass-card" style={{opacity: 0.6}}>
-          <div className="progress-card-header">
-            <span className="progress-card-title">Chapter 2</span>
-            <span className="progress-card-pct">0%</span>
-          </div>
-          <div className="progress-card-name">Top Row & Bottom Row</div>
-          <div className="chapter-progress-bar"><div className="chapter-progress-fill" style={{width: '0%', backgroundColor: 'var(--brand)'}}></div></div>
-        </div>
+        {chapters.map(chapter => {
+          const chCompleted = chapter.lessons.filter(l => completedLessons.has(l.id)).length;
+          const pct = chapter.lessons.length > 0 ? Math.round((chCompleted / chapter.lessons.length) * 100) : 0;
+          return (
+            <div key={chapter.id} className="chapter-progress-card glass-card" style={{opacity: pct === 0 ? 0.6 : 1}}>
+              <div className="progress-card-header">
+                <span className="progress-card-title">Chapter {chapter.id}</span>
+                <span className="progress-card-pct">{pct}%</span>
+              </div>
+              <div className="progress-card-name">{chapter.title}</div>
+              <div className="chapter-progress-bar"><div className="chapter-progress-fill" style={{width: `${pct}%`, backgroundColor: pct === 100 ? 'var(--success)' : 'var(--brand)', transition: 'width 0.3s ease'}}></div></div>
+            </div>
+          );
+        })}
       </div>
     </div>
   </section>
-);
+  );
+};
 
-const LessonsView = ({ lessons, onStart }) => {
-  const [expanded, setExpanded] = useState(false);
+const LessonsView = ({ lessons, onStart, completedLessons }) => {
+  const [expandedChapter, setExpandedChapter] = useState(1);
+  
+  const chapters = [
+    { id: 1, title: 'Home Row', description: 'Build muscle memory for the KrutiDev keyboard layout.', lessons: lessons.filter(l => l.chapterId === 1) },
+    { id: 2, title: 'The Top Row', description: 'Learn to use your fingers on the top row (qwert yuiop).', lessons: lessons.filter(l => l.chapterId === 2) },
+    { id: 3, title: 'The Bottom Row', description: 'Learn to stretch down to the bottom row (zxcvb nm,./).', lessons: lessons.filter(l => l.chapterId === 3) },
+    { id: 4, title: 'Basic Level 1 Words', description: 'Practice fluent typing with simple unshifted words.', lessons: lessons.filter(l => l.chapterId === 4) }
+  ];
   
   return (
     <section id="view-lessons" className="view active">
@@ -180,44 +233,68 @@ const LessonsView = ({ lessons, onStart }) => {
       </div>
 
       <div className="chapters-list stagger-children">
-        <div className={`chapter-card glass-card chapter-in-progress ${expanded ? 'expanded' : ''}`}>
-          <div className="chapter-header" onClick={() => setExpanded(!expanded)}>
-            <div className="chapter-badge badge-active">1</div>
-            <div className="chapter-header-info">
-              <div className="chapter-header-title">Chapter 1: Learn Finger Placement</div>
-              <div className="chapter-header-desc">Build muscle memory for the KrutiDev keyboard layout.</div>
-              <div className="chapter-header-meta">
-                <span className="chapter-meta-badge" style={{whiteSpace: 'nowrap'}}>{lessons.length} lesson{lessons.length !== 1 ? 's' : ''}</span>
-                <div style={{display:'flex', alignItems:'center', gap:'8px', width:'100%', maxWidth:'200px', marginTop:'10px'}}>
-                  <div className="chapter-progress-bar" style={{flex:1, height:'4px', background:'var(--bg-inset)', borderRadius:'2px', overflow:'hidden'}}>
-                    <div className="chapter-progress-fill" style={{height:'100%', borderRadius:'2px', width:'0%', background:'var(--brand)'}}></div>
-                  </div>
-                  <span style={{fontSize:'12px', color:'var(--text-muted)', fontWeight:'600'}}>0%</span>
-                </div>
-              </div>
-            </div>
-            <div className="chapter-expand-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="6 9 12 15 18 9"/>
-              </svg>
-            </div>
-          </div>
+        {chapters.map(chapter => {
+          const isExpanded = expandedChapter === chapter.id;
+          const chCompleted = chapter.lessons.filter(l => completedLessons.has(l.id)).length;
+          const progress = chapter.lessons.length > 0 ? Math.round((chCompleted / chapter.lessons.length) * 100) : 0;
+          const isChapterComplete = progress === 100;
           
-          <div className="chapter-lessons">
-            {lessons.map(lesson => (
-              <div key={lesson.id} className="lesson-item">
-                <div className="lesson-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          return (
+            <div key={chapter.id} className={`chapter-card glass-card ${isChapterComplete ? 'chapter-completed' : (progress > 0 || chapter.id === 1 ? 'chapter-in-progress' : '')} ${isExpanded ? 'expanded' : ''}`}>
+              <div className="chapter-header" onClick={() => setExpandedChapter(isExpanded ? null : chapter.id)}>
+                <div className={`chapter-badge ${isChapterComplete ? 'badge-completed' : 'badge-active'}`}>
+                  {isChapterComplete ? (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  ) : (
+                    chapter.id
+                  )}
                 </div>
-                <div className="lesson-info">
-                  <div className="lesson-item-title" style={{ fontSize: '17.5px' }}>{lesson.title}</div>
-                  <div className="lesson-desc" style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{lesson.description}</div>
+                <div className="chapter-header-info">
+                  <div className="chapter-header-title">Chapter {chapter.id}: {chapter.title}</div>
+                  <div className="chapter-header-desc">{chapter.description}</div>
+                  <div className="chapter-header-meta">
+                    <span className="chapter-meta-badge" style={{whiteSpace: 'nowrap'}}>{chapter.lessons.length} lesson{chapter.lessons.length !== 1 ? 's' : ''}</span>
+                    <div style={{display:'flex', alignItems:'center', gap:'8px', width:'100%', maxWidth:'200px', marginTop:'10px'}}>
+                      <div className="chapter-progress-bar" style={{flex:1, height:'4px', background:'var(--bg-inset)', borderRadius:'2px', overflow:'hidden'}}>
+                        <div className="chapter-progress-fill" style={{height:'100%', borderRadius:'2px', width:`${progress}%`, background: isChapterComplete ? 'var(--success)' : 'var(--brand)', transition: 'width 0.3s ease'}}></div>
+                      </div>
+                      <span style={{fontSize:'12px', color: isChapterComplete ? 'var(--success)' : 'var(--text-muted)', fontWeight:'600'}}>{progress}%</span>
+                    </div>
+                  </div>
                 </div>
-                <button className="btn btn-primary btn-sm" onClick={(e) => { e.stopPropagation(); onStart(lesson); }}>Start</button>
+                <div className="chapter-expand-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
+              
+              <div className="chapter-lessons">
+                {chapter.lessons.map(lesson => {
+                  const isCompleted = completedLessons.has(lesson.id);
+                  return (
+                  <div key={lesson.id} className={`lesson-item ${isCompleted ? 'completed' : ''}`}>
+                    <div className="lesson-icon" style={{ color: isCompleted ? 'var(--success)' : 'inherit' }}>
+                      {isCompleted ? (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                      ) : (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                      )}
+                    </div>
+                    <div className="lesson-info" style={{ flex: 1 }}>
+                      <div className="lesson-item-title" style={{ fontSize: '17.5px' }}>{lesson.title}</div>
+                      <div className="lesson-desc" style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{lesson.description}</div>
+                    </div>
+                    <button className="btn btn-primary btn-sm" onClick={(e) => { e.stopPropagation(); onStart(lesson); }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '32px', height: '32px', padding: 0, borderRadius: '50%' }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" style={{ marginLeft: '2px' }}><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    </button>
+                  </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
@@ -259,12 +336,71 @@ const SettingsView = () => (
   </section>
 );
 
-const TypingSession = ({ lesson }) => {
+const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext, hasPrev }) => {
   const { engineState, stats } = useTypingEngine(lesson.text, krutidev010Layout);
 
+  React.useEffect(() => {
+    if (engineState?.status === 'finished') {
+      onComplete(lesson.id);
+    }
+  }, [engineState?.status, lesson.id, onComplete]);
+
+  const isFinished = engineState?.status === 'finished';
+
+  React.useEffect(() => {
+    if (isFinished && hasNext) {
+      const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          onNext();
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [isFinished, hasNext, onNext]);
+
+  const acc = stats.accuracy;
+  const strokeColor = acc >= 96 ? 'var(--success)' : acc >= 90 ? 'var(--warning)' : 'var(--error)';
+  const strokeDasharray = 283;
+  const strokeDashoffset = isFinished ? 283 - (283 * acc) / 100 : 283;
+
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
-      <div className="stats-grid" style={{ width: '100%', maxWidth: '800px', marginBottom: '40px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px', position: 'relative' }}>
+      {isFinished && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+          <div className="glass-card" style={{ padding: '40px', borderRadius: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '400px', textAlign: 'center', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }}>
+            <h2 style={{ fontSize: '32px', margin: '0 0 10px', color: 'var(--text-primary)' }}>Lesson Complete!</h2>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '30px' }}>Great job. Here's how you did:</p>
+            
+            <div style={{ display: 'flex', gap: '40px', marginBottom: '40px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ fontSize: '48px', fontWeight: 'bold', color: 'var(--accent-blue)', lineHeight: 1 }}>{stats.wpm}</div>
+                <div style={{ fontSize: '14px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginTop: '8px' }}>WPM</div>
+              </div>
+              
+              <div style={{ position: 'relative', width: '100px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <svg width="100" height="100" viewBox="0 0 100 100" style={{ position: 'absolute', transform: 'rotate(-90deg)' }}>
+                  <circle cx="50" cy="50" r="45" fill="none" stroke="var(--bg-tertiary)" strokeWidth="8" />
+                  <circle cx="50" cy="50" r="45" fill="none" stroke={strokeColor} strokeWidth="8" strokeDasharray={strokeDasharray} strokeDashoffset={strokeDashoffset} style={{ transition: 'stroke-dashoffset 1s ease-out' }} strokeLinecap="round" />
+                </svg>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 1 }}>
+                  <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--text-primary)', lineHeight: 1 }}>{stats.accuracy}%</div>
+                  <div style={{ fontSize: '10px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginTop: '4px' }}>Acc</div>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '10px', width: '100%' }}>
+              <button className="btn btn-secondary" onClick={onRestart} style={{ flex: 1 }}>Restart</button>
+              <button className="btn btn-primary" onClick={onNext} disabled={!hasNext} style={{ flex: 1, opacity: hasNext ? 1 : 0.5 }}>Next Lesson</button>
+            </div>
+            <button className="btn btn-secondary" onClick={onPrev} disabled={!hasPrev} style={{ width: '100%', marginTop: '10px', opacity: hasPrev ? 1 : 0.5, background: 'transparent' }}>← Previous</button>
+          </div>
+        </div>
+      )}
+
+      <div className="stats-grid" style={{ width: '100%', maxWidth: '712px', marginBottom: '40px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
         <div className="stat-card glass-card">
           <div className="stat-card-label" style={{ marginBottom: '8px' }}>WPM</div>
           <div className="stat-card-value" style={{ color: 'var(--accent-blue)' }}>{stats.wpm}</div>

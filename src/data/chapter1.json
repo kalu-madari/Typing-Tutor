@@ -116,7 +116,7 @@
     "previouslyUsedKeys": ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
     "fingersUsed": ["left-pinky", "left-ring", "left-middle", "left-index", "right-index", "right-middle", "right-ring", "right-pinky"],
     "type": "practice",
-    "text": "ash has sad glad fall flask dash hall gall lag sag alas flash"
+    "text": "dj dgh lhg jl gkj jgh flj gfj jkl lkj lgk gd ld dl dk gk"
   },
   {
     "id": "chap1-les1-9",
@@ -133,7 +133,7 @@
     "previouslyUsedKeys": ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
     "fingersUsed": ["left-pinky", "left-ring", "left-middle", "left-index", "right-index", "right-middle", "right-ring", "right-pinky"],
     "type": "speed",
-    "text": "ask dad half sad glass glad flash dash sash lad lag gash"
+    "text": "jl gkj jgh dgh lhg jl flj gfj dgh lgk lkj dj dk gk"
   },
   {
     "id": "chap1-les1-10",
@@ -150,6 +150,6 @@
     "previouslyUsedKeys": ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
     "fingersUsed": ["left-pinky", "left-ring", "left-middle", "left-index", "right-index", "right-middle", "right-ring", "right-pinky"],
     "type": "test",
-    "text": "asdf jkl; glad flask dash glass flash ask half sag hall alas"
+    "text": "dj dgh lhg jl gkj jgh flj gfj jkl lkj lgk gd ld dl dk gk"
   }
 ]

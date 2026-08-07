@@ -25,12 +25,14 @@ const TypingArea = ({ engineState }) => {
           key={index}
           style={{
             ...styles.char,
-            color: getCharColor(statusClass, isActive),
-            backgroundColor: isActive ? 'var(--glass-border)' : 'transparent',
+            color: isActive ? '#eab308' : getCharColor(statusClass),
+            textShadow: isActive ? '0 0 8px rgba(250, 204, 21, 0.4)' : 'none',
+            backgroundColor: (isActive && char === ' ') ? 'rgba(250, 204, 21, 0.4)' : 'transparent',
+            borderRadius: (isActive && char === ' ') ? '4px' : '0',
             borderBottom: isActive ? '2px solid var(--accent-blue)' : '2px solid transparent'
           }}
-          animate={isError ? { x: [-2, 2, -2, 2, 0] } : {}}
-          transition={{ duration: 0.3 }}
+          animate={isError ? { x: [-2, 2, -2, 2, 0] } : (isActive ? { opacity: [1, 0.8, 1] } : {})}
+          transition={isError ? { duration: 0.3 } : (isActive ? { repeat: Infinity, duration: 1 } : {})}
         >
           {char === ' ' ? '\u00A0' : char}
         </motion.span>
@@ -38,10 +40,9 @@ const TypingArea = ({ engineState }) => {
     });
   };
 
-  const getCharColor = (status, isActive) => {
+  const getCharColor = (status) => {
     if (status === 'correct') return 'var(--success)';
     if (status === 'error') return 'var(--error)';
-    if (isActive) return 'var(--text-primary)';
     return 'var(--text-secondary)';
   };
 
@@ -71,24 +72,25 @@ const styles = {
     padding: '30px',
     borderRadius: '12px',
     width: '100%',
-    maxWidth: '800px',
+    maxWidth: '712px',
     margin: '0 auto',
     boxSizing: 'border-box'
   },
   textContainer: {
     fontFamily: '"Kruti Dev 010", sans-serif',
     lineHeight: '1.6',
-    letterSpacing: '2px',
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center'
+    letterSpacing: '0px',
+    display: 'block',
+    textAlign: 'center',
+    whiteSpace: 'pre-wrap',
+    wordWrap: 'break-word'
   },
   char: {
     position: 'relative',
     transition: 'color 0.1s ease, background-color 0.1s ease',
     borderRadius: '2px',
-    margin: '0 1px',
-    padding: '0 2px'
+    margin: '0px',
+    padding: '0px'
   },
   finishedMessage: {
     marginTop: '20px',

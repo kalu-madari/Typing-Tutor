@@ -8,14 +8,14 @@ export const krutidev010Layout = {
   // In KrutiDev, the lesson text is stored as English characters (e.g., 'k' renders as 'क').
   // So the user simply needs to press 'k'.
   getExpectedKeys: (targetChar) => {
-    return [targetChar.toLowerCase()];
+    return [targetChar];
   },
   
   // For the Virtual Keyboard: Defines the layout and what each key displays
   keyboardMap: [
     // Row 1 (Numbers)
     [
-      { key: '\`', display: '\`', shiftDisplay: '~', finger: 'left-pinky' },
+      { key: '`', display: '`', shiftDisplay: '~', finger: 'left-pinky' },
       { key: '1', display: '1', shiftDisplay: '!', finger: 'left-pinky' },
       { key: '2', display: '2', shiftDisplay: '@', finger: 'left-ring' },
       { key: '3', display: '3', shiftDisplay: '#', finger: 'left-middle' },
@@ -27,10 +27,12 @@ export const krutidev010Layout = {
       { key: '9', display: '9', shiftDisplay: '(', finger: 'right-ring' },
       { key: '0', display: '0', shiftDisplay: ')', finger: 'right-pinky' },
       { key: '-', display: '-', shiftDisplay: '_', finger: 'right-pinky' },
-      { key: '=', display: '=', shiftDisplay: '+', finger: 'right-pinky' }
+      { key: '=', display: '=', shiftDisplay: '+', finger: 'right-pinky' },
+      { key: 'Backspace', display: 'Backspace', shiftDisplay: 'Backspace', finger: 'right-pinky', width: '88px', labelStyle: { fontSize: '11px', alignSelf: 'flex-end', padding: '4px' } }
     ],
     // Row 2 (Top Row)
     [
+      { key: 'Tab', display: 'Tab', shiftDisplay: 'Tab', finger: 'left-pinky', width: '64px', labelStyle: { fontSize: '11px', alignSelf: 'flex-start', padding: '4px' } },
       { key: 'q', display: 'q', shiftDisplay: 'Q', finger: 'left-pinky' },
       { key: 'w', display: 'w', shiftDisplay: 'W', finger: 'left-ring' },
       { key: 'e', display: 'e', shiftDisplay: 'E', finger: 'left-middle' },
@@ -43,10 +45,11 @@ export const krutidev010Layout = {
       { key: 'p', display: 'p', shiftDisplay: 'P', finger: 'right-pinky' },
       { key: '[', display: '[', shiftDisplay: '{', finger: 'right-pinky' },
       { key: ']', display: ']', shiftDisplay: '}', finger: 'right-pinky' },
-      { key: '\\', display: '\\', shiftDisplay: '|', finger: 'right-pinky' }
+      { key: '\\', display: '\\', shiftDisplay: '|', finger: 'right-pinky', width: '64px' }
     ],
     // Row 3 (Home Row)
     [
+      { key: 'Caps', display: 'Caps', shiftDisplay: 'Caps', finger: 'left-pinky', width: '76px', labelStyle: { fontSize: '11px', alignSelf: 'flex-start', padding: '4px' } },
       { key: 'a', display: 'a', shiftDisplay: 'A', finger: 'left-pinky' },
       { key: 's', display: 's', shiftDisplay: 'S', finger: 'left-ring' },
       { key: 'd', display: 'd', shiftDisplay: 'D', finger: 'left-middle' },
@@ -57,10 +60,12 @@ export const krutidev010Layout = {
       { key: 'k', display: 'k', shiftDisplay: 'K', finger: 'right-middle' },
       { key: 'l', display: 'l', shiftDisplay: 'L', finger: 'right-ring' },
       { key: ';', display: ';', shiftDisplay: ':', finger: 'right-pinky' },
-      { key: '\'', display: '\'', shiftDisplay: '"', finger: 'right-pinky' }
+      { key: '\'', display: '\'', shiftDisplay: '"', finger: 'right-pinky' },
+      { key: 'Enter', display: 'Enter', shiftDisplay: 'Enter', finger: 'right-pinky', width: '100px', labelStyle: { fontSize: '11px', alignSelf: 'flex-end', padding: '4px' } }
     ],
     // Row 4 (Bottom Row)
     [
+      { key: 'ShiftLeft', display: 'Shift', shiftDisplay: 'Shift', finger: 'left-pinky', width: '100px', labelStyle: { fontSize: '11px', alignSelf: 'flex-start', padding: '4px' } },
       { key: 'z', display: 'z', shiftDisplay: 'Z', finger: 'left-pinky' },
       { key: 'x', display: 'x', shiftDisplay: 'X', finger: 'left-ring' },
       { key: 'c', display: 'c', shiftDisplay: 'C', finger: 'left-middle' },
@@ -70,7 +75,19 @@ export const krutidev010Layout = {
       { key: 'm', display: 'm', shiftDisplay: 'M', finger: 'right-index' },
       { key: ',', display: ',', shiftDisplay: '<', finger: 'right-middle' },
       { key: '.', display: '.', shiftDisplay: '>', finger: 'right-ring' },
-      { key: '/', display: '/', shiftDisplay: '?', finger: 'right-pinky' }
+      { key: '/', display: '/', shiftDisplay: '?', finger: 'right-pinky' },
+      { key: 'ShiftRight', display: 'Shift', shiftDisplay: 'Shift', finger: 'right-pinky', width: '124px', labelStyle: { fontSize: '11px', alignSelf: 'flex-end', padding: '4px' } }
+    ],
+    // Row 5 (Modifiers & Space)
+    [
+      { key: 'CtrlLeft', display: 'Ctrl', shiftDisplay: 'Ctrl', finger: 'left-pinky', width: '60px', labelStyle: { fontSize: '11px', alignSelf: 'flex-start', padding: '4px' } },
+      { key: 'WinLeft', display: 'Win', shiftDisplay: 'Win', finger: 'left-pinky', width: '50px', labelStyle: { fontSize: '11px', padding: '4px' } },
+      { key: 'AltLeft', display: 'Alt', shiftDisplay: 'Alt', finger: 'left-thumb', width: '50px', labelStyle: { fontSize: '11px', padding: '4px' } },
+      { key: ' ', display: '␣', shiftDisplay: '␣', finger: 'thumb', width: '286px', labelStyle: { fontSize: '24px', fontFamily: 'var(--font-ui)' } },
+      { key: 'AltRight', display: 'Alt', shiftDisplay: 'Alt', finger: 'right-thumb', width: '50px', labelStyle: { fontSize: '11px', padding: '4px' } },
+      { key: 'WinRight', display: 'Win', shiftDisplay: 'Win', finger: 'right-pinky', width: '50px', labelStyle: { fontSize: '11px', padding: '4px' } },
+      { key: 'Menu', display: 'Menu', shiftDisplay: 'Menu', finger: 'right-pinky', width: '50px', labelStyle: { fontSize: '11px', padding: '4px' } },
+      { key: 'CtrlRight', display: 'Ctrl', shiftDisplay: 'Ctrl', finger: 'right-pinky', width: '60px', labelStyle: { fontSize: '11px', alignSelf: 'flex-end', padding: '4px' } }
     ]
   ]
 };

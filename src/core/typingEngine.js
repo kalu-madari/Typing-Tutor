@@ -10,6 +10,8 @@ export class TypingEngine {
     this.incorrectChars = 0;
     this.totalTypedChars = 0;
     this.errors = new Set(); // indices where an error occurred
+    this.typedCharacters = [];
+    this.lastTypedChar = null;
     
     // Callbacks for UI updates
     this.onStateChange = null;
@@ -40,8 +42,9 @@ export class TypingEngine {
 
     this.totalTypedChars++;
 
-    if (expectedKeys.includes(key) || expectedKeys.includes(key.toLowerCase()) || expectedKeys.includes(key.toUpperCase())) {
+    if (expectedKeys.includes(key)) {
       // Correct!
+      this.typedCharacters.push({ char: this.text[this.currentIndex], isError: false });
       this.correctChars++;
       this.currentIndex++;
       if (this.onPlaySound) this.onPlaySound('keystroke');
@@ -53,6 +56,9 @@ export class TypingEngine {
       }
     } else {
       // Incorrect
+      // If we want to allow typing incorrect chars and moving forward, we can, but currently it blocks.
+      // Let's store the incorrect keystroke for the UI to blink it or show it.
+      this.lastTypedChar = key;
       this.incorrectChars++;
       this.errors.add(this.currentIndex);
       if (this.onPlaySound) this.onPlaySound('error');
@@ -77,6 +83,8 @@ export class TypingEngine {
       incorrectChars: this.incorrectChars,
       totalTypedChars: this.totalTypedChars,
       errors: new Set(this.errors), // Clone to avoid mutation issues in React
+      typedCharacters: [...this.typedCharacters],
+      lastTypedChar: this.lastTypedChar,
       layout: this.layout
     };
   }
