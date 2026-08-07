@@ -53,16 +53,11 @@ export const useTypingEngine = (text, layout) => {
 
       // Track Alt codes for visual highlighting in the Virtual Keyboard
       if (e.altKey) {
-        // Explicitly block standard top-row keys to enforce Numpad-only behavior
-        if (e.code && e.code.startsWith('Digit')) {
-          return; // Ignore top-row numbers
-        }
-
         let digit = "";
         if (e.code && e.code.startsWith('Numpad') && e.code.length === 7) {
           digit = e.code.charAt(6); // Extract '0' from 'Numpad0' (works even if NumLock is off)
         } else if (/^[0-9]$/.test(e.key)) {
-          digit = e.key; // Fallback for laptop Fn-Numpads (e.g. Fn+M = '0')
+          digit = e.key; // Fallback for numpads that emulate top-row keys
         }
 
         if (/^[0-9]$/.test(digit)) {

@@ -44,7 +44,15 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
   
   if (nextChar && altCodes[nextChar]) {
     const sequence = altCodes[nextChar];
-    const typedLength = altCodeState ? altCodeState.length : 0;
+    const expectedStr = sequence.slice(2).map(k => k.replace('Numpad', '')).join(''); // e.g. "0161"
+    
+    let typedLength = 0;
+    if (altCodeState) {
+      // Find how many correct digits they typed before making a mistake
+      while (typedLength < altCodeState.length && expectedStr[typedLength] === altCodeState[typedLength]) {
+        typedLength++;
+      }
+    }
     
     // Always highlight Alt
     expectedKeys = [...expectedKeys, 'AltLeft', 'AltRight'];
