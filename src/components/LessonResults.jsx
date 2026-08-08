@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, animate } from 'framer-motion';
 import { ArrowLeft, RotateCcw, ArrowRight } from 'lucide-react';
 
-const AnimatedMeter = ({ value, label, isPercent = false, max = 100, color = 'var(--accent-blue)', delay = 0 }) => {
+const AnimatedMeter = ({ value, label, isPercent = false, unit = '', max = 100, color = 'var(--accent-blue)', delay = 0 }) => {
   const [displayValue, setDisplayValue] = useState(0);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const AnimatedMeter = ({ value, label, isPercent = false, max = 100, color = 'va
         </svg>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 1 }}>
           <div style={{ fontSize: '40px', fontWeight: 'bold', color: 'var(--text-primary)', lineHeight: 1 }}>
-            {displayValue}{isPercent ? '%' : ''}
+            {displayValue}{unit || (isPercent ? '%' : '')}
           </div>
           <div style={{ fontSize: '13px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginTop: '6px' }}>
             {label}
@@ -70,7 +70,8 @@ const LessonResults = ({ stats, onNext, onPrev, onRestart, hasNext, hasPrev }) =
       <div style={{ display: 'flex', gap: '80px', marginBottom: '80px' }}>
         <AnimatedMeter value={stats.accuracy} label="accuracy" isPercent={true} max={100} color="var(--success)" delay={0.1} />
         {/* Make max WPM dynamically scale based on user speed, fallback to 60 as standard max */}
-        <AnimatedMeter value={stats.wpm} label="WPM" isPercent={false} max={Math.max(stats.wpm, 60)} color="var(--accent-blue)" delay={0.3} />
+        <AnimatedMeter value={stats.wpm} label="WPM" max={Math.max(stats.wpm, 60)} color="var(--accent-blue)" delay={0.3} />
+        <AnimatedMeter value={stats.timeInSeconds || 0} label="Duration" unit="s" max={Math.max(stats.timeInSeconds || 0, 60)} color="#eab308" delay={0.5} />
       </div>
 
       <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
