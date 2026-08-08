@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useAppStore } from '../store/useAppStore';
 
-const TypingArea = ({ engineState }) => {
+const TypingArea = ({ engineState, isIdle }) => {
   const store = useAppStore();
   const { fontSize, showVirtualKeyboard, textAlign } = store;
   const activeCharRef = useRef(null);
@@ -75,6 +75,7 @@ const TypingArea = ({ engineState }) => {
                 ref={isActive ? activeCharRef : null}
                 style={{
                   ...styles.char,
+                  position: 'relative',
                   color: isActive ? '#eab308' : getCharColor(statusClass),
                   textShadow: isActive ? '0 0 8px rgba(250, 204, 21, 0.4)' : 'none',
                   backgroundColor: (isActive && char === ' ') ? 'rgba(250, 204, 21, 0.4)' : 'transparent',
@@ -85,6 +86,12 @@ const TypingArea = ({ engineState }) => {
                 animate={isError ? { x: [-2, 2, -2, 2, 0] } : (isActive ? { opacity: [1, 0.8, 1] } : {})}
                 transition={isError ? { duration: 0.3 } : (isActive ? { repeat: Infinity, duration: 1 } : {})}
               >
+                {isActive && isIdle && (
+                  <div style={{ position: 'absolute', bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: '10px', background: 'var(--accent-blue)', color: '#fff', padding: '6px 12px', borderRadius: '6px', fontSize: '14px', fontWeight: 'bold', whiteSpace: 'nowrap', zIndex: 10, boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}>
+                    Start Typing
+                    <div style={{ position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)', borderTop: '6px solid var(--accent-blue)', borderLeft: '6px solid transparent', borderRight: '6px solid transparent' }} />
+                  </div>
+                )}
                 {char === ' ' ? '\u00A0' : char === '\n' ? '↵\n' : char}
               </motion.span>
             );
@@ -111,7 +118,10 @@ const TypingArea = ({ engineState }) => {
         className="no-scrollbar" 
         style={{
           ...styles.textContainer,
-          maxHeight: showVirtualKeyboard ? '160px' : '320px',
+          height: '6em', // 4 lines if line-height is 1.5em
+          lineHeight: '1.5em',
+          overflowY: 'hidden',
+          padding: '4px',
           textAlign: textAlign || 'center'
         }}
       >

@@ -7,6 +7,7 @@ import { altCodesMap } from '../core/altCodesMap';
 export const useTypingEngine = (text, layout) => {
   const [engineState, setEngineState] = useState(null);
   const [stats, setStats] = useState({ wpm: 0, accuracy: 100, timeInSeconds: 0 });
+  const [isIdle, setIsIdle] = useState(false);
   const engineRef = useRef(null);
   const { soundEffects, errorSounds } = useAppStore();
 
@@ -16,6 +17,7 @@ export const useTypingEngine = (text, layout) => {
     
     engine.onStateChange = (state) => {
       setEngineState(state);
+      setIsIdle(false);
       if (state.status === 'running' || state.status === 'finished') {
         setStats(getTypingStats(state));
       }
@@ -40,10 +42,16 @@ export const useTypingEngine = (text, layout) => {
 
   useEffect(() => {
     let interval;
-    if (engineState?.status === 'running') {
+    if (engineState?.status === 'running' || engineState?.status === 'idle') {
       interval = setInterval(() => {
-        if (engineRef.current && engineRef.current.status === 'running') {
-          setStats(getTypingStats(engineRef.current.getState()));
+        if (engineRef.current && (engineRef.current.status === 'running' || engineRef.current.status === 'idle')) {
+          const state = engineRef.current.getState();
+          setStats(getTypingStats(state));
+          
+          const now = Date.now();
+          if ((now - (state.lastInteractionTime || now)) >= 8000) {
+            setIsIdle(true);
+          }
         }
       }, 500);
     }
@@ -144,7 +152,7 @@ export const useTypingEngine = (text, layout) => {
     };
   }, []);
 
-  return { engineState, stats, altCodeState, resetEngine: () => {
+  return { engineState, stats, altCodeState, isIdle, resetEngine: () => {
     // Basic reset logic by recreating the engine could go here
     // or handled by unmounting/remounting component
   }};

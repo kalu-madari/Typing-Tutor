@@ -476,7 +476,7 @@ const SettingsView = () => {
 };
 
 const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext, hasPrev, onClose }) => {
-  const { engineState, stats, altCodeState } = useTypingEngine(lesson.text, krutidev010Layout);
+  const { engineState, stats, altCodeState, isIdle } = useTypingEngine(lesson.text, krutidev010Layout);
   const storeState = useAppStore();
   
   const [soundMenuOpen, setSoundMenuOpen] = React.useState(false);
@@ -584,34 +584,37 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
       </div>
 
       {/* Main Content Area */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px', minHeight: '400px' }} onClick={() => { setSoundMenuOpen(false); setSettingsMenuOpen(false); }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px 40px 10px', minHeight: '300px' }} onClick={() => { setSoundMenuOpen(false); setSettingsMenuOpen(false); }}>
         
         {lesson?.type === 'box_practice' ? (
           <BoxExercise engineState={engineState} />
         ) : (
-          <div style={{ maxWidth: '800px', width: '100%', display: 'flex', justifyContent: 'center' }}>
-            <TypingArea engineState={engineState} />
-          </div>
-        )}
-         
-        {/* Live Speed + Accuracy inline */}
-        {lesson?.type !== 'box_practice' && (
-          <div style={{ display: 'flex', gap: '60px', marginTop: '60px', color: 'var(--text-muted)', fontFamily: 'var(--font-ui)' }}>
-             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
-                <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '11px', opacity: 0.7 }}>Speed</span>
-                <span style={{ fontSize: '28px', color: 'var(--text-primary)', fontWeight: 'bold' }}>{stats.wpm} <span style={{ fontSize: '14px', color: 'var(--text-muted)', fontWeight: 'normal' }}>WPM</span></span>
-             </div>
-             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
-                <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '11px', opacity: 0.7 }}>Accuracy</span>
-                <span style={{ fontSize: '28px', color: 'var(--text-primary)', fontWeight: 'bold' }}>{stats.accuracy}<span style={{ fontSize: '16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>%</span></span>
-             </div>
+          <div style={{ maxWidth: '1000px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div style={{ width: '100%' }}>
+              <TypingArea engineState={engineState} isIdle={isIdle} />
+            </div>
+            
+            {/* Border line */}
+            <div style={{ width: '100%', height: '1px', background: 'var(--border-soft)', marginTop: '20px', marginBottom: '15px' }} />
+            
+            {/* Live Speed + Accuracy inline */}
+            <div style={{ display: 'flex', gap: '60px', color: 'var(--text-muted)', fontFamily: 'var(--font-ui)' }}>
+               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                  <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '11px', opacity: 0.7 }}>Speed</span>
+                  <span style={{ fontSize: '28px', color: 'var(--text-primary)', fontWeight: 'bold' }}>{stats.wpm} <span style={{ fontSize: '14px', color: 'var(--text-muted)', fontWeight: 'normal' }}>WPM</span></span>
+               </div>
+               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                  <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '11px', opacity: 0.7 }}>Accuracy</span>
+                  <span style={{ fontSize: '28px', color: 'var(--text-primary)', fontWeight: 'bold' }}>{stats.accuracy}<span style={{ fontSize: '16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>%</span></span>
+               </div>
+            </div>
           </div>
         )}
       </div>
       
       {/* Keyboard Area */}
       {storeState.showVirtualKeyboard && (
-        <div style={{ paddingBottom: '40px', display: 'flex', justifyContent: 'center', flexShrink: 0 }}>
+        <div style={{ paddingBottom: '20px', display: 'flex', justifyContent: 'center', flexShrink: 0 }}>
            <VirtualKeyboard layout={krutidev010Layout} engineState={engineState} altCodeState={altCodeState} />
         </div>
       )}

@@ -12,7 +12,7 @@ async def main():
             
             # Find and click the "Continue" button on the dashboard
             await page.click("#continue-btn")
-            await page.wait_for_timeout(2000)
+            await page.wait_for_timeout(9000)
             
             await page.screenshot(path="screenshot3.png")
             print("Screenshot saved to screenshot3.png")

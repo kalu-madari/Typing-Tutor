@@ -18,7 +18,7 @@ export class TypingEngine {
     
     // Live timer properties
     this.totalActiveTimeMs = 0;
-    this.lastInteractionTime = null;
+    this.lastInteractionTime = Date.now();
     
     // Callbacks for UI updates
     this.onStateChange = null;
@@ -42,7 +42,7 @@ export class TypingEngine {
     const now = Date.now();
     if (this.status === 'running') {
       const timeSinceLast = now - (this.lastInteractionTime || now);
-      if (timeSinceLast < 3000) {
+      if (timeSinceLast < 8000) {
         this.totalActiveTimeMs += timeSinceLast;
       }
       this.lastInteractionTime = now;

@@ -14,10 +14,10 @@ export const getTypingStats = (state) => {
   // calculate time from totalActiveTimeMs
   let ms = state.totalActiveTimeMs || 0;
   if (state.status === 'running') {
-    // add any pending time less than 3000ms
+    // add any pending time less than 8000ms
     const now = Date.now();
     const timeSinceLast = now - (state.lastInteractionTime || now);
-    if (timeSinceLast < 3000) {
+    if (timeSinceLast < 8000) {
       ms += timeSinceLast;
     }
   }
