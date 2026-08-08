@@ -1,20 +1,26 @@
-import React, { useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAppStore } from '../store/useAppStore';
+import { Palette, AlignLeft, AlignCenter, AlignRight, Type } from 'lucide-react';
 
 const TypingArea = ({ engineState, isIdle }) => {
   const store = useAppStore();
-  const { fontSize, showVirtualKeyboard, textAlign } = store;
+  const { fontSize, textAlign } = store;
   const activeCharRef = useRef(null);
   const containerRef = useRef(null);
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     if (activeCharRef.current && containerRef.current) {
       const container = containerRef.current;
       const activeChar = activeCharRef.current;
       
+      const containerRect = container.getBoundingClientRect();
+      const charRect = activeChar.getBoundingClientRect();
+      
+      const charTop = charRect.top - containerRect.top + container.scrollTop;
+      
       const containerHalfHeight = container.clientHeight / 2;
-      const charTop = activeChar.offsetTop;
       const charHalfHeight = activeChar.clientHeight / 2;
       
       container.scrollTo({
@@ -87,9 +93,9 @@ const TypingArea = ({ engineState, isIdle }) => {
                 transition={isError ? { duration: 0.3 } : (isActive ? { repeat: Infinity, duration: 1 } : {})}
               >
                 {isActive && isIdle && (
-                  <div style={{ position: 'absolute', bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: '10px', background: 'var(--accent-blue)', color: '#fff', padding: '6px 12px', borderRadius: '6px', fontSize: '14px', fontWeight: 'bold', whiteSpace: 'nowrap', zIndex: 10, boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}>
+                  <div style={{ position: 'absolute', bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: '8px', background: '#3b82f6', color: '#fff', padding: '2px 8px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold', whiteSpace: 'nowrap', zIndex: 10, boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}>
                     Start Typing
-                    <div style={{ position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)', borderTop: '6px solid var(--accent-blue)', borderLeft: '6px solid transparent', borderRight: '6px solid transparent' }} />
+                    <div style={{ position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)', borderTop: '4px solid #3b82f6', borderLeft: '4px solid transparent', borderRight: '4px solid transparent' }} />
                   </div>
                 )}
                 {char === ' ' ? '\u00A0' : char === '\n' ? '↵\n' : char}
@@ -111,8 +117,63 @@ const TypingArea = ({ engineState, isIdle }) => {
   return (
     <div className="glass-panel" style={{ 
       ...styles.container,
-      fontSize: fontSize === 'large' ? '32px' : fontSize === 'small' ? '20px' : '26px'
+      fontSize: fontSize === 'large' ? '32px' : fontSize === 'small' ? '20px' : '26px',
+      position: 'relative'
     }}>
+      {/* Quick Settings Toolbar */}
+      <div style={{ position: 'absolute', top: '15px', right: '15px', zIndex: 50 }}>
+        <button 
+          onClick={() => setShowSettings(!showSettings)}
+          className="icon-btn-plain"
+          style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '5px' }}
+        >
+          <Palette size={20} />
+        </button>
+
+        <AnimatePresence>
+          {showSettings && (
+            <motion.div
+              initial={{ opacity: 0, y: -10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              style={{
+                position: 'absolute',
+                top: '100%',
+                right: '0',
+                marginTop: '10px',
+                background: 'var(--bg)',
+                border: '1px solid var(--border)',
+                borderRadius: '8px',
+                padding: '10px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '15px',
+                boxShadow: 'var(--shadow)',
+                minWidth: '150px'
+              }}
+            >
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <span style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Font Size</span>
+                <div style={{ display: 'flex', gap: '5px' }}>
+                  <button onClick={() => store.updateSetting('fontSize', 'small')} style={{ ...styles.quickBtn, background: fontSize === 'small' ? 'var(--accent-blue)' : 'transparent', color: fontSize === 'small' ? '#fff' : 'var(--text-primary)' }}><Type size={12}/></button>
+                  <button onClick={() => store.updateSetting('fontSize', 'medium')} style={{ ...styles.quickBtn, background: fontSize === 'medium' ? 'var(--accent-blue)' : 'transparent', color: fontSize === 'medium' ? '#fff' : 'var(--text-primary)' }}><Type size={16}/></button>
+                  <button onClick={() => store.updateSetting('fontSize', 'large')} style={{ ...styles.quickBtn, background: fontSize === 'large' ? 'var(--accent-blue)' : 'transparent', color: fontSize === 'large' ? '#fff' : 'var(--text-primary)' }}><Type size={20}/></button>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <span style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Alignment</span>
+                <div style={{ display: 'flex', gap: '5px' }}>
+                  <button onClick={() => store.updateSetting('textAlign', 'left')} style={{ ...styles.quickBtn, background: textAlign === 'left' ? 'var(--accent-blue)' : 'transparent', color: textAlign === 'left' ? '#fff' : 'var(--text-primary)' }}><AlignLeft size={16}/></button>
+                  <button onClick={() => store.updateSetting('textAlign', 'center')} style={{ ...styles.quickBtn, background: textAlign === 'center' ? 'var(--accent-blue)' : 'transparent', color: textAlign === 'center' ? '#fff' : 'var(--text-primary)' }}><AlignCenter size={16}/></button>
+                  <button onClick={() => store.updateSetting('textAlign', 'right')} style={{ ...styles.quickBtn, background: textAlign === 'right' ? 'var(--accent-blue)' : 'transparent', color: textAlign === 'right' ? '#fff' : 'var(--text-primary)' }}><AlignRight size={16}/></button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
       <div 
         ref={containerRef} 
         className="no-scrollbar" 
@@ -120,8 +181,9 @@ const TypingArea = ({ engineState, isIdle }) => {
           ...styles.textContainer,
           height: '6em', // 4 lines if line-height is 1.5em
           lineHeight: '1.5em',
-          overflowY: 'hidden',
+          overflowY: 'auto', // Important for scrolling to work
           padding: '4px',
+          paddingTop: '20px', // Extra padding at top for the indicator tooltip
           textAlign: textAlign || 'center'
         }}
       >
@@ -154,10 +216,8 @@ const styles = {
     lineHeight: '1.6',
     letterSpacing: '0px',
     display: 'block',
-    textAlign: 'center',
     whiteSpace: 'pre-wrap',
     wordWrap: 'break-word',
-    overflowY: 'auto',
     position: 'relative',
     transition: 'max-height 0.3s ease'
   },
@@ -174,6 +234,17 @@ const styles = {
     textAlign: 'center',
     fontFamily: 'var(--font-ui)',
     fontWeight: 'bold'
+  },
+  quickBtn: {
+    flex: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '8px',
+    border: '1px solid var(--border)',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease'
   }
 };
 

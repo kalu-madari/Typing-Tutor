@@ -1,4 +1,8 @@
-Lesson 1 Name
+import os
+
+filepath = r"C:\Users\navee\krutidev-typing-app\tools\Basic Level 2.txt"
+
+content = """Lesson 1 Name
 Cacao Tree
 
 Lesson 1 Data
@@ -243,3 +247,9 @@ Artificial Intelligence
 
 Lesson 41 Data
 आर्टिफिशियल इंटेलिजेंस या कृत्रिम बुद्धिमत्ता कंप्यूटर को बिल्कुल इंसानों की तरह आसानी से सोचने और सीखने के योग्य बनाती है। यह आधुनिक तकनीक तेजी से विकसित होकर शिक्षा, चिकित्सा और व्यापार सहित हमारे दैनिक जीवन का एक बहुत ही महत्वपूर्ण हिस्सा बन रही है।
+"""
+
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(content.strip() + "\n")
+
+print("Rewrote Basic Level 2 with exact word counts and numbering")
