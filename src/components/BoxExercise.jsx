@@ -92,13 +92,7 @@ const BoxExercise = ({ engineState }) => {
                         position: 'relative'
                       }}
                     >
-                      {isActive && !isSpace && (
-                        <span style={{ position: 'absolute', left: '-16px', top: '50%', transform: 'translateY(-50%)', fontSize: '14px', color: 'var(--accent-blue)', opacity: 0.7, fontFamily: 'sans-serif' }}>▣</span>
-                      )}
                       {isSpace ? (char === '\n' ? '↵' : '␣') : char}
-                      {isActive && !isSpace && (
-                        <span style={{ position: 'absolute', right: '-16px', top: '50%', transform: 'translateY(-50%)', fontSize: '14px', color: 'var(--accent-blue)', opacity: 0.7, fontFamily: 'sans-serif' }}>▣</span>
-                      )}
                     </motion.span>
                   )}
                 </AnimatePresence>
