@@ -1,6 +1,6 @@
 [
   {
-    "id": "chap2-les2-1",
+    "id": "chap2-les1",
     "chapterId": 2,
     "lessonNumber": 1,
     "title": "Reaching Up (r, u)",
@@ -30,21 +30,93 @@
       "left-index",
       "right-index"
     ],
+    "type": "box_practice",
+    "text": "f r f r j u j u fr ju rf uj frr juu rrf uuj f r j u",
+    "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
+  },
+  {
+    "id": "chap2-les2",
+    "chapterId": 2,
+    "lessonNumber": 2,
+    "title": "Review: Reaching Up (r, u)",
+    "description": "Learn to use your index fingers on the top row.",
+    "difficulty": 1,
+    "estimatedTimeMinutes": 2,
+    "minAccuracy": 90,
+    "targetWpm": 12,
+    "unlockedAfter": "chap2-les1",
+    "newKeys": [
+      "r",
+      "u"
+    ],
+    "previouslyUsedKeys": [
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-index",
+      "right-index"
+    ],
     "type": "practice",
     "text": "f r f r j u j u fr ju rf uj frr juu rrf uuj f r j u",
     "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
-    "id": "chap2-les2-2",
+    "id": "chap2-les3",
     "chapterId": 2,
-    "lessonNumber": 2,
+    "lessonNumber": 3,
     "title": "Reaching Up (e, i)",
     "description": "Learn to use your middle fingers on the top row.",
     "difficulty": 1,
     "estimatedTimeMinutes": 2,
     "minAccuracy": 90,
     "targetWpm": 12,
-    "unlockedAfter": "chap2-les2-1",
+    "unlockedAfter": "chap2-les2",
+    "newKeys": [
+      "e",
+      "i"
+    ],
+    "previouslyUsedKeys": [
+      "r",
+      "u",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-middle",
+      "right-middle"
+    ],
+    "type": "box_practice",
+    "text": "d e d e k i k i de ki ed ik dee kii edd ikk d e k i",
+    "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
+  },
+  {
+    "id": "chap2-les4",
+    "chapterId": 2,
+    "lessonNumber": 4,
+    "title": "Review: Reaching Up (e, i)",
+    "description": "Learn to use your middle fingers on the top row.",
+    "difficulty": 1,
+    "estimatedTimeMinutes": 2,
+    "minAccuracy": 90,
+    "targetWpm": 12,
+    "unlockedAfter": "chap2-les3",
     "newKeys": [
       "e",
       "i"
@@ -72,16 +144,55 @@
     "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
-    "id": "chap2-les2-3",
+    "id": "chap2-les5",
     "chapterId": 2,
-    "lessonNumber": 3,
+    "lessonNumber": 5,
     "title": "Reaching Up (w, o)",
     "description": "Learn to use your ring fingers on the top row.",
     "difficulty": 2,
     "estimatedTimeMinutes": 2,
     "minAccuracy": 90,
     "targetWpm": 12,
-    "unlockedAfter": "chap2-les2-2",
+    "unlockedAfter": "chap2-les4",
+    "newKeys": [
+      "w",
+      "o"
+    ],
+    "previouslyUsedKeys": [
+      "e",
+      "i",
+      "r",
+      "u",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-ring",
+      "right-ring"
+    ],
+    "type": "box_practice",
+    "text": "s w s w l o l o sw lo ws ol sww loo wss oll s w l o",
+    "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
+  },
+  {
+    "id": "chap2-les6",
+    "chapterId": 2,
+    "lessonNumber": 6,
+    "title": "Review: Reaching Up (w, o)",
+    "description": "Learn to use your ring fingers on the top row.",
+    "difficulty": 2,
+    "estimatedTimeMinutes": 2,
+    "minAccuracy": 90,
+    "targetWpm": 12,
+    "unlockedAfter": "chap2-les5",
     "newKeys": [
       "w",
       "o"
@@ -111,16 +222,57 @@
     "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
-    "id": "chap2-les2-4",
+    "id": "chap2-les7",
     "chapterId": 2,
-    "lessonNumber": 4,
+    "lessonNumber": 7,
     "title": "Reaching Up (q, p)",
     "description": "Learn to use your pinky fingers on the top row.",
     "difficulty": 2,
     "estimatedTimeMinutes": 2,
     "minAccuracy": 90,
     "targetWpm": 12,
-    "unlockedAfter": "chap2-les2-3",
+    "unlockedAfter": "chap2-les6",
+    "newKeys": [
+      "q",
+      "p"
+    ],
+    "previouslyUsedKeys": [
+      "w",
+      "o",
+      "e",
+      "i",
+      "r",
+      "u",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "right-pinky"
+    ],
+    "type": "box_practice",
+    "text": "a q a q ; p ; p aq ;p qa p; aqq ;pp qaa p;; a q ; p",
+    "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
+  },
+  {
+    "id": "chap2-les8",
+    "chapterId": 2,
+    "lessonNumber": 8,
+    "title": "Review: Reaching Up (q, p)",
+    "description": "Learn to use your pinky fingers on the top row.",
+    "difficulty": 2,
+    "estimatedTimeMinutes": 2,
+    "minAccuracy": 90,
+    "targetWpm": 12,
+    "unlockedAfter": "chap2-les7",
     "newKeys": [
       "q",
       "p"
@@ -152,16 +304,59 @@
     "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
-    "id": "chap2-les2-5",
+    "id": "chap2-les9",
     "chapterId": 2,
-    "lessonNumber": 5,
+    "lessonNumber": 9,
     "title": "Reaching Up (t, y)",
     "description": "Learn to stretch your index fingers on the top row.",
     "difficulty": 2,
     "estimatedTimeMinutes": 2,
     "minAccuracy": 90,
     "targetWpm": 12,
-    "unlockedAfter": "chap2-les2-4",
+    "unlockedAfter": "chap2-les8",
+    "newKeys": [
+      "t",
+      "y"
+    ],
+    "previouslyUsedKeys": [
+      "q",
+      "w",
+      "e",
+      "r",
+      "u",
+      "i",
+      "o",
+      "p",
+      "a",
+      "s",
+      "d",
+      "f",
+      "g",
+      "h",
+      "j",
+      "k",
+      "l",
+      ";"
+    ],
+    "fingersUsed": [
+      "left-index",
+      "right-index"
+    ],
+    "type": "box_practice",
+    "text": "f t f t j y j y ft jy tf yt ftt jyy tff yjj f t j y",
+    "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
+  },
+  {
+    "id": "chap2-les10",
+    "chapterId": 2,
+    "lessonNumber": 10,
+    "title": "Review: Reaching Up (t, y)",
+    "description": "Learn to stretch your index fingers on the top row.",
+    "difficulty": 2,
+    "estimatedTimeMinutes": 2,
+    "minAccuracy": 90,
+    "targetWpm": 12,
+    "unlockedAfter": "chap2-les9",
     "newKeys": [
       "t",
       "y"
@@ -195,16 +390,54 @@
     "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
-    "id": "chap2-les2-6",
+    "id": "chap2-les11",
     "chapterId": 2,
-    "lessonNumber": 6,
+    "lessonNumber": 11,
     "title": "Top Row Review",
     "description": "Review all keys on the top row.",
     "difficulty": 2,
     "estimatedTimeMinutes": 3,
     "minAccuracy": 90,
     "targetWpm": 15,
-    "unlockedAfter": "chap2-les2-5",
+    "unlockedAfter": "chap2-les10",
+    "newKeys": [],
+    "previouslyUsedKeys": [
+      "q",
+      "w",
+      "e",
+      "r",
+      "t",
+      "y",
+      "u",
+      "i",
+      "o",
+      "p"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "left-ring",
+      "left-middle",
+      "left-index",
+      "right-index",
+      "right-middle",
+      "right-ring",
+      "right-pinky"
+    ],
+    "type": "box_practice",
+    "text": "qwert yuiop q w e r t y u i o p req out put your rut tou",
+    "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
+  },
+  {
+    "id": "chap2-les12",
+    "chapterId": 2,
+    "lessonNumber": 12,
+    "title": "Review: Top Row Review",
+    "description": "Review all keys on the top row.",
+    "difficulty": 2,
+    "estimatedTimeMinutes": 3,
+    "minAccuracy": 90,
+    "targetWpm": 15,
+    "unlockedAfter": "chap2-les11",
     "newKeys": [],
     "previouslyUsedKeys": [
       "q",
@@ -233,9 +466,9 @@
     "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
-    "id": "chap2-les2-7",
+    "id": "chap2-les13",
     "chapterId": 2,
-    "lessonNumber": 7,
+    "lessonNumber": 13,
     "title": "Mixing Home & Top Rows",
     "description": "Practice combining home row and top row keys.",
     "difficulty": 3,
@@ -281,9 +514,9 @@
     "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
-    "id": "chap2-les2-8",
+    "id": "chap2-les14",
     "chapterId": 2,
-    "lessonNumber": 8,
+    "lessonNumber": 14,
     "title": "Basic Words (Top + Home)",
     "description": "Practice typing small words using both rows.",
     "difficulty": 3,
@@ -329,9 +562,9 @@
     "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
-    "id": "chap2-les2-9",
+    "id": "chap2-les15",
     "chapterId": 2,
-    "lessonNumber": 9,
+    "lessonNumber": 15,
     "title": "Speed Drill (Top + Home)",
     "description": "Focus on speed with mixed rows.",
     "difficulty": 4,
@@ -377,9 +610,9 @@
     "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
-    "id": "chap2-les2-10",
+    "id": "chap2-les16",
     "chapterId": 2,
-    "lessonNumber": 10,
+    "lessonNumber": 16,
     "title": "Chapter 2 Test",
     "description": "Final test for the Top Row and Home Row combination.",
     "difficulty": 4,
@@ -425,9 +658,9 @@
     "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
   },
   {
-    "id": "chap2-les11",
+    "id": "chap2-les17",
     "chapterId": 2,
-    "lessonNumber": 11,
+    "lessonNumber": 17,
     "title": "The Brackets",
     "newKeys": [
       "[",
@@ -437,9 +670,9 @@
     "text": "p [ p [ [p [p p [ p [ ] [ ] [p] p] ]p]"
   },
   {
-    "id": "chap2-les12",
+    "id": "chap2-les18",
     "chapterId": 2,
-    "lessonNumber": 12,
+    "lessonNumber": 18,
     "title": "The Backslash",
     "newKeys": [
       "\\"

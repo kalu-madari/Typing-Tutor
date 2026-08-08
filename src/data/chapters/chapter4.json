@@ -8,73 +8,151 @@
       "1",
       "0"
     ],
-    "type": "practice",
+    "type": "box_practice",
     "text": "1 0 1 0 10 01 101 010 1 0"
   },
   {
     "id": "chap4-les2",
     "chapterId": 4,
     "lessonNumber": 2,
-    "title": "Numbers 2 and 9",
+    "title": "Review: Numbers 1 and 0",
     "newKeys": [
-      "2",
-      "9"
+      "1",
+      "0"
     ],
     "type": "practice",
-    "text": "2 9 2 9 29 92 292 929 2 9"
+    "text": "1 0 1 0 10 01 101 010 1 0",
+    "unlockedAfter": "chap4-les1"
   },
   {
     "id": "chap4-les3",
     "chapterId": 4,
     "lessonNumber": 3,
-    "title": "Numbers 3 and 8",
+    "title": "Numbers 2 and 9",
     "newKeys": [
-      "3",
-      "8"
+      "2",
+      "9"
     ],
-    "type": "practice",
-    "text": "3 8 3 8 38 83 383 838 3 8"
+    "type": "box_practice",
+    "text": "2 9 2 9 29 92 292 929 2 9"
   },
   {
     "id": "chap4-les4",
     "chapterId": 4,
     "lessonNumber": 4,
-    "title": "Numbers 4 and 7",
+    "title": "Review: Numbers 2 and 9",
     "newKeys": [
-      "4",
-      "7"
+      "2",
+      "9"
     ],
     "type": "practice",
-    "text": "4 7 4 7 47 74 474 747 4 7"
+    "text": "2 9 2 9 29 92 292 929 2 9",
+    "unlockedAfter": "chap4-les3"
   },
   {
     "id": "chap4-les5",
     "chapterId": 4,
     "lessonNumber": 5,
-    "title": "Numbers 5 and 6",
+    "title": "Numbers 3 and 8",
     "newKeys": [
-      "5",
-      "6"
+      "3",
+      "8"
     ],
-    "type": "practice",
-    "text": "5 6 5 6 56 65 565 656 5 6"
+    "type": "box_practice",
+    "text": "3 8 3 8 38 83 383 838 3 8"
   },
   {
     "id": "chap4-les6",
     "chapterId": 4,
     "lessonNumber": 6,
-    "title": "Symbols - and =",
+    "title": "Review: Numbers 3 and 8",
     "newKeys": [
-      "-",
-      "="
+      "3",
+      "8"
     ],
     "type": "practice",
-    "text": "- = - = -= =- -=- =-= - ="
+    "text": "3 8 3 8 38 83 383 838 3 8",
+    "unlockedAfter": "chap4-les5"
   },
   {
     "id": "chap4-les7",
     "chapterId": 4,
     "lessonNumber": 7,
+    "title": "Numbers 4 and 7",
+    "newKeys": [
+      "4",
+      "7"
+    ],
+    "type": "box_practice",
+    "text": "4 7 4 7 47 74 474 747 4 7"
+  },
+  {
+    "id": "chap4-les8",
+    "chapterId": 4,
+    "lessonNumber": 8,
+    "title": "Review: Numbers 4 and 7",
+    "newKeys": [
+      "4",
+      "7"
+    ],
+    "type": "practice",
+    "text": "4 7 4 7 47 74 474 747 4 7",
+    "unlockedAfter": "chap4-les7"
+  },
+  {
+    "id": "chap4-les9",
+    "chapterId": 4,
+    "lessonNumber": 9,
+    "title": "Numbers 5 and 6",
+    "newKeys": [
+      "5",
+      "6"
+    ],
+    "type": "box_practice",
+    "text": "5 6 5 6 56 65 565 656 5 6"
+  },
+  {
+    "id": "chap4-les10",
+    "chapterId": 4,
+    "lessonNumber": 10,
+    "title": "Review: Numbers 5 and 6",
+    "newKeys": [
+      "5",
+      "6"
+    ],
+    "type": "practice",
+    "text": "5 6 5 6 56 65 565 656 5 6",
+    "unlockedAfter": "chap4-les9"
+  },
+  {
+    "id": "chap4-les11",
+    "chapterId": 4,
+    "lessonNumber": 11,
+    "title": "Symbols - and =",
+    "newKeys": [
+      "-",
+      "="
+    ],
+    "type": "box_practice",
+    "text": "- = - = -= =- -=- =-= - ="
+  },
+  {
+    "id": "chap4-les12",
+    "chapterId": 4,
+    "lessonNumber": 12,
+    "title": "Review: Symbols - and =",
+    "newKeys": [
+      "-",
+      "="
+    ],
+    "type": "practice",
+    "text": "- = - = -= =- -=- =-= - =",
+    "unlockedAfter": "chap4-les11"
+  },
+  {
+    "id": "chap4-les13",
+    "chapterId": 4,
+    "lessonNumber": 13,
     "title": "The Backtick",
     "newKeys": [
       "`"

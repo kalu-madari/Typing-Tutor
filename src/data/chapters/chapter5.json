@@ -1,6 +1,6 @@
 [
   {
-    "id": "chap5-les1-2",
+    "id": "chap5-les1",
     "chapterId": 5,
     "lessonNumber": 1,
     "title": "The Index Fingers (Shift)",
@@ -19,21 +19,72 @@
       "left-index",
       "right-index"
     ],
+    "type": "box_practice",
+    "text": "F J F J F J FF JJ FJ JF FFF JJJ FJF JFJ F J F J FF JJ FJF JFJ",
+    "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
+  },
+  {
+    "id": "chap5-les2",
+    "chapterId": 5,
+    "lessonNumber": 2,
+    "title": "Review: The Index Fingers (Shift)",
+    "description": "Learn to use your index fingers on the home row.",
+    "difficulty": 1,
+    "estimatedTimeMinutes": 2,
+    "minAccuracy": 90,
+    "targetWpm": 12,
+    "unlockedAfter": "chap5-les1",
+    "newKeys": [
+      "F",
+      "J"
+    ],
+    "previouslyUsedKeys": [],
+    "fingersUsed": [
+      "left-index",
+      "right-index"
+    ],
     "type": "practice",
     "text": "F J F J F J FF JJ FJ JF FFF JJJ FJF JFJ F J F J FF JJ FJF JFJ",
     "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
   },
   {
-    "id": "chap5-les1-3",
+    "id": "chap5-les3",
     "chapterId": 5,
-    "lessonNumber": 2,
+    "lessonNumber": 3,
     "title": "The Middle Fingers (Shift)",
     "description": "Learn to use your middle fingers.",
     "difficulty": 1,
     "estimatedTimeMinutes": 3,
     "minAccuracy": 90,
     "targetWpm": 12,
-    "unlockedAfter": "chap1-les1-2",
+    "unlockedAfter": "chap5-les2",
+    "newKeys": [
+      "D",
+      "K"
+    ],
+    "previouslyUsedKeys": [
+      "F",
+      "J"
+    ],
+    "fingersUsed": [
+      "left-middle",
+      "right-middle"
+    ],
+    "type": "box_practice",
+    "text": "D K D K DD KK DK KD DF KJ FD JK DDF KKJ DFJ KJD FD JK DF KJ",
+    "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
+  },
+  {
+    "id": "chap5-les4",
+    "chapterId": 5,
+    "lessonNumber": 4,
+    "title": "Review: The Middle Fingers (Shift)",
+    "description": "Learn to use your middle fingers.",
+    "difficulty": 1,
+    "estimatedTimeMinutes": 3,
+    "minAccuracy": 90,
+    "targetWpm": 12,
+    "unlockedAfter": "chap5-les3",
     "newKeys": [
       "D",
       "K"
@@ -51,16 +102,45 @@
     "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
   },
   {
-    "id": "chap5-les1-4",
+    "id": "chap5-les5",
     "chapterId": 5,
-    "lessonNumber": 3,
+    "lessonNumber": 5,
     "title": "The Ring Fingers (Shift)",
     "description": "Learn to use your ring fingers.",
     "difficulty": 2,
     "estimatedTimeMinutes": 3,
     "minAccuracy": 90,
     "targetWpm": 12,
-    "unlockedAfter": "chap1-les1-3",
+    "unlockedAfter": "chap5-les4",
+    "newKeys": [
+      "S",
+      "L"
+    ],
+    "previouslyUsedKeys": [
+      "F",
+      "J",
+      "D",
+      "K"
+    ],
+    "fingersUsed": [
+      "left-ring",
+      "right-ring"
+    ],
+    "type": "box_practice",
+    "text": "S L S L SS LL SL LS SF LJ DS KL SSL LLJ FSL JKL S L S L",
+    "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
+  },
+  {
+    "id": "chap5-les6",
+    "chapterId": 5,
+    "lessonNumber": 6,
+    "title": "Review: The Ring Fingers (Shift)",
+    "description": "Learn to use your ring fingers.",
+    "difficulty": 2,
+    "estimatedTimeMinutes": 3,
+    "minAccuracy": 90,
+    "targetWpm": 12,
+    "unlockedAfter": "chap5-les5",
     "newKeys": [
       "S",
       "L"
@@ -80,16 +160,47 @@
     "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
   },
   {
-    "id": "chap5-les1-5",
+    "id": "chap5-les7",
     "chapterId": 5,
-    "lessonNumber": 4,
+    "lessonNumber": 7,
     "title": "The Pinky Fingers (Shift)",
     "description": "Learn to use your pinky fingers.",
     "difficulty": 2,
     "estimatedTimeMinutes": 3,
     "minAccuracy": 90,
     "targetWpm": 12,
-    "unlockedAfter": "chap1-les1-4",
+    "unlockedAfter": "chap5-les6",
+    "newKeys": [
+      "A",
+      ":"
+    ],
+    "previouslyUsedKeys": [
+      "F",
+      "J",
+      "D",
+      "K",
+      "S",
+      "L"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "right-pinky"
+    ],
+    "type": "box_practice",
+    "text": "A : A : AA :: A: :A AS L: AD K: AF J: AAS ::L ASD KL: A : A :",
+    "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
+  },
+  {
+    "id": "chap5-les8",
+    "chapterId": 5,
+    "lessonNumber": 8,
+    "title": "Review: The Pinky Fingers (Shift)",
+    "description": "Learn to use your pinky fingers.",
+    "difficulty": 2,
+    "estimatedTimeMinutes": 3,
+    "minAccuracy": 90,
+    "targetWpm": 12,
+    "unlockedAfter": "chap5-les7",
     "newKeys": [
       "A",
       ":"
@@ -111,16 +222,49 @@
     "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
   },
   {
-    "id": "chap5-les1-6",
+    "id": "chap5-les9",
     "chapterId": 5,
-    "lessonNumber": 5,
+    "lessonNumber": 9,
     "title": "The Inner Index (Shift)",
     "description": "Learn to stretch your index fingers to the center.",
     "difficulty": 2,
     "estimatedTimeMinutes": 3,
     "minAccuracy": 90,
     "targetWpm": 12,
-    "unlockedAfter": "chap1-les1-5",
+    "unlockedAfter": "chap5-les8",
+    "newKeys": [
+      "G",
+      "H"
+    ],
+    "previouslyUsedKeys": [
+      "F",
+      "J",
+      "D",
+      "K",
+      "S",
+      "L",
+      "A",
+      ":"
+    ],
+    "fingersUsed": [
+      "left-index",
+      "right-index"
+    ],
+    "type": "box_practice",
+    "text": "G H G H GG HH GH HG GF HJ GD HK GS HL GA H: G H GG HH GH HG",
+    "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
+  },
+  {
+    "id": "chap5-les10",
+    "chapterId": 5,
+    "lessonNumber": 10,
+    "title": "Review: The Inner Index (Shift)",
+    "description": "Learn to stretch your index fingers to the center.",
+    "difficulty": 2,
+    "estimatedTimeMinutes": 3,
+    "minAccuracy": 90,
+    "targetWpm": 12,
+    "unlockedAfter": "chap5-les9",
     "newKeys": [
       "G",
       "H"
@@ -144,16 +288,54 @@
     "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
   },
   {
-    "id": "chap5-les1-7",
+    "id": "chap5-les11",
     "chapterId": 5,
-    "lessonNumber": 6,
+    "lessonNumber": 11,
     "title": "Home Row Review (Shift)",
     "description": "Review all keys on the home row.",
     "difficulty": 2,
     "estimatedTimeMinutes": 4,
     "minAccuracy": 92,
     "targetWpm": 15,
-    "unlockedAfter": "chap1-les1-6",
+    "unlockedAfter": "chap5-les10",
+    "newKeys": [],
+    "previouslyUsedKeys": [
+      "A",
+      "S",
+      "D",
+      "F",
+      "G",
+      "H",
+      "J",
+      "K",
+      "L",
+      ":"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "left-ring",
+      "left-middle",
+      "left-index",
+      "right-index",
+      "right-middle",
+      "right-ring",
+      "right-pinky"
+    ],
+    "type": "box_practice",
+    "text": "ASDF JKL: G H FD JK SA L: GH HG A S D F G H J K L : ASDFG HJKL:",
+    "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
+  },
+  {
+    "id": "chap5-les12",
+    "chapterId": 5,
+    "lessonNumber": 12,
+    "title": "Review: Home Row Review (Shift)",
+    "description": "Review all keys on the home row.",
+    "difficulty": 2,
+    "estimatedTimeMinutes": 4,
+    "minAccuracy": 92,
+    "targetWpm": 15,
+    "unlockedAfter": "chap5-les11",
     "newKeys": [],
     "previouslyUsedKeys": [
       "A",
@@ -182,9 +364,9 @@
     "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
   },
   {
-    "id": "chap5-les1-8",
+    "id": "chap5-les13",
     "chapterId": 5,
-    "lessonNumber": 7,
+    "lessonNumber": 13,
     "title": "Home Row Words (Shift)",
     "description": "Practice typing small words using only the home row.",
     "difficulty": 3,
@@ -220,9 +402,9 @@
     "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
   },
   {
-    "id": "chap5-les1-9",
+    "id": "chap5-les14",
     "chapterId": 5,
-    "lessonNumber": 8,
+    "lessonNumber": 14,
     "title": "Speed Drill (Home Row) (Shift)",
     "description": "Focus on speed and fluid finger movements.",
     "difficulty": 3,
@@ -258,9 +440,9 @@
     "teachingText": "इस पाठ में हम होम रो (Home Row) का अभ्यास करेंगे। अपनी उंगलियों को कीबोर्ड के बीच वाली लाइन (A S D F और J K L ;) पर रखें। स्क्रीन पर देखें और बिना कीबोर्ड को देखे टाइप करने का प्रयास करें।"
   },
   {
-    "id": "chap5-les1-10",
+    "id": "chap5-les15",
     "chapterId": 5,
-    "lessonNumber": 9,
+    "lessonNumber": 15,
     "title": "Chapter 1 Test (Shift)",
     "description": "Final test to prove your mastery of the home row.",
     "difficulty": 4,

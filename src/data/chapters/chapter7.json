@@ -1,6 +1,6 @@
 [
   {
-    "id": "chap7-les3-1",
+    "id": "chap7-les1",
     "chapterId": 7,
     "lessonNumber": 1,
     "title": "Reaching Down (v, m) (Shift)",
@@ -30,21 +30,93 @@
       "left-index",
       "right-index"
     ],
+    "type": "box_practice",
+    "text": "F V F V J M J M FV JM VF MJ FVV JMM VVF MMJ F V J M",
+    "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
+  },
+  {
+    "id": "chap7-les2",
+    "chapterId": 7,
+    "lessonNumber": 2,
+    "title": "Review: Reaching Down (v, m) (Shift)",
+    "description": "Learn to use your index fingers on the bottom row.",
+    "difficulty": 1,
+    "estimatedTimeMinutes": 2,
+    "minAccuracy": 90,
+    "targetWpm": 12,
+    "unlockedAfter": "chap7-les1",
+    "newKeys": [
+      "V",
+      "M"
+    ],
+    "previouslyUsedKeys": [
+      "A",
+      "S",
+      "D",
+      "F",
+      "G",
+      "H",
+      "J",
+      "K",
+      "L",
+      ":"
+    ],
+    "fingersUsed": [
+      "left-index",
+      "right-index"
+    ],
     "type": "practice",
     "text": "F V F V J M J M FV JM VF MJ FVV JMM VVF MMJ F V J M",
     "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
-    "id": "chap7-les3-2",
+    "id": "chap7-les3",
     "chapterId": 7,
-    "lessonNumber": 2,
+    "lessonNumber": 3,
     "title": "Reaching Down (c, ,) (Shift)",
     "description": "Learn to use your middle fingers on the bottom row.",
     "difficulty": 1,
     "estimatedTimeMinutes": 2,
     "minAccuracy": 90,
     "targetWpm": 12,
-    "unlockedAfter": "chap3-les3-1",
+    "unlockedAfter": "chap7-les2",
+    "newKeys": [
+      "C",
+      "<"
+    ],
+    "previouslyUsedKeys": [
+      "V",
+      "M",
+      "A",
+      "S",
+      "D",
+      "F",
+      "G",
+      "H",
+      "J",
+      "K",
+      "L",
+      ":"
+    ],
+    "fingersUsed": [
+      "left-middle",
+      "right-middle"
+    ],
+    "type": "box_practice",
+    "text": "D C D C K < K < DC K< CD <K DCC K<< CCD <<K D C K <",
+    "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
+  },
+  {
+    "id": "chap7-les4",
+    "chapterId": 7,
+    "lessonNumber": 4,
+    "title": "Review: Reaching Down (c, ,) (Shift)",
+    "description": "Learn to use your middle fingers on the bottom row.",
+    "difficulty": 1,
+    "estimatedTimeMinutes": 2,
+    "minAccuracy": 90,
+    "targetWpm": 12,
+    "unlockedAfter": "chap7-les3",
     "newKeys": [
       "C",
       "<"
@@ -72,16 +144,55 @@
     "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
-    "id": "chap7-les3-3",
+    "id": "chap7-les5",
     "chapterId": 7,
-    "lessonNumber": 3,
+    "lessonNumber": 5,
     "title": "Reaching Down (x, .) (Shift)",
     "description": "Learn to use your ring fingers on the bottom row.",
     "difficulty": 2,
     "estimatedTimeMinutes": 2,
     "minAccuracy": 90,
     "targetWpm": 12,
-    "unlockedAfter": "chap3-les3-2",
+    "unlockedAfter": "chap7-les4",
+    "newKeys": [
+      "X",
+      ">"
+    ],
+    "previouslyUsedKeys": [
+      "C",
+      "<",
+      "V",
+      "M",
+      "A",
+      "S",
+      "D",
+      "F",
+      "G",
+      "H",
+      "J",
+      "K",
+      "L",
+      ":"
+    ],
+    "fingersUsed": [
+      "left-ring",
+      "right-ring"
+    ],
+    "type": "box_practice",
+    "text": "S X S X L > L > SX L> XS >L SXX L>> XXS >>L S X L >",
+    "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
+  },
+  {
+    "id": "chap7-les6",
+    "chapterId": 7,
+    "lessonNumber": 6,
+    "title": "Review: Reaching Down (x, .) (Shift)",
+    "description": "Learn to use your ring fingers on the bottom row.",
+    "difficulty": 2,
+    "estimatedTimeMinutes": 2,
+    "minAccuracy": 90,
+    "targetWpm": 12,
+    "unlockedAfter": "chap7-les5",
     "newKeys": [
       "X",
       ">"
@@ -111,16 +222,57 @@
     "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
-    "id": "chap7-les3-4",
+    "id": "chap7-les7",
     "chapterId": 7,
-    "lessonNumber": 4,
+    "lessonNumber": 7,
     "title": "Reaching Down (z, /) (Shift)",
     "description": "Learn to use your pinky fingers on the bottom row.",
     "difficulty": 2,
     "estimatedTimeMinutes": 2,
     "minAccuracy": 90,
     "targetWpm": 12,
-    "unlockedAfter": "chap3-les3-3",
+    "unlockedAfter": "chap7-les6",
+    "newKeys": [
+      "Z",
+      "?"
+    ],
+    "previouslyUsedKeys": [
+      "X",
+      ">",
+      "C",
+      "<",
+      "V",
+      "M",
+      "A",
+      "S",
+      "D",
+      "F",
+      "G",
+      "H",
+      "J",
+      "K",
+      "L",
+      ":"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "right-pinky"
+    ],
+    "type": "box_practice",
+    "text": "A Z A Z : ? : ? AZ :? ZA ?: AZZ :?? ZAA ?:: A Z : ?",
+    "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
+  },
+  {
+    "id": "chap7-les8",
+    "chapterId": 7,
+    "lessonNumber": 8,
+    "title": "Review: Reaching Down (z, /) (Shift)",
+    "description": "Learn to use your pinky fingers on the bottom row.",
+    "difficulty": 2,
+    "estimatedTimeMinutes": 2,
+    "minAccuracy": 90,
+    "targetWpm": 12,
+    "unlockedAfter": "chap7-les7",
     "newKeys": [
       "Z",
       "?"
@@ -152,16 +304,59 @@
     "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
-    "id": "chap7-les3-5",
+    "id": "chap7-les9",
     "chapterId": 7,
-    "lessonNumber": 5,
+    "lessonNumber": 9,
     "title": "Reaching Down (b, n) (Shift)",
     "description": "Learn to stretch your index fingers on the bottom row.",
     "difficulty": 2,
     "estimatedTimeMinutes": 2,
     "minAccuracy": 90,
     "targetWpm": 12,
-    "unlockedAfter": "chap3-les3-4",
+    "unlockedAfter": "chap7-les8",
+    "newKeys": [
+      "B",
+      "N"
+    ],
+    "previouslyUsedKeys": [
+      "Z",
+      "X",
+      "C",
+      "V",
+      "M",
+      "<",
+      ">",
+      "?",
+      "A",
+      "S",
+      "D",
+      "F",
+      "G",
+      "H",
+      "J",
+      "K",
+      "L",
+      ":"
+    ],
+    "fingersUsed": [
+      "left-index",
+      "right-index"
+    ],
+    "type": "box_practice",
+    "text": "F B F B J N J N FB JN BF NB FBB JNN BFF NJJ F B J N",
+    "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
+  },
+  {
+    "id": "chap7-les10",
+    "chapterId": 7,
+    "lessonNumber": 10,
+    "title": "Review: Reaching Down (b, n) (Shift)",
+    "description": "Learn to stretch your index fingers on the bottom row.",
+    "difficulty": 2,
+    "estimatedTimeMinutes": 2,
+    "minAccuracy": 90,
+    "targetWpm": 12,
+    "unlockedAfter": "chap7-les9",
     "newKeys": [
       "B",
       "N"
@@ -195,16 +390,54 @@
     "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
-    "id": "chap7-les3-6",
+    "id": "chap7-les11",
     "chapterId": 7,
-    "lessonNumber": 6,
+    "lessonNumber": 11,
     "title": "Bottom Row Review (Shift)",
     "description": "Review all keys on the bottom row.",
     "difficulty": 2,
     "estimatedTimeMinutes": 3,
     "minAccuracy": 90,
     "targetWpm": 15,
-    "unlockedAfter": "chap3-les3-5",
+    "unlockedAfter": "chap7-les10",
+    "newKeys": [],
+    "previouslyUsedKeys": [
+      "Z",
+      "X",
+      "C",
+      "V",
+      "B",
+      "N",
+      "M",
+      "<",
+      ">",
+      "?"
+    ],
+    "fingersUsed": [
+      "left-pinky",
+      "left-ring",
+      "left-middle",
+      "left-index",
+      "right-index",
+      "right-middle",
+      "right-ring",
+      "right-pinky"
+    ],
+    "type": "box_practice",
+    "text": "ZXCVB NM<>? Z X C V B N M < > ? BNM VCX Z?>< MNB CVZ",
+    "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
+  },
+  {
+    "id": "chap7-les12",
+    "chapterId": 7,
+    "lessonNumber": 12,
+    "title": "Review: Bottom Row Review (Shift)",
+    "description": "Review all keys on the bottom row.",
+    "difficulty": 2,
+    "estimatedTimeMinutes": 3,
+    "minAccuracy": 90,
+    "targetWpm": 15,
+    "unlockedAfter": "chap7-les11",
     "newKeys": [],
     "previouslyUsedKeys": [
       "Z",
@@ -233,9 +466,9 @@
     "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
-    "id": "chap7-les3-7",
+    "id": "chap7-les13",
     "chapterId": 7,
-    "lessonNumber": 7,
+    "lessonNumber": 13,
     "title": "Mixing All Three Rows (Shift)",
     "description": "Practice typing words that use keys from all three rows.",
     "difficulty": 3,
@@ -291,9 +524,9 @@
     "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
-    "id": "chap7-les3-8",
+    "id": "chap7-les14",
     "chapterId": 7,
-    "lessonNumber": 8,
+    "lessonNumber": 14,
     "title": "Word Practice (All Rows) (Shift)",
     "description": "Enhance muscle memory for multi-row words.",
     "difficulty": 3,
@@ -349,9 +582,9 @@
     "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
-    "id": "chap7-les3-9",
+    "id": "chap7-les15",
     "chapterId": 7,
-    "lessonNumber": 9,
+    "lessonNumber": 15,
     "title": "Speed Drill (All Rows) (Shift)",
     "description": "Focus on raw speed across the entire keyboard.",
     "difficulty": 4,
@@ -407,9 +640,9 @@
     "teachingText": "इस पाठ में हम बॉटम रो (Bottom Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को नीचे की ओर ले जाना सीखें और टाइप करने के बाद तुरंत होम रो पर वापस आएं।"
   },
   {
-    "id": "chap7-les3-10",
+    "id": "chap7-les16",
     "chapterId": 7,
-    "lessonNumber": 10,
+    "lessonNumber": 16,
     "title": "Chapter 3 Test (Shift)",
     "description": "Prove your full keyboard mastery.",
     "difficulty": 4,

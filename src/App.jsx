@@ -3,6 +3,7 @@ import { useTypingEngine } from './hooks/useTypingEngine';
 import { krutidev010Layout } from './core/layouts/krutidev010';
 import { getAllLessons, getLessonById, getNextLesson, getChapters } from './core/lessonEngine';
 import TypingArea from './components/TypingArea';
+import BoxExercise from './components/BoxExercise';
 import VirtualKeyboard from './components/VirtualKeyboard';
 import { useAppStore } from './store/useAppStore';
 
@@ -589,7 +590,11 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
         </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', minWidth: '1000px', maxWidth: '1000px', gap: '120px', minHeight: '650px' }}>
-        <TypingArea engineState={engineState} />
+        {currentLesson?.type === 'box_practice' ? (
+          <BoxExercise engineState={engineState} />
+        ) : (
+          <TypingArea engineState={engineState} />
+        )}
         <VirtualKeyboard layout={krutidev010Layout} engineState={engineState} altCodeState={altCodeState} />
       </div>
 
