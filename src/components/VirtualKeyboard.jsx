@@ -202,7 +202,7 @@ const styles = {
     gap: '40px',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    marginTop: '-22px',
+    marginTop: '-30px',
     width: '100%',
     maxWidth: '1000px'
   },
