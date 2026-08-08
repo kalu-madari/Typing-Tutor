@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { TypingEngine } from '../core/typingEngine';
 import { getTypingStats } from '../core/statistics';
 import { useAppStore } from '../store/useAppStore';
+import { altCodesMap } from '../core/altCodesMap';
 
 export const useTypingEngine = (text, layout) => {
   const [engineState, setEngineState] = useState(null);
@@ -73,6 +74,30 @@ export const useTypingEngine = (text, layout) => {
         }
 
         if (/^[0-9]$/.test(digit)) {
+          if (engineRef.current && engineRef.current.status !== 'finished') {
+            const state = engineRef.current.getState();
+            const nextChar = state.text[state.currentIndex];
+            
+            if (nextChar && altCodesMap[nextChar]) {
+              const sequence = altCodesMap[nextChar];
+              const expectedStr = sequence.slice(2).map(k => k.replace('Numpad', '')).join('');
+              
+              if (digit !== expectedStr[altCodeStr.length]) {
+                altCodeStr = "";
+                setAltCodeState(altCodeStr);
+                e.preventDefault();
+                engineRef.current.handleKeyPress('WRONG_ALT_DIGIT');
+                return;
+              }
+            } else {
+              altCodeStr = "";
+              setAltCodeState(altCodeStr);
+              e.preventDefault();
+              engineRef.current.handleKeyPress('WRONG_ALT_DIGIT');
+              return;
+            }
+          }
+
           altCodeStr += digit;
           setAltCodeState(altCodeStr);
           e.preventDefault(); // Stop Windows from interfering

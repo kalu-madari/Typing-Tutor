@@ -47,6 +47,15 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
     prevWrong.current = currentWrong;
   }, [engineState?.currentIndex, engineState?.incorrectChars]);
 
+  React.useEffect(() => {
+    if (animationEvent.type !== 'none') {
+      const timer = setTimeout(() => {
+        setAnimationEvent(prev => ({ ...prev, type: 'none' }));
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [animationEvent.type, animationEvent.id]);
+
   if (!layout.keyboardMap || !showVirtualKeyboard) return null;
 
   const nextChar = engineState?.status !== 'finished' ? engineState?.text[engineState?.currentIndex] : null;
