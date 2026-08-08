@@ -5,6 +5,7 @@ import { krutidev010Layout } from './core/layouts/krutidev010';
 import { getAllLessons, getLessonById, getNextLesson, getChapters } from './core/lessonEngine';
 import TypingArea from './components/TypingArea';
 import BoxExercise from './components/BoxExercise';
+import LessonResults from './components/LessonResults';
 import VirtualKeyboard from './components/VirtualKeyboard';
 import { useAppStore } from './store/useAppStore';
 
@@ -511,20 +512,6 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
     }
   }, [isFinished, hasNext, onNext]);
 
-  const acc = stats.accuracy;
-  const getAccuracyColor = (acc) => {
-    if (acc >= 98) return '#16a34a'; // Extreme green
-    if (acc >= 90) return '#4ade80'; // Light green
-    if (acc >= 80) return '#fde047'; // Light yellow
-    if (acc >= 70) return '#eab308'; // Yellow
-    if (acc >= 60) return '#f87171'; // Light red
-    if (acc >= 40) return '#ef4444'; // Normal red
-    return '#b91c1c';                // Extreme red
-  };
-  const strokeColor = getAccuracyColor(acc);
-  const strokeDasharray = 283;
-  const visualAcc = Math.max(acc, 2); 
-  const strokeDashoffset = isFinished ? 283 - (283 * visualAcc) / 100 : 283;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', background: 'var(--bg-primary)' }}>
@@ -583,74 +570,53 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
         </div>
       </div>
 
-      {/* Main Content Area */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px 40px 10px', minHeight: '300px' }} onClick={() => { setSoundMenuOpen(false); setSettingsMenuOpen(false); }}>
-        
-        {lesson?.type === 'box_practice' ? (
-          <BoxExercise engineState={engineState} />
-        ) : (
-          <div style={{ maxWidth: '1000px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div style={{ width: '100%' }}>
-              <TypingArea engineState={engineState} isIdle={isIdle} />
-            </div>
+      {isFinished ? (
+        <LessonResults 
+          stats={stats} 
+          onNext={onNext} 
+          onPrev={onPrev} 
+          onRestart={onRestart} 
+          hasNext={hasNext} 
+          hasPrev={hasPrev} 
+        />
+      ) : (
+        <>
+          {/* Main Content Area */}
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px 40px 10px', minHeight: '300px' }} onClick={() => { setSoundMenuOpen(false); setSettingsMenuOpen(false); }}>
             
-            {/* Border line */}
-            <div style={{ width: '100%', height: '1px', background: 'var(--border-soft)', marginTop: '20px', marginBottom: '15px' }} />
-            
-            {/* Live Speed + Accuracy inline */}
-            <div style={{ display: 'flex', gap: '60px', marginBottom: '20px', color: 'var(--text-muted)', fontFamily: 'var(--font-ui)' }}>
-               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
-                  <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '11px', opacity: 0.7 }}>Speed</span>
-                  <span style={{ fontSize: '28px', color: 'var(--text-primary)', fontWeight: 'bold' }}>{stats.wpm} <span style={{ fontSize: '14px', color: 'var(--text-muted)', fontWeight: 'normal' }}>WPM</span></span>
-               </div>
-               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
-                  <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '11px', opacity: 0.7 }}>Accuracy</span>
-                  <span style={{ fontSize: '28px', color: 'var(--text-primary)', fontWeight: 'bold' }}>{stats.accuracy}<span style={{ fontSize: '16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>%</span></span>
-               </div>
-            </div>
-          </div>
-        )}
-      </div>
-      
-      {/* Keyboard Area */}
-      {storeState.showVirtualKeyboard && (
-        <div style={{ paddingBottom: '20px', display: 'flex', justifyContent: 'center', flexShrink: 0 }}>
-           <VirtualKeyboard layout={krutidev010Layout} engineState={engineState} altCodeState={altCodeState} />
-        </div>
-      )}
-
-      {/* Completion Modal */}
-      {isFinished && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-          <div className="glass-card" style={{ padding: '40px', borderRadius: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '400px', textAlign: 'center', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }}>
-            <h2 style={{ fontSize: '32px', margin: '0 0 10px', color: 'var(--text-primary)' }}>Lesson Complete!</h2>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '30px' }}>Great job. Here's how you did:</p>
-            
-            <div style={{ display: 'flex', gap: '40px', marginBottom: '40px' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ fontSize: '48px', fontWeight: 'bold', color: 'var(--accent-blue)', lineHeight: 1 }}>{stats.wpm}</div>
-                <div style={{ fontSize: '14px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginTop: '8px' }}>WPM</div>
-              </div>
-              
-              <div style={{ position: 'relative', width: '100px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg width="100" height="100" viewBox="0 0 100 100" style={{ position: 'absolute', transform: 'rotate(-90deg)' }}>
-                  <circle cx="50" cy="50" r="45" fill="none" stroke="var(--bg-tertiary)" strokeWidth="8" />
-                  <circle cx="50" cy="50" r="45" fill="none" stroke={strokeColor} strokeWidth="8" strokeDasharray={strokeDasharray} strokeDashoffset={strokeDashoffset} style={{ transition: 'stroke-dashoffset 1s ease-out' }} strokeLinecap="round" />
-                </svg>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 1 }}>
-                  <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--text-primary)', lineHeight: 1 }}>{stats.accuracy}%</div>
-                  <div style={{ fontSize: '10px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginTop: '4px' }}>Acc</div>
+            {lesson?.type === 'box_practice' ? (
+              <BoxExercise engineState={engineState} />
+            ) : (
+              <div style={{ maxWidth: '1000px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ width: '100%' }}>
+                  <TypingArea engineState={engineState} isIdle={isIdle} />
+                </div>
+                
+                {/* Border line */}
+                <div style={{ width: '100%', height: '1px', background: 'var(--border-soft)', marginTop: '20px', marginBottom: '15px' }} />
+                
+                {/* Live Speed + Accuracy inline */}
+                <div style={{ display: 'flex', gap: '60px', marginBottom: '20px', color: 'var(--text-muted)', fontFamily: 'var(--font-ui)' }}>
+                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                      <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '11px', opacity: 0.7 }}>Speed</span>
+                      <span style={{ fontSize: '28px', color: 'var(--text-primary)', fontWeight: 'bold' }}>{stats.wpm} <span style={{ fontSize: '14px', color: 'var(--text-muted)', fontWeight: 'normal' }}>WPM</span></span>
+                   </div>
+                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                      <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '11px', opacity: 0.7 }}>Accuracy</span>
+                      <span style={{ fontSize: '28px', color: 'var(--text-primary)', fontWeight: 'bold' }}>{stats.accuracy}<span style={{ fontSize: '16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>%</span></span>
+                   </div>
                 </div>
               </div>
-            </div>
-
-            <div style={{ display: 'flex', gap: '10px', width: '100%' }}>
-              <button className="btn btn-secondary" onClick={onRestart} style={{ flex: 1 }}>Restart</button>
-              <button className="btn btn-primary" onClick={onNext} disabled={!hasNext} style={{ flex: 1, opacity: hasNext ? 1 : 0.5 }}>Next Lesson</button>
-            </div>
-            <button className="btn btn-secondary" onClick={onPrev} disabled={!hasPrev} style={{ width: '100%', marginTop: '10px', opacity: hasPrev ? 1 : 0.5, background: 'transparent' }}>← Previous</button>
+            )}
           </div>
-        </div>
+          
+          {/* Keyboard Area */}
+          {storeState.showVirtualKeyboard && (
+            <div style={{ paddingBottom: '20px', display: 'flex', justifyContent: 'center', flexShrink: 0 }}>
+               <VirtualKeyboard layout={krutidev010Layout} engineState={engineState} altCodeState={altCodeState} />
+            </div>
+          )}
+        </>
       )}
     </div>
   );
