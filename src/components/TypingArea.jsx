@@ -26,7 +26,7 @@ const TypingArea = ({ engineState }) => {
 
   if (!engineState || !engineState.text) return null;
 
-  const { text, currentIndex, errors, status } = engineState;
+  const { text, currentIndex, errors, status, typedCharacters } = engineState;
 
   // Split text into words to prevent mid-word line breaking
   const renderText = () => {
@@ -56,7 +56,14 @@ const TypingArea = ({ engineState }) => {
           {wordTokens.map(({ char, index }) => {
             let statusClass = 'pending';
             if (index < currentIndex) {
-              statusClass = errors.has(index) ? 'error' : 'correct';
+              const typed = typedCharacters[index];
+              if (typed && typed.isError) {
+                statusClass = 'error';
+              } else if (errors.has(index)) {
+                statusClass = 'corrected';
+              } else {
+                statusClass = 'correct';
+              }
             }
 
             const isActive = index === currentIndex;
@@ -89,7 +96,8 @@ const TypingArea = ({ engineState }) => {
 
   const getCharColor = (status) => {
     if (status === 'correct') return 'var(--success)';
-    if (status === 'error') return 'var(--error)';
+    if (status === 'error') return 'var(--danger)';
+    if (status === 'corrected') return 'var(--text-primary)';
     return 'var(--text-secondary)';
   };
 

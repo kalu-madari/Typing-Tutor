@@ -13,11 +13,36 @@ function App() {
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
   const currentLesson = allLessons[currentLessonIndex];
   const [engineKey, setEngineKey] = useState(0);
-  const [completedLessons, setCompletedLessons] = useState(new Set());
+  const [completedLessons, setCompletedLessons] = useState(() => {
+    const saved = localStorage.getItem('krutidev-completed-lessons');
+    if (saved) {
+      try { return new Set(JSON.parse(saved)); } catch (e) {}
+    }
+    return new Set();
+  });
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', store.theme);
   }, [store.theme]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'F11') {
+        e.preventDefault();
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(err => {
+            console.warn(`Error attempting to enable fullscreen: ${err.message}`);
+          });
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          }
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const startLesson = (lesson) => {
     setCurrentLessonIndex(allLessons.findIndex(l => l.id === lesson.id));
@@ -39,7 +64,11 @@ function App() {
   const doRestart = () => setEngineKey(prev => prev + 1);
 
   const handleLessonComplete = (id) => {
-    setCompletedLessons(prev => new Set(prev).add(id));
+    setCompletedLessons(prev => {
+      const newSet = new Set(prev).add(id);
+      localStorage.setItem('krutidev-completed-lessons', JSON.stringify([...newSet]));
+      return newSet;
+    });
   };
 
   return (
@@ -496,9 +525,19 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
   }, [isFinished, hasNext, onNext]);
 
   const acc = stats.accuracy;
-  const strokeColor = acc >= 96 ? 'var(--success)' : acc >= 90 ? 'var(--warning)' : 'var(--error)';
+  const getAccuracyColor = (acc) => {
+    if (acc >= 98) return '#16a34a'; // Extreme green
+    if (acc >= 90) return '#4ade80'; // Light green
+    if (acc >= 80) return '#fde047'; // Light yellow
+    if (acc >= 70) return '#eab308'; // Yellow
+    if (acc >= 60) return '#f87171'; // Light red
+    if (acc >= 40) return '#ef4444'; // Normal red
+    return '#b91c1c';                // Extreme red
+  };
+  const strokeColor = getAccuracyColor(acc);
   const strokeDasharray = 283;
-  const strokeDashoffset = isFinished ? 283 - (283 * acc) / 100 : 283;
+  const visualAcc = Math.max(acc, 2); // Minimum 2% fill so the color is always visible
+  const strokeDashoffset = isFinished ? 283 - (283 * visualAcc) / 100 : 283;
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'flex-start', marginTop: '20px', position: 'relative', width: '100%', padding: '0 20px' }}>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useAppStore } from '../store/useAppStore';
+import { altCodesMap } from '../core/altCodesMap';
 
 const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
   const storeState = useAppStore();
@@ -52,17 +53,8 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
   let expectedKeys = nextChar ? layout.getExpectedKeys(nextChar) : [];
   
   // Custom highlight logic for Alt codes (Kruti Dev special characters)
-  const altCodes = {
-    '¡': ['AltLeft', 'AltRight', 'Numpad0', 'Numpad1', 'Numpad6', 'Numpad1'],
-    '¿': ['AltLeft', 'AltRight', 'Numpad0', 'Numpad1', 'Numpad9', 'Numpad1'],
-    'Ø': ['AltLeft', 'AltRight', 'Numpad0', 'Numpad2', 'Numpad1', 'Numpad6'],
-    'Ý': ['AltLeft', 'AltRight', 'Numpad0', 'Numpad2', 'Numpad2', 'Numpad1'],
-    'Å': ['AltLeft', 'AltRight', 'Numpad0', 'Numpad1', 'Numpad9', 'Numpad7'],
-    'â': ['AltLeft', 'AltRight', 'Numpad0', 'Numpad2', 'Numpad2', 'Numpad6'],
-  };
-  
-  if (nextChar && altCodes[nextChar]) {
-    const sequence = altCodes[nextChar];
+  if (nextChar && altCodesMap[nextChar]) {
+    const sequence = altCodesMap[nextChar];
     const expectedStr = sequence.slice(2).map(k => k.replace('Numpad', '')).join(''); // e.g. "0161"
     
     let typedLength = 0;
@@ -121,10 +113,14 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
     if (expectedKeys.includes(keyObj.key)) {
       if (keyObj.key === 'ShiftLeft' || keyObj.key === 'ShiftRight') {
         isExpected = true;
-      } else if (requiresShift) {
-        isExpected = isShiftActive;
       } else {
-        isExpected = true;
+        if (!requiresShift && isShiftActive) {
+          isExpected = false;
+        } else if (requiresShift && !isShiftActive) {
+          isExpected = false;
+        } else {
+          isExpected = true;
+        }
       }
     }
 
