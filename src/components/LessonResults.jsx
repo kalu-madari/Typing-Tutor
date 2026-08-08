@@ -244,6 +244,20 @@ const LessonResults = ({ stats, onNext, onPrev, onRestart, hasNext, hasPrev }) =
           from { opacity: 0; transform: translateY(-50%) translateX(10px); }
           to { opacity: 1; transform: translateY(-50%) translateX(0); }
         }
+        .glass-button {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 8px;
+          color: var(--text-primary);
+          transition: all 0.2s ease;
+        }
+        .glass-button:hover:not(:disabled) {
+          background: rgba(255, 255, 255, 0.15);
+          border-color: rgba(255, 255, 255, 0.3);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+          color: #ffffff;
+        }
       `}</style>
       
       <div style={{ display: 'flex', alignItems: 'center', gap: '40px', marginBottom: '80px', marginTop: '40px' }}>
