@@ -148,7 +148,7 @@ const styles = {
     padding: '30px',
     borderRadius: '12px',
     width: '100%',
-    maxWidth: '712px',
+    maxWidth: '1000px',
     margin: '0 auto',
     boxSizing: 'border-box'
   },
