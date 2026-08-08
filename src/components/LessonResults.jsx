@@ -100,13 +100,13 @@ const LargeGauge = ({ value, label, subLabel, sideLabel, sideLabelPos, max, dela
           {/* Outer Yellow Progress Ring Background */}
           <circle cx={center} cy={center} r={outerRadius} fill="none" stroke="rgba(234, 179, 8, 0.1)" strokeWidth="6" />
 
-          {/* Animated Outer Yellow Progress Ring */}
+          {/* Animated Outer Progress Ring */}
           <motion.circle 
             cx={center} 
             cy={center} 
             r={outerRadius} 
             fill="none" 
-            stroke="#eab308" 
+            stroke={color || "#eab308"} 
             strokeWidth="6" 
             strokeLinecap="round"
             initial={{ strokeDashoffset: circumference }}
@@ -192,22 +192,6 @@ const DurationGauge = ({ seconds, delay }) => {
              ))}
           </g>
 
-          {/* Segmented outer ring */}
-          <circle cx={center} cy={center} r={outerRadius} fill="none" stroke="#3b82f6" strokeWidth="2" strokeDasharray="4 8" opacity="0.5" />
-          
-          {/* 4 prominent ticks */}
-          {[0, 90, 180, 270].map(angle => (
-            <line
-              key={angle}
-              x1={center}
-              y1={center - outerRadius - 5}
-              x2={center}
-              y2={center - outerRadius + 5}
-              stroke="#60a5fa"
-              strokeWidth="3"
-              transform={`rotate(${angle} ${center} ${center})`}
-            />
-          ))}
         </svg>
 
         {/* Center Text */}
@@ -226,6 +210,25 @@ const DurationGauge = ({ seconds, delay }) => {
       </div>
     </div>
   );
+};
+
+const getAccuracyColor = (acc) => {
+  if (acc >= 98) return '#16a34a';
+  if (acc >= 90) return '#4ade80';
+  if (acc >= 80) return '#fde047';
+  if (acc >= 70) return '#eab308';
+  if (acc >= 60) return '#f87171';
+  if (acc >= 40) return '#ef4444';
+  return '#b91c1c';
+};
+
+const getWPMColor = (wpm) => {
+  if (wpm >= 40) return '#16a34a';
+  if (wpm >= 30) return '#4ade80';
+  if (wpm >= 20) return '#fde047';
+  if (wpm >= 15) return '#eab308';
+  if (wpm >= 10) return '#f87171';
+  return '#ef4444';
 };
 
 const LessonResults = ({ stats, onNext, onPrev, onRestart, hasNext, hasPrev }) => {
@@ -252,6 +255,7 @@ const LessonResults = ({ stats, onNext, onPrev, onRestart, hasNext, hasPrev }) =
           unit="%"
           max={100} 
           delay={0.1}
+          color={getAccuracyColor(stats.accuracy)}
           sideLabel={{ value: '80%', text: 'minimum accuracy' }}
           sideLabelPos="left"
         />
@@ -269,6 +273,7 @@ const LessonResults = ({ stats, onNext, onPrev, onRestart, hasNext, hasPrev }) =
           subLabel="wpm" 
           max={Math.max(stats.wpm, 60)} 
           delay={0.7}
+          color={getWPMColor(stats.wpm)}
           sideLabel={{ value: '15 wpm', text: 'Requirement: 15 wpm' }}
           sideLabelPos="right"
         />
