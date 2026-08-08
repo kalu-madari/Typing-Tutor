@@ -598,7 +598,7 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
             <div style={{ width: '100%', height: '1px', background: 'var(--border-soft)', marginTop: '20px', marginBottom: '15px' }} />
             
             {/* Live Speed + Accuracy inline */}
-            <div style={{ display: 'flex', gap: '60px', color: 'var(--text-muted)', fontFamily: 'var(--font-ui)' }}>
+            <div style={{ display: 'flex', gap: '60px', marginBottom: '20px', color: 'var(--text-muted)', fontFamily: 'var(--font-ui)' }}>
                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
                   <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '11px', opacity: 0.7 }}>Speed</span>
                   <span style={{ fontSize: '28px', color: 'var(--text-primary)', fontWeight: 'bold' }}>{stats.wpm} <span style={{ fontSize: '14px', color: 'var(--text-muted)', fontWeight: 'normal' }}>WPM</span></span>
