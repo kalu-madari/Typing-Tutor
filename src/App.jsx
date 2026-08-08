@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, Play, RotateCcw, Keyboard as KeyboardIcon, Hand, Volume2, Settings as SettingsIcon } from 'lucide-react';
+import { Menu, Play, RotateCcw, Keyboard as KeyboardIcon, Hand, Volume2, Settings as SettingsIcon, Palette, AlignLeft, AlignCenter, AlignRight, AlignJustify, Type } from 'lucide-react';
 import { useTypingEngine } from './hooks/useTypingEngine';
 import { krutidev010Layout } from './core/layouts/krutidev010';
 import { getAllLessons, getLessonById, getNextLesson, getChapters } from './core/lessonEngine';
@@ -391,7 +391,8 @@ const SettingsView = () => {
               options={[
                 { value: 'small', label: 'Small' },
                 { value: 'medium', label: 'Medium' },
-                { value: 'large', label: 'Large' }
+                { value: 'large', label: 'Large' },
+                { value: 'extra_large', label: 'Extra Large' }
               ]}
             />
           </div>
@@ -406,7 +407,8 @@ const SettingsView = () => {
               options={[
                 { value: 'left', label: 'Left' },
                 { value: 'center', label: 'Center' },
-                { value: 'right', label: 'Right' }
+                { value: 'right', label: 'Right' },
+                { value: 'justify', label: 'Justify' }
               ]}
             />
           </div>
@@ -482,6 +484,7 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
   
   const [soundMenuOpen, setSoundMenuOpen] = React.useState(false);
   const [settingsMenuOpen, setSettingsMenuOpen] = React.useState(false);
+  const [paletteMenuOpen, setPaletteMenuOpen] = React.useState(false);
 
   React.useLayoutEffect(() => {
     const mainContent = document.getElementById('main-content');
@@ -534,12 +537,40 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
           <button className="icon-btn-plain" title="Virtual Keyboard" onClick={() => storeState.updateSetting('showVirtualKeyboard', !storeState.showVirtualKeyboard)} style={{ background: 'transparent', border: 'none', color: storeState.showVirtualKeyboard ? 'var(--accent-blue)' : 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
             <KeyboardIcon size={20} />
           </button>
+          
+          <div style={{ position: 'relative' }}>
+            <button className="icon-btn-plain" title="Appearance" onClick={() => { setPaletteMenuOpen(!paletteMenuOpen); setSoundMenuOpen(false); setSettingsMenuOpen(false); }} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
+              <Palette size={20} />
+            </button>
+            {paletteMenuOpen && (
+               <div className="glass-card" style={{ position: 'absolute', top: '100%', right: 0, marginTop: '8px', padding: '16px', width: '220px', zIndex: 50, display: 'flex', flexDirection: 'column', gap: '15px', borderRadius: '12px', boxShadow: '0 10px 25px rgba(0,0,0,0.5)' }}>
+                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                   <span style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Font Size</span>
+                   <div style={{ display: 'flex', gap: '5px' }}>
+                     <button onClick={() => storeState.updateSetting('fontSize', 'small')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.fontSize === 'small' ? 'var(--accent-blue)' : 'transparent', color: storeState.fontSize === 'small' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><Type size={12}/></button>
+                     <button onClick={() => storeState.updateSetting('fontSize', 'medium')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.fontSize === 'medium' ? 'var(--accent-blue)' : 'transparent', color: storeState.fontSize === 'medium' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><Type size={16}/></button>
+                     <button onClick={() => storeState.updateSetting('fontSize', 'large')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.fontSize === 'large' ? 'var(--accent-blue)' : 'transparent', color: storeState.fontSize === 'large' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><Type size={20}/></button>
+                     <button onClick={() => storeState.updateSetting('fontSize', 'extra_large')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.fontSize === 'extra_large' ? 'var(--accent-blue)' : 'transparent', color: storeState.fontSize === 'extra_large' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><Type size={24}/></button>
+                   </div>
+                 </div>
+                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                   <span style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Alignment</span>
+                   <div style={{ display: 'flex', gap: '5px' }}>
+                     <button onClick={() => storeState.updateSetting('textAlign', 'left')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.textAlign === 'left' ? 'var(--accent-blue)' : 'transparent', color: storeState.textAlign === 'left' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><AlignLeft size={16}/></button>
+                     <button onClick={() => storeState.updateSetting('textAlign', 'center')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.textAlign === 'center' ? 'var(--accent-blue)' : 'transparent', color: storeState.textAlign === 'center' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><AlignCenter size={16}/></button>
+                     <button onClick={() => storeState.updateSetting('textAlign', 'right')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.textAlign === 'right' ? 'var(--accent-blue)' : 'transparent', color: storeState.textAlign === 'right' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><AlignRight size={16}/></button>
+                     <button onClick={() => storeState.updateSetting('textAlign', 'justify')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.textAlign === 'justify' ? 'var(--accent-blue)' : 'transparent', color: storeState.textAlign === 'justify' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><AlignJustify size={16}/></button>
+                   </div>
+                 </div>
+               </div>
+            )}
+          </div>
           <button className="icon-btn-plain" title="Hand Guide" onClick={() => storeState.updateSetting('showHandGuide', !storeState.showHandGuide)} style={{ background: 'transparent', border: 'none', color: storeState.showHandGuide ? 'var(--accent-blue)' : 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
             <Hand size={20} />
           </button>
           
           <div style={{ position: 'relative' }}>
-            <button className="icon-btn-plain" onClick={() => { setSoundMenuOpen(!soundMenuOpen); setSettingsMenuOpen(false); }} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
+            <button className="icon-btn-plain" onClick={() => { setSoundMenuOpen(!soundMenuOpen); setSettingsMenuOpen(false); setPaletteMenuOpen(false); }} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
               <Volume2 size={20} />
             </button>
             {soundMenuOpen && (
@@ -551,7 +582,7 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
           </div>
           
           <div style={{ position: 'relative' }}>
-            <button className="icon-btn-plain" onClick={() => { setSettingsMenuOpen(!settingsMenuOpen); setSoundMenuOpen(false); }} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
+            <button className="icon-btn-plain" onClick={() => { setSettingsMenuOpen(!settingsMenuOpen); setSoundMenuOpen(false); setPaletteMenuOpen(false); }} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
               <SettingsIcon size={20} />
             </button>
             {settingsMenuOpen && (
@@ -582,7 +613,7 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
       ) : (
         <>
           {/* Main Content Area */}
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px 40px 10px', minHeight: '300px' }} onClick={() => { setSoundMenuOpen(false); setSettingsMenuOpen(false); }}>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px 40px 10px', minHeight: '300px' }} onClick={() => { setSoundMenuOpen(false); setSettingsMenuOpen(false); setPaletteMenuOpen(false); }}>
             
             {lesson?.type === 'box_practice' ? (
               <BoxExercise engineState={engineState} />

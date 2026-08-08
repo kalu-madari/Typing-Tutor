@@ -15,16 +15,10 @@ const TypingArea = ({ engineState, isIdle }) => {
       const container = containerRef.current;
       const activeChar = activeCharRef.current;
       
-      const containerRect = container.getBoundingClientRect();
-      const charRect = activeChar.getBoundingClientRect();
-      
-      const charTop = charRect.top - containerRect.top + container.scrollTop;
-      
-      const containerHalfHeight = container.clientHeight / 2;
-      const charHalfHeight = activeChar.clientHeight / 2;
+      const charTop = activeChar.offsetTop;
       
       container.scrollTo({
-        top: charTop - containerHalfHeight + charHalfHeight,
+        top: Math.max(0, charTop - 24),
         behavior: 'smooth'
       });
     }
