@@ -423,5 +423,28 @@
     "type": "test",
     "text": "dke uke jke rkt rky yky jkr eku tku iku pky oky uko ukj eky etk",
     "teachingText": "इस पाठ में हम टॉप रो (Top Row) के अक्षरों का अभ्यास करेंगे। अपनी उंगलियों को होम रो से ऊपर ले जाएं और वापस होम रो पर लाएं। यह आपकी उंगलियों की गति को बढ़ाएगा।"
+  },
+  {
+    "id": "chap2-les11",
+    "chapterId": 2,
+    "lessonNumber": 11,
+    "title": "The Brackets",
+    "newKeys": [
+      "[",
+      "]"
+    ],
+    "type": "practice",
+    "text": "p [ p [ [p [p p [ p [ ] [ ] [p] p] ]p]"
+  },
+  {
+    "id": "chap2-les12",
+    "chapterId": 2,
+    "lessonNumber": 12,
+    "title": "The Backslash",
+    "newKeys": [
+      "\\"
+    ],
+    "type": "practice",
+    "text": "] \\ ] \\ \\] \\] ] \\ ] \\ [ \\ [ \\ \\p\\"
   }
 ]

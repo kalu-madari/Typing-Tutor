@@ -1,0 +1,85 @@
+[
+  {
+    "id": "chap8-les1",
+    "chapterId": 8,
+    "lessonNumber": 1,
+    "title": "Numbers 1 and 0 (Shift)",
+    "newKeys": [
+      "!",
+      ")"
+    ],
+    "type": "practice",
+    "text": "! ) ! ) !) )! !)! )!) ! )"
+  },
+  {
+    "id": "chap8-les2",
+    "chapterId": 8,
+    "lessonNumber": 2,
+    "title": "Numbers 2 and 9 (Shift)",
+    "newKeys": [
+      "@",
+      "("
+    ],
+    "type": "practice",
+    "text": "@ ( @ ( @( (@ @(@ (@( @ ("
+  },
+  {
+    "id": "chap8-les3",
+    "chapterId": 8,
+    "lessonNumber": 3,
+    "title": "Numbers 3 and 8 (Shift)",
+    "newKeys": [
+      "#",
+      "*"
+    ],
+    "type": "practice",
+    "text": "# * # * #* *# #*# *#* # *"
+  },
+  {
+    "id": "chap8-les4",
+    "chapterId": 8,
+    "lessonNumber": 4,
+    "title": "Numbers 4 and 7 (Shift)",
+    "newKeys": [
+      "$",
+      "&"
+    ],
+    "type": "practice",
+    "text": "$ & $ & $& &$ $&$ &$& $ &"
+  },
+  {
+    "id": "chap8-les5",
+    "chapterId": 8,
+    "lessonNumber": 5,
+    "title": "Numbers 5 and 6 (Shift)",
+    "newKeys": [
+      "%",
+      "^"
+    ],
+    "type": "practice",
+    "text": "% ^ % ^ %^ ^% %^% ^%^ % ^"
+  },
+  {
+    "id": "chap8-les6",
+    "chapterId": 8,
+    "lessonNumber": 6,
+    "title": "Symbols - and = (Shift)",
+    "newKeys": [
+      "_",
+      "+"
+    ],
+    "type": "practice",
+    "text": "_ + _ + _+ +_ _+_ +_+ _ +"
+  },
+  {
+    "id": "chap8-les7",
+    "chapterId": 8,
+    "lessonNumber": 7,
+    "title": "The Backtick (Shift)",
+    "newKeys": [
+      "~"
+    ],
+    "type": "practice",
+    "text": "~ ! ~ ! ~! !~ ~!~ !~! ~ !"
+  }
+]

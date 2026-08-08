@@ -42,16 +42,32 @@ allLessons.sort((a, b) => {
 });
 
 const defaultTitles = {
-  1: 'Home Row',
-  2: 'The Top Row',
-  3: 'The Bottom Row',
-  4: 'Shift Key Basics'
+  1: 'Home Row (Regular)',
+  2: 'The Top Row (Regular)',
+  3: 'The Bottom Row (Regular)',
+  4: 'The Number Row (Regular)',
+  5: 'Home Row (Shift)',
+  6: 'The Top Row (Shift)',
+  7: 'The Bottom Row (Shift)',
+  8: 'The Number Row (Shift)',
+  9: 'Mix Practice (All Rows)',
+  10: 'Words Practice',
+  11: 'Alt Codes Special Characters',
+  12: 'Advanced Word Practice'
 };
 const defaultDescs = {
-  1: 'Build muscle memory for the KrutiDev keyboard layout.',
-  2: 'Learn to use your fingers on the top row (qwert yuiop).',
-  3: 'Learn to stretch down to the bottom row (zxcvb nm,./).',
-  4: 'Master the Shift key to type half-letters and special matras.'
+  1: 'Build muscle memory for the KrutiDev keyboard layout on the home row.',
+  2: 'Learn to use your fingers on the top row.',
+  3: 'Learn to stretch down to the bottom row.',
+  4: 'Master the number keys and symbols.',
+  5: 'Use the Shift key to type half-letters on the home row.',
+  6: 'Use the Shift key to type half-letters on the top row.',
+  7: 'Use the Shift key to type half-letters on the bottom row.',
+  8: 'Use the Shift key for special symbols on the number row.',
+  9: 'Combine everything you have learned across all rows.',
+  10: 'Practice typing real Hindi words.',
+  11: 'Learn to type complex characters using Alt Codes.',
+  12: 'Advanced real-world typing practice.'
 };
 
 const chapters = [];
