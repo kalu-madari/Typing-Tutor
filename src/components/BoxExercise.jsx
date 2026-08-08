@@ -10,7 +10,7 @@ const BoxExercise = ({ engineState }) => {
 
   const { text, currentIndex, errors, status, typedCharacters } = engineState;
 
-  const CHUNK_SIZE = 8;
+  const CHUNK_SIZE = 10;
   const currentChunkIndex = Math.floor(currentIndex / CHUNK_SIZE);
   
   const startIndex = currentChunkIndex * CHUNK_SIZE;

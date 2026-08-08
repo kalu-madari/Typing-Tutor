@@ -93,10 +93,12 @@ function App() {
                 <p className="view-subtitle" style={{ margin: '4px 0 0', padding: 0 }}>{currentLesson.description}</p>
               </div>
               <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
-                <button className="btn btn-secondary" onClick={() => setEngineKey(prev => prev + 1)}>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '6px' }}><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-                  Restart
-                </button>
+                {currentLesson?.type !== 'box_practice' && (
+                  <button className="btn btn-secondary" onClick={() => setEngineKey(prev => prev + 1)}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '6px' }}><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    Restart
+                  </button>
+                )}
               </div>
             </div>
             <TypingSession 
@@ -576,18 +578,22 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
       )}
 
       <div className="stats-grid" style={{ width: '150px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <div className="stat-card glass-card" style={{ padding: '20px' }}>
-          <div className="stat-card-label" style={{ marginBottom: '8px' }}>WPM</div>
-          <div className="stat-card-value" style={{ color: 'var(--accent-blue)' }}>{stats.wpm}</div>
-        </div>
-        <div className="stat-card glass-card" style={{ padding: '20px' }}>
-          <div className="stat-card-label" style={{ marginBottom: '8px' }}>Accuracy</div>
-          <div className="stat-card-value" style={{ color: 'var(--accent-blue)' }}>{stats.accuracy}%</div>
-        </div>
-        <div className="stat-card glass-card" style={{ padding: '20px' }}>
-          <div className="stat-card-label" style={{ marginBottom: '8px' }}>Time</div>
-          <div className="stat-card-value" style={{ color: 'var(--accent-blue)' }}>{stats.timeInSeconds}s</div>
-        </div>
+        {lesson?.type !== 'box_practice' && (
+          <>
+            <div className="stat-card glass-card" style={{ padding: '20px' }}>
+              <div className="stat-card-label" style={{ marginBottom: '8px' }}>WPM</div>
+              <div className="stat-card-value" style={{ color: 'var(--accent-blue)' }}>{stats.wpm}</div>
+            </div>
+            <div className="stat-card glass-card" style={{ padding: '20px' }}>
+              <div className="stat-card-label" style={{ marginBottom: '8px' }}>Accuracy</div>
+              <div className="stat-card-value" style={{ color: 'var(--accent-blue)' }}>{stats.accuracy}%</div>
+            </div>
+            <div className="stat-card glass-card" style={{ padding: '20px' }}>
+              <div className="stat-card-label" style={{ marginBottom: '8px' }}>Time</div>
+              <div className="stat-card-value" style={{ color: 'var(--accent-blue)' }}>{stats.timeInSeconds}s</div>
+            </div>
+          </>
+        )}
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', minWidth: '1000px', maxWidth: '1000px', gap: '120px', minHeight: '650px' }}>
         {lesson?.type === 'box_practice' ? (
@@ -600,50 +606,54 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
 
       {/* Settings Column - Right Side */}
       <div className="settings-column" style={{ width: '150px', display: 'flex', flexDirection: 'column', gap: '16px', flexShrink: 0 }}>
-        <Switch 
-          checked={storeState.allowBackspace} 
-          onChange={val => storeState.updateSetting('allowBackspace', val)}
-          label="Backspace"
-        />
-        
-        <Switch 
-          checked={storeState.soundEffects} 
-          onChange={val => storeState.updateSetting('soundEffects', val)}
-          label="Key sounds"
-        />
-        
-        <Switch 
-          checked={storeState.errorSounds} 
-          onChange={val => storeState.updateSetting('errorSounds', val)}
-          label="Error sounds"
-        />
-        
-        <Switch 
-          checked={storeState.showVirtualKeyboard} 
-          onChange={val => storeState.updateSetting('showVirtualKeyboard', val)}
-          label="Virtual keyboard"
-        />
-        
-        <Switch 
-          checked={storeState.moveOnError} 
-          onChange={val => storeState.updateSetting('moveOnError', val)}
-          label="Move on error"
-        />
-        
-        {storeState.moveOnError && (
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '8px', borderTop: '1px solid var(--border-color)' }}>
-            <span style={{ fontSize: '13px', color: 'var(--text-primary)' }}>Max errors:</span>
-            <RoundedSelect
-              className="rselect-small"
-              value={storeState.maxErrorsToSkip}
-              onChange={(val) => storeState.updateSetting('maxErrorsToSkip', parseInt(val, 10))}
-              options={[
-                { value: 1, label: '1' },
-                { value: 2, label: '2' },
-                { value: 3, label: '3' }
-              ]}
+        {lesson?.type !== 'box_practice' && (
+          <>
+            <Switch 
+              checked={storeState.allowBackspace} 
+              onChange={val => storeState.updateSetting('allowBackspace', val)}
+              label="Backspace"
             />
-          </div>
+            
+            <Switch 
+              checked={storeState.soundEffects} 
+              onChange={val => storeState.updateSetting('soundEffects', val)}
+              label="Key sounds"
+            />
+            
+            <Switch 
+              checked={storeState.errorSounds} 
+              onChange={val => storeState.updateSetting('errorSounds', val)}
+              label="Error sounds"
+            />
+            
+            <Switch 
+              checked={storeState.showVirtualKeyboard} 
+              onChange={val => storeState.updateSetting('showVirtualKeyboard', val)}
+              label="Virtual keyboard"
+            />
+            
+            <Switch 
+              checked={storeState.moveOnError} 
+              onChange={val => storeState.updateSetting('moveOnError', val)}
+              label="Move on error"
+            />
+            
+            {storeState.moveOnError && (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '8px', borderTop: '1px solid var(--border-color)' }}>
+                <span style={{ fontSize: '13px', color: 'var(--text-primary)' }}>Max errors:</span>
+                <RoundedSelect
+                  className="rselect-small"
+                  value={storeState.maxErrorsToSkip}
+                  onChange={(val) => storeState.updateSetting('maxErrorsToSkip', parseInt(val, 10))}
+                  options={[
+                    { value: 1, label: '1' },
+                    { value: 2, label: '2' },
+                    { value: 3, label: '3' }
+                  ]}
+                />
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
