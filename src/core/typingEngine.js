@@ -99,7 +99,7 @@ export class TypingEngine {
       this.currentConsecutiveErrors++;
       if (this.onPlaySound) this.onPlaySound('error');
       
-      if (moveOnError && this.currentConsecutiveErrors >= maxErrorsToSkip) {
+      if (moveOnError && this.currentConsecutiveErrors >= maxErrorsToSkip && key !== 'WRONG_ALT_DIGIT') {
         // Force skip the character
         this.typedCharacters.push({ char: key, isError: true });
         this.currentIndex++;

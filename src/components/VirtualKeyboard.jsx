@@ -47,6 +47,15 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
     prevWrong.current = currentWrong;
   }, [engineState?.currentIndex, engineState?.incorrectChars]);
 
+  React.useEffect(() => {
+    let timer;
+    if (animationEvent.type !== 'none') {
+      timer = setTimeout(() => {
+        setAnimationEvent(prev => prev.id === animationEvent.id ? { ...prev, type: 'none' } : prev);
+      }, 500);
+    }
+    return () => clearTimeout(timer);
+  }, [animationEvent.type, animationEvent.id]);
 
   if (!layout.keyboardMap || !showVirtualKeyboard) return null;
 
@@ -158,11 +167,6 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
           type: 'spring', stiffness: 400, damping: 25,
           x: { type: 'keyframes', duration: 0.4 },
           backgroundColor: { type: 'keyframes', duration: 0.4 }
-        }}
-        onAnimationComplete={() => {
-          if (isExpected && animationEvent.type !== 'none') {
-            setAnimationEvent(prev => ({ ...prev, type: 'none' }));
-          }
         }}
       >
         <span style={{ 
