@@ -29,7 +29,7 @@ const CircularTicks = ({ radius, count, progress, isSpeed = false }) => {
 };
 
 // Accuracy and Speed share the large gauge design
-const LargeGauge = ({ value, label, subLabel, sideLabel, sideLabelPos, max, delay, unit = '' }) => {
+const LargeGauge = ({ value, label, subLabel, sideLabel, sideLabelPos, max, delay, unit = '', color }) => {
   const [displayValue, setDisplayValue] = useState(0);
   const [progress, setProgress] = useState(0);
 
@@ -129,7 +129,7 @@ const LargeGauge = ({ value, label, subLabel, sideLabel, sideLabelPos, max, dela
         </div>
       </div>
       
-      <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#ffffff', marginTop: '15px', textTransform: 'lowercase' }}>
+      <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#ffffff', marginTop: '15px' }}>
         {label}
       </div>
     </div>
@@ -205,8 +205,8 @@ const DurationGauge = ({ seconds, delay }) => {
         </div>
       </div>
       
-      <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#ffffff', marginTop: '15px', textTransform: 'lowercase' }}>
-        duration
+      <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#ffffff', marginTop: '15px' }}>
+        Duration
       </div>
     </div>
   );
@@ -250,7 +250,7 @@ const LessonResults = ({ stats, onNext, onPrev, onRestart, hasNext, hasPrev }) =
         {/* Accuracy Gauge (Left) */}
         <LargeGauge 
           value={stats.accuracy} 
-          label="accuracy" 
+          label="Accuracy" 
           subLabel="real accuracy"
           unit="%"
           max={100} 
@@ -269,7 +269,7 @@ const LessonResults = ({ stats, onNext, onPrev, onRestart, hasNext, hasPrev }) =
         {/* Speed Gauge (Right) */}
         <LargeGauge 
           value={stats.wpm} 
-          label="speed"
+          label="Speed"
           subLabel="wpm" 
           max={Math.max(stats.wpm, 60)} 
           delay={0.7}
