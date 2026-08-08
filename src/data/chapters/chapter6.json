@@ -1,0 +1,74 @@
+{
+  "chapterId": 6,
+  "chapterTitle": "Advanced Alt Codes",
+  "totalLessons": 5,
+  "goalWpm": 25,
+  "minimumAccuracy": 95,
+  "lessons": [
+    {
+      "id": "chap6-les1",
+      "chapterId": 6,
+      "lessonNumber": 1,
+      "title": "Dya (Alt+0225)",
+      "description": "Learn to type Dya (द्य) using Alt + 0225",
+      "difficulty": 3,
+      "estimatedTimeMinutes": 2,
+      "minAccuracy": 95,
+      "targetWpm": 25,
+      "text": "foák xá iá foáky; A og foáky; x;k A mldh foák vPNh gS A",
+      "type": "practice"
+    },
+    {
+      "id": "chap6-les2",
+      "chapterId": 6,
+      "lessonNumber": 2,
+      "title": "Tta (Alt+0227)",
+      "description": "Learn to type Tta (ट्ट) using Alt + 0227",
+      "difficulty": 3,
+      "estimatedTimeMinutes": 2,
+      "minAccuracy": 95,
+      "targetWpm": 25,
+      "text": "feãh iãk [kãk [kãh A feãh cjru iãk A og [kãk [kkrk gS A",
+      "type": "practice"
+    },
+    {
+      "id": "chap6-les3",
+      "chapterId": 6,
+      "lessonNumber": 3,
+      "title": "Ttha (Alt+0228)",
+      "description": "Learn to type Ttha (ट्ठ) using Alt + 0228",
+      "difficulty": 3,
+      "estimatedTimeMinutes": 2,
+      "minAccuracy": 95,
+      "targetWpm": 25,
+      "text": "xäj yä fpäh A fpäh vk;h xäj mBk A og yä pyk A",
+      "type": "practice"
+    },
+    {
+      "id": "chap6-les4",
+      "chapterId": 6,
+      "lessonNumber": 4,
+      "title": "Dda (Alt+0212)",
+      "description": "Learn to type Dda (ड्ड) using Alt + 0212",
+      "difficulty": 3,
+      "estimatedTimeMinutes": 2,
+      "minAccuracy": 95,
+      "targetWpm": 25,
+      "text": "yÔw xÔk dcÔh A yÔw [kk xÔk Hkj A mlus yÔw [kk;k A",
+      "type": "practice"
+    },
+    {
+      "id": "chap6-les5",
+      "chapterId": 6,
+      "lessonNumber": 5,
+      "title": "Ddha (Alt+0230)",
+      "description": "Learn to type Ddha (द्ध) using Alt + 0230",
+      "difficulty": 3,
+      "estimatedTimeMinutes": 2,
+      "minAccuracy": 95,
+      "targetWpm": 25,
+      "text": "cqæ 'kqæ ;qæ A 'kqæ ty ih A og ;qæ esa x;k A",
+      "type": "practice"
+    }
+  ]
+}

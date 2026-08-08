@@ -353,36 +353,48 @@ const SettingsView = () => {
               <span className="setting-label">Theme</span>
               <span className="setting-desc">Choose your preferred color scheme</span>
             </div>
-            <select className="select-input" value={store.theme} onChange={(e) => store.updateSetting('theme', e.target.value)}>
-              <option value="vscode-dark">VS Code Dark</option>
-              <option value="light">Light</option>
-              <option value="midnight-indigo">Midnight Indigo</option>
-              <option value="nord">Nord</option>
-              <option value="solarized-dark">Solarized Dark</option>
-              <option value="vscode-light">VS Code Light</option>
-            </select>
+            <RoundedSelect
+              value={store.theme}
+              onChange={(val) => store.updateSetting('theme', val)}
+              options={[
+                { value: 'vscode-dark', label: 'VS Code Dark' },
+                { value: 'light', label: 'Light' },
+                { value: 'midnight-indigo', label: 'Midnight Indigo' },
+                { value: 'nord', label: 'Nord' },
+                { value: 'solarized-dark', label: 'Solarized Dark' },
+                { value: 'vscode-light', label: 'VS Code Light' }
+              ]}
+            />
           </div>
           <div className="setting-item">
             <div className="setting-info">
               <span className="setting-label">Lesson Text Size</span>
               <span className="setting-desc">Adjust the lesson reading font size</span>
             </div>
-            <select className="select-input" value={store.fontSize} onChange={(e) => store.updateSetting('fontSize', e.target.value)}>
-              <option value="small">Small</option>
-              <option value="medium">Medium</option>
-              <option value="large">Large</option>
-            </select>
+            <RoundedSelect
+              value={store.fontSize}
+              onChange={(val) => store.updateSetting('fontSize', val)}
+              options={[
+                { value: 'small', label: 'Small' },
+                { value: 'medium', label: 'Medium' },
+                { value: 'large', label: 'Large' }
+              ]}
+            />
           </div>
           <div className="setting-item">
             <div className="setting-info">
               <span className="setting-label">Text Alignment</span>
               <span className="setting-desc">Align lesson text to left, center, or right</span>
             </div>
-            <select className="select-input" value={store.textAlign} onChange={(e) => store.updateSetting('textAlign', e.target.value)}>
-              <option value="left">Left</option>
-              <option value="center">Center</option>
-              <option value="right">Right</option>
-            </select>
+            <RoundedSelect
+              value={store.textAlign}
+              onChange={(val) => store.updateSetting('textAlign', val)}
+              options={[
+                { value: 'left', label: 'Left' },
+                { value: 'center', label: 'Center' },
+                { value: 'right', label: 'Right' }
+              ]}
+            />
           </div>
         </div>
 
@@ -415,11 +427,15 @@ const SettingsView = () => {
                 <span className="setting-label">Max Errors to Skip</span>
                 <span className="setting-desc">Number of consecutive errors before skipping character</span>
               </div>
-              <select className="select-input" value={store.maxErrorsToSkip} onChange={(e) => store.updateSetting('maxErrorsToSkip', parseInt(e.target.value, 10))}>
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-                <option value={3}>3</option>
-              </select>
+              <RoundedSelect
+                value={store.maxErrorsToSkip}
+                onChange={(val) => store.updateSetting('maxErrorsToSkip', parseInt(val, 10))}
+                options={[
+                  { value: 1, label: '1' },
+                  { value: 2, label: '2' },
+                  { value: 3, label: '3' }
+                ]}
+              />
             </div>
           )}
         </div>
@@ -572,16 +588,17 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
         
         {storeState.moveOnError && (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '8px', borderTop: '1px solid var(--border-color)' }}>
-            <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Max errors:</span>
-            <select 
-              value={storeState.maxErrorsToSkip} 
-              onChange={(e) => storeState.updateSetting('maxErrorsToSkip', parseInt(e.target.value, 10))}
-              style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '2px 6px', outline: 'none', cursor: 'pointer' }}
-            >
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-            </select>
+            <span style={{ fontSize: '13px', color: 'var(--text-primary)' }}>Max errors:</span>
+            <RoundedSelect
+              className="rselect-small"
+              value={storeState.maxErrorsToSkip}
+              onChange={(val) => storeState.updateSetting('maxErrorsToSkip', parseInt(val, 10))}
+              options={[
+                { value: 1, label: '1' },
+                { value: 2, label: '2' },
+                { value: 3, label: '3' }
+              ]}
+            />
           </div>
         )}
       </div>
@@ -656,6 +673,74 @@ const Switch = ({ checked, onChange, label }) => {
       </div>
       <input type="checkbox" checked={checked} onChange={e => onChange(e.target.checked)} style={{ display: 'none' }} />
     </label>
+  );
+};
+
+const RoundedSelect = ({ value, onChange, options, style, className = '' }) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const wrapperRef = React.useRef(null);
+
+  const selectedOption = options.find(opt => opt.value == value) || options[0];
+
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    const handleKey = (e) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside, true);
+      document.addEventListener('keydown', handleKey, true);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside, true);
+      document.removeEventListener('keydown', handleKey, true);
+    };
+  }, [isOpen]);
+
+  return (
+    <div className={`rselect ${isOpen ? 'is-open' : ''} ${className}`} ref={wrapperRef} style={style}>
+      <select className="rselect-native" value={value} onChange={(e) => onChange(e.target.value)} style={{ display: 'none' }}>
+        {options.map(opt => (
+          <option key={opt.value} value={opt.value}>{opt.label}</option>
+        ))}
+      </select>
+      
+      <button 
+        type="button" 
+        className="rselect-trigger select-input" 
+        aria-haspopup="listbox" 
+        aria-expanded={isOpen}
+        onClick={(e) => {
+          e.preventDefault();
+          setIsOpen(!isOpen);
+        }}
+      >
+        <span className="rselect-label">{selectedOption?.label}</span>
+        <span className="rselect-caret" aria-hidden="true">▾</span>
+      </button>
+      
+      <ul className="rselect-panel" role="listbox" hidden={!isOpen}>
+        {options.map(opt => (
+          <li 
+            key={opt.value}
+            className={`rselect-option ${value == opt.value ? 'is-selected' : ''}`} 
+            role="option" 
+            data-value={opt.value}
+            onClick={() => {
+              onChange(opt.value);
+              setIsOpen(false);
+            }}
+          >
+            {opt.label}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
