@@ -1,14 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useAppStore } from '../store/useAppStore';
-import { Palette, AlignLeft, AlignCenter, AlignRight, Type } from 'lucide-react';
 
 const TypingArea = ({ engineState, isIdle }) => {
   const store = useAppStore();
   const { fontSize, textAlign } = store;
   const activeCharRef = useRef(null);
   const containerRef = useRef(null);
-  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     if (activeCharRef.current && containerRef.current) {
@@ -111,63 +109,9 @@ const TypingArea = ({ engineState, isIdle }) => {
   return (
     <div className="glass-panel" style={{ 
       ...styles.container,
-      fontSize: fontSize === 'large' ? '32px' : fontSize === 'small' ? '20px' : '26px',
+      fontSize: fontSize === 'extra_large' ? '40px' : fontSize === 'large' ? '32px' : fontSize === 'small' ? '20px' : '26px',
       position: 'relative'
     }}>
-      {/* Quick Settings Toolbar */}
-      <div style={{ position: 'absolute', top: '15px', right: '15px', zIndex: 50 }}>
-        <button 
-          onClick={() => setShowSettings(!showSettings)}
-          className="icon-btn-plain"
-          style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '5px' }}
-        >
-          <Palette size={20} />
-        </button>
-
-        <AnimatePresence>
-          {showSettings && (
-            <motion.div
-              initial={{ opacity: 0, y: -10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.95 }}
-              style={{
-                position: 'absolute',
-                top: '100%',
-                right: '0',
-                marginTop: '10px',
-                background: 'var(--bg)',
-                border: '1px solid var(--border)',
-                borderRadius: '8px',
-                padding: '10px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '15px',
-                boxShadow: 'var(--shadow)',
-                minWidth: '150px'
-              }}
-            >
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <span style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Font Size</span>
-                <div style={{ display: 'flex', gap: '5px' }}>
-                  <button onClick={() => store.updateSetting('fontSize', 'small')} style={{ ...styles.quickBtn, background: fontSize === 'small' ? 'var(--accent-blue)' : 'transparent', color: fontSize === 'small' ? '#fff' : 'var(--text-primary)' }}><Type size={12}/></button>
-                  <button onClick={() => store.updateSetting('fontSize', 'medium')} style={{ ...styles.quickBtn, background: fontSize === 'medium' ? 'var(--accent-blue)' : 'transparent', color: fontSize === 'medium' ? '#fff' : 'var(--text-primary)' }}><Type size={16}/></button>
-                  <button onClick={() => store.updateSetting('fontSize', 'large')} style={{ ...styles.quickBtn, background: fontSize === 'large' ? 'var(--accent-blue)' : 'transparent', color: fontSize === 'large' ? '#fff' : 'var(--text-primary)' }}><Type size={20}/></button>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <span style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Alignment</span>
-                <div style={{ display: 'flex', gap: '5px' }}>
-                  <button onClick={() => store.updateSetting('textAlign', 'left')} style={{ ...styles.quickBtn, background: textAlign === 'left' ? 'var(--accent-blue)' : 'transparent', color: textAlign === 'left' ? '#fff' : 'var(--text-primary)' }}><AlignLeft size={16}/></button>
-                  <button onClick={() => store.updateSetting('textAlign', 'center')} style={{ ...styles.quickBtn, background: textAlign === 'center' ? 'var(--accent-blue)' : 'transparent', color: textAlign === 'center' ? '#fff' : 'var(--text-primary)' }}><AlignCenter size={16}/></button>
-                  <button onClick={() => store.updateSetting('textAlign', 'right')} style={{ ...styles.quickBtn, background: textAlign === 'right' ? 'var(--accent-blue)' : 'transparent', color: textAlign === 'right' ? '#fff' : 'var(--text-primary)' }}><AlignRight size={16}/></button>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
       <div 
         ref={containerRef} 
         className="no-scrollbar" 
@@ -228,17 +172,6 @@ const styles = {
     textAlign: 'center',
     fontFamily: 'var(--font-ui)',
     fontWeight: 'bold'
-  },
-  quickBtn: {
-    flex: 1,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '8px',
-    border: '1px solid var(--border)',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease'
   }
 };
 
