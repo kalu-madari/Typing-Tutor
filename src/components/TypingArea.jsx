@@ -13,10 +13,13 @@ const TypingArea = ({ engineState, isIdle }) => {
       const container = containerRef.current;
       const activeChar = activeCharRef.current;
       
-      const charTop = activeChar.offsetTop;
+      const containerRect = container.getBoundingClientRect();
+      const charRect = activeChar.getBoundingClientRect();
+      
+      const charTop = charRect.top - containerRect.top + container.scrollTop;
       
       container.scrollTo({
-        top: Math.max(0, charTop - 24),
+        top: Math.max(0, charTop - 40),
         behavior: 'smooth'
       });
     }
@@ -117,7 +120,7 @@ const TypingArea = ({ engineState, isIdle }) => {
         className="no-scrollbar" 
         style={{
           ...styles.textContainer,
-          height: '6em', // 4 lines if line-height is 1.5em
+          height: '140px', // Fixed height so large fonts don't break the layout
           lineHeight: '1.5em',
           overflowY: 'auto', // Important for scrolling to work
           padding: '4px',
