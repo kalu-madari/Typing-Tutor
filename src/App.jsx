@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Menu, Play, RotateCcw, Keyboard as KeyboardIcon, Hand, Volume2, Settings as SettingsIcon } from 'lucide-react';
 import { useTypingEngine } from './hooks/useTypingEngine';
 import { krutidev010Layout } from './core/layouts/krutidev010';
 import { getAllLessons, getLessonById, getNextLesson, getChapters } from './core/lessonEngine';
@@ -83,24 +84,7 @@ function App() {
         {currentView === 'dashboard' && <DashboardView setCurrentView={setCurrentView} onStart={startLesson} currentLesson={currentLesson} completedLessons={completedLessons} allLessons={allLessons} />}
         {currentView === 'lessons' && <LessonsView lessons={allLessons} onStart={startLesson} completedLessons={completedLessons} />}
         {currentView === 'session' && (
-          <section id="view-lesson-detail" className="view active" style={{ display: 'flex', flexDirection: 'column' }}>
-            <div className="view-header" style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', padding: '0 20px' }}>
-              <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-start' }}>
-                <button className="btn btn-secondary" onClick={() => setCurrentView('lessons')}>← Library</button>
-              </div>
-              <div style={{ textAlign: 'center' }}>
-                <h1 style={{ margin: 0, fontSize: '28px' }}>{currentLesson.title}</h1>
-                <p className="view-subtitle" style={{ margin: '4px 0 0', padding: 0 }}>{currentLesson.description}</p>
-              </div>
-              <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
-                {currentLesson?.type !== 'box_practice' && (
-                  <button className="btn btn-secondary" onClick={() => setEngineKey(prev => prev + 1)}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '6px' }}><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-                    Restart
-                  </button>
-                )}
-              </div>
-            </div>
+          <section id="view-lesson-detail" className="view active" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: 0 }}>
             <TypingSession 
               key={engineKey} 
               lesson={currentLesson} 
@@ -110,11 +94,8 @@ function App() {
               onRestart={doRestart}
               hasNext={hasNext}
               hasPrev={hasPrev}
+              onClose={() => setCurrentView('lessons')}
             />
-            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px 40px', marginTop: '150px', borderTop: '1px solid var(--border-soft)' }}>
-              <button className="btn btn-secondary" onClick={goPrev} disabled={!hasPrev} style={{ opacity: hasPrev ? 1 : 0.5 }}>← Previous</button>
-              <button className="btn btn-primary" onClick={goNext} disabled={!hasNext} style={{ opacity: hasNext ? 1 : 0.5 }}>Next →</button>
-            </div>
           </section>
         )}
         {currentView === 'practice' && <PracticeView />}
@@ -494,9 +475,12 @@ const SettingsView = () => {
   );
 };
 
-const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext, hasPrev }) => {
+const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext, hasPrev, onClose }) => {
   const { engineState, stats, altCodeState } = useTypingEngine(lesson.text, krutidev010Layout);
   const storeState = useAppStore();
+  
+  const [soundMenuOpen, setSoundMenuOpen] = React.useState(false);
+  const [settingsMenuOpen, setSettingsMenuOpen] = React.useState(false);
 
   React.useLayoutEffect(() => {
     const mainContent = document.getElementById('main-content');
@@ -539,11 +523,100 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
   };
   const strokeColor = getAccuracyColor(acc);
   const strokeDasharray = 283;
-  const visualAcc = Math.max(acc, 2); // Minimum 2% fill so the color is always visible
+  const visualAcc = Math.max(acc, 2); 
   const strokeDashoffset = isFinished ? 283 - (283 * visualAcc) / 100 : 283;
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'flex-start', marginTop: '20px', position: 'relative', width: '100%', padding: '0 20px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', background: 'var(--bg-primary)' }}>
+      {/* Top Bar */}
+      <div style={{ height: '60px', borderBottom: '1px solid var(--border-soft)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 40px', flexShrink: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <button className="icon-btn-plain" onClick={onClose} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
+            <Menu size={20} />
+          </button>
+          <span style={{ fontSize: '15px', color: 'var(--text-muted)', fontWeight: 500 }}>{lesson.title}</span>
+        </div>
+        
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <button className="icon-btn-plain" title="Play/Pause" style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
+            <Play size={20} />
+          </button>
+          <button className="icon-btn-plain" title="Restart" onClick={onRestart} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
+            <RotateCcw size={20} />
+          </button>
+          <button className="icon-btn-plain" title="Virtual Keyboard" onClick={() => storeState.updateSetting('showVirtualKeyboard', !storeState.showVirtualKeyboard)} style={{ background: 'transparent', border: 'none', color: storeState.showVirtualKeyboard ? 'var(--accent-blue)' : 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
+            <KeyboardIcon size={20} />
+          </button>
+          <button className="icon-btn-plain" title="Hand Guide" onClick={() => storeState.updateSetting('showHandGuide', !storeState.showHandGuide)} style={{ background: 'transparent', border: 'none', color: storeState.showHandGuide ? 'var(--accent-blue)' : 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
+            <Hand size={20} />
+          </button>
+          
+          <div style={{ position: 'relative' }}>
+            <button className="icon-btn-plain" onClick={() => { setSoundMenuOpen(!soundMenuOpen); setSettingsMenuOpen(false); }} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
+              <Volume2 size={20} />
+            </button>
+            {soundMenuOpen && (
+               <div className="glass-card" style={{ position: 'absolute', top: '100%', right: 0, marginTop: '8px', padding: '16px', width: '200px', zIndex: 50, display: 'flex', flexDirection: 'column', gap: '12px', borderRadius: '12px', boxShadow: '0 10px 25px rgba(0,0,0,0.5)' }}>
+                 <Switch checked={storeState.soundEffects} onChange={val => storeState.updateSetting('soundEffects', val)} label="Key sounds" />
+                 <Switch checked={storeState.errorSounds} onChange={val => storeState.updateSetting('errorSounds', val)} label="Error sounds" />
+               </div>
+            )}
+          </div>
+          
+          <div style={{ position: 'relative' }}>
+            <button className="icon-btn-plain" onClick={() => { setSettingsMenuOpen(!settingsMenuOpen); setSoundMenuOpen(false); }} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
+              <SettingsIcon size={20} />
+            </button>
+            {settingsMenuOpen && (
+               <div className="glass-card" style={{ position: 'absolute', top: '100%', right: 0, marginTop: '8px', padding: '16px', width: '240px', zIndex: 50, display: 'flex', flexDirection: 'column', gap: '12px', borderRadius: '12px', boxShadow: '0 10px 25px rgba(0,0,0,0.5)' }}>
+                 <Switch checked={storeState.allowBackspace} onChange={val => storeState.updateSetting('allowBackspace', val)} label="Backspace" />
+                 <Switch checked={storeState.moveOnError} onChange={val => storeState.updateSetting('moveOnError', val)} label="Move on error" />
+                 {storeState.moveOnError && (
+                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '8px', borderTop: '1px solid var(--border-color)' }}>
+                     <span style={{ fontSize: '13px', color: 'var(--text-primary)' }}>Max errors:</span>
+                     <RoundedSelect className="rselect-small" value={storeState.maxErrorsToSkip} onChange={(val) => storeState.updateSetting('maxErrorsToSkip', parseInt(val, 10))} options={[{ value: 1, label: '1' }, { value: 2, label: '2' }, { value: 3, label: '3' }]} />
+                   </div>
+                 )}
+               </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content Area */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px', minHeight: '400px' }} onClick={() => { setSoundMenuOpen(false); setSettingsMenuOpen(false); }}>
+        
+        {lesson?.type === 'box_practice' ? (
+          <BoxExercise engineState={engineState} />
+        ) : (
+          <div style={{ maxWidth: '800px', width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <TypingArea engineState={engineState} />
+          </div>
+        )}
+         
+        {/* Live Speed + Accuracy inline */}
+        {lesson?.type !== 'box_practice' && (
+          <div style={{ display: 'flex', gap: '60px', marginTop: '60px', color: 'var(--text-muted)', fontFamily: 'var(--font-ui)' }}>
+             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '11px', opacity: 0.7 }}>Speed</span>
+                <span style={{ fontSize: '28px', color: 'var(--text-primary)', fontWeight: 'bold' }}>{stats.wpm} <span style={{ fontSize: '14px', color: 'var(--text-muted)', fontWeight: 'normal' }}>WPM</span></span>
+             </div>
+             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '11px', opacity: 0.7 }}>Accuracy</span>
+                <span style={{ fontSize: '28px', color: 'var(--text-primary)', fontWeight: 'bold' }}>{stats.accuracy}<span style={{ fontSize: '16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>%</span></span>
+             </div>
+          </div>
+        )}
+      </div>
+      
+      {/* Keyboard Area */}
+      {storeState.showVirtualKeyboard && (
+        <div style={{ paddingBottom: '40px', display: 'flex', justifyContent: 'center', flexShrink: 0 }}>
+           <VirtualKeyboard layout={krutidev010Layout} engineState={engineState} altCodeState={altCodeState} />
+        </div>
+      )}
+
+      {/* Completion Modal */}
       {isFinished && (
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
           <div className="glass-card" style={{ padding: '40px', borderRadius: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '400px', textAlign: 'center', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }}>
@@ -576,90 +649,9 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
           </div>
         </div>
       )}
-
-      <div className="stats-grid" style={{ width: '150px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        {lesson?.type !== 'box_practice' && (
-          <>
-            <div className="stat-card glass-card" style={{ padding: '20px' }}>
-              <div className="stat-card-label" style={{ marginBottom: '8px' }}>WPM</div>
-              <div className="stat-card-value" style={{ color: 'var(--accent-blue)' }}>{stats.wpm}</div>
-            </div>
-            <div className="stat-card glass-card" style={{ padding: '20px' }}>
-              <div className="stat-card-label" style={{ marginBottom: '8px' }}>Accuracy</div>
-              <div className="stat-card-value" style={{ color: 'var(--accent-blue)' }}>{stats.accuracy}%</div>
-            </div>
-            <div className="stat-card glass-card" style={{ padding: '20px' }}>
-              <div className="stat-card-label" style={{ marginBottom: '8px' }}>Time</div>
-              <div className="stat-card-value" style={{ color: 'var(--accent-blue)' }}>{stats.timeInSeconds}s</div>
-            </div>
-          </>
-        )}
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', minWidth: '1000px', maxWidth: '1000px', gap: '120px', minHeight: '650px' }}>
-        {lesson?.type === 'box_practice' ? (
-          <BoxExercise engineState={engineState} />
-        ) : (
-          <TypingArea engineState={engineState} />
-        )}
-        <VirtualKeyboard layout={krutidev010Layout} engineState={engineState} altCodeState={altCodeState} />
-      </div>
-
-      {/* Settings Column - Right Side */}
-      <div className="settings-column" style={{ width: '150px', display: 'flex', flexDirection: 'column', gap: '16px', flexShrink: 0 }}>
-        {lesson?.type !== 'box_practice' && (
-          <>
-            <Switch 
-              checked={storeState.allowBackspace} 
-              onChange={val => storeState.updateSetting('allowBackspace', val)}
-              label="Backspace"
-            />
-            
-            <Switch 
-              checked={storeState.soundEffects} 
-              onChange={val => storeState.updateSetting('soundEffects', val)}
-              label="Key sounds"
-            />
-            
-            <Switch 
-              checked={storeState.errorSounds} 
-              onChange={val => storeState.updateSetting('errorSounds', val)}
-              label="Error sounds"
-            />
-            
-            <Switch 
-              checked={storeState.showVirtualKeyboard} 
-              onChange={val => storeState.updateSetting('showVirtualKeyboard', val)}
-              label="Virtual keyboard"
-            />
-            
-            <Switch 
-              checked={storeState.moveOnError} 
-              onChange={val => storeState.updateSetting('moveOnError', val)}
-              label="Move on error"
-            />
-            
-            {storeState.moveOnError && (
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '8px', borderTop: '1px solid var(--border-color)' }}>
-                <span style={{ fontSize: '13px', color: 'var(--text-primary)' }}>Max errors:</span>
-                <RoundedSelect
-                  className="rselect-small"
-                  value={storeState.maxErrorsToSkip}
-                  onChange={(val) => storeState.updateSetting('maxErrorsToSkip', parseInt(val, 10))}
-                  options={[
-                    { value: 1, label: '1' },
-                    { value: 2, label: '2' },
-                    { value: 3, label: '3' }
-                  ]}
-                />
-              </div>
-            )}
-          </>
-        )}
-      </div>
     </div>
   );
 };
-
 const KeyLogger = () => {
   const [logs, setLogs] = useState([]);
 
