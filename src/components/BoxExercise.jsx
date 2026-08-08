@@ -62,7 +62,8 @@ const BoxExercise = ({ engineState }) => {
                   height: '64px', // Taller box looks better in a single row
                   backgroundColor: getBgColor(statusClass),
                   borderColor: getBorderColor(statusClass),
-                  boxShadow: isActive ? `0 0 16px ${getBorderColor(statusClass)}` : 'none',
+                  borderWidth: (statusClass === 'active' || statusClass === 'active-error') ? '3px' : '2px',
+                  boxShadow: (statusClass === 'active' || statusClass === 'active-error') ? `0 0 20px ${getBorderColor(statusClass)}, inset 0 0 8px ${getBorderColor(statusClass)}` : 'none',
                   fontFamily: (statusClass === 'correct' || statusClass === 'corrected') ? 'sans-serif' : (isSpace ? 'sans-serif' : '"Kruti Dev 010", sans-serif'),
                   borderRadius: '12px'
                 }}
