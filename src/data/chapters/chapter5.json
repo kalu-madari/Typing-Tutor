@@ -141,7 +141,7 @@
       "estimatedTimeMinutes": 2,
       "minAccuracy": 90,
       "targetWpm": 20,
-      "text": "g~ g~ g~ º\nàku áLr ãkj àn; án;\nàku djds fo|kFkZh lqcg fo|ky; x;kA\náLr dykdkj us lqanj fp= cuk;kA\nán; ls fudyh çkFkZuk lcdks vPNh yxhA",
+      "text": "º º º º\nºuku º;Lr ºekj ºjn; º;n;\nºuku djds fo|kFkZh lqcg fo|ky; x;kA\náLr dykdkj us lqanj fp= cuk;kA\nán; ls fudyh çkFkZuk lcdks vPNh yxhA",
       "textHindi": "ह् ह् ह् ह्\nह्नान ह्यस्त ह्मार ह्नदय ह्यदय\nह्नान करके विद्यार्थी सुबह विद्यालय गया।\nह्यस्त कलाकार ने सुंदर चित्र बनाया।\nह्यदय से निकली प्रार्थना सबको अच्छी लगी।",
       "type": "practice"
     },
@@ -337,7 +337,7 @@
       "estimatedTimeMinutes": 2,
       "minAccuracy": 90,
       "targetWpm": 20,
-      "text": "å å å å\nåƒ å„ å… å† å‡ åˆ\nåƒ ls åˆ rd Øe ls fy[ksaA\nå… vkSj å‡ dks /;ku ls i<+saA\nåˆ dk vH;kl rsth ls djsaA",
+      "text": "å å å å\nå å å å å å\nå ls å rd Øe ls fy[ksaA\nå vkSj å dks /;ku ls i<+saA\nå dk vH;kl rsth ls djsaA",
       "textHindi": "० ० ० ०\n०१ ०२ ०३ ०४ ०५ ०६\n०१ से ०६ तक क्रम से लिखें।\n०३ और ०५ को ध्यान से पढ़ें।\n०६ का अभ्यास तेजी से करें।",
       "type": "practice"
     },
@@ -477,7 +477,7 @@
       "estimatedTimeMinutes": 2,
       "minAccuracy": 90,
       "targetWpm": 20,
-      "text": "Š Š Š Š\nŠ ƒŠ „Š …Š †Š ‡Š\nŠ ls ƒŠ rd fxurh fy[ksaA\n„Š vkSj …Š dks lgh ls Vkbi djsaA\n†Š vkSj ‡Š dk vH;kl nksgjk,¡A",
+      "text": "Š Š Š Š\nŠ Š Š Š Š Š\nŠ ls Š rd fxurh fy[ksaA\nŠ vkSj Š dks lgh ls Vkbi djsaA\nŠ vkSj Š dk vH;kl nksgjk,¡A",
       "textHindi": "८ ८ ८ ८\n८ १८ २८ ३८ ४८ ५८\n८ से १८ तक गिनती लिखें।\n२८ और ३८ को सही से टाइप करें।\n४८ और ५८ का अभ्यास दोहराएँ।",
       "type": "practice"
     },
