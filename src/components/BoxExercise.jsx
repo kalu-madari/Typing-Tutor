@@ -1,59 +1,38 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAppStore } from '../store/useAppStore';
 
 const BoxExercise = ({ engineState }) => {
   const store = useAppStore();
-  const { fontSize, showVirtualKeyboard } = store;
-  const activeBoxRef = useRef(null);
-  const containerRef = useRef(null);
-
-  useEffect(() => {
-    if (activeBoxRef.current && containerRef.current) {
-      const container = containerRef.current;
-      const activeBox = activeBoxRef.current;
-      
-      const containerHalfHeight = container.clientHeight / 2;
-      const boxTop = activeBox.offsetTop;
-      const boxHalfHeight = activeBox.clientHeight / 2;
-      
-      container.scrollTo({
-        top: boxTop - containerHalfHeight + boxHalfHeight,
-        behavior: 'smooth'
-      });
-    }
-  }, [engineState?.currentIndex]);
+  const { fontSize } = store;
 
   if (!engineState || !engineState.text) return null;
 
   const { text, currentIndex, errors, status, typedCharacters } = engineState;
 
-  // Group characters by words to prevent breaking a word across lines
-  const renderBoxes = () => {
-    const words = [];
-    let currentWord = [];
-    
-    text.split('').forEach((char, index) => {
-      if (char === ' ' || char === '\n') {
-        if (currentWord.length > 0) {
-          words.push(currentWord);
-          currentWord = [];
-        }
-        words.push([{ char, index }]);
-      } else {
-        currentWord.push({ char, index });
-      }
-    });
-    if (currentWord.length > 0) {
-      words.push(currentWord);
-    }
+  const CHUNK_SIZE = 8;
+  const currentChunkIndex = Math.floor(currentIndex / CHUNK_SIZE);
+  
+  const startIndex = currentChunkIndex * CHUNK_SIZE;
+  const endIndex = Math.min(startIndex + CHUNK_SIZE, text.length);
+  
+  const currentChars = text.split('').slice(startIndex, endIndex).map((char, localIndex) => ({
+    char,
+    index: startIndex + localIndex
+  }));
 
-    return words.map((wordTokens, wIdx) => {
-      const isWhitespace = wordTokens.length === 1 && (wordTokens[0].char === ' ' || wordTokens[0].char === '\n');
-      
-      return (
-        <div key={wIdx} style={{ display: 'inline-flex', gap: '8px', margin: '8px', verticalAlign: 'top' }}>
-          {wordTokens.map(({ char, index }) => {
+  const renderBoxes = () => {
+    return (
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentChunkIndex}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 1.1 }}
+          transition={{ duration: 0.3 }}
+          style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}
+        >
+          {currentChars.map(({ char, index }) => {
             const isActive = index === currentIndex;
             const isError = isActive && errors.has(index);
             
@@ -77,15 +56,15 @@ const BoxExercise = ({ engineState }) => {
             return (
               <motion.div
                 key={index}
-                ref={isActive ? activeBoxRef : null}
                 style={{
                   ...styles.box,
-                  width: isSpace ? '80px' : '48px',
-                  height: '56px',
+                  width: isSpace ? '48px' : '48px', // Reduced space size down to match standard box
+                  height: '64px', // Taller box looks better in a single row
                   backgroundColor: getBgColor(statusClass),
                   borderColor: getBorderColor(statusClass),
-                  boxShadow: isActive ? `0 0 12px ${getBorderColor(statusClass)}` : 'none',
+                  boxShadow: isActive ? `0 0 16px ${getBorderColor(statusClass)}` : 'none',
                   fontFamily: (statusClass === 'correct' || statusClass === 'corrected') ? 'sans-serif' : (isSpace ? 'sans-serif' : '"Kruti Dev 010", sans-serif'),
+                  borderRadius: '12px'
                 }}
                 animate={isError ? { x: [-4, 4, -4, 4, 0] } : (isActive ? { scale: [1, 1.05, 1] } : { scale: 1 })}
                 transition={isError ? { duration: 0.3 } : (isActive ? { repeat: Infinity, duration: 1.5 } : { duration: 0.2 })}
@@ -97,7 +76,7 @@ const BoxExercise = ({ engineState }) => {
                       initial={{ scale: 0, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       exit={{ scale: 0, opacity: 0 }}
-                      style={{ color: '#fff', fontSize: '24px' }}
+                      style={{ color: '#fff', fontSize: '28px' }}
                     >
                       ✓
                     </motion.span>
@@ -109,16 +88,16 @@ const BoxExercise = ({ engineState }) => {
                       exit={{ opacity: 0 }}
                       style={{ 
                         color: getTextColor(statusClass),
-                        fontSize: isSpace ? '16px' : (fontSize === 'large' ? '32px' : fontSize === 'small' ? '20px' : '26px'),
+                        fontSize: isSpace ? '20px' : (fontSize === 'large' ? '36px' : fontSize === 'small' ? '24px' : '30px'),
                         position: 'relative'
                       }}
                     >
                       {isActive && !isSpace && (
-                        <span style={{ position: 'absolute', left: '-14px', top: '50%', transform: 'translateY(-50%)', fontSize: '14px', color: 'var(--accent-blue)', opacity: 0.7, fontFamily: 'sans-serif' }}>▣</span>
+                        <span style={{ position: 'absolute', left: '-16px', top: '50%', transform: 'translateY(-50%)', fontSize: '14px', color: 'var(--accent-blue)', opacity: 0.7, fontFamily: 'sans-serif' }}>▣</span>
                       )}
                       {isSpace ? (char === '\n' ? '↵' : '␣') : char}
                       {isActive && !isSpace && (
-                        <span style={{ position: 'absolute', right: '-14px', top: '50%', transform: 'translateY(-50%)', fontSize: '14px', color: 'var(--accent-blue)', opacity: 0.7, fontFamily: 'sans-serif' }}>▣</span>
+                        <span style={{ position: 'absolute', right: '-16px', top: '50%', transform: 'translateY(-50%)', fontSize: '14px', color: 'var(--accent-blue)', opacity: 0.7, fontFamily: 'sans-serif' }}>▣</span>
                       )}
                     </motion.span>
                   )}
@@ -126,9 +105,9 @@ const BoxExercise = ({ engineState }) => {
               </motion.div>
             );
           })}
-        </div>
-      );
-    });
+        </motion.div>
+      </AnimatePresence>
+    );
   };
 
   const getBgColor = (status) => {
@@ -167,15 +146,20 @@ const BoxExercise = ({ engineState }) => {
       ...styles.container,
     }}>
       <div 
-        ref={containerRef} 
         className="no-scrollbar" 
-        style={{
-          ...styles.boxesContainer,
-          maxHeight: showVirtualKeyboard ? '220px' : '400px',
-        }}
+        style={styles.boxesContainer}
       >
         {renderBoxes()}
       </div>
+      
+      {/* Progress Indicator */}
+      <div style={styles.progressContainer}>
+        <div style={{
+          ...styles.progressBar,
+          width: `${Math.min(100, (currentIndex / text.length) * 100)}%`
+        }} />
+      </div>
+
       {status === 'finished' && (
         <motion.div 
           initial={{ opacity: 0, y: 10 }} 
@@ -191,8 +175,8 @@ const BoxExercise = ({ engineState }) => {
 
 const styles = {
   container: {
-    padding: '30px',
-    borderRadius: '12px',
+    padding: '40px',
+    borderRadius: '16px',
     width: '100%',
     maxWidth: '850px',
     margin: '0 auto',
@@ -200,23 +184,33 @@ const styles = {
   },
   boxesContainer: {
     display: 'flex',
-    flexWrap: 'wrap',
     justifyContent: 'center',
-    alignContent: 'flex-start',
-    overflowY: 'auto',
-    position: 'relative',
-    transition: 'max-height 0.3s ease',
-    padding: '10px'
+    alignItems: 'center',
+    minHeight: '100px',
+    padding: '20px',
+    overflow: 'hidden'
   },
   box: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     border: '2px solid',
-    borderRadius: '8px',
     position: 'relative',
     transition: 'all 0.2s ease',
     overflow: 'hidden'
+  },
+  progressContainer: {
+    width: '100%',
+    height: '4px',
+    backgroundColor: 'var(--glass-border)',
+    borderRadius: '2px',
+    marginTop: '30px',
+    overflow: 'hidden'
+  },
+  progressBar: {
+    height: '100%',
+    backgroundColor: 'var(--accent-blue)',
+    transition: 'width 0.3s ease'
   },
   finishedMessage: {
     marginTop: '20px',

@@ -590,7 +590,7 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
         </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', minWidth: '1000px', maxWidth: '1000px', gap: '120px', minHeight: '650px' }}>
-        {currentLesson?.type === 'box_practice' ? (
+        {lesson?.type === 'box_practice' ? (
           <BoxExercise engineState={engineState} />
         ) : (
           <TypingArea engineState={engineState} />
