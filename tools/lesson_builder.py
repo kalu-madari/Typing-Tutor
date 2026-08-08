@@ -157,7 +157,7 @@ class LessonBuilderApp(ctk.CTk):
                 elif re.match(r"^Lesson.*Data$", line, re.IGNORECASE):
                     state = "EXPECTING_DATA"
                 else:
-                    if not line:
+                    if not line or re.match(r"^-+$", line):
                         continue
                     if state == "EXPECTING_NAME":
                         if not current_name:
