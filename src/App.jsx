@@ -141,7 +141,7 @@ function App() {
         )}
         {currentView === 'practice' && <PracticeView />}
         {currentView === 'bookmarks' && <BookmarksView />}
-        {currentView === 'achievements' && <AchievementsView store={store} />}
+        {currentView === 'achievements' && <AchievementsView store={store} completedLessons={completedLessons} />}
         {currentView === 'settings' && <SettingsView />}
       </main>
     </div>
@@ -390,8 +390,10 @@ const BookmarksView = () => (
   </section>
 );
 
-const AchievementsView = ({ store }) => {
+const AchievementsView = ({ store, completedLessons }) => {
   const { unlockedAchievements } = store;
+
+  const formatNum = (num) => num.toLocaleString();
 
   return (
     <section className="view active" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
@@ -413,28 +415,81 @@ const AchievementsView = ({ store }) => {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px', paddingBottom: '40px' }}>
           {ACHIEVEMENTS_LIST.map((achievement) => {
             const isUnlocked = unlockedAchievements.includes(achievement.id);
+            
+            let progressHtml = null;
+            if (!isUnlocked) {
+              let current = 0;
+              let target = 1;
+              let label = '';
+              
+              const parts = achievement.id.split('-');
+              const rawTarget = parts[parts.length - 1];
+              
+              if (achievement.category === 'speed') {
+                current = store.bestWpm;
+                target = parseInt(rawTarget, 10);
+                label = 'WPM';
+              } else if (achievement.category === 'lessons') {
+                current = completedLessons.size;
+                target = parseInt(rawTarget, 10);
+                label = 'lessons';
+              } else if (achievement.category === 'streak') {
+                current = store.streak;
+                target = parseInt(rawTarget, 10);
+                label = 'days';
+              } else if (achievement.category === 'accuracy') {
+                current = store.perfectLessonsCount;
+                target = parseInt(rawTarget, 10);
+                label = 'perfect lessons';
+              } else if (achievement.category === 'volume') {
+                current = store.totalTypedChars;
+                if (rawTarget.endsWith('k')) target = parseFloat(rawTarget) * 1000;
+                else if (rawTarget.endsWith('m')) target = parseFloat(rawTarget) * 1000000;
+                else target = parseInt(rawTarget, 10);
+                label = 'chars';
+              }
+
+              if (current > target) current = target;
+              const pct = target > 0 ? (current / target) * 100 : 0;
+              
+              progressHtml = (
+                <div style={{ marginTop: '12px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px', fontSize: '11px', fontWeight: '600', color: 'var(--text-muted)' }}>
+                    <span style={{ textTransform: 'uppercase', letterSpacing: '0.05em' }}>Progress</span>
+                    <span style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>{formatNum(Math.floor(current))} / {formatNum(target)} {label}</span>
+                  </div>
+                  <div style={{ height: '6px', background: 'var(--bg-inset)', borderRadius: '3px', overflow: 'hidden' }}>
+                    <div style={{ width: `${pct}%`, background: 'var(--brand)', height: '100%', borderRadius: '3px', transition: 'width 0.5s ease' }}></div>
+                  </div>
+                </div>
+              );
+            }
+
             return (
               <div key={achievement.id} className="glass-card" style={{ 
-                opacity: isUnlocked ? 1 : 0.4, 
+                opacity: isUnlocked ? 1 : 0.6, 
                 display: 'flex', 
-                gap: '16px', 
+                flexDirection: 'column',
                 padding: '20px',
                 border: isUnlocked ? '1px solid var(--accent-blue)' : '1px solid var(--glass-border)',
                 background: isUnlocked ? 'rgba(59, 130, 246, 0.05)' : 'var(--glass-bg)',
                 filter: isUnlocked ? 'none' : 'grayscale(0.8)',
                 transition: 'all 0.3s ease'
               }}>
-                <div style={{ fontSize: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  {achievement.icon}
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <div style={{ fontWeight: 'bold', fontSize: '15px', color: 'var(--text-primary)', marginBottom: '4px' }}>
-                    {achievement.title}
+                <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                  <div style={{ fontSize: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {achievement.icon}
                   </div>
-                  <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
-                    {achievement.desc}
+                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <div style={{ fontWeight: 'bold', fontSize: '15px', color: 'var(--text-primary)', marginBottom: '4px' }}>
+                      {achievement.title}
+                    </div>
+                    <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+                      {achievement.desc}
+                    </div>
                   </div>
                 </div>
+                {progressHtml}
               </div>
             );
           })}
