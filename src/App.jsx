@@ -392,40 +392,28 @@ const BookmarksView = ({ store, allLessons, completedLessons, onStart, onBrowse 
       </div>
       <div className="lessons-container" style={{ flex: 1, overflowY: 'auto', paddingRight: '12px' }}>
         {bookmarkedLessons.length === 0 ? (
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', opacity: 0.7 }}>
-            <Bookmark size={48} style={{ marginBottom: '16px', color: 'var(--text-muted)' }} />
-            <p style={{ fontSize: '1.2rem', marginBottom: '24px' }}>No bookmarked lessons yet</p>
+          <div className="empty-state" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', opacity: 0.8, textAlign: 'center' }}>
+            <div className="empty-icon" style={{ fontSize: '48px', marginBottom: '16px' }}>🔖</div>
+            <h3 style={{ fontSize: '1.2rem', marginBottom: '8px', color: 'var(--text-primary)' }}>No bookmarks yet</h3>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '24px' }}>Bookmark lessons to access them quickly here.</p>
             <button className="btn btn-primary" onClick={onBrowse}>
-              Browse Lessons
+              Browse Lessons &rarr;
             </button>
           </div>
         ) : (
-          <div className="chapters-list stagger-children">
-            <div className="chapter-group">
-              <div className="chapter-lessons">
-                {bookmarkedLessons.map(lesson => {
-                  const isCompleted = completedLessons.has(lesson.id);
-                  return (
-                    <div key={lesson.id} className={`lesson-item ${isCompleted ? 'completed' : ''}`}>
-                      <div className="lesson-icon" style={{ color: isCompleted ? 'var(--success)' : 'inherit' }}>
-                        {isCompleted ? (
-                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                        ) : (
-                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                        )}
-                      </div>
-                      <div className="lesson-info" style={{ flex: 1 }}>
-                        <div className="lesson-item-title" style={{ fontSize: '17.5px' }}>{lesson.lessonNumber}. {lesson.title}</div>
-                        <div className="lesson-desc" style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{lesson.description}</div>
-                      </div>
-                      <button className="btn btn-primary btn-sm" onClick={(e) => { e.stopPropagation(); onStart(lesson); }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '32px', height: '32px', padding: 0, borderRadius: '50%' }}>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" style={{ marginLeft: '2px' }}><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                      </button>
-                    </div>
-                  );
-                })}
+          <div className="bookmarks-list" style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '16px' }}>
+            {bookmarkedLessons.map(lesson => (
+              <div key={lesson.id} className="bookmark-item glass-card" style={{ padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '10px', borderRadius: '8px' }}>
+                <div className="bookmark-icon" style={{ fontSize: '26px', display: 'flex', color: 'var(--brand)' }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
+                </div>
+                <div className="bookmark-info" onClick={() => onStart(lesson)} style={{ flex: 1, cursor: 'pointer' }}>
+                  <div className="bookmark-title" style={{ fontWeight: 600, fontSize: '15.5px', color: 'var(--text-primary)' }}>{lesson.title}</div>
+                  <div className="bookmark-chapter" style={{ fontWeight: 500, fontSize: '12.5px', color: 'var(--text-muted)', marginTop: '3px' }}>Chapter {lesson.chapterId}</div>
+                </div>
+                <button className="bookmark-remove" title="Remove bookmark" onClick={() => store.toggleBookmark(lesson.id)} style={{ width: '30px', height: '30px', borderRadius: '8px', background: 'transparent', color: 'var(--text-muted)', fontSize: '20px', border: 'none', cursor: 'pointer' }}>&times;</button>
               </div>
-            </div>
+            ))}
           </div>
         )}
       </div>
