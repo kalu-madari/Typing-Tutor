@@ -1,37 +1,53 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useLayoutEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAppStore } from '../store/useAppStore';
 
 const TypingArea = ({ engineState, isIdle }) => {
   const store = useAppStore();
   const { fontSize, textAlign } = store;
-  const activeCharRef = useRef(null);
   const containerRef = useRef(null);
+  const currentIndex = engineState?.currentIndex;
 
-  useEffect(() => {
-    if (activeCharRef.current && containerRef.current) {
+  useLayoutEffect(() => {
+    // Wait one frame to ensure React commits, layout calculates, and fonts stabilize
+    requestAnimationFrame(() => {
+      if (!containerRef.current || currentIndex === undefined) return;
+      
       const container = containerRef.current;
-      const activeChar = activeCharRef.current;
+      // Using data attributes is a robust way to locate the exact DOM node without relying on fragile React refs
+      const activeElement = container.querySelector(`[data-char-index="${currentIndex}"]`);
       
-      let charTop = 0;
-      let el = activeChar;
+      if (!activeElement) return;
       
-      while (el && el !== container) {
-        charTop += el.offsetTop || 0;
-        el = el.offsetParent;
+      const containerRect = container.getBoundingClientRect();
+      const activeRect = activeElement.getBoundingClientRect();
+      
+      // Protect against Chromium layout glitches where inline spaces return 0 height rects
+      if (activeRect.top === 0 && activeRect.bottom === 0) return;
+      
+      const activeTop = activeRect.top;
+      const activeBottom = activeRect.bottom;
+      
+      const visibleTop = containerRect.top;
+      const visibleBottom = containerRect.bottom;
+      
+      // Keep a safe padding above and below so the line and tooltip are always fully readable
+      const TOP_PADDING = 35;
+      const BOTTOM_PADDING = 35;
+      
+      // If the character is already safely visible, do absolutely nothing (preserves user's manual scroll).
+      // Only nudge the container if the character breaches the upper or lower safe zones.
+      if (activeTop < visibleTop + TOP_PADDING) {
+        container.scrollTop -= (visibleTop + TOP_PADDING) - activeTop;
+      } else if (activeBottom > visibleBottom - BOTTOM_PADDING) {
+        container.scrollTop += activeBottom - (visibleBottom - BOTTOM_PADDING);
       }
-      
-      const targetTop = Math.max(0, charTop - 40);
-      
-      if (Math.abs(container.scrollTop - targetTop) > 5) {
-        container.scrollTop = targetTop;
-      }
-    }
-  }, [engineState?.currentIndex]);
+    });
+  }, [currentIndex]);
 
   if (!engineState || !engineState.text) return null;
 
-  const { text, currentIndex, errors, status, typedCharacters } = engineState;
+  const { text, errors, status, typedCharacters } = engineState;
 
   // Split text into words to prevent mid-word line breaking
   const renderText = () => {
@@ -79,11 +95,7 @@ const TypingArea = ({ engineState, isIdle }) => {
             return (
               <motion.span
                 key={index}
-                ref={(el) => {
-                  if (isActive && el) {
-                    activeCharRef.current = el;
-                  }
-                }}
+                data-char-index={index}
                 style={{
                   ...styles.char,
                   position: 'relative',
