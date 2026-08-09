@@ -812,15 +812,6 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
     }
   }, [engineState?.status, lesson.id, onComplete, stats, engineState?.totalTypedChars]);
 
-  // Continuously capture best WPM even if they exit the lesson early
-  React.useEffect(() => {
-    if (stats.wpm > 0) {
-      const currentStore = useAppStore.getState();
-      if (stats.wpm > currentStore.bestWpm) {
-        currentStore.updateStat('bestWpm', stats.wpm);
-      }
-    }
-  }, [stats.wpm]);
 
   const isFinished = engineState?.status === 'finished';
 
