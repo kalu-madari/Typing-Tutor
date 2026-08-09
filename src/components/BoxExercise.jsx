@@ -71,31 +71,49 @@ const BoxExercise = ({ engineState }) => {
                 transition={isError ? { duration: 0.3 } : (isActive ? { repeat: Infinity, duration: 1.5 } : { duration: 0.2 })}
               >
                 <AnimatePresence mode="wait">
-                  {(statusClass === 'correct' || statusClass === 'corrected') ? (
-                    <motion.span
-                      key="check"
-                      initial={{ scale: 0, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 0, opacity: 0 }}
-                      style={{ color: '#fff', fontSize: '28px' }}
-                    >
-                      ✓
-                    </motion.span>
-                  ) : (
-                    <motion.span
-                      key="char"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      style={{ 
-                        color: getTextColor(statusClass),
-                        fontSize: isSpace ? '20px' : (fontSize === 'large' ? '36px' : fontSize === 'small' ? '24px' : '30px'),
-                        position: 'relative'
-                      }}
-                    >
-                      {isSpace ? (char === '\n' ? '↵' : '␣') : char}
-                    </motion.span>
-                  )}
+                  <motion.span
+                    key="char"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    style={{ 
+                      color: getTextColor(statusClass),
+                      fontSize: isSpace ? '20px' : (fontSize === 'large' ? '36px' : fontSize === 'small' ? '24px' : '30px'),
+                      position: 'relative',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '100%',
+                      height: '100%'
+                    }}
+                  >
+                    {isSpace ? (char === '\n' ? '↵' : '␣') : char}
+                    
+                    {(statusClass === 'correct' || statusClass === 'corrected') && (
+                      <motion.div
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        style={{
+                          position: 'absolute',
+                          top: '-6px',
+                          right: '-6px',
+                          color: '#fff',
+                          fontSize: '12px',
+                          background: 'var(--success)',
+                          borderRadius: '50%',
+                          width: '18px',
+                          height: '18px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                          fontFamily: 'sans-serif'
+                        }}
+                      >
+                        ✓
+                      </motion.div>
+                    )}
+                  </motion.span>
                 </AnimatePresence>
               </motion.div>
             );
@@ -107,11 +125,11 @@ const BoxExercise = ({ engineState }) => {
 
   const getBgColor = (status) => {
     switch(status) {
-      case 'correct': return 'var(--success)';
-      case 'corrected': return 'var(--success)';
+      case 'correct': return 'rgba(16, 185, 129, 0.2)';
+      case 'corrected': return 'rgba(16, 185, 129, 0.2)';
       case 'error': return 'rgba(239, 68, 68, 0.2)';
       case 'active-error': return 'rgba(239, 68, 68, 0.3)';
-      case 'active': return 'rgba(59, 130, 246, 0.1)';
+      case 'active': return 'rgba(59, 130, 246, 0.3)';
       default: return 'var(--glass-bg)';
     }
   };

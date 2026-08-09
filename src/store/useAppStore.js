@@ -16,6 +16,8 @@ export const useAppStore = create(
       allowBackspace: false,
       moveOnError: false,
       maxErrorsToSkip: 3,
+      blockOnError: false,
+      maxErrorsToBlock: 3,
 
       // Progress Stats (mirrored from DB for quick UI access)
       bestWpm: 0,

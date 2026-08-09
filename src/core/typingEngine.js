@@ -48,7 +48,7 @@ export class TypingEngine {
       this.lastInteractionTime = now;
     }
 
-    const { allowBackspace, moveOnError, maxErrorsToSkip } = useAppStore.getState();
+    const { allowBackspace, moveOnError, maxErrorsToSkip, blockOnError, maxErrorsToBlock } = useAppStore.getState();
 
     // Ignore modifier keys like Shift, Control, Alt
     if (key === 'Shift' || key === 'Control' || key === 'Alt' || key === 'Meta' || key === 'CapsLock' || key === 'Tab') {
@@ -73,9 +73,15 @@ export class TypingEngine {
       return;
     }
 
-    this.totalTypedChars++;
-
+    // If blockOnError is active and we've reached the limit, ONLY allow the correct character
     const isCorrect = (targetChar === '\n' && key === 'Enter') || (key === targetChar);
+    
+    if (!isCorrect && blockOnError && this.currentConsecutiveErrors >= maxErrorsToBlock && key !== 'WRONG_ALT_DIGIT') {
+      if (this.onPlaySound) this.onPlaySound('error');
+      return; // Ignore the keystroke completely
+    }
+
+    this.totalTypedChars++;
 
     if (isCorrect) {
       // Correct!

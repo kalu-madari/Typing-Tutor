@@ -454,6 +454,31 @@ const SettingsView = () => {
               />
             </div>
           )}
+          <div className="setting-item">
+            <div className="setting-info">
+              <span className="setting-label">Block On Error</span>
+              <span className="setting-desc">Block typing completely after making multiple mistakes</span>
+            </div>
+            <Switch checked={store.blockOnError} onChange={(val) => store.updateSetting('blockOnError', val)} />
+          </div>
+          {store.blockOnError && (
+            <div className="setting-item">
+              <div className="setting-info">
+                <span className="setting-label">Max Errors to Block</span>
+                <span className="setting-desc">Number of consecutive errors before blocking</span>
+              </div>
+              <RoundedSelect
+                value={store.maxErrorsToBlock}
+                onChange={(val) => store.updateSetting('maxErrorsToBlock', parseInt(val, 10))}
+                options={[
+                  { value: 1, label: '1' },
+                  { value: 2, label: '2' },
+                  { value: 3, label: '3' },
+                  { value: 5, label: '5' }
+                ]}
+              />
+            </div>
+          )}
         </div>
 
         <div className="setting-group glass-card">
@@ -543,23 +568,23 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
               <Palette size={20} />
             </button>
             {paletteMenuOpen && (
-               <div className="glass-card" style={{ position: 'absolute', top: '100%', right: 0, marginTop: '8px', padding: '16px', width: '220px', zIndex: 50, display: 'flex', flexDirection: 'column', gap: '15px', borderRadius: '12px', boxShadow: '0 10px 25px rgba(0,0,0,0.5)' }}>
+                 <div className="glass-card" style={{ position: 'absolute', top: '100%', right: 0, marginTop: '8px', padding: '16px', width: '220px', zIndex: 50, display: 'flex', flexDirection: 'column', gap: '15px', borderRadius: '12px', boxShadow: '0 10px 25px rgba(0,0,0,0.5)' }}>
                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                    <span style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Font Size</span>
                    <div style={{ display: 'flex', gap: '5px' }}>
-                     <button onClick={() => storeState.updateSetting('fontSize', 'small')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.fontSize === 'small' ? 'var(--accent-blue)' : 'transparent', color: storeState.fontSize === 'small' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><Type size={12}/></button>
-                     <button onClick={() => storeState.updateSetting('fontSize', 'medium')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.fontSize === 'medium' ? 'var(--accent-blue)' : 'transparent', color: storeState.fontSize === 'medium' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><Type size={16}/></button>
-                     <button onClick={() => storeState.updateSetting('fontSize', 'large')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.fontSize === 'large' ? 'var(--accent-blue)' : 'transparent', color: storeState.fontSize === 'large' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><Type size={20}/></button>
-                     <button onClick={() => storeState.updateSetting('fontSize', 'extra_large')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.fontSize === 'extra_large' ? 'var(--accent-blue)' : 'transparent', color: storeState.fontSize === 'extra_large' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><Type size={24}/></button>
+                     <button onClick={() => storeState.updateSetting('fontSize', 'small')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.fontSize === 'small' ? 'var(--brand)' : 'transparent', color: storeState.fontSize === 'small' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><Type size={12}/></button>
+                     <button onClick={() => storeState.updateSetting('fontSize', 'medium')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.fontSize === 'medium' ? 'var(--brand)' : 'transparent', color: storeState.fontSize === 'medium' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><Type size={16}/></button>
+                     <button onClick={() => storeState.updateSetting('fontSize', 'large')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.fontSize === 'large' ? 'var(--brand)' : 'transparent', color: storeState.fontSize === 'large' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><Type size={20}/></button>
+                     <button onClick={() => storeState.updateSetting('fontSize', 'extra_large')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.fontSize === 'extra_large' ? 'var(--brand)' : 'transparent', color: storeState.fontSize === 'extra_large' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><Type size={24}/></button>
                    </div>
                  </div>
                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                    <span style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Alignment</span>
                    <div style={{ display: 'flex', gap: '5px' }}>
-                     <button onClick={() => storeState.updateSetting('textAlign', 'left')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.textAlign === 'left' ? 'var(--accent-blue)' : 'transparent', color: storeState.textAlign === 'left' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><AlignLeft size={16}/></button>
-                     <button onClick={() => storeState.updateSetting('textAlign', 'center')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.textAlign === 'center' ? 'var(--accent-blue)' : 'transparent', color: storeState.textAlign === 'center' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><AlignCenter size={16}/></button>
-                     <button onClick={() => storeState.updateSetting('textAlign', 'right')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.textAlign === 'right' ? 'var(--accent-blue)' : 'transparent', color: storeState.textAlign === 'right' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><AlignRight size={16}/></button>
-                     <button onClick={() => storeState.updateSetting('textAlign', 'justify')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.textAlign === 'justify' ? 'var(--accent-blue)' : 'transparent', color: storeState.textAlign === 'justify' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><AlignJustify size={16}/></button>
+                     <button onClick={() => storeState.updateSetting('textAlign', 'left')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.textAlign === 'left' ? 'var(--brand)' : 'transparent', color: storeState.textAlign === 'left' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><AlignLeft size={16}/></button>
+                     <button onClick={() => storeState.updateSetting('textAlign', 'center')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.textAlign === 'center' ? 'var(--brand)' : 'transparent', color: storeState.textAlign === 'center' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><AlignCenter size={16}/></button>
+                     <button onClick={() => storeState.updateSetting('textAlign', 'right')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.textAlign === 'right' ? 'var(--brand)' : 'transparent', color: storeState.textAlign === 'right' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><AlignRight size={16}/></button>
+                     <button onClick={() => storeState.updateSetting('textAlign', 'justify')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-soft)', background: storeState.textAlign === 'justify' ? 'var(--brand)' : 'transparent', color: storeState.textAlign === 'justify' ? '#fff' : 'var(--text-primary)', cursor: 'pointer' }}><AlignJustify size={16}/></button>
                    </div>
                  </div>
                </div>
@@ -593,6 +618,13 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '8px', borderTop: '1px solid var(--border-color)' }}>
                      <span style={{ fontSize: '13px', color: 'var(--text-primary)' }}>Max errors:</span>
                      <RoundedSelect className="rselect-small" value={storeState.maxErrorsToSkip} onChange={(val) => storeState.updateSetting('maxErrorsToSkip', parseInt(val, 10))} options={[{ value: 1, label: '1' }, { value: 2, label: '2' }, { value: 3, label: '3' }]} />
+                   </div>
+                 )}
+                 <Switch checked={storeState.blockOnError} onChange={val => storeState.updateSetting('blockOnError', val)} label="Block on error" />
+                 {storeState.blockOnError && (
+                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '8px', borderTop: '1px solid var(--border-color)' }}>
+                     <span style={{ fontSize: '13px', color: 'var(--text-primary)' }}>Max errors:</span>
+                     <RoundedSelect className="rselect-small" value={storeState.maxErrorsToBlock} onChange={(val) => storeState.updateSetting('maxErrorsToBlock', parseInt(val, 10))} options={[{ value: 1, label: '1' }, { value: 2, label: '2' }, { value: 3, label: '3' }, { value: 5, label: '5' }]} />
                    </div>
                  )}
                </div>
