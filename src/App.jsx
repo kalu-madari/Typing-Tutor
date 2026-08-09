@@ -209,13 +209,13 @@ const DashboardView = ({ setCurrentView, onStart, currentLesson, completedLesson
         <div className="stat-card-icon" style={{'--accent': '#34d399'}}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
         <div className="stat-card-value" id="stat-exercises-done">{store?.bestWpm || 0}</div>
         <div className="stat-card-label">Best WPM</div>
-        <div className="stat-card-bar"><div className="stat-bar-fill" id="stat-bar-exercises" style={{'--bar-color': '#34d399', width: '0%'}}></div></div>
+        <div className="stat-card-bar"><div className="stat-bar-fill" id="stat-bar-exercises" style={{'--bar-color': '#34d399', width: `${Math.min(100, ((store?.bestWpm || 0) / 80) * 100)}%`}}></div></div>
       </div>
       <div className="stat-card glass-card">
         <div className="stat-card-icon" style={{'--accent': '#fbbf24'}}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"></path></svg></div>
         <div className="stat-card-value" id="stat-streak">{store?.streak || 0}</div>
         <div className="stat-card-label">Day Streak</div>
-        <div className="stat-card-bar"><div className="stat-bar-fill" id="stat-bar-streak" style={{'--bar-color': '#fbbf24', width: '0%'}}></div></div>
+        <div className="stat-card-bar"><div className="stat-bar-fill" id="stat-bar-streak" style={{'--bar-color': '#fbbf24', width: `${Math.min(100, ((store?.streak || 0) / 30) * 100)}%`}}></div></div>
       </div>
       <div className="stat-card glass-card">
         <div className="stat-card-icon" style={{'--accent': '#f472b6'}}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div>
