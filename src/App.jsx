@@ -111,6 +111,7 @@ function App() {
 
     // 2. Update stats
     const currentStore = useAppStore.getState();
+    currentStore.updateStreak();
     if (stats.wpm > currentStore.bestWpm) currentStore.updateStat('bestWpm', stats.wpm);
     if (stats.accuracy === 100) currentStore.incrementPerfectLessons();
     if (totalCharsTyped) currentStore.incrementTotalTypedChars(totalCharsTyped);

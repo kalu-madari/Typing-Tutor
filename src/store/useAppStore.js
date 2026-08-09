@@ -24,6 +24,7 @@ export const useAppStore = create(
       bestWpm: 0,
       bestAccuracy: 0,
       streak: 0,
+      lastActiveDate: null,
       totalTypedChars: 0,
       perfectLessonsCount: 0,
       unlockedAchievements: [],
@@ -31,6 +32,19 @@ export const useAppStore = create(
       practiceResults: {},
 
       // Actions
+      updateStreak: () => set((state) => {
+        const today = new Date().toDateString();
+        if (state.lastActiveDate === today) return state;
+        
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        
+        if (state.lastActiveDate === yesterday.toDateString()) {
+          return { ...state, streak: state.streak + 1, lastActiveDate: today };
+        } else {
+          return { ...state, streak: 1, lastActiveDate: today };
+        }
+      }),
       updateSetting: (key, value) => set((state) => ({ ...state, [key]: value })),
       updateStat: (key, value) => set((state) => ({ ...state, [key]: value })),
       incrementTotalTypedChars: (count) => set((state) => ({ ...state, totalTypedChars: state.totalTypedChars + count })),
@@ -63,6 +77,7 @@ export const useAppStore = create(
           bestWpm: 0,
           bestAccuracy: 0,
           streak: 0,
+          lastActiveDate: null,
           totalTypedChars: 0,
           perfectLessonsCount: 0,
           unlockedAchievements: [],
