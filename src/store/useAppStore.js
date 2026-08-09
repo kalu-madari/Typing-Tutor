@@ -26,6 +26,7 @@ export const useAppStore = create(
       totalTypedChars: 0,
       perfectLessonsCount: 0,
       unlockedAchievements: [],
+      bookmarks: [],
 
       // Actions
       updateSetting: (key, value) => set((state) => ({ ...state, [key]: value })),
@@ -37,6 +38,13 @@ export const useAppStore = create(
           return { ...state, unlockedAchievements: [...state.unlockedAchievements, id] };
         }
         return state;
+      }),
+      toggleBookmark: (id) => set((state) => {
+        if (state.bookmarks.includes(id)) {
+          return { ...state, bookmarks: state.bookmarks.filter(b => b !== id) };
+        } else {
+          return { ...state, bookmarks: [...state.bookmarks, id] };
+        }
       }),
     }),
     {

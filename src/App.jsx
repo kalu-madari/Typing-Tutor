@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Menu, Play, RotateCcw, Keyboard as KeyboardIcon, Hand, Volume2, Settings as SettingsIcon, Palette, AlignLeft, AlignCenter, AlignRight, AlignJustify, Type } from 'lucide-react';
+import { Menu, Play, RotateCcw, Keyboard as KeyboardIcon, Hand, Volume2, Settings as SettingsIcon, Palette, AlignLeft, AlignCenter, AlignRight, AlignJustify, Type, Bookmark } from 'lucide-react';
 import { useTypingEngine } from './hooks/useTypingEngine';
 import { krutidev010Layout } from './core/layouts/krutidev010';
 import { getAllLessons, getLessonById, getNextLesson, getChapters } from './core/lessonEngine';
@@ -139,7 +139,7 @@ function App() {
           </section>
         )}
         {currentView === 'practice' && <PracticeView />}
-        {currentView === 'bookmarks' && <BookmarksView />}
+        {currentView === 'bookmarks' && <BookmarksView store={store} allLessons={allLessons} completedLessons={completedLessons} onStart={startLesson} onBrowse={() => setCurrentView('lessons')} />}
         {currentView === 'achievements' && <AchievementsView store={store} completedLessons={completedLessons} />}
         {currentView === 'settings' && <SettingsView />}
       </main>
@@ -380,14 +380,56 @@ const PracticeView = () => (
   </section>
 );
 
-const BookmarksView = () => (
-  <section className="view active">
-    <div className="view-header">
-      <h1>Bookmarks</h1>
-      <p className="view-subtitle">Your saved lessons</p>
-    </div>
-  </section>
-);
+const BookmarksView = ({ store, allLessons, completedLessons, onStart, onBrowse }) => {
+  const bookmarkedLessons = allLessons.filter(l => store.bookmarks.includes(l.id));
+
+  return (
+    <section className="view active" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+      <div className="view-header" style={{ flexShrink: 0 }}>
+        <h1>Bookmarks</h1>
+        <p className="view-subtitle">Your saved lessons</p>
+      </div>
+      <div className="lessons-container" style={{ flex: 1, overflowY: 'auto', paddingRight: '12px' }}>
+        {bookmarkedLessons.length === 0 ? (
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', opacity: 0.7 }}>
+            <Bookmark size={48} style={{ marginBottom: '16px', color: 'var(--text-muted)' }} />
+            <p style={{ fontSize: '1.2rem', marginBottom: '24px' }}>No bookmarked lessons yet</p>
+            <button className="btn btn-primary" onClick={onBrowse}>
+              Browse Lessons
+            </button>
+          </div>
+        ) : (
+          <div className="chapter-group">
+            <div className="chapter-lessons">
+              {bookmarkedLessons.map(lesson => {
+                const isCompleted = completedLessons.has(lesson.id);
+                return (
+                  <div key={lesson.id} className={`lesson-card ${isCompleted ? 'completed' : ''}`}>
+                    <div className="lesson-info">
+                      <div className="lesson-title">
+                        {lesson.title}
+                        {isCompleted && (
+                          <span className="completion-badge">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                          </span>
+                        )}
+                      </div>
+                      <div className="lesson-desc">{lesson.description}</div>
+                    </div>
+                    <button className="btn btn-primary" onClick={() => onStart(lesson)}>
+                      {isCompleted ? 'Review' : 'Start'}
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" style={{ marginLeft: '2px' }}><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};
 
 const AchievementsView = ({ store, completedLessons }) => {
   const { unlockedAchievements } = store;
@@ -725,6 +767,9 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
           </button>
           <button className="icon-btn-plain" title="Virtual Keyboard" onClick={() => storeState.updateSetting('showVirtualKeyboard', !storeState.showVirtualKeyboard)} style={{ background: 'transparent', border: 'none', color: storeState.showVirtualKeyboard ? 'var(--accent-blue)' : 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
             <KeyboardIcon size={20} />
+          </button>
+          <button className="icon-btn-plain" title="Bookmark Lesson" onClick={() => storeState.toggleBookmark(lesson.id)} style={{ background: 'transparent', border: 'none', color: storeState.bookmarks.includes(lesson.id) ? 'var(--brand)' : 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
+            <Bookmark size={20} fill={storeState.bookmarks.includes(lesson.id) ? 'currentColor' : 'none'} />
           </button>
           
           <div style={{ position: 'relative' }}>
