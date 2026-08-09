@@ -50,6 +50,15 @@ function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  useEffect(() => {
+    // Run achievement check on load to retroactively award any earned milestones
+    // Use setTimeout to ensure store is hydrated
+    setTimeout(() => {
+      const currentStore = useAppStore.getState();
+      checkAchievements(currentStore, completedLessons.size, currentStore.perfectLessonsCount, null); 
+    }, 1000);
+  }, []);
+
   const startLesson = (lesson) => {
     setCurrentLessonIndex(allLessons.findIndex(l => l.id === lesson.id));
     setCurrentView('session');
