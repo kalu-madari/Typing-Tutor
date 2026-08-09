@@ -400,30 +400,39 @@ const BookmarksView = ({ store, allLessons, completedLessons, onStart, onBrowse 
             </button>
           </div>
         ) : (
-          <div className="chapter-group">
-            <div className="chapter-lessons">
-              {bookmarkedLessons.map(lesson => {
-                const isCompleted = completedLessons.has(lesson.id);
-                return (
-                  <div key={lesson.id} className={`lesson-card ${isCompleted ? 'completed' : ''}`}>
-                    <div className="lesson-info">
-                      <div className="lesson-title">
-                        {lesson.title}
-                        {isCompleted && (
-                          <span className="completion-badge">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                          </span>
+          <div className="chapters-list stagger-children">
+            <div className="chapter-group">
+              <div className="chapter-lessons">
+                {bookmarkedLessons.map(lesson => {
+                  const isCompleted = completedLessons.has(lesson.id);
+                  return (
+                    <div key={lesson.id} className={`lesson-item ${isCompleted ? 'completed' : ''}`}>
+                      <div className="lesson-icon" style={{ color: isCompleted ? 'var(--success)' : 'inherit' }}>
+                        {isCompleted ? (
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        ) : (
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                         )}
                       </div>
-                      <div className="lesson-desc">{lesson.description}</div>
+                      <div className="lesson-content">
+                        <div className="lesson-title-bar">
+                          <h4>{lesson.lessonNumber}. {lesson.title}</h4>
+                          <div className="lesson-tags">
+                            <span className="tag" style={{background: 'rgba(59, 130, 246, 0.1)', color: 'var(--brand)'}}>
+                              {lesson.estimatedTimeMinutes}m
+                            </span>
+                          </div>
+                        </div>
+                        <p className="lesson-description">{lesson.description}</p>
+                      </div>
+                      <button className="btn btn-secondary" onClick={() => onStart(lesson)}>
+                        {isCompleted ? 'Review' : 'Start'}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                      </button>
                     </div>
-                    <button className="btn btn-primary" onClick={() => onStart(lesson)}>
-                      {isCompleted ? 'Review' : 'Start'}
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" style={{ marginLeft: '2px' }}><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                    </button>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           </div>
         )}

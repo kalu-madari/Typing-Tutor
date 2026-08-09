@@ -45,9 +45,11 @@ const TypingArea = ({ engineState, isIdle }) => {
     });
   }, [currentIndex]);
 
-  if (!engineState || !engineState.text) return null;
+  if (!engineState || typeof engineState.text !== 'string') return null;
 
-  const { text, errors, status, typedCharacters } = engineState;
+  const { text, status } = engineState;
+  const errors = engineState.errors || new Set();
+  const typedCharacters = engineState.typedCharacters || [];
 
   // Parse text into words only when the text changes to save CPU cycles
   const words = React.useMemo(() => {
