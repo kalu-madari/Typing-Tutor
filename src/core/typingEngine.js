@@ -1,9 +1,10 @@
 import { useAppStore } from '../store/useAppStore';
 
 export class TypingEngine {
-  constructor(text, layout) {
+  constructor(text, layout, lessonType) {
     this.text = text;
     this.layout = layout;
+    this.lessonType = lessonType;
     this.currentIndex = 0;
     this.status = 'idle'; // idle | running | finished
     this.startTime = null;
@@ -48,7 +49,12 @@ export class TypingEngine {
       this.lastInteractionTime = now;
     }
 
-    const { allowBackspace, moveOnError, maxErrorsToSkip, blockOnError, maxErrorsToBlock } = useAppStore.getState();
+    let { allowBackspace, moveOnError, maxErrorsToSkip, blockOnError, maxErrorsToBlock } = useAppStore.getState();
+
+    // Box practice strictly bans move on error
+    if (this.lessonType === 'box_practice') {
+      moveOnError = false;
+    }
 
     // Ignore modifier keys like Shift, Control, Alt
     if (key === 'Shift' || key === 'Control' || key === 'Alt' || key === 'Meta' || key === 'CapsLock' || key === 'Tab') {

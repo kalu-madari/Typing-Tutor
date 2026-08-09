@@ -504,7 +504,7 @@ const SettingsView = () => {
 };
 
 const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext, hasPrev, onClose }) => {
-  const { engineState, stats, altCodeState, isIdle } = useTypingEngine(lesson.text, krutidev010Layout);
+  const { engineState, stats, altCodeState, isIdle } = useTypingEngine(lesson.text, krutidev010Layout, lesson.type);
   const storeState = useAppStore();
   
   const [soundMenuOpen, setSoundMenuOpen] = React.useState(false);

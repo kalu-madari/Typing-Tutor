@@ -4,7 +4,7 @@ import { getTypingStats } from '../core/statistics';
 import { useAppStore } from '../store/useAppStore';
 import { altCodesMap } from '../core/altCodesMap';
 
-export const useTypingEngine = (text, layout) => {
+export const useTypingEngine = (text, layout, lessonType) => {
   const [engineState, setEngineState] = useState(null);
   const [stats, setStats] = useState({ wpm: 0, accuracy: 100, timeInSeconds: 0 });
   const [isIdle, setIsIdle] = useState(false);
@@ -12,7 +12,7 @@ export const useTypingEngine = (text, layout) => {
   const { soundEffects, errorSounds } = useAppStore();
 
   useEffect(() => {
-    const engine = new TypingEngine(text, layout);
+    const engine = new TypingEngine(text, layout, lessonType);
     engineRef.current = engine;
     
     engine.onStateChange = (state) => {
