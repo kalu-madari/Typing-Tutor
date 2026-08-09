@@ -13,17 +13,16 @@ const TypingArea = ({ engineState, isIdle }) => {
       const container = containerRef.current;
       const activeChar = activeCharRef.current;
       
-      const containerRect = container.getBoundingClientRect();
-      const charRect = activeChar.getBoundingClientRect();
+      let charTop = 0;
+      let el = activeChar;
       
-      // Protect against browser rendering glitches where inline spaces return 0 rects
-      if (charRect.top === 0 && charRect.bottom === 0) return;
+      while (el && el !== container) {
+        charTop += el.offsetTop || 0;
+        el = el.offsetParent;
+      }
       
-      const charTop = charRect.top - containerRect.top + container.scrollTop;
       const targetTop = Math.max(0, charTop - 40);
       
-      // Instant scroll is crucial to prevent smooth-scroll queues from 
-      // interrupting each other and resetting the container to the top
       if (Math.abs(container.scrollTop - targetTop) > 5) {
         container.scrollTop = targetTop;
       }
@@ -57,8 +56,10 @@ const TypingArea = ({ engineState, isIdle }) => {
     return words.map((wordTokens, wIdx) => {
       const isWhitespace = wordTokens.length === 1 && (wordTokens[0].char === ' ' || wordTokens[0].char === '\n');
       
+      // Removed whiteSpace: 'pre' so spaces can hang at the end of the line
+      // rather than wrapping to the start of the next line.
       return (
-        <span key={wIdx} style={{ display: isWhitespace ? 'inline' : 'inline-block', whiteSpace: 'pre' }}>
+        <span key={wIdx} style={{ display: isWhitespace ? 'inline' : 'inline-block' }}>
           {wordTokens.map(({ char, index }) => {
             let statusClass = 'pending';
             if (index < currentIndex) {
@@ -78,7 +79,11 @@ const TypingArea = ({ engineState, isIdle }) => {
             return (
               <motion.span
                 key={index}
-                ref={isActive ? activeCharRef : null}
+                ref={(el) => {
+                  if (isActive && el) {
+                    activeCharRef.current = el;
+                  }
+                }}
                 style={{
                   ...styles.char,
                   position: 'relative',
@@ -98,7 +103,7 @@ const TypingArea = ({ engineState, isIdle }) => {
                     <div style={{ position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)', borderTop: '4px solid #3b82f6', borderLeft: '4px solid transparent', borderRight: '4px solid transparent' }} />
                   </div>
                 )}
-                {char === ' ' ? '\u00A0' : char === '\n' ? '↵\n' : char}
+                {char === ' ' ? ' ' : char === '\n' ? '↵\n' : char}
               </motion.span>
             );
           })}
