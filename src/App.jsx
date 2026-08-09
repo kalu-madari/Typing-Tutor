@@ -8,6 +8,7 @@ import BoxExercise from './components/BoxExercise';
 import LessonResults from './components/LessonResults';
 import VirtualKeyboard from './components/VirtualKeyboard';
 import { useAppStore } from './store/useAppStore';
+import { ACHIEVEMENTS_LIST, checkAchievements } from './core/achievements';
 
 function App() {
   const allLessons = getAllLessons();
@@ -68,16 +69,44 @@ function App() {
   const goNext = () => hasNext && startLesson(allLessons[currentLessonIndex + 1]);
   const doRestart = () => setEngineKey(prev => prev + 1);
 
-  const handleLessonComplete = (id) => {
+  const [toast, setToast] = useState(null);
+
+  const showToast = (message, type) => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 4000);
+  };
+
+  const handleLessonComplete = (id, stats, totalCharsTyped) => {
+    // 1. Update completed lessons
+    let newCompletedSize = completedLessons.size;
     setCompletedLessons(prev => {
       const newSet = new Set(prev).add(id);
       localStorage.setItem('krutidev-completed-lessons', JSON.stringify([...newSet]));
+      newCompletedSize = newSet.size;
       return newSet;
     });
+
+    // 2. Update stats
+    if (stats.wpm > store.bestWpm) store.updateStat('bestWpm', stats.wpm);
+    if (stats.accuracy === 100) store.incrementPerfectLessons();
+    if (totalCharsTyped) store.incrementTotalTypedChars(totalCharsTyped);
+
+    // 3. Check Achievements
+    // Use a timeout so the UI has time to update first
+    setTimeout(() => {
+      // Get the freshest state
+      const currentStore = useAppStore.getState();
+      checkAchievements(currentStore, newCompletedSize, currentStore.perfectLessonsCount, showToast);
+    }, 500);
   };
 
   return (
     <div id="app-container">
+      {toast && (
+        <div style={{ position: 'fixed', top: '20px', left: '50%', transform: 'translateX(-50%)', background: toast.type === 'success' ? 'var(--success)' : 'var(--brand)', color: '#fff', padding: '12px 24px', borderRadius: '30px', boxShadow: '0 10px 25px rgba(0,0,0,0.3)', zIndex: 9999, fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {toast.message}
+        </div>
+      )}
       {window.location.search.includes('debug=true') && <KeyLogger />}
       {currentView !== 'session' && (
         <Sidebar currentView={currentView} setCurrentView={setCurrentView} />
@@ -103,7 +132,7 @@ function App() {
         )}
         {currentView === 'practice' && <PracticeView />}
         {currentView === 'bookmarks' && <BookmarksView />}
-        {currentView === 'achievements' && <AchievementsView />}
+        {currentView === 'achievements' && <AchievementsView store={store} />}
         {currentView === 'settings' && <SettingsView />}
       </main>
     </div>
@@ -190,9 +219,9 @@ const DashboardView = ({ setCurrentView, onStart, currentLesson, completedLesson
       </div>
       <div className="stat-card glass-card">
         <div className="stat-card-icon" style={{'--accent': '#f472b6'}}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div>
-        <div className="stat-card-value" id="stat-achievements">0</div>
+        <div className="stat-card-value" id="stat-achievements">{store.unlockedAchievements.length}</div>
         <div className="stat-card-label">Achievements</div>
-        <div className="stat-card-bar"><div className="stat-bar-fill" id="stat-bar-achievements" style={{'--bar-color': '#f472b6', width: '0%'}}></div></div>
+        <div className="stat-card-bar"><div className="stat-bar-fill" id="stat-bar-achievements" style={{'--bar-color': '#f472b6', width: `${(store.unlockedAchievements.length / ACHIEVEMENTS_LIST.length) * 100}%`}}></div></div>
       </div>
     </div>
 
@@ -352,14 +381,59 @@ const BookmarksView = () => (
   </section>
 );
 
-const AchievementsView = () => (
-  <section className="view active">
-    <div className="view-header">
-      <h1>Achievements</h1>
-      <p className="view-subtitle">Track your milestones</p>
-    </div>
-  </section>
-);
+const AchievementsView = ({ store }) => {
+  const { unlockedAchievements } = store;
+
+  return (
+    <section className="view active" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+      <div className="view-header" style={{ flexShrink: 0 }}>
+        <h1 style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--brand)' }}>
+            <circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+          </svg>
+          Achievements
+        </h1>
+        <p className="view-subtitle">Track your milestones ({unlockedAchievements.length} / {ACHIEVEMENTS_LIST.length} Unlocked)</p>
+        
+        <div className="chapter-progress-bar" style={{ marginTop: '16px', height: '6px' }}>
+          <div className="chapter-progress-fill" style={{ width: `${(unlockedAchievements.length / ACHIEVEMENTS_LIST.length) * 100}%`, backgroundColor: 'var(--brand)' }}></div>
+        </div>
+      </div>
+
+      <div style={{ flex: 1, overflowY: 'auto', paddingRight: '10px' }} className="no-scrollbar">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px', paddingBottom: '40px' }}>
+          {ACHIEVEMENTS_LIST.map((achievement) => {
+            const isUnlocked = unlockedAchievements.includes(achievement.id);
+            return (
+              <div key={achievement.id} className="glass-card" style={{ 
+                opacity: isUnlocked ? 1 : 0.4, 
+                display: 'flex', 
+                gap: '16px', 
+                padding: '20px',
+                border: isUnlocked ? '1px solid var(--accent-blue)' : '1px solid var(--glass-border)',
+                background: isUnlocked ? 'rgba(59, 130, 246, 0.05)' : 'var(--glass-bg)',
+                filter: isUnlocked ? 'none' : 'grayscale(0.8)',
+                transition: 'all 0.3s ease'
+              }}>
+                <div style={{ fontSize: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {achievement.icon}
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                  <div style={{ fontWeight: 'bold', fontSize: '15px', color: 'var(--text-primary)', marginBottom: '4px' }}>
+                    {achievement.title}
+                  </div>
+                  <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+                    {achievement.desc}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const SettingsView = () => {
   const store = useAppStore();
@@ -538,9 +612,9 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
 
   React.useEffect(() => {
     if (engineState?.status === 'finished') {
-      onComplete(lesson.id);
+      onComplete(lesson.id, stats, engineState.totalTypedChars);
     }
-  }, [engineState?.status, lesson.id, onComplete]);
+  }, [engineState?.status, lesson.id, onComplete, stats, engineState?.totalTypedChars]);
 
   const isFinished = engineState?.status === 'finished';
 

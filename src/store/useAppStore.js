@@ -23,10 +23,21 @@ export const useAppStore = create(
       bestWpm: 0,
       bestAccuracy: 0,
       streak: 0,
+      totalTypedChars: 0,
+      perfectLessonsCount: 0,
+      unlockedAchievements: [],
 
       // Actions
       updateSetting: (key, value) => set((state) => ({ ...state, [key]: value })),
       updateStat: (key, value) => set((state) => ({ ...state, [key]: value })),
+      incrementTotalTypedChars: (count) => set((state) => ({ ...state, totalTypedChars: state.totalTypedChars + count })),
+      incrementPerfectLessons: () => set((state) => ({ ...state, perfectLessonsCount: state.perfectLessonsCount + 1 })),
+      unlockAchievement: (id) => set((state) => {
+        if (!state.unlockedAchievements.includes(id)) {
+          return { ...state, unlockedAchievements: [...state.unlockedAchievements, id] };
+        }
+        return state;
+      }),
     }),
     {
       name: 'krutidev-settings-storage', // name of the item in the storage (must be unique)
