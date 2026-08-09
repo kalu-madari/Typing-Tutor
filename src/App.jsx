@@ -7,6 +7,7 @@ import TypingArea from './components/TypingArea';
 import BoxExercise from './components/BoxExercise';
 import LessonResults from './components/LessonResults';
 import VirtualKeyboard from './components/VirtualKeyboard';
+import PracticeSession from './components/PracticeSession';
 import { useAppStore } from './store/useAppStore';
 import { ACHIEVEMENTS_LIST, checkAchievements } from './core/achievements';
 
@@ -138,7 +139,7 @@ function App() {
             />
           </section>
         )}
-        {currentView === 'practice' && <PracticeView />}
+        {currentView === 'practice' && <PracticeView allLessons={allLessons} store={store} />}
         {currentView === 'bookmarks' && <BookmarksView store={store} allLessons={allLessons} completedLessons={completedLessons} onStart={startLesson} onBrowse={() => setCurrentView('lessons')} />}
         {currentView === 'achievements' && <AchievementsView store={store} completedLessons={completedLessons} />}
         {currentView === 'settings' && <SettingsView />}
@@ -371,14 +372,57 @@ const LessonsView = ({ lessons, onStart, completedLessons, targetChapter, setTar
   );
 };
 
-const PracticeView = () => (
-  <section className="view active">
-    <div className="view-header">
-      <h1>Practice Mode</h1>
-      <p className="view-subtitle">Sharpen your skills</p>
-    </div>
-  </section>
-);
+const PracticeView = ({ allLessons, store }) => {
+  const [activeLesson, setActiveLesson] = React.useState(null);
+
+  if (activeLesson) {
+    return <PracticeSession lesson={activeLesson} onClose={() => setActiveLesson(null)} />;
+  }
+
+  return (
+    <section className="view active" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+      <div className="view-header" style={{ flexShrink: 0 }}>
+        <h1 style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--brand)' }}>
+            <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+          </svg>
+          Practice Mode
+        </h1>
+        <p className="view-subtitle">Strict typing tests to evaluate your KrutiDev skills</p>
+      </div>
+      <div className="lessons-container no-scrollbar" style={{ flex: 1, overflowY: 'auto', paddingRight: '12px', paddingBottom: '40px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
+          {allLessons.filter(l => l.type === 'text' || !l.type).map(lesson => {
+            const results = store.practiceResults?.[lesson.id] || [];
+            const bestResult = results.length > 0 ? results.reduce((best, curr) => curr.wpm > best.wpm ? curr : best, results[0]) : null;
+            
+            return (
+              <div key={lesson.id} className="glass-panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', borderRadius: '12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                  <h3 style={{ fontSize: '1.1rem', margin: 0, color: 'var(--text-primary)' }}>{lesson.title}</h3>
+                  {bestResult && bestResult.passed && (
+                    <span style={{ background: 'rgba(34, 197, 94, 0.1)', color: 'var(--success)', padding: '4px 8px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold' }}>PASSED</span>
+                  )}
+                </div>
+                <p style={{ color: 'var(--text-muted)', fontSize: '13px', flex: 1, marginBottom: '16px' }}>{lesson.description}</p>
+                
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid var(--border-soft)' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Best WPM</span>
+                    <span style={{ fontWeight: 'bold', color: bestResult ? 'var(--text-primary)' : 'var(--text-muted)' }}>{bestResult ? bestResult.wpm : '--'}</span>
+                  </div>
+                  <button className="btn btn-primary btn-sm" onClick={() => setActiveLesson(lesson)}>
+                    Start Test
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const BookmarksView = ({ store, allLessons, completedLessons, onStart, onBrowse }) => {
   const bookmarks = store.bookmarks || [];

@@ -27,6 +27,7 @@ export const useAppStore = create(
       perfectLessonsCount: 0,
       unlockedAchievements: [],
       bookmarks: [],
+      practiceResults: {},
 
       // Actions
       updateSetting: (key, value) => set((state) => ({ ...state, [key]: value })),
@@ -38,6 +39,12 @@ export const useAppStore = create(
           return { ...state, unlockedAchievements: [...state.unlockedAchievements, id] };
         }
         return state;
+      }),
+      savePracticeResult: (lessonId, result) => set((state) => {
+        const updated = { ...(state.practiceResults || {}) };
+        if (!updated[lessonId]) updated[lessonId] = [];
+        updated[lessonId] = [...updated[lessonId], { ...result, date: Date.now() }];
+        return { ...state, practiceResults: updated };
       }),
       toggleBookmark: (id) => set((state) => {
         const bookmarks = state.bookmarks || [];
