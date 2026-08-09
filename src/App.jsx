@@ -374,18 +374,28 @@ const LessonsView = ({ lessons, onStart, completedLessons, targetChapter, setTar
 
 const PracticeView = ({ store }) => {
   const [activeExercise, setActiveExercise] = React.useState(null);
-
-  // Dynamically load exercises from src/data/exercises/
   const [exercises, setExercises] = React.useState([]);
+  const [expandedSets, setExpandedSets] = React.useState({});
+
   React.useEffect(() => {
     import('./core/exerciseEngine').then(m => {
       setExercises(m.getAllExercises());
     }).catch(() => setExercises([]));
   }, []);
 
+  const toggleSet = (setId) =>
+    setExpandedSets(prev => ({ ...prev, [setId]: !prev[setId] }));
+
   if (activeExercise) {
     return <PracticeSession lesson={activeExercise} onClose={() => setActiveExercise(null)} />;
   }
+
+  const groups = exercises.reduce((acc, ex) => {
+    const key = ex.setId || ex.setName || 'ungrouped';
+    if (!acc[key]) acc[key] = { setName: ex.setName || key, setId: key, items: [] };
+    acc[key].items.push(ex);
+    return acc;
+  }, {});
 
   return (
     <section className="view active" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
@@ -407,41 +417,61 @@ const PracticeView = ({ store }) => {
             <p style={{ color: 'var(--text-muted)', fontSize: '13px' }}>Run: <code style={{ background: 'var(--bg-elevated)', padding: '2px 6px', borderRadius: '4px' }}>python tools/exercise_builder.py</code></p>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
-            {exercises.map(exercise => {
-              const results = store.practiceResults?.[exercise.id] || [];
-              const bestResult = results.length > 0 ? results.reduce((best, curr) => curr.obtainedMarks > (best.obtainedMarks || 0) ? curr : best, results[0]) : null;
-              const maxMarks = exercise.maxMarks ?? 20;
-              const passingMarks = exercise.passingMarks ?? 10;
-
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {Object.values(groups).map(group => {
+              const isOpen = !!expandedSets[group.setId];
+              const totalPassed = group.items.filter(ex => (store.practiceResults?.[ex.id] || []).some(r => r.passed)).length;
               return (
-                <div key={exercise.id} className="glass-panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', borderRadius: '12px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
-                    <h3 style={{ fontSize: '1.05rem', margin: 0, color: 'var(--text-primary)' }}>{exercise.title}</h3>
-                    {bestResult && bestResult.passed && (
-                      <span style={{ background: 'rgba(34, 197, 94, 0.1)', color: 'var(--success)', padding: '4px 8px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>PASSED</span>
-                    )}
-                  </div>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '10px' }}>{exercise.setName}</div>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '13px', flex: 1, marginBottom: '16px' }}>{exercise.description}</p>
-
-                  <div style={{ display: 'flex', gap: '12px', marginBottom: '12px', fontSize: '12px', color: 'var(--text-muted)' }}>
-                    <span>⏱ {exercise.timeLimitMinutes}m</span>
-                    <span>🎯 {exercise.minWpm} WPM min</span>
-                    <span>📊 Pass: {passingMarks}/{maxMarks}</span>
-                  </div>
-
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '12px', borderTop: '1px solid var(--border-soft)' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                      <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Best Score</span>
-                      <span style={{ fontWeight: 'bold', color: bestResult ? 'var(--text-primary)' : 'var(--text-muted)' }}>
-                        {bestResult ? `${bestResult.obtainedMarks?.toFixed(2) ?? '--'} / ${maxMarks}` : '--'}
-                      </span>
+                <div key={group.setId} className="glass-panel" style={{ borderRadius: '12px', overflow: 'hidden' }}>
+                  <button onClick={() => toggleSet(group.setId)} style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', background: 'transparent', border: 'none', cursor: 'pointer', borderBottom: isOpen ? '1px solid var(--border-soft)' : 'none' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                      </svg>
+                      <div style={{ textAlign: 'left' }}>
+                        <div style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>{group.setName}</div>
+                        <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '2px' }}>{group.items.length} exercise{group.items.length !== 1 ? 's' : ''} · {totalPassed} passed</div>
+                      </div>
                     </div>
-                    <button className="btn btn-primary btn-sm" onClick={() => setActiveExercise(exercise)}>
-                      Start Test
-                    </button>
-                  </div>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--text-muted)', transition: 'transform 0.2s', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', flexShrink: 0 }}>
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </button>
+                  {isOpen && (
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))', gap: '14px', padding: '16px 20px' }}>
+                      {group.items.map(exercise => {
+                        const results = store.practiceResults?.[exercise.id] || [];
+                        const bestResult = results.length > 0 ? results.reduce((best, curr) => (curr.obtainedMarks || 0) > (best.obtainedMarks || 0) ? curr : best, results[0]) : null;
+                        const maxMarks = exercise.maxMarks ?? 25;
+                        const passingMarks = exercise.passingMarks ?? 10;
+                        return (
+                          <div key={exercise.id} style={{ background: 'var(--bg-elevated)', borderRadius: '10px', padding: '16px', display: 'flex', flexDirection: 'column', border: '1px solid var(--border-soft)' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
+                              <h4 style={{ fontSize: '0.95rem', margin: 0, color: 'var(--text-primary)', fontWeight: 600 }}>{exercise.title}</h4>
+                              {bestResult && bestResult.passed && (
+                                <span style={{ background: 'rgba(34,197,94,0.12)', color: 'var(--success)', padding: '3px 7px', borderRadius: '4px', fontSize: '10px', fontWeight: 'bold', whiteSpace: 'nowrap', marginLeft: '8px' }}>PASSED</span>
+                              )}
+                            </div>
+                            <p style={{ color: 'var(--text-muted)', fontSize: '12px', flex: 1, marginBottom: '12px', lineHeight: 1.5 }}>{exercise.description}</p>
+                            <div style={{ display: 'flex', gap: '10px', marginBottom: '12px', fontSize: '11px', color: 'var(--text-muted)', flexWrap: 'wrap' }}>
+                              <span>⏱ {exercise.timeLimitMinutes}m</span>
+                              <span>🎯 {exercise.minWpm} WPM</span>
+                              <span>📊 Pass: {passingMarks}/{maxMarks}</span>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '10px', borderTop: '1px solid var(--border-soft)' }}>
+                              <div>
+                                <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Best Score</div>
+                                <div style={{ fontWeight: 'bold', fontSize: '14px', color: bestResult ? 'var(--text-primary)' : 'var(--text-muted)' }}>
+                                  {bestResult ? `${bestResult.obtainedMarks?.toFixed(2) ?? '--'} / ${maxMarks}` : '--'}
+                                </div>
+                              </div>
+                              <button className="btn btn-primary btn-sm" onClick={() => setActiveExercise(exercise)}>Start Test</button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               );
             })}
