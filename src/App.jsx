@@ -381,7 +381,8 @@ const PracticeView = () => (
 );
 
 const BookmarksView = ({ store, allLessons, completedLessons, onStart, onBrowse }) => {
-  const bookmarkedLessons = allLessons.filter(l => store.bookmarks.includes(l.id));
+  const bookmarks = store.bookmarks || [];
+  const bookmarkedLessons = allLessons.filter(l => bookmarks.includes(l.id));
 
   return (
     <section className="view active" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
@@ -768,8 +769,8 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
           <button className="icon-btn-plain" title="Virtual Keyboard" onClick={() => storeState.updateSetting('showVirtualKeyboard', !storeState.showVirtualKeyboard)} style={{ background: 'transparent', border: 'none', color: storeState.showVirtualKeyboard ? 'var(--accent-blue)' : 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
             <KeyboardIcon size={20} />
           </button>
-          <button className="icon-btn-plain" title="Bookmark Lesson" onClick={() => storeState.toggleBookmark(lesson.id)} style={{ background: 'transparent', border: 'none', color: storeState.bookmarks.includes(lesson.id) ? 'var(--brand)' : 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
-            <Bookmark size={20} fill={storeState.bookmarks.includes(lesson.id) ? 'currentColor' : 'none'} />
+          <button className="icon-btn-plain" title="Bookmark Lesson" onClick={() => storeState.toggleBookmark(lesson.id)} style={{ background: 'transparent', border: 'none', color: (storeState.bookmarks || []).includes(lesson.id) ? 'var(--brand)' : 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
+            <Bookmark size={20} fill={(storeState.bookmarks || []).includes(lesson.id) ? 'currentColor' : 'none'} />
           </button>
           
           <div style={{ position: 'relative' }}>

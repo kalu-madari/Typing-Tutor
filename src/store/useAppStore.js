@@ -40,10 +40,11 @@ export const useAppStore = create(
         return state;
       }),
       toggleBookmark: (id) => set((state) => {
-        if (state.bookmarks.includes(id)) {
-          return { ...state, bookmarks: state.bookmarks.filter(b => b !== id) };
+        const bookmarks = state.bookmarks || [];
+        if (bookmarks.includes(id)) {
+          return { ...state, bookmarks: bookmarks.filter(b => b !== id) };
         } else {
-          return { ...state, bookmarks: [...state.bookmarks, id] };
+          return { ...state, bookmarks: [...bookmarks, id] };
         }
       }),
     }),
