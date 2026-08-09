@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Theme: Dark  (data-theme="vscode-dark")  — VS Code Dark+ inspired
+   Theme: Dark  (data-theme="dark")  — VS Code Dark+ inspired
    ========================================================================== */
-[data-theme="vscode-dark"] {
+[data-theme="dark"] {
   --bg-app:        #1e1e1e;
   --bg-surface:    #252526;
   --bg-elevated:   #2d2d30;
@@ -30,105 +30,105 @@
   --border-strong: #505050;
   --border-brand:  #007acc;
 }
-[data-theme="vscode-dark"] .nav-item.active::before { background: #007acc; }
+[data-theme="dark"] .nav-item.active::before { background: #007acc; }
 
 /* VS Code Dark: de-purple accents and action buttons */
-[data-theme="vscode-dark"] .btn-run {
+[data-theme="dark"] .btn-run {
   background: linear-gradient(180deg, #3c3c3c, #2d2d30);
   border: 1px solid #464647;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
   color: #d4d4d4;
 }
-[data-theme="vscode-dark"] .btn-run:hover {
+[data-theme="dark"] .btn-run:hover {
   background: linear-gradient(180deg, #4a4a4d, #37373a);
   filter: none;
 }
-[data-theme="vscode-dark"] .btn-primary {
+[data-theme="dark"] .btn-primary {
   background: linear-gradient(180deg, #1177bb, #0e639c);
   border-color: #0e639c;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
   color: #ffffff;
 }
-[data-theme="vscode-dark"] .btn-primary:hover {
+[data-theme="dark"] .btn-primary:hover {
   background: linear-gradient(180deg, #1a8ad4, #1177bb);
 }
-[data-theme="vscode-dark"] .continue-card {
+[data-theme="dark"] .continue-card {
   background:
     radial-gradient(600px 200px at 100% 0%, rgba(14,99,156,0.20), transparent 70%),
     linear-gradient(135deg, var(--bg-elevated), var(--bg-raised));
   border-color: #0e639c;
 }
-[data-theme="vscode-dark"] .continue-card::before {
+[data-theme="dark"] .continue-card::before {
   background: linear-gradient(90deg, transparent, rgba(86,156,214,0.6), transparent);
 }
-[data-theme="vscode-dark"] .continue-chapter,
-[data-theme="vscode-dark"] .practice-card-chapter { color: #569cd6; }
-[data-theme="vscode-dark"] .nav-item.active svg { color: #569cd6; }
-[data-theme="vscode-dark"] .output-tab.active {
+[data-theme="dark"] .continue-chapter,
+[data-theme="dark"] .practice-card-chapter { color: #569cd6; }
+[data-theme="dark"] .nav-item.active svg { color: #569cd6; }
+[data-theme="dark"] .output-tab.active {
   background: var(--brand-soft);
   color: #9cdcfe;
   box-shadow: inset 0 0 0 1px rgba(86,156,214,0.35);
 }
-[data-theme="vscode-dark"] .profile-level { color: #569cd6; }
+[data-theme="dark"] .profile-level { color: #569cd6; }
 
 /* --- lesson header / editor chrome / code inlines --- */
-[data-theme="vscode-dark"] .lesson-content-panel {
+[data-theme="dark"] .lesson-content-panel {
   background: var(--bg-app);
 }
-[data-theme="vscode-dark"] .lesson-nav-bar {
+[data-theme="dark"] .lesson-nav-bar {
   background: #2d2d30;
   border-bottom: 1px solid #1e1e1e;
   backdrop-filter: none;
 }
-[data-theme="vscode-dark"] .lesson-title {
+[data-theme="dark"] .lesson-title {
   background: none;
   -webkit-text-fill-color: #d4d4d4;
   color: #d4d4d4;
 }
-[data-theme="vscode-dark"] .lesson-body { color: #d4d4d4; }
-[data-theme="vscode-dark"] .lesson-body p,
-[data-theme="vscode-dark"] .lesson-body li { color: #cccccc; }
-[data-theme="vscode-dark"] .lesson-body strong { color: #ffffff; }
-[data-theme="vscode-dark"] .lesson-body code {
+[data-theme="dark"] .lesson-body { color: #d4d4d4; }
+[data-theme="dark"] .lesson-body p,
+[data-theme="dark"] .lesson-body li { color: #cccccc; }
+[data-theme="dark"] .lesson-body strong { color: #ffffff; }
+[data-theme="dark"] .lesson-body code {
   background: #2d2d30;
   color: #ce9178;
   border: 1px solid #3c3c3c;
 }
-[data-theme="vscode-dark"] .lesson-body pre {
+[data-theme="dark"] .lesson-body pre {
   background: #000000;
   border: 1px solid #3c3c3c;
 }
-[data-theme="vscode-dark"] .lesson-body pre code {
+[data-theme="dark"] .lesson-body pre code {
   background: transparent;
   border: none;
   color: #ffffff;
 }
 
-[data-theme="vscode-dark"] .editor-toolbar {
+[data-theme="dark"] .editor-toolbar {
   background: #2d2d30;
   border-bottom: 1px solid #1e1e1e;
 }
-[data-theme="vscode-dark"] .editor-file-tab {
+[data-theme="dark"] .editor-file-tab {
   background: #1e1e1e;
   border-color: #3c3c3c;
   color: #cccccc;
 }
-[data-theme="vscode-dark"] .editor-file-tab.active {
+[data-theme="dark"] .editor-file-tab.active {
   background: #1e1e1e;
   border-color: #007acc;
   box-shadow: inset 0 -2px 0 #007acc;
   color: #ffffff;
 }
-[data-theme="vscode-dark"] #monaco-container { background: #1e1e1e; }
-[data-theme="vscode-dark"] .editor-panel { background: #1e1e1e; }
+[data-theme="dark"] #monaco-container { background: #1e1e1e; }
+[data-theme="dark"] .editor-panel { background: #1e1e1e; }
 
-[data-theme="vscode-dark"] .output-toolbar {
+[data-theme="dark"] .output-toolbar {
   background: #2d2d30;
   border-bottom: 1px solid #1e1e1e;
 }
-[data-theme="vscode-dark"] .output-tab { color: #cccccc; }
-[data-theme="vscode-dark"] .output-tab:hover { background: rgba(255,255,255,0.06); color: #ffffff; }
-[data-theme="vscode-dark"] .output-tab.active {
+[data-theme="dark"] .output-tab { color: #cccccc; }
+[data-theme="dark"] .output-tab:hover { background: rgba(255,255,255,0.06); color: #ffffff; }
+[data-theme="dark"] .output-tab.active {
   background: #1e1e1e;
   color: #ffffff;
   box-shadow: inset 0 -2px 0 #007acc;
@@ -136,7 +136,7 @@
 }
 
 /* --- output tab active state --- */
-[data-theme="vscode-dark"] .output-tab.active {
+[data-theme="dark"] .output-tab.active {
   background: rgba(86,156,214,0.16);
   color: #9cdcfe;
   box-shadow: inset 0 0 0 1px rgba(86,156,214,0.35);

@@ -29,7 +29,10 @@ function App() {
   const [targetChapter, setTargetChapter] = useState(null);
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', store.theme);
+    // Migrate old 'vscode-dark' to 'dark' for existing users
+    const currentTheme = store.theme === 'vscode-dark' ? 'dark' : store.theme;
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    if (store.theme === 'vscode-dark') store.updateSetting('theme', 'dark');
   }, [store.theme]);
 
   useEffect(() => {
@@ -659,12 +662,8 @@ const SettingsView = () => {
               value={store.theme}
               onChange={(val) => store.updateSetting('theme', val)}
               options={[
-                { value: 'vscode-dark', label: 'VS Code Dark' },
-                { value: 'light', label: 'Light' },
-                { value: 'midnight-indigo', label: 'Midnight Indigo' },
-                { value: 'nord', label: 'Nord' },
-                { value: 'solarized-dark', label: 'Solarized Dark' },
-                { value: 'vscode-light', label: 'VS Code Light' }
+                { value: 'dark', label: 'Dark' },
+                { value: 'light', label: 'Light' }
               ]}
             />
           </div>

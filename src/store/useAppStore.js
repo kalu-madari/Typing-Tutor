@@ -5,7 +5,7 @@ export const useAppStore = create(
   persist(
     (set) => ({
       // Settings
-      theme: 'vscode-dark',
+      theme: 'dark',
       fontSize: 'medium',
       textAlign: 'left',
       soundEffects: true,
