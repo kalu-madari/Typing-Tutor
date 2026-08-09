@@ -24,6 +24,8 @@ function App() {
     return new Set();
   });
 
+  const [targetChapter, setTargetChapter] = useState(null);
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', store.theme);
   }, [store.theme]);
@@ -82,8 +84,8 @@ function App() {
       )}
 
       <main id="main-content">
-        {currentView === 'dashboard' && <DashboardView setCurrentView={setCurrentView} onStart={startLesson} currentLesson={currentLesson} completedLessons={completedLessons} allLessons={allLessons} />}
-        {currentView === 'lessons' && <LessonsView lessons={allLessons} onStart={startLesson} completedLessons={completedLessons} />}
+        {currentView === 'dashboard' && <DashboardView setCurrentView={setCurrentView} onStart={startLesson} currentLesson={currentLesson} completedLessons={completedLessons} allLessons={allLessons} setTargetChapter={setTargetChapter} store={store} />}
+        {currentView === 'lessons' && <LessonsView lessons={allLessons} onStart={startLesson} completedLessons={completedLessons} targetChapter={targetChapter} setTargetChapter={setTargetChapter} />}
         {currentView === 'session' && (
           <section id="view-lesson-detail" className="view active" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: 0 }}>
             <TypingSession 
@@ -154,7 +156,7 @@ const Sidebar = ({ currentView, setCurrentView }) => {
   );
 };
 
-const DashboardView = ({ setCurrentView, onStart, currentLesson, completedLessons, allLessons }) => {
+const DashboardView = ({ setCurrentView, onStart, currentLesson, completedLessons, allLessons, setTargetChapter, store }) => {
   const chapters = getChapters();
   
   const totalLessons = allLessons.length;
@@ -176,13 +178,13 @@ const DashboardView = ({ setCurrentView, onStart, currentLesson, completedLesson
       </div>
       <div className="stat-card glass-card">
         <div className="stat-card-icon" style={{'--accent': '#34d399'}}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
-        <div className="stat-card-value" id="stat-exercises-done">0</div>
-        <div className="stat-card-label">Avg WPM</div>
+        <div className="stat-card-value" id="stat-exercises-done">{store?.bestWpm || 0}</div>
+        <div className="stat-card-label">Best WPM</div>
         <div className="stat-card-bar"><div className="stat-bar-fill" id="stat-bar-exercises" style={{'--bar-color': '#34d399', width: '0%'}}></div></div>
       </div>
       <div className="stat-card glass-card">
         <div className="stat-card-icon" style={{'--accent': '#fbbf24'}}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"></path></svg></div>
-        <div className="stat-card-value" id="stat-streak">0</div>
+        <div className="stat-card-value" id="stat-streak">{store?.streak || 0}</div>
         <div className="stat-card-label">Day Streak</div>
         <div className="stat-card-bar"><div className="stat-bar-fill" id="stat-bar-streak" style={{'--bar-color': '#fbbf24', width: '0%'}}></div></div>
       </div>
@@ -216,7 +218,7 @@ const DashboardView = ({ setCurrentView, onStart, currentLesson, completedLesson
           const chCompleted = chapter.lessons.filter(l => completedLessons.has(l.id)).length;
           const pct = chapter.lessons.length > 0 ? Math.round((chCompleted / chapter.lessons.length) * 100) : 0;
           return (
-            <div key={chapter.id} className="chapter-progress-card glass-card" style={{opacity: pct === 0 ? 0.6 : 1}}>
+            <div key={chapter.id} className="chapter-progress-card glass-card" style={{opacity: pct === 0 ? 0.6 : 1, cursor: 'pointer'}} onClick={() => { setTargetChapter(chapter.id); setCurrentView('lessons'); }}>
               <div className="progress-card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                 <span className="progress-card-title" style={{ fontWeight: '600', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Chapter {chapter.id}</span>
                 <span className="progress-card-pct" style={{ fontWeight: 'bold', color: 'var(--brand)' }}>{pct}%</span>
@@ -232,8 +234,15 @@ const DashboardView = ({ setCurrentView, onStart, currentLesson, completedLesson
   );
 };
 
-const LessonsView = ({ lessons, onStart, completedLessons }) => {
-  const [expandedChapter, setExpandedChapter] = useState(null);
+const LessonsView = ({ lessons, onStart, completedLessons, targetChapter, setTargetChapter }) => {
+  const [expandedChapter, setExpandedChapter] = useState(targetChapter || null);
+
+  useEffect(() => {
+    if (targetChapter !== null) {
+      setExpandedChapter(targetChapter);
+      setTargetChapter(null);
+    }
+  }, [targetChapter, setTargetChapter]);
   
   const chapters = getChapters();
   
