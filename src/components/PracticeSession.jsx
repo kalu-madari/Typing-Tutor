@@ -281,7 +281,7 @@ const PracticeSession = ({ lesson, onClose }) => {
           <div style={{ position: 'absolute', top: 8, right: 12, fontSize: '10px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>
             Reference Text
           </div>
-          <div style={{ fontFamily: 'KrutiDev010', fontSize: '28px', lineHeight: '1.9', color: 'var(--text-primary)', whiteSpace: 'pre-wrap' }}>
+          <div style={{ fontFamily: '"Kruti Dev 010", sans-serif', fontSize: '28px', lineHeight: '1.9', color: 'var(--text-primary)', whiteSpace: 'pre-wrap' }}>
             {lesson.text}
           </div>
         </div>
@@ -307,7 +307,7 @@ const PracticeSession = ({ lesson, onClose }) => {
             placeholder=""
             style={{
               flex: 1, width: '100%', resize: 'none', border: 'none', background: 'transparent',
-              padding: '28px 24px', fontFamily: 'KrutiDev010', fontSize: '28px', lineHeight: '1.9',
+              padding: '28px 24px', fontFamily: '"Kruti Dev 010", sans-serif', fontSize: '28px', lineHeight: '1.9',
               color: 'var(--text-primary)', outline: 'none',
             }}
           />
