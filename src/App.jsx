@@ -240,6 +240,14 @@ const LessonsView = ({ lessons, onStart, completedLessons, targetChapter, setTar
   useEffect(() => {
     if (targetChapter !== null) {
       setExpandedChapter(targetChapter);
+      
+      setTimeout(() => {
+        const chapterEl = document.getElementById(`chapter-card-${targetChapter}`);
+        if (chapterEl) {
+          chapterEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 50);
+
       setTargetChapter(null);
     }
   }, [targetChapter, setTargetChapter]);
@@ -266,7 +274,7 @@ const LessonsView = ({ lessons, onStart, completedLessons, targetChapter, setTar
           const isChapterComplete = progress === 100;
           
           return (
-            <div key={chapter.id} className={`chapter-card glass-card ${isChapterComplete ? 'chapter-completed' : (progress > 0 || chapter.id === 1 ? 'chapter-in-progress' : '')} ${isExpanded ? 'expanded' : ''}`}>
+            <div id={`chapter-card-${chapter.id}`} key={chapter.id} className={`chapter-card glass-card ${isChapterComplete ? 'chapter-completed' : (progress > 0 || chapter.id === 1 ? 'chapter-in-progress' : '')} ${isExpanded ? 'expanded' : ''}`}>
               <div className="chapter-header" onClick={() => setExpandedChapter(isExpanded ? null : chapter.id)}>
                 <div className={`chapter-badge ${isChapterComplete ? 'badge-completed' : 'badge-active'}`}>
                   {isChapterComplete ? (
