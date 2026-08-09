@@ -150,7 +150,10 @@ function App() {
               onRestart={doRestart}
               hasNext={hasNext}
               hasPrev={hasPrev}
-              onClose={() => setCurrentView('lessons')}
+              onClose={() => {
+                setTargetChapter(currentLesson.chapterId);
+                setCurrentView('lessons');
+              }}
             />
           </section>
         )}
