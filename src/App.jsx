@@ -139,7 +139,7 @@ function App() {
             />
           </section>
         )}
-        {currentView === 'practice' && <PracticeView allLessons={allLessons} store={store} />}
+        {currentView === 'practice' && <PracticeView store={store} />}
         {currentView === 'bookmarks' && <BookmarksView store={store} allLessons={allLessons} completedLessons={completedLessons} onStart={startLesson} onBrowse={() => setCurrentView('lessons')} />}
         {currentView === 'achievements' && <AchievementsView store={store} completedLessons={completedLessons} />}
         {currentView === 'settings' && <SettingsView />}
@@ -372,11 +372,19 @@ const LessonsView = ({ lessons, onStart, completedLessons, targetChapter, setTar
   );
 };
 
-const PracticeView = ({ allLessons, store }) => {
-  const [activeLesson, setActiveLesson] = React.useState(null);
+const PracticeView = ({ store }) => {
+  const [activeExercise, setActiveExercise] = React.useState(null);
 
-  if (activeLesson) {
-    return <PracticeSession lesson={activeLesson} onClose={() => setActiveLesson(null)} />;
+  // Dynamically load exercises from src/data/exercises/
+  const [exercises, setExercises] = React.useState([]);
+  React.useEffect(() => {
+    import('./core/exerciseEngine').then(m => {
+      setExercises(m.getAllExercises());
+    }).catch(() => setExercises([]));
+  }, []);
+
+  if (activeExercise) {
+    return <PracticeSession lesson={activeExercise} onClose={() => setActiveExercise(null)} />;
   }
 
   return (
@@ -391,34 +399,54 @@ const PracticeView = ({ allLessons, store }) => {
         <p className="view-subtitle">Strict typing tests to evaluate your KrutiDev skills</p>
       </div>
       <div className="lessons-container no-scrollbar" style={{ flex: 1, overflowY: 'auto', paddingRight: '12px', paddingBottom: '40px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
-          {allLessons.filter(l => l.type === 'text' || !l.type).map(lesson => {
-            const results = store.practiceResults?.[lesson.id] || [];
-            const bestResult = results.length > 0 ? results.reduce((best, curr) => curr.wpm > best.wpm ? curr : best, results[0]) : null;
-            
-            return (
-              <div key={lesson.id} className="glass-panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', borderRadius: '12px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
-                  <h3 style={{ fontSize: '1.1rem', margin: 0, color: 'var(--text-primary)' }}>{lesson.title}</h3>
-                  {bestResult && bestResult.passed && (
-                    <span style={{ background: 'rgba(34, 197, 94, 0.1)', color: 'var(--success)', padding: '4px 8px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold' }}>PASSED</span>
-                  )}
-                </div>
-                <p style={{ color: 'var(--text-muted)', fontSize: '13px', flex: 1, marginBottom: '16px' }}>{lesson.description}</p>
-                
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid var(--border-soft)' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Best WPM</span>
-                    <span style={{ fontWeight: 'bold', color: bestResult ? 'var(--text-primary)' : 'var(--text-muted)' }}>{bestResult ? bestResult.wpm : '--'}</span>
+        {exercises.length === 0 ? (
+          <div className="empty-state" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', opacity: 0.8, textAlign: 'center' }}>
+            <div className="empty-icon" style={{ fontSize: '48px', marginBottom: '16px' }}>📝</div>
+            <h3 style={{ fontSize: '1.2rem', marginBottom: '8px', color: 'var(--text-primary)' }}>No practice exercises yet</h3>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '8px' }}>Use the <strong>Exercise Builder</strong> tool to create exercise sets.</p>
+            <p style={{ color: 'var(--text-muted)', fontSize: '13px' }}>Run: <code style={{ background: 'var(--bg-elevated)', padding: '2px 6px', borderRadius: '4px' }}>python tools/exercise_builder.py</code></p>
+          </div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
+            {exercises.map(exercise => {
+              const results = store.practiceResults?.[exercise.id] || [];
+              const bestResult = results.length > 0 ? results.reduce((best, curr) => curr.obtainedMarks > (best.obtainedMarks || 0) ? curr : best, results[0]) : null;
+              const maxMarks = exercise.maxMarks ?? 20;
+              const passingMarks = exercise.passingMarks ?? 10;
+
+              return (
+                <div key={exercise.id} className="glass-panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', borderRadius: '12px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
+                    <h3 style={{ fontSize: '1.05rem', margin: 0, color: 'var(--text-primary)' }}>{exercise.title}</h3>
+                    {bestResult && bestResult.passed && (
+                      <span style={{ background: 'rgba(34, 197, 94, 0.1)', color: 'var(--success)', padding: '4px 8px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>PASSED</span>
+                    )}
                   </div>
-                  <button className="btn btn-primary btn-sm" onClick={() => setActiveLesson(lesson)}>
-                    Start Test
-                  </button>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '10px' }}>{exercise.setName}</div>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '13px', flex: 1, marginBottom: '16px' }}>{exercise.description}</p>
+
+                  <div style={{ display: 'flex', gap: '12px', marginBottom: '12px', fontSize: '12px', color: 'var(--text-muted)' }}>
+                    <span>⏱ {exercise.timeLimitMinutes}m</span>
+                    <span>🎯 {exercise.minWpm} WPM min</span>
+                    <span>📊 Pass: {passingMarks}/{maxMarks}</span>
+                  </div>
+
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '12px', borderTop: '1px solid var(--border-soft)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Best Score</span>
+                      <span style={{ fontWeight: 'bold', color: bestResult ? 'var(--text-primary)' : 'var(--text-muted)' }}>
+                        {bestResult ? `${bestResult.obtainedMarks?.toFixed(2) ?? '--'} / ${maxMarks}` : '--'}
+                      </span>
+                    </div>
+                    <button className="btn btn-primary btn-sm" onClick={() => setActiveExercise(exercise)}>
+                      Start Test
+                    </button>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -66,6 +66,20 @@ class ExerciseBuilderApp(ctk.CTk):
         self.diff_menu = ctk.CTkOptionMenu(self.set_frame, values=["beginner", "intermediate", "advanced", "expert"], variable=self.diff_var)
         self.diff_menu.grid(row=3, column=3, padx=10, pady=5, sticky="w")
 
+        # Max Marks
+        self.lbl_max_marks = ctk.CTkLabel(self.set_frame, text="Max Marks:")
+        self.lbl_max_marks.grid(row=4, column=0, padx=10, pady=5, sticky="e")
+        self.entry_max_marks = ctk.CTkEntry(self.set_frame, width=100)
+        self.entry_max_marks.grid(row=4, column=1, padx=10, pady=5, sticky="w")
+        self.entry_max_marks.insert(0, "20")
+
+        # Passing Marks
+        self.lbl_passing_marks = ctk.CTkLabel(self.set_frame, text="Passing Marks:")
+        self.lbl_passing_marks.grid(row=4, column=2, padx=10, pady=5, sticky="e")
+        self.entry_passing_marks = ctk.CTkEntry(self.set_frame, width=100)
+        self.entry_passing_marks.grid(row=4, column=3, padx=10, pady=5, sticky="w")
+        self.entry_passing_marks.insert(0, "10")
+
         # --- Exercises Scrollable Frame ---
         self.exercises_frame = ctk.CTkScrollableFrame(self, label_text="Exercises")
         self.exercises_frame.pack(pady=10, padx=20, fill="both", expand=True)
@@ -135,6 +149,12 @@ class ExerciseBuilderApp(ctk.CTk):
             self.entry_time.insert(0, str(data.get("timeLimitMinutes", 10)))
 
             self.diff_var.set(data.get("difficulty", "intermediate"))
+
+            self.entry_max_marks.delete(0, "end")
+            self.entry_max_marks.insert(0, str(data.get("maxMarks", 20)))
+
+            self.entry_passing_marks.delete(0, "end")
+            self.entry_passing_marks.insert(0, str(data.get("passingMarks", 10)))
 
             for ex in self.exercises:
                 ex["frame"].destroy()
@@ -282,6 +302,10 @@ class ExerciseBuilderApp(ctk.CTk):
         self.entry_time.delete(0, "end")
         self.entry_time.insert(0, "10")
         self.diff_var.set("intermediate")
+        self.entry_max_marks.delete(0, "end")
+        self.entry_max_marks.insert(0, "20")
+        self.entry_passing_marks.delete(0, "end")
+        self.entry_passing_marks.insert(0, "10")
 
         for ex in self.exercises:
             ex["frame"].destroy()
@@ -304,10 +328,14 @@ class ExerciseBuilderApp(ctk.CTk):
             if not set_name:
                 raise ValueError("Set Name (display) is required.")
 
-            min_wpm = int(self.entry_wpm.get().strip() or 60)
-            min_acc = int(self.entry_acc.get().strip() or 95)
-            time_limit = int(self.entry_time.get().strip() or 10)
-            difficulty = self.diff_var.get()
+            min_wpm     = int(self.entry_wpm.get().strip() or 60)
+            min_acc     = int(self.entry_acc.get().strip() or 95)
+            time_limit  = int(self.entry_time.get().strip() or 10)
+            difficulty  = self.diff_var.get()
+            max_marks     = int(self.entry_max_marks.get().strip() or 20)
+            passing_marks = int(self.entry_passing_marks.get().strip() or 10)
+            if passing_marks > max_marks:
+                raise ValueError("Passing Marks cannot be greater than Max Marks.")
 
             exercises_data = []
             for i, ex in enumerate(self.exercises):
@@ -331,6 +359,8 @@ class ExerciseBuilderApp(ctk.CTk):
                     "timeLimitMinutes": time_limit,
                     "minWpm": min_wpm,
                     "minAccuracy": min_acc,
+                    "maxMarks": max_marks,
+                    "passingMarks": passing_marks,
                     "text": converted_text,
                     "textHindi": text,
                     "type": "practice",
@@ -344,6 +374,8 @@ class ExerciseBuilderApp(ctk.CTk):
                 "minAccuracy": min_acc,
                 "timeLimitMinutes": time_limit,
                 "difficulty": difficulty,
+                "maxMarks": max_marks,
+                "passingMarks": passing_marks,
                 "exercises": exercises_data,
             }
 
