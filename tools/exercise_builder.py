@@ -71,7 +71,7 @@ class ExerciseBuilderApp(ctk.CTk):
         self.lbl_max_marks.grid(row=4, column=0, padx=10, pady=5, sticky="e")
         self.entry_max_marks = ctk.CTkEntry(self.set_frame, width=100)
         self.entry_max_marks.grid(row=4, column=1, padx=10, pady=5, sticky="w")
-        self.entry_max_marks.insert(0, "20")
+        self.entry_max_marks.insert(0, "25")
 
         # Passing Marks
         self.lbl_passing_marks = ctk.CTkLabel(self.set_frame, text="Passing Marks:")
@@ -303,7 +303,7 @@ class ExerciseBuilderApp(ctk.CTk):
         self.entry_time.insert(0, "10")
         self.diff_var.set("intermediate")
         self.entry_max_marks.delete(0, "end")
-        self.entry_max_marks.insert(0, "20")
+        self.entry_max_marks.insert(0, "25")
         self.entry_passing_marks.delete(0, "end")
         self.entry_passing_marks.insert(0, "10")
 

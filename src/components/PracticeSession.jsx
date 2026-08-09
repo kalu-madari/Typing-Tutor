@@ -15,10 +15,14 @@ const calcKdph = (correctChars, timeInMinutes) => {
   return Math.round((correctChars / timeInMinutes) * 60);
 };
 
-const calcObtainedMarks = (kdph, maxMarks, maxKdph) => {
-  // (maxMarks / maxKdph) × netKdph  — capped at maxMarks
-  const marks = (maxMarks / maxKdph) * kdph;
-  return Math.min(maxMarks, Math.round(marks * 100) / 100);
+// HC exam formula is FIXED: (20 / 8000) × Net KDPH
+// maxMarks (e.g. 25) is just the exam's total marks for display.
+const FORMULA_NUMERATOR = 20;
+const FORMULA_DENOMINATOR = 8000;
+
+const calcObtainedMarks = (kdph) => {
+  const marks = (FORMULA_NUMERATOR / FORMULA_DENOMINATOR) * kdph;
+  return Math.round(marks * 100) / 100;
 };
 
 const PracticeSession = ({ lesson, onClose }) => {
@@ -27,10 +31,8 @@ const PracticeSession = ({ lesson, onClose }) => {
   // ── Config from exercise metadata ──────────────────────────────────
   const timeLimitMinutes = lesson.timeLimitMinutes ?? 10;
   const PRACTICE_TIME_LIMIT = timeLimitMinutes * 60;
-  const maxMarks      = lesson.maxMarks      ?? 20;
+  const maxMarks      = lesson.maxMarks      ?? 25;
   const passingMarks  = lesson.passingMarks  ?? 10;
-  // The "full speed" KDPH that maps to maxMarks (HC standard: 8000 KDPH = 20 marks)
-  const maxKdph       = (maxMarks / 20) * 8000;
 
   // ── State ──────────────────────────────────────────────────────────
   const [typedText, setTypedText] = useState('');
@@ -83,9 +85,9 @@ const PracticeSession = ({ lesson, onClose }) => {
     // ── WPM (for reference) ──
     const wpm = Math.round((correctChars / 5) / timeUsedMin);
 
-    // ── HC Marks formula ──
+    // ── HC Marks formula: fixed (20/8000) × Net KDPH ──
     const netKdph       = calcKdph(correctChars, timeUsedMin);
-    const obtainedMarks = calcObtainedMarks(netKdph, maxMarks, maxKdph);
+    const obtainedMarks = calcObtainedMarks(netKdph);
     const passed        = obtainedMarks >= passingMarks;
 
     setResults({
