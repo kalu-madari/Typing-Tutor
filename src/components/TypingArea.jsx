@@ -16,12 +16,17 @@ const TypingArea = ({ engineState, isIdle }) => {
       const containerRect = container.getBoundingClientRect();
       const charRect = activeChar.getBoundingClientRect();
       
-      const charTop = charRect.top - containerRect.top + container.scrollTop;
+      // Protect against browser rendering glitches where inline spaces return 0 rects
+      if (charRect.top === 0 && charRect.bottom === 0) return;
       
-      container.scrollTo({
-        top: Math.max(0, charTop - 40),
-        behavior: 'smooth'
-      });
+      const charTop = charRect.top - containerRect.top + container.scrollTop;
+      const targetTop = Math.max(0, charTop - 40);
+      
+      // Instant scroll is crucial to prevent smooth-scroll queues from 
+      // interrupting each other and resetting the container to the top
+      if (Math.abs(container.scrollTop - targetTop) > 5) {
+        container.scrollTop = targetTop;
+      }
     }
   }, [engineState?.currentIndex]);
 
@@ -88,7 +93,7 @@ const TypingArea = ({ engineState, isIdle }) => {
                 transition={isError ? { duration: 0.3 } : (isActive ? { repeat: Infinity, duration: 1 } : {})}
               >
                 {isActive && isIdle && (
-                  <div style={{ position: 'absolute', bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: '8px', background: '#3b82f6', color: '#fff', padding: '2px 8px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold', whiteSpace: 'nowrap', zIndex: 10, boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}>
+                  <div style={{ position: 'absolute', bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: '8px', background: '#3b82f6', color: '#fff', padding: '4px 20px', borderRadius: '4px', fontSize: '13px', lineHeight: '1.2', fontWeight: 'bold', whiteSpace: 'nowrap', zIndex: 10, boxShadow: '0 4px 12px rgba(0,0,0,0.3)', fontFamily: 'sans-serif' }}>
                     Start Typing
                     <div style={{ position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)', borderTop: '4px solid #3b82f6', borderLeft: '4px solid transparent', borderRight: '4px solid transparent' }} />
                   </div>
