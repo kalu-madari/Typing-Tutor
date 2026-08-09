@@ -45,18 +45,16 @@ const TypingArea = ({ engineState, isIdle }) => {
     });
   }, [currentIndex]);
 
-  if (!engineState || typeof engineState.text !== 'string') return null;
-
-  const { text, status } = engineState;
-  const errors = engineState.errors || new Set();
-  const typedCharacters = engineState.typedCharacters || [];
+  const engineText = engineState?.text;
+  const textIsString = typeof engineText === 'string';
 
   // Parse text into words only when the text changes to save CPU cycles
   const words = React.useMemo(() => {
+    if (!textIsString) return [];
     const wordsArray = [];
     let currentWord = [];
     
-    text.split('').forEach((char, index) => {
+    engineText.split('').forEach((char, index) => {
       if (char === ' ' || char === '\n') {
         if (currentWord.length > 0) {
           wordsArray.push(currentWord);
@@ -71,7 +69,14 @@ const TypingArea = ({ engineState, isIdle }) => {
       wordsArray.push(currentWord);
     }
     return wordsArray;
-  }, [text]);
+  }, [engineText, textIsString]);
+
+  // ALL HOOKS MUST BE DECLARED ABOVE THIS LINE
+  if (!engineState || !textIsString) return null;
+
+  const { text, status } = engineState;
+  const errors = engineState.errors || new Set();
+  const typedCharacters = engineState.typedCharacters || [];
 
   const renderText = () => {
     return words.map((wordTokens, wIdx) => {

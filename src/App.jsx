@@ -414,20 +414,12 @@ const BookmarksView = ({ store, allLessons, completedLessons, onStart, onBrowse 
                           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                         )}
                       </div>
-                      <div className="lesson-content">
-                        <div className="lesson-title-bar">
-                          <h4>{lesson.lessonNumber}. {lesson.title}</h4>
-                          <div className="lesson-tags">
-                            <span className="tag" style={{background: 'rgba(59, 130, 246, 0.1)', color: 'var(--brand)'}}>
-                              {lesson.estimatedTimeMinutes}m
-                            </span>
-                          </div>
-                        </div>
-                        <p className="lesson-description">{lesson.description}</p>
+                      <div className="lesson-info" style={{ flex: 1 }}>
+                        <div className="lesson-item-title" style={{ fontSize: '17.5px' }}>{lesson.lessonNumber}. {lesson.title}</div>
+                        <div className="lesson-desc" style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{lesson.description}</div>
                       </div>
-                      <button className="btn btn-secondary" onClick={() => onStart(lesson)}>
-                        {isCompleted ? 'Review' : 'Start'}
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                      <button className="btn btn-primary btn-sm" onClick={(e) => { e.stopPropagation(); onStart(lesson); }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '32px', height: '32px', padding: 0, borderRadius: '50%' }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" style={{ marginLeft: '2px' }}><polygon points="5 3 19 12 5 21 5 3"/></svg>
                       </button>
                     </div>
                   );
