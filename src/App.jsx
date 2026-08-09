@@ -85,29 +85,28 @@ function App() {
     setTimeout(() => setToast(null), 4000);
   };
 
-  const handleLessonComplete = (id, stats, totalCharsTyped) => {
+  const handleLessonComplete = useCallback((id, stats, totalCharsTyped) => {
     // 1. Update completed lessons
-    let newCompletedSize = completedLessons.size;
     setCompletedLessons(prev => {
+      if (prev.has(id)) return prev;
       const newSet = new Set(prev).add(id);
       localStorage.setItem('krutidev-completed-lessons', JSON.stringify([...newSet]));
-      newCompletedSize = newSet.size;
       return newSet;
     });
 
     // 2. Update stats
-    if (stats.wpm > store.bestWpm) store.updateStat('bestWpm', stats.wpm);
-    if (stats.accuracy === 100) store.incrementPerfectLessons();
-    if (totalCharsTyped) store.incrementTotalTypedChars(totalCharsTyped);
+    const currentStore = useAppStore.getState();
+    if (stats.wpm > currentStore.bestWpm) currentStore.updateStat('bestWpm', stats.wpm);
+    if (stats.accuracy === 100) currentStore.incrementPerfectLessons();
+    if (totalCharsTyped) currentStore.incrementTotalTypedChars(totalCharsTyped);
 
     // 3. Check Achievements
-    // Use a timeout so the UI has time to update first
     setTimeout(() => {
-      // Get the freshest state
-      const currentStore = useAppStore.getState();
-      checkAchievements(currentStore, newCompletedSize, currentStore.perfectLessonsCount, showToast);
+      const freshStore = useAppStore.getState();
+      const completedSize = JSON.parse(localStorage.getItem('krutidev-completed-lessons') || '[]').length;
+      checkAchievements(freshStore, completedSize, freshStore.perfectLessonsCount, showToast);
     }, 500);
-  };
+  }, []);
 
   return (
     <div id="app-container">
@@ -679,6 +678,16 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
       onComplete(lesson.id, stats, engineState.totalTypedChars);
     }
   }, [engineState?.status, lesson.id, onComplete, stats, engineState?.totalTypedChars]);
+
+  // Continuously capture best WPM even if they exit the lesson early
+  React.useEffect(() => {
+    if (stats.wpm > 0) {
+      const currentStore = useAppStore.getState();
+      if (stats.wpm > currentStore.bestWpm) {
+        currentStore.updateStat('bestWpm', stats.wpm);
+      }
+    }
+  }, [stats.wpm]);
 
   const isFinished = engineState?.status === 'finished';
 
