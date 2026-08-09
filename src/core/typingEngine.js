@@ -73,12 +73,11 @@ export class TypingEngine {
       return;
     }
 
-    // Use layout to get expected key(s)
-    const expectedKeys = this.layout.getExpectedKeys(targetChar);
-
     this.totalTypedChars++;
 
-    if (expectedKeys.includes(key)) {
+    const isCorrect = (targetChar === '\n' && key === 'Enter') || (key === targetChar);
+
+    if (isCorrect) {
       // Correct!
       this.typedCharacters.push({ char: this.text[this.currentIndex], isError: false });
       this.correctChars++;
