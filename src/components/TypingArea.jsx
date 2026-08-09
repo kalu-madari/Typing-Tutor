@@ -49,26 +49,29 @@ const TypingArea = ({ engineState, isIdle }) => {
 
   const { text, errors, status, typedCharacters } = engineState;
 
-  // Split text into words to prevent mid-word line breaking
-  const renderText = () => {
-    const words = [];
+  // Parse text into words only when the text changes to save CPU cycles
+  const words = React.useMemo(() => {
+    const wordsArray = [];
     let currentWord = [];
     
     text.split('').forEach((char, index) => {
       if (char === ' ' || char === '\n') {
         if (currentWord.length > 0) {
-          words.push(currentWord);
+          wordsArray.push(currentWord);
           currentWord = [];
         }
-        words.push([{ char, index }]);
+        wordsArray.push([{ char, index }]);
       } else {
         currentWord.push({ char, index });
       }
     });
     if (currentWord.length > 0) {
-      words.push(currentWord);
+      wordsArray.push(currentWord);
     }
+    return wordsArray;
+  }, [text]);
 
+  const renderText = () => {
     return words.map((wordTokens, wIdx) => {
       const isWhitespace = wordTokens.length === 1 && (wordTokens[0].char === ' ' || wordTokens[0].char === '\n');
       
@@ -93,27 +96,16 @@ const TypingArea = ({ engineState, isIdle }) => {
             const isError = isActive && errors.has(index);
 
             return (
-              <motion.span
+              <CharSpan 
                 key={index}
-                data-char-index={index}
-                style={{
-                  ...styles.char,
-                  position: 'relative',
-                  color: isActive ? '#eab308' : getCharColor(statusClass),
-                  textShadow: isActive ? '0 0 8px rgba(250, 204, 21, 0.4)' : 'none',
-                  backgroundColor: (isActive && char === ' ') ? 'rgba(250, 204, 21, 0.4)' : 'transparent',
-                  borderRadius: (isActive && char === ' ') ? '4px' : '0',
-                  borderBottom: isActive ? '2px solid var(--accent-blue)' : '2px solid transparent',
-                  fontFamily: char === '\n' ? 'sans-serif' : 'inherit'
-                }}
-                animate={isError ? { x: [-2, 2, -2, 2, 0] } : (isActive ? { opacity: [1, 0.8, 1] } : {})}
-                transition={isError ? { duration: 0.3 } : (isActive ? { repeat: Infinity, duration: 1 } : {})}
-              >
-                {isActive && isIdle && (
-                  <IndicatorTooltip activeCharIndex={currentIndex} containerRef={containerRef} />
-                )}
-                {char === ' ' ? ' ' : char === '\n' ? '↵\n' : char}
-              </motion.span>
+                char={char}
+                index={index}
+                statusClass={statusClass}
+                isActive={isActive}
+                isError={isError}
+                isIdle={isIdle}
+                containerRef={containerRef}
+              />
             );
           })}
         </span>
@@ -121,12 +113,6 @@ const TypingArea = ({ engineState, isIdle }) => {
     });
   };
 
-  const getCharColor = (status) => {
-    if (status === 'correct') return 'var(--success)';
-    if (status === 'error') return 'var(--danger)';
-    if (status === 'corrected') return 'var(--text-primary)';
-    return 'var(--text-secondary)';
-  };
 
   return (
     <div className="glass-panel" style={{ 
@@ -162,6 +148,46 @@ const TypingArea = ({ engineState, isIdle }) => {
     </div>
   );
 };
+
+const getCharColor = (status) => {
+  if (status === 'correct') return 'var(--success)';
+  if (status === 'error') return 'var(--danger)';
+  if (status === 'corrected') return 'var(--text-primary)';
+  return 'var(--text-secondary)';
+};
+
+const CharSpan = React.memo(({
+  char,
+  index,
+  statusClass,
+  isActive,
+  isError,
+  isIdle,
+  containerRef
+}) => {
+  return (
+    <motion.span
+      data-char-index={index}
+      style={{
+        ...styles.char,
+        position: 'relative',
+        color: isActive ? '#eab308' : getCharColor(statusClass),
+        textShadow: isActive ? '0 0 8px rgba(250, 204, 21, 0.4)' : 'none',
+        backgroundColor: (isActive && char === ' ') ? 'rgba(250, 204, 21, 0.4)' : 'transparent',
+        borderRadius: (isActive && char === ' ') ? '4px' : '0',
+        borderBottom: isActive ? '2px solid var(--accent-blue)' : '2px solid transparent',
+        fontFamily: char === '\n' ? 'sans-serif' : 'inherit'
+      }}
+      animate={isError ? { x: [-2, 2, -2, 2, 0] } : (isActive ? { opacity: [1, 0.8, 1] } : {})}
+      transition={isError ? { duration: 0.3 } : (isActive ? { repeat: Infinity, duration: 1 } : {})}
+    >
+      {isActive && isIdle && (
+        <IndicatorTooltip activeCharIndex={index} containerRef={containerRef} />
+      )}
+      {char === ' ' ? ' ' : char === '\n' ? '↵\n' : char}
+    </motion.span>
+  );
+});
 
 const IndicatorTooltip = ({ activeCharIndex, containerRef }) => {
   const tooltipRef = useRef(null);
