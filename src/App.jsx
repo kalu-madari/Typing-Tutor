@@ -15,7 +15,8 @@ function App() {
   const allLessons = getAllLessons();
   const store = useAppStore();
   const [currentView, setCurrentView] = useState('dashboard');
-  const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
+  const initialIndex = store.continueLessonId ? Math.max(0, allLessons.findIndex(l => l.id === store.continueLessonId)) : 0;
+  const [currentLessonIndex, setCurrentLessonIndex] = useState(initialIndex);
   const currentLesson = allLessons[currentLessonIndex];
   const [engineKey, setEngineKey] = useState(0);
   const [completedLessons, setCompletedLessons] = useState(() => {
@@ -65,6 +66,7 @@ function App() {
 
   const startLesson = (lesson) => {
     setCurrentLessonIndex(allLessons.findIndex(l => l.id === lesson.id));
+    store.updateStat('continueLessonId', lesson.id);
     setCurrentView('session');
     setEngineKey(prev => prev + 1);
     
@@ -97,6 +99,15 @@ function App() {
       localStorage.setItem('krutidev-completed-lessons', JSON.stringify([...newSet]));
       return newSet;
     });
+
+    const currentIndex = allLessons.findIndex(l => l.id === id);
+    if (currentIndex >= 0 && currentIndex < allLessons.length - 1) {
+      const currentStore = useAppStore.getState();
+      // Only set to next if user didn't manually open another lesson meanwhile
+      if (currentStore.continueLessonId === id) {
+        currentStore.updateStat('continueLessonId', allLessons[currentIndex + 1].id);
+      }
+    }
 
     // 2. Update stats
     const currentStore = useAppStore.getState();
@@ -783,6 +794,27 @@ const SettingsView = () => {
               <span className="setting-desc">Play error beep when typing an incorrect character</span>
             </div>
             <Switch checked={store.errorSounds} onChange={(val) => store.updateSetting('errorSounds', val)} />
+          </div>
+        </div>
+        <div className="setting-group glass-card">
+          <h3>Danger Zone</h3>
+          <div className="setting-item">
+            <div className="setting-info">
+              <span className="setting-label" style={{ color: 'var(--danger)' }}>Reset All Progress</span>
+              <span className="setting-desc">Permanently delete all stats, achievements, and completed lessons</span>
+            </div>
+            <button 
+              className="btn" 
+              style={{ background: 'var(--danger)', color: 'white', border: 'none' }}
+              onClick={() => {
+                if (window.confirm("Are you sure you want to reset all progress? This cannot be undone.")) {
+                  store.resetProgress();
+                  window.location.reload();
+                }
+              }}
+            >
+              Reset Data
+            </button>
           </div>
         </div>
       </div>

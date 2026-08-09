@@ -20,6 +20,7 @@ export const useAppStore = create(
       maxErrorsToBlock: 3,
 
       // Progress Stats (mirrored from DB for quick UI access)
+      continueLessonId: null,
       bestWpm: 0,
       bestAccuracy: 0,
       streak: 0,
@@ -53,6 +54,21 @@ export const useAppStore = create(
         } else {
           return { ...state, bookmarks: [...bookmarks, id] };
         }
+      }),
+      resetProgress: () => set((state) => {
+        localStorage.removeItem('krutidev-completed-lessons');
+        return {
+          ...state,
+          continueLessonId: null,
+          bestWpm: 0,
+          bestAccuracy: 0,
+          streak: 0,
+          totalTypedChars: 0,
+          perfectLessonsCount: 0,
+          unlockedAchievements: [],
+          bookmarks: [],
+          practiceResults: {},
+        };
       }),
     }),
     {
