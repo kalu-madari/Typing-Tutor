@@ -6,15 +6,18 @@ const TypingArea = ({ engineState, isIdle }) => {
   const store = useAppStore();
   const { fontSize, textAlign } = store;
   const containerRef = useRef(null);
+
+  // Declare these BEFORE any hooks that reference them
+  const engineText = engineState?.text;
+  const textIsString = typeof engineText === 'string';
   const currentIndex = engineState?.currentIndex;
 
   useLayoutEffect(() => {
+    if (!engineText) return;
     // Only check scroll if we just typed a space/newline (word boundary),
     // or if we are at the beginning, or if idle (so tooltip can position).
-    const isBoundary = currentIndex === 0 || 
-                       engineText?.[currentIndex - 1] === ' ' || 
-                       engineText?.[currentIndex - 1] === '\n' ||
-                       isIdle;
+    const prevChar = currentIndex > 0 ? engineText[currentIndex - 1] : null;
+    const isBoundary = currentIndex === 0 || prevChar === ' ' || prevChar === '\n' || isIdle;
     
     if (!isBoundary) return;
 
@@ -48,9 +51,6 @@ const TypingArea = ({ engineState, isIdle }) => {
       }
     });
   }, [currentIndex, engineText, isIdle]);
-
-  const engineText = engineState?.text;
-  const textIsString = typeof engineText === 'string';
 
   // Parse text into words only when the text changes to save CPU cycles
   const words = React.useMemo(() => {
