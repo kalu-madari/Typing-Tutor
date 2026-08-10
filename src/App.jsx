@@ -27,7 +27,7 @@ function App() {
     return new Set();
   });
 
-  const [targetChapter, setTargetChapter] = useState(null);
+  const [targetLesson, setTargetLesson] = useState(null);
 
   useEffect(() => {
     // Migrate old 'vscode-dark' to 'dark' for existing users
@@ -137,8 +137,8 @@ function App() {
       )}
 
       <main id="main-content">
-        {currentView === 'dashboard' && <DashboardView setCurrentView={setCurrentView} onStart={startLesson} currentLesson={currentLesson} completedLessons={completedLessons} allLessons={allLessons} setTargetChapter={setTargetChapter} store={store} />}
-        {currentView === 'lessons' && <LessonsView lessons={allLessons} onStart={startLesson} completedLessons={completedLessons} targetChapter={targetChapter} setTargetChapter={setTargetChapter} />}
+        {currentView === 'dashboard' && <DashboardView setCurrentView={setCurrentView} onStart={startLesson} currentLesson={currentLesson} completedLessons={completedLessons} allLessons={allLessons} setTargetLesson={setTargetLesson} store={store} />}
+        {currentView === 'lessons' && <LessonsView lessons={allLessons} onStart={startLesson} completedLessons={completedLessons} targetLesson={targetLesson} setTargetLesson={setTargetLesson} />}
         {currentView === 'session' && (
           <section id="view-lesson-detail" className="view active" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: 0 }}>
             <TypingSession 
@@ -151,7 +151,7 @@ function App() {
               hasNext={hasNext}
               hasPrev={hasPrev}
               onClose={() => {
-                setTargetChapter(currentLesson.chapterId);
+                setTargetLesson(currentLesson);
                 setCurrentView('lessons');
               }}
             />
@@ -290,23 +290,33 @@ const DashboardView = ({ setCurrentView, onStart, currentLesson, completedLesson
   );
 };
 
-const LessonsView = ({ lessons, onStart, completedLessons, targetChapter, setTargetChapter }) => {
-  const [expandedChapter, setExpandedChapter] = useState(targetChapter || null);
+const LessonsView = ({ lessons, onStart, completedLessons, targetLesson, setTargetLesson }) => {
+  const [expandedChapter, setExpandedChapter] = useState(targetLesson ? targetLesson.chapterId : null);
 
   useEffect(() => {
-    if (targetChapter !== null) {
-      setExpandedChapter(targetChapter);
+    if (targetLesson !== null) {
+      setExpandedChapter(targetLesson.chapterId);
       
       setTimeout(() => {
-        const chapterEl = document.getElementById(`chapter-card-${targetChapter}`);
-        if (chapterEl) {
-          chapterEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const lessonEl = document.getElementById(`lesson-item-${targetLesson.id}`);
+        if (lessonEl) {
+          lessonEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // Optional: Add a brief highlight effect
+          lessonEl.style.transition = 'background-color 0.5s';
+          lessonEl.style.backgroundColor = 'rgba(129, 140, 248, 0.2)';
+          setTimeout(() => {
+            lessonEl.style.backgroundColor = '';
+          }, 1500);
+        } else {
+          // Fallback to chapter if lesson not found for some reason
+          const chapterEl = document.getElementById(`chapter-card-${targetLesson.chapterId}`);
+          if (chapterEl) chapterEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      }, 50);
+      }, 100); // slightly longer delay to ensure DOM is ready after expanding chapter
 
-      setTargetChapter(null);
+      setTargetLesson(null);
     }
-  }, [targetChapter, setTargetChapter]);
+  }, [targetLesson, setTargetLesson]);
   
   const chapters = getChapters();
   
@@ -363,7 +373,7 @@ const LessonsView = ({ lessons, onStart, completedLessons, targetChapter, setTar
                 {chapter.lessons.map((lesson, lessonIndex) => {
                   const isCompleted = completedLessons.has(lesson.id);
                   return (
-                  <div key={lesson.id} className={`lesson-item ${isCompleted ? 'completed' : ''}`}>
+                  <div id={`lesson-item-${lesson.id}`} key={lesson.id} className={`lesson-item ${isCompleted ? 'completed' : ''}`}>
                     <div className="lesson-icon" style={{ color: isCompleted ? 'var(--success)' : 'inherit' }}>
                       {isCompleted ? (
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
