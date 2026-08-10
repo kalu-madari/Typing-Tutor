@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Menu, Play, RotateCcw, Keyboard as KeyboardIcon, Hand, Volume2, Settings as SettingsIcon, Palette, AlignLeft, AlignCenter, AlignRight, AlignJustify, Type, Bookmark } from 'lucide-react';
+import { Menu, Play, RotateCcw, Keyboard as KeyboardIcon, Hand, Volume2, Settings as SettingsIcon, Palette, AlignLeft, AlignCenter, AlignRight, AlignJustify, Type, Bookmark, HelpCircle, X as CloseIcon } from 'lucide-react';
 import { useTypingEngine } from './hooks/useTypingEngine';
 import { krutidev010Layout } from './core/layouts/krutidev010';
 import { getAllLessons, getLessonById, getNextLesson, getChapters } from './core/lessonEngine';
@@ -843,6 +843,7 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
   const [soundMenuOpen, setSoundMenuOpen] = React.useState(false);
   const [settingsMenuOpen, setSettingsMenuOpen] = React.useState(false);
   const [paletteMenuOpen, setPaletteMenuOpen] = React.useState(false);
+  const [showAltCodes, setShowAltCodes] = React.useState(false);
 
   React.useLayoutEffect(() => {
     const mainContent = document.getElementById('main-content');
@@ -895,6 +896,9 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
           </button>
           <button className="icon-btn-plain" title="Virtual Keyboard" onClick={() => storeState.updateSetting('showVirtualKeyboard', !storeState.showVirtualKeyboard)} style={{ background: 'transparent', border: 'none', color: storeState.showVirtualKeyboard ? 'var(--accent-blue)' : 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
             <KeyboardIcon size={20} />
+          </button>
+          <button className="icon-btn-plain" title="Alt Codes Cheat Sheet" onClick={() => setShowAltCodes(true)} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
+            <HelpCircle size={20} />
           </button>
           <button className="icon-btn-plain" title="Bookmark Lesson" onClick={() => storeState.toggleBookmark(lesson.id)} style={{ background: 'transparent', border: 'none', color: (storeState.bookmarks || []).includes(lesson.id) ? 'var(--brand)' : 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
             <Bookmark size={20} fill={(storeState.bookmarks || []).includes(lesson.id) ? 'currentColor' : 'none'} />
@@ -1017,6 +1021,48 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
             </div>
           )}
         </>
+      )}
+
+      {/* Alt Codes Modal */}
+      {showAltCodes && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }} onClick={() => setShowAltCodes(false)}>
+          <div className="glass-card" style={{ width: '100%', maxWidth: '580px', background: 'var(--bg-elevated)', borderRadius: '16px', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }} onClick={(e) => e.stopPropagation()}>
+            <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border-soft)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <h2 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <HelpCircle size={20} style={{ color: 'var(--brand)' }} /> KrutiDev Alt Codes Cheat Sheet
+              </h2>
+              <button className="icon-btn-plain" onClick={() => setShowAltCodes(false)} style={{ background: 'var(--bg-inset)', border: 'none', color: 'var(--text-muted)', borderRadius: '50%', padding: '6px', cursor: 'pointer' }}>
+                <CloseIcon size={18} />
+              </button>
+            </div>
+            <div className="no-scrollbar" style={{ padding: '24px', overflowY: 'auto', maxHeight: '60vh' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '12px' }}>
+                {[
+                  { code: '0161', char: '¡', label: 'Chandrabindu' },
+                  { code: '0197', char: 'Å', label: 'Bada U' },
+                  { code: '0216', char: 'Ø', label: 'Kra' },
+                  { code: '0170', char: 'ª', label: 'Tra' },
+                  { code: '0221', char: 'Ý', label: 'Phra' },
+                  { code: '0227', char: 'ã', label: 'Chha' },
+                  { code: '0179', char: '³', label: 'Half Sha' },
+                  { code: '0204', char: 'Ì', label: 'Rha' },
+                  { code: '0205', char: 'Í', label: 'Rhha' },
+                  { code: '0212', char: 'Ô', label: 'Dya' },
+                  { code: '0217', char: 'Ù', label: 'Dwa' },
+                  { code: '0214', char: 'Ö', label: 'Dhri' },
+                  { code: '0190', char: '¾', label: 'Anga' },
+                  { code: '0184', char: '¸', label: 'Shtha' }
+                ].map((item) => (
+                  <div key={item.code} style={{ background: 'var(--bg-inset)', padding: '12px', borderRadius: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', border: '1px solid var(--border-soft)' }}>
+                    <div style={{ fontFamily: '"Kruti Dev 010", sans-serif', fontSize: '28px', color: 'var(--text-primary)' }}>{item.char}</div>
+                    <div style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--brand)', fontFamily: 'monospace', letterSpacing: '0.5px' }}>Alt + {item.code}</div>
+                    <div style={{ fontSize: '11px', color: 'var(--text-muted)', textAlign: 'center' }}>{item.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
