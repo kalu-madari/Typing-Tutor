@@ -148,32 +148,44 @@ const TypingArea = ({ engineState, isIdle }) => {
       fontSize: fontSize === 'extra_large' ? '40px' : fontSize === 'large' ? '32px' : fontSize === 'small' ? '20px' : '26px',
       position: 'relative'
     }}>
-      <div 
-        ref={containerRef} 
-        className="no-scrollbar" 
-        style={{
-          ...styles.textContainer,
-          height: '195px',
-          lineHeight: '1.5em',
-          overflowY: 'auto',
-          overflowX: 'hidden',
-          padding: '4px',
-          paddingTop: '45px',
-          textAlign: textAlign || 'center',
-          // Only fade BOTTOM (upcoming text beyond N lines). Top (typed text) stays fully visible.
-          WebkitMaskImage: fontSize === 'extra_large'
-            ? 'linear-gradient(to bottom, black 0%, black calc(45px + 120px), transparent calc(45px + 150px))'
-            : fontSize === 'large'
-            ? 'linear-gradient(to bottom, black 0%, black calc(45px + 144px), transparent calc(45px + 174px))'
-            : 'linear-gradient(to bottom, black 0%, black calc(45px + 156px), transparent calc(45px + 186px))',
-          maskImage: fontSize === 'extra_large'
-            ? 'linear-gradient(to bottom, black 0%, black calc(45px + 120px), transparent calc(45px + 150px))'
-            : fontSize === 'large'
-            ? 'linear-gradient(to bottom, black 0%, black calc(45px + 144px), transparent calc(45px + 174px))'
-            : 'linear-gradient(to bottom, black 0%, black calc(45px + 156px), transparent calc(45px + 186px))',
-        }}
-      >
-        {renderText()}
+      {/* Wrapper with mask — clips the VISIBLE 195px viewport, not the scroll content */}
+      <div style={{
+        position: 'relative',
+        height: '195px',
+        overflow: 'hidden',
+        // Fade only the bottom N lines of upcoming text. All typed text above is fully visible.
+        // extra_large=2 lines (120px), large=3 lines (144px), medium=4 lines (156px), small=5 lines (150px)
+        WebkitMaskImage: fontSize === 'extra_large'
+          ? 'linear-gradient(to bottom, black 0%, black 160px, transparent 195px)'
+          : fontSize === 'large'
+          ? 'linear-gradient(to bottom, black 0%, black 170px, transparent 195px)'
+          : fontSize === 'small'
+          ? 'linear-gradient(to bottom, black 0%, black 178px, transparent 195px)'
+          : 'linear-gradient(to bottom, black 0%, black 174px, transparent 195px)',
+        maskImage: fontSize === 'extra_large'
+          ? 'linear-gradient(to bottom, black 0%, black 160px, transparent 195px)'
+          : fontSize === 'large'
+          ? 'linear-gradient(to bottom, black 0%, black 170px, transparent 195px)'
+          : fontSize === 'small'
+          ? 'linear-gradient(to bottom, black 0%, black 178px, transparent 195px)'
+          : 'linear-gradient(to bottom, black 0%, black 174px, transparent 195px)',
+      }}>
+        <div 
+          ref={containerRef} 
+          className="no-scrollbar" 
+          style={{
+            ...styles.textContainer,
+            height: '195px',
+            lineHeight: '1.5em',
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            padding: '4px',
+            paddingTop: '45px',
+            textAlign: textAlign || 'center',
+          }}
+        >
+          {renderText()}
+        </div>
       </div>
       {status === 'finished' && (
         <motion.div 
