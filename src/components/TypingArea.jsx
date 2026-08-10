@@ -153,13 +153,26 @@ const TypingArea = ({ engineState, isIdle }) => {
         className="no-scrollbar" 
         style={{
           ...styles.textContainer,
-          height: '165px', // Increased height to allow tooltip to render in the empty space above
+          height: '195px',
           lineHeight: '1.5em',
-          overflowY: 'auto', // Important for scrolling to work
-          overflowX: 'hidden', // Disable horizontal scrollbar
+          overflowY: 'auto',
+          overflowX: 'hidden',
           padding: '4px',
-          paddingTop: '45px', // Increased padding to provide space for the tooltip without squishing text
-          textAlign: textAlign || 'center'
+          paddingTop: '45px',
+          textAlign: textAlign || 'center',
+          // Fade out upcoming text beyond N lines depending on font size
+          // medium=4 lines, large=3 lines, extra_large=2 lines
+          // The top 45px is padding (tooltip space) so the gradient must account for it
+          WebkitMaskImage: fontSize === 'extra_large'
+            ? 'linear-gradient(to bottom, transparent 45px, black 60px, black calc(45px + 120px), transparent calc(45px + 150px), transparent 100%)'
+            : fontSize === 'large'
+            ? 'linear-gradient(to bottom, transparent 45px, black 60px, black calc(45px + 144px), transparent calc(45px + 174px), transparent 100%)'
+            : 'linear-gradient(to bottom, transparent 45px, black 60px, black calc(45px + 156px), transparent calc(45px + 186px), transparent 100%)',
+          maskImage: fontSize === 'extra_large'
+            ? 'linear-gradient(to bottom, transparent 45px, black 60px, black calc(45px + 120px), transparent calc(45px + 150px), transparent 100%)'
+            : fontSize === 'large'
+            ? 'linear-gradient(to bottom, transparent 45px, black 60px, black calc(45px + 144px), transparent calc(45px + 174px), transparent 100%)'
+            : 'linear-gradient(to bottom, transparent 45px, black 60px, black calc(45px + 156px), transparent calc(45px + 186px), transparent 100%)',
         }}
       >
         {renderText()}
