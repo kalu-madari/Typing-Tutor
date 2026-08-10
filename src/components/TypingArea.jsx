@@ -80,45 +80,20 @@ const TypingArea = ({ engineState, isIdle }) => {
 
   const renderText = () => {
     return words.map((wordTokens, wIdx) => {
-      const isWhitespace = wordTokens.length === 1 && (wordTokens[0].char === ' ' || wordTokens[0].char === '\n');
-      
-      // Removed whiteSpace: 'pre' so spaces can hang at the end of the line
-      // rather than wrapping to the start of the next line.
       return (
-        <span key={wIdx} style={{ display: isWhitespace ? 'inline' : 'inline-block' }}>
-          {wordTokens.map(({ char, index }) => {
-            let statusClass = 'pending';
-            if (index < currentIndex) {
-              const typed = typedCharacters[index];
-              if (typed && typed.isError) {
-                statusClass = 'error';
-              } else if (errors.has(index)) {
-                statusClass = 'corrected';
-              } else {
-                statusClass = 'correct';
-              }
-            }
-
-            const isActive = index === currentIndex;
-            const isError = isActive && errors.has(index);
-
-            return (
-              <CharSpan 
-                key={index}
-                char={char}
-                index={index}
-                statusClass={statusClass}
-                isActive={isActive}
-                isError={isError}
-                isIdle={isIdle}
-                containerRef={containerRef}
-              />
-            );
-          })}
-        </span>
+        <WordSpan 
+          key={wIdx}
+          wordTokens={wordTokens}
+          currentIndex={currentIndex}
+          typedCharacters={typedCharacters}
+          errors={errors}
+          isIdle={isIdle}
+          containerRef={containerRef}
+        />
       );
     });
   };
+
 
 
   return (
@@ -162,6 +137,63 @@ const getCharColor = (status) => {
   if (status === 'corrected') return 'var(--text-primary)';
   return 'var(--text-secondary)';
 };
+
+const WordSpan = React.memo(({ wordTokens, currentIndex, typedCharacters, errors, isIdle, containerRef }) => {
+  const isWhitespace = wordTokens.length === 1 && (wordTokens[0].char === ' ' || wordTokens[0].char === '\n');
+  
+  return (
+    <span style={{ display: isWhitespace ? 'inline' : 'inline-block' }}>
+      {wordTokens.map(({ char, index }) => {
+        let statusClass = 'pending';
+        if (index < currentIndex) {
+          const typed = typedCharacters[index];
+          if (typed && typed.isError) {
+            statusClass = 'error';
+          } else if (errors.has(index)) {
+            statusClass = 'corrected';
+          } else {
+            statusClass = 'correct';
+          }
+        }
+
+        const isActive = index === currentIndex;
+        const isError = isActive && errors.has(index);
+
+        return (
+          <CharSpan 
+            key={index}
+            char={char}
+            index={index}
+            statusClass={statusClass}
+            isActive={isActive}
+            isError={isError}
+            isIdle={isIdle}
+            containerRef={containerRef}
+          />
+        );
+      })}
+    </span>
+  );
+}, (prevProps, nextProps) => {
+  // If the lesson restarts, we must re-render everything
+  if (prevProps.typedCharacters.length > 0 && nextProps.typedCharacters.length === 0) return false;
+
+  const wordStart = prevProps.wordTokens[0].index;
+  const wordEnd = prevProps.wordTokens[prevProps.wordTokens.length - 1].index;
+
+  // We only re-render the word if the cursor was in it previously OR is in it currently.
+  const isCurrentlyActive = nextProps.currentIndex >= wordStart && nextProps.currentIndex <= wordEnd + 1;
+  const wasPreviouslyActive = prevProps.currentIndex >= wordStart && prevProps.currentIndex <= wordEnd + 1;
+
+  if (isCurrentlyActive || wasPreviouslyActive) return false;
+
+  // Also check if we skipped/backspaced across this word in one frame
+  const minCursor = Math.min(prevProps.currentIndex, nextProps.currentIndex);
+  const maxCursor = Math.max(prevProps.currentIndex, nextProps.currentIndex);
+  if (wordStart >= minCursor && wordEnd <= maxCursor) return false;
+
+  return true; // No need to re-render
+});
 
 const CharSpan = React.memo(({
   char,
