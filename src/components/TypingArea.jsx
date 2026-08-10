@@ -9,12 +9,20 @@ const TypingArea = ({ engineState, isIdle }) => {
   const currentIndex = engineState?.currentIndex;
 
   useLayoutEffect(() => {
+    // Only check scroll if we just typed a space/newline (word boundary),
+    // or if we are at the beginning, or if idle (so tooltip can position).
+    const isBoundary = currentIndex === 0 || 
+                       engineText?.[currentIndex - 1] === ' ' || 
+                       engineText?.[currentIndex - 1] === '\n' ||
+                       isIdle;
+    
+    if (!isBoundary) return;
+
     // Wait one frame to ensure React commits, layout calculates, and fonts stabilize
     requestAnimationFrame(() => {
       if (!containerRef.current || currentIndex === undefined) return;
       
       const container = containerRef.current;
-      // Using data attributes is a robust way to locate the exact DOM node without relying on fragile React refs
       const activeElement = container.querySelector(`[data-char-index="${currentIndex}"]`);
       
       if (!activeElement) return;
@@ -22,28 +30,24 @@ const TypingArea = ({ engineState, isIdle }) => {
       const containerRect = container.getBoundingClientRect();
       const activeRect = activeElement.getBoundingClientRect();
       
-      // Protect against Chromium layout glitches where inline spaces return 0 height rects
+      // Protect against Chromium layout glitches
       if (activeRect.top === 0 && activeRect.bottom === 0) return;
       
       const activeTop = activeRect.top;
       const activeBottom = activeRect.bottom;
-      
       const visibleTop = containerRect.top;
       const visibleBottom = containerRect.bottom;
       
-      // Keep a safe padding above and below so the line and tooltip are always fully readable
       const TOP_PADDING = 35;
       const BOTTOM_PADDING = 35;
       
-      // If the character is already safely visible, do absolutely nothing (preserves user's manual scroll).
-      // Only nudge the container if the character breaches the upper or lower safe zones.
       if (activeTop < visibleTop + TOP_PADDING) {
         container.scrollTop -= (visibleTop + TOP_PADDING) - activeTop;
       } else if (activeBottom > visibleBottom - BOTTOM_PADDING) {
         container.scrollTop += activeBottom - (visibleBottom - BOTTOM_PADDING);
       }
     });
-  }, [currentIndex]);
+  }, [currentIndex, engineText, isIdle]);
 
   const engineText = engineState?.text;
   const textIsString = typeof engineText === 'string';
@@ -79,19 +83,61 @@ const TypingArea = ({ engineState, isIdle }) => {
   const typedCharacters = engineState.typedCharacters || [];
 
   const renderText = () => {
-    return words.map((wordTokens, wIdx) => {
-      return (
-        <WordSpan 
-          key={wIdx}
-          wordTokens={wordTokens}
-          currentIndex={currentIndex}
-          typedCharacters={typedCharacters}
-          errors={errors}
-          isIdle={isIdle}
-          containerRef={containerRef}
-        />
-      );
-    });
+    // Virtualization: If text is huge, only render active components for a small window.
+    // The rest is rendered as raw strings so layout and scroll height remain perfect!
+    const MAX_WORDS = 150;
+    let windowStart = 0;
+    let windowEnd = words.length;
+
+    if (words.length > MAX_WORDS) {
+      // Find the current word index
+      let currentWordIdx = 0;
+      for (let i = 0; i < words.length; i++) {
+        if (currentIndex <= words[i][words[i].length - 1].index) {
+          currentWordIdx = i;
+          break;
+        }
+      }
+      
+      windowStart = Math.max(0, currentWordIdx - 30);
+      windowEnd = Math.min(words.length, windowStart + MAX_WORDS);
+      
+      // Keep the window stable at the end
+      if (windowEnd === words.length) {
+        windowStart = Math.max(0, words.length - MAX_WORDS);
+      }
+    }
+
+    const renderWords = words.slice(windowStart, windowEnd);
+
+    return (
+      <>
+        {windowStart > 0 && (
+          <span style={{ color: 'var(--text-secondary)' }}>
+            {engineText.slice(0, words[windowStart][0].index)}
+          </span>
+        )}
+        {renderWords.map((wordTokens, localIdx) => {
+          const wIdx = windowStart + localIdx;
+          return (
+            <WordSpan 
+              key={wIdx}
+              wordTokens={wordTokens}
+              currentIndex={currentIndex}
+              typedCharacters={typedCharacters}
+              errors={errors}
+              isIdle={isIdle}
+              containerRef={containerRef}
+            />
+          );
+        })}
+        {windowEnd < words.length && (
+          <span style={{ color: 'var(--text-secondary)' }}>
+            {engineText.slice(words[windowEnd][0].index)}
+          </span>
+        )}
+      </>
+    );
   };
 
 

@@ -134,53 +134,20 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
       }
     }
 
-    const animationKey = isExpected ? `${keyObj.key}-active-${animationEvent.id}` : keyObj.key;
-    
     if (keyObj.noBg) {
-      return <div key={animationKey} style={{ width: keyObj.width }}></div>;
+      return <div key={keyObj.key} style={{ width: keyObj.width }}></div>;
     }
 
     return (
-      <motion.div
-        key={animationKey}
-        initial={isExpected ? { 
-          scale: animationEvent.type === 'shake' ? 1.05 : 0.95, 
-          backgroundColor: getFingerColor(keyObj.finger, false) 
-        } : false}
-        style={{
-          ...styles.key,
-          width: keyObj.gridArea ? '100%' : (keyObj.width || styles.key.minWidth),
-          height: keyObj.gridArea ? '100%' : (keyObj.height || '46px'),
-          gridArea: keyObj.gridArea || 'auto',
-          borderColor: isExpected ? 'var(--accent-blue)' : 'var(--glass-border)',
-          boxShadow: isExpected ? '0 0 10px var(--accent-blue)' : 'none',
-        }}
-        animate={{
-          scale: isExpected ? 1.05 : 1,
-          y: isExpected ? -2 : 0,
-          x: (isExpected && animationEvent.type === 'shake') ? [0, 10, -10, 6, -6, 0] : 0,
-          backgroundColor: (isExpected && animationEvent.type === 'shake') 
-            ? ['rgba(239, 68, 68, 0.8)', 'rgba(239, 68, 68, 0.8)', 'rgba(239, 68, 68, 0.8)', getFingerColor(keyObj.finger, true)] 
-            : getFingerColor(keyObj.finger, isExpected),
-        }}
-        transition={{ 
-          type: 'spring', stiffness: 400, damping: 25,
-          x: { type: 'keyframes', duration: 0.4 },
-          backgroundColor: { type: 'keyframes', duration: 0.4 }
-        }}
-      >
-        <span style={{ 
-          ...styles.keyLabelPrimary, 
-          fontSize: keyObj.isNumpad ? '16px' : styles.keyLabelPrimary.fontSize,
-          ...((keyObj.key.length > 1 || keyObj.isNumpad) ? { fontFamily: 'var(--font-ui)' } : {}),
-          ...(keyObj.labelStyle || {}) 
-        }}>{showShiftDisplay(keyObj) ? keyObj.shiftDisplay : keyObj.display}</span>
-        {keyObj.shiftDisplay && keyObj.key.length === 1 && keyObj.key !== ' ' && (
-          <span style={styles.keyLabelSecondary}>
-            {showShiftDisplay(keyObj) ? keyObj.shiftDisplay : keyObj.display}
-          </span>
-        )}
-      </motion.div>
+      <KeyboardKey 
+        key={keyObj.key}
+        keyObj={keyObj}
+        isExpected={isExpected}
+        animationEvent={animationEvent}
+        isShiftActive={isShiftActive}
+        isCapsActive={isCapsActive}
+        getFingerColor={getFingerColor}
+      />
     );
   };
 
@@ -259,3 +226,67 @@ const styles = {
 };
 
 export default VirtualKeyboard;
+
+const KeyboardKey = React.memo(({ keyObj, isExpected, animationEvent, isShiftActive, isCapsActive, getFingerColor }) => {
+  const showShiftDisplay = () => {
+    if (!keyObj.shiftDisplay) return false;
+    const isLetter = /^[a-z]$/i.test(keyObj.key);
+    if (isLetter) {
+      return isShiftActive !== isCapsActive;
+    }
+    return isShiftActive;
+  };
+
+  const animationKey = isExpected ? `${keyObj.key}-active-${animationEvent.id}` : keyObj.key;
+
+  return (
+    <motion.div
+      key={animationKey}
+      initial={isExpected ? { 
+        scale: animationEvent.type === 'shake' ? 1.05 : 0.95, 
+        backgroundColor: getFingerColor(keyObj.finger, false) 
+      } : false}
+      style={{
+        ...styles.key,
+        width: keyObj.gridArea ? '100%' : (keyObj.width || styles.key.minWidth),
+        height: keyObj.gridArea ? '100%' : (keyObj.height || '46px'),
+        gridArea: keyObj.gridArea || 'auto',
+        borderColor: isExpected ? 'var(--accent-blue)' : 'var(--glass-border)',
+        boxShadow: isExpected ? '0 0 10px var(--accent-blue)' : 'none',
+      }}
+      animate={{
+        scale: isExpected ? 1.05 : 1,
+        y: isExpected ? -2 : 0,
+        x: (isExpected && animationEvent.type === 'shake') ? [0, 10, -10, 6, -6, 0] : 0,
+        backgroundColor: (isExpected && animationEvent.type === 'shake') 
+          ? ['rgba(239, 68, 68, 0.8)', 'rgba(239, 68, 68, 0.8)', 'rgba(239, 68, 68, 0.8)', getFingerColor(keyObj.finger, true)] 
+          : getFingerColor(keyObj.finger, isExpected),
+      }}
+      transition={{ 
+        type: 'spring', stiffness: 400, damping: 25,
+        x: { type: 'keyframes', duration: 0.4 },
+        backgroundColor: { type: 'keyframes', duration: 0.4 }
+      }}
+    >
+      <span style={{ 
+        ...styles.keyLabelPrimary, 
+        fontSize: keyObj.isNumpad ? '16px' : styles.keyLabelPrimary.fontSize,
+        ...((keyObj.key.length > 1 || keyObj.isNumpad) ? { fontFamily: 'var(--font-ui)' } : {}),
+        ...(keyObj.labelStyle || {}) 
+      }}>{showShiftDisplay() ? keyObj.shiftDisplay : keyObj.display}</span>
+      {keyObj.shiftDisplay && keyObj.key.length === 1 && keyObj.key !== ' ' && (
+        <span style={styles.keyLabelSecondary}>
+          {showShiftDisplay() ? keyObj.shiftDisplay : keyObj.display}
+        </span>
+      )}
+    </motion.div>
+  );
+}, (prevProps, nextProps) => {
+  if (prevProps.isExpected !== nextProps.isExpected) return false;
+  if (prevProps.isShiftActive !== nextProps.isShiftActive) return false;
+  if (prevProps.isCapsActive !== nextProps.isCapsActive) return false;
+  // If it's expected and animation changed, re-render
+  if (prevProps.isExpected && prevProps.animationEvent.id !== nextProps.animationEvent.id) return false;
+  
+  return true;
+});
