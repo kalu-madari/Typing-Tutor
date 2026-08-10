@@ -160,19 +160,17 @@ const TypingArea = ({ engineState, isIdle }) => {
           padding: '4px',
           paddingTop: '45px',
           textAlign: textAlign || 'center',
-          // Fade out upcoming text beyond N lines depending on font size
-          // medium=4 lines, large=3 lines, extra_large=2 lines
-          // The top 45px is padding (tooltip space) so the gradient must account for it
+          // Only fade BOTTOM (upcoming text beyond N lines). Top (typed text) stays fully visible.
           WebkitMaskImage: fontSize === 'extra_large'
-            ? 'linear-gradient(to bottom, transparent 45px, black 60px, black calc(45px + 120px), transparent calc(45px + 150px), transparent 100%)'
+            ? 'linear-gradient(to bottom, black 0%, black calc(45px + 120px), transparent calc(45px + 150px))'
             : fontSize === 'large'
-            ? 'linear-gradient(to bottom, transparent 45px, black 60px, black calc(45px + 144px), transparent calc(45px + 174px), transparent 100%)'
-            : 'linear-gradient(to bottom, transparent 45px, black 60px, black calc(45px + 156px), transparent calc(45px + 186px), transparent 100%)',
+            ? 'linear-gradient(to bottom, black 0%, black calc(45px + 144px), transparent calc(45px + 174px))'
+            : 'linear-gradient(to bottom, black 0%, black calc(45px + 156px), transparent calc(45px + 186px))',
           maskImage: fontSize === 'extra_large'
-            ? 'linear-gradient(to bottom, transparent 45px, black 60px, black calc(45px + 120px), transparent calc(45px + 150px), transparent 100%)'
+            ? 'linear-gradient(to bottom, black 0%, black calc(45px + 120px), transparent calc(45px + 150px))'
             : fontSize === 'large'
-            ? 'linear-gradient(to bottom, transparent 45px, black 60px, black calc(45px + 144px), transparent calc(45px + 174px), transparent 100%)'
-            : 'linear-gradient(to bottom, transparent 45px, black 60px, black calc(45px + 156px), transparent calc(45px + 186px), transparent 100%)',
+            ? 'linear-gradient(to bottom, black 0%, black calc(45px + 144px), transparent calc(45px + 174px))'
+            : 'linear-gradient(to bottom, black 0%, black calc(45px + 156px), transparent calc(45px + 186px))',
         }}
       >
         {renderText()}
