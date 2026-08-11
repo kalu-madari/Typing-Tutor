@@ -21,8 +21,10 @@ export const useTypingEngine = (text, layout, lessonType) => {
   useEffect(() => { soundEffectsRef.current = soundEffects; }, [soundEffects]);
   useEffect(() => { errorSoundsRef.current = errorSounds; }, [errorSounds]);
   useEffect(() => {
-    const clickAudio = new Audio('/sounds/click.mp3');
-    const errorAudio = new Audio('/sounds/error.mp3');
+    const baseUrl = import.meta.env.BASE_URL || '/';
+    const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+    const clickAudio = new Audio(`${normalizedBase}sounds/click.mp3`);
+    const errorAudio = new Audio(`${normalizedBase}sounds/error.mp3`);
 
     clickAudio.preload = 'auto';
     errorAudio.preload = 'auto';
@@ -51,13 +53,23 @@ export const useTypingEngine = (text, layout, lessonType) => {
         if (!audio) return;
         audio.currentTime = 0;
         const playPromise = audio.play();
-        if (playPromise?.catch) playPromise.catch(() => {});
+        if (playPromise?.catch) {
+          playPromise.catch(() => {
+            const fallback = new Audio(audio.src);
+            fallback.play().catch(() => {});
+          });
+        }
       } else if (type === 'error' && errorSoundsRef.current) {
         const audio = errorAudioRef.current;
         if (!audio) return;
         audio.currentTime = 0;
         const playPromise = audio.play();
-        if (playPromise?.catch) playPromise.catch(() => {});
+        if (playPromise?.catch) {
+          playPromise.catch(() => {
+            const fallback = new Audio(audio.src);
+            fallback.play().catch(() => {});
+          });
+        }
       }
     };
 
