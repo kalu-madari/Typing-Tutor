@@ -3,14 +3,13 @@ import { motion } from 'framer-motion';
 import { useAppStore } from '../store/useAppStore';
 import { altCodesMap } from '../core/altCodesMap';
 
+// Fix #4 — use selectors so VirtualKeyboard only re-renders when its fields change
 const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
-  const storeState = useAppStore();
-  const { showVirtualKeyboard, highlightFingers } = storeState;
+  const showVirtualKeyboard = useAppStore(s => s.showVirtualKeyboard);
+  const highlightFingers = useAppStore(s => s.highlightFingers);
 
-  // (Early return moved below hooks)
   const [isShiftActive, setIsShiftActive] = React.useState(false);
   const [isCapsActive, setIsCapsActive] = React.useState(false);
-  const prevIndex = React.useRef(engineState?.currentIndex || 0);
   const prevWrong = React.useRef(engineState?.incorrectChars || 0);
   const [animationEvent, setAnimationEvent] = React.useState({ type: 'none', id: 0 });
 
@@ -19,12 +18,10 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
       if (e.key === 'Shift') setIsShiftActive(true);
       if (e.getModifierState) setIsCapsActive(e.getModifierState('CapsLock'));
     };
-    
     const handleKeyUp = (e) => {
       if (e.key === 'Shift') setIsShiftActive(false);
       if (e.getModifierState) setIsCapsActive(e.getModifierState('CapsLock'));
     };
-
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
     return () => {
@@ -35,15 +32,11 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
 
   React.useEffect(() => {
     const currentWrong = engineState?.incorrectChars || 0;
-    const currentIndex = engineState?.currentIndex || 0;
-    
+    // Fix #2 — only animate on errors (shake). Remove pulse on correct keystrokes.
+    // The expected key is already highlighted via color — no spring needed every keystroke.
     if (currentWrong > prevWrong.current) {
       setAnimationEvent(prev => ({ type: 'shake', id: prev.id + 1 }));
-    } else if (currentIndex !== prevIndex.current) {
-      setAnimationEvent(prev => ({ type: 'pulse', id: prev.id + 1 }));
     }
-    
-    prevIndex.current = currentIndex;
     prevWrong.current = currentWrong;
   }, [engineState?.currentIndex, engineState?.incorrectChars]);
 

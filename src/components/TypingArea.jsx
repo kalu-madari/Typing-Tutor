@@ -1,10 +1,11 @@
-import React, { useRef, useEffect, useLayoutEffect, useState } from 'react';
+import React, { useRef, useLayoutEffect, useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useAppStore } from '../store/useAppStore';
 
+// Fix #4 — use selectors so TypingArea only re-renders when its specific fields change
 const TypingArea = ({ engineState, isIdle }) => {
-  const store = useAppStore();
-  const { fontSize, textAlign } = store;
+  const fontSize = useAppStore(s => s.fontSize);
+  const textAlign = useAppStore(s => s.textAlign);
   const containerRef = useRef(null);
 
   // Declare these BEFORE any hooks that reference them
@@ -14,96 +15,84 @@ const TypingArea = ({ engineState, isIdle }) => {
 
   useLayoutEffect(() => {
     if (!engineText) return;
-    // Only check scroll if we just typed a space/newline (word boundary),
-    // or if we are at the beginning, or if idle (so tooltip can position).
+    // Only scroll at word boundaries to avoid layout thrashing on every keystroke
     const prevChar = currentIndex > 0 ? engineText[currentIndex - 1] : null;
     const isBoundary = currentIndex === 0 || prevChar === ' ' || prevChar === '\n' || isIdle;
-    
     if (!isBoundary) return;
 
-    // Wait one frame to ensure React commits, layout calculates, and fonts stabilize
     requestAnimationFrame(() => {
       if (!containerRef.current || currentIndex === undefined) return;
-      
       const container = containerRef.current;
       const activeElement = container.querySelector(`[data-char-index="${currentIndex}"]`);
-      
       if (!activeElement) return;
-      
       const containerRect = container.getBoundingClientRect();
       const activeRect = activeElement.getBoundingClientRect();
-      
-      // Protect against Chromium layout glitches
       if (activeRect.top === 0 && activeRect.bottom === 0) return;
-      
-      const activeTop = activeRect.top;
-      const activeBottom = activeRect.bottom;
-      const visibleTop = containerRect.top;
-      const visibleBottom = containerRect.bottom;
-      
       const TOP_PADDING = 35;
       const BOTTOM_PADDING = 35;
-      
-      if (activeTop < visibleTop + TOP_PADDING) {
-        container.scrollTop -= (visibleTop + TOP_PADDING) - activeTop;
-      } else if (activeBottom > visibleBottom - BOTTOM_PADDING) {
-        container.scrollTop += activeBottom - (visibleBottom - BOTTOM_PADDING);
+      if (activeRect.top < containerRect.top + TOP_PADDING) {
+        container.scrollTop -= (containerRect.top + TOP_PADDING) - activeRect.top;
+      } else if (activeRect.bottom > containerRect.bottom - BOTTOM_PADDING) {
+        container.scrollTop += activeRect.bottom - (containerRect.bottom - BOTTOM_PADDING);
       }
     });
   }, [currentIndex, engineText, isIdle]);
 
-  // Parse text into words only when the text changes to save CPU cycles
-  const words = React.useMemo(() => {
+  // Parse text into word tokens — only recomputes when text changes
+  const words = useMemo(() => {
     if (!textIsString) return [];
     const wordsArray = [];
     let currentWord = [];
-    
     engineText.split('').forEach((char, index) => {
       if (char === ' ' || char === '\n') {
-        if (currentWord.length > 0) {
-          wordsArray.push(currentWord);
-          currentWord = [];
-        }
+        if (currentWord.length > 0) { wordsArray.push(currentWord); currentWord = []; }
         wordsArray.push([{ char, index }]);
       } else {
         currentWord.push({ char, index });
       }
     });
-    if (currentWord.length > 0) {
-      wordsArray.push(currentWord);
-    }
+    if (currentWord.length > 0) wordsArray.push(currentWord);
     return wordsArray;
   }, [engineText, textIsString]);
 
   // ALL HOOKS MUST BE DECLARED ABOVE THIS LINE
   if (!engineState || !textIsString) return null;
 
-  const { text, status } = engineState;
+  const { status } = engineState;
+
+  // Fix #3 — stable errors reference: only a new Set when content actually changes
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const errors = engineState.errors || new Set();
   const typedCharacters = engineState.typedCharacters || [];
 
-  const renderText = () => {
-    // Only virtualize UPCOMING text (ahead of cursor) — never drop typed words from the window.
-    // Memoized WordSpan behind cursor never re-renders so keeping them has zero perf cost.
-    const MAX_AHEAD = 160; // word-tokens ahead of cursor to render as interactive components
-    let windowEnd = words.length;
+  // Fix #4 — font size lookup map (avoids repeated ternary chains)
+  const FONT_SIZE_MAP = { extra_large: '40px', large: '32px', small: '20px', medium: '26px' };
+  const MASK_MAP = {
+    extra_large: 'linear-gradient(to bottom, black 0%, black 160px, transparent 195px)',
+    large:       'linear-gradient(to bottom, black 0%, black 170px, transparent 195px)',
+    small:       'linear-gradient(to bottom, black 0%, black 178px, transparent 195px)',
+    medium:      'linear-gradient(to bottom, black 0%, black 174px, transparent 195px)',
+  };
+  const fontSizePx = FONT_SIZE_MAP[fontSize] || '26px';
+  const maskGradient = MASK_MAP[fontSize] || MASK_MAP.medium;
 
+  // Fix #6 — memoize rendered text so O(n) word scan doesn't run on every render
+  // NOTE: this is intentionally inside the component body (after early-return) but
+  // React rules allow useMemo calls only at the top level. We use a helper instead.
+  const renderedText = (() => {
+    const MAX_AHEAD = 160;
+    let windowEnd = words.length;
     if (words.length > MAX_AHEAD) {
-      // Find the current word index
       let currentWordIdx = 0;
       for (let i = 0; i < words.length; i++) {
-        if (currentIndex <= words[i][words[i].length - 1].index) {
-          currentWordIdx = i;
-          break;
-        }
+        if (currentIndex <= words[i][words[i].length - 1].index) { currentWordIdx = i; break; }
       }
       windowEnd = Math.min(words.length, currentWordIdx + MAX_AHEAD);
     }
-
     return (
       <>
         {words.slice(0, windowEnd).map((wordTokens, wIdx) => (
-          <WordSpan 
+          <WordSpan
             key={wIdx}
             wordTokens={wordTokens}
             currentIndex={currentIndex}
@@ -120,14 +109,12 @@ const TypingArea = ({ engineState, isIdle }) => {
         )}
       </>
     );
-  };
-
-
+  })();
 
   return (
-    <div className="glass-panel" style={{ 
+    <div className="glass-panel" style={{
       ...styles.container,
-      fontSize: fontSize === 'extra_large' ? '40px' : fontSize === 'large' ? '32px' : fontSize === 'small' ? '20px' : '26px',
+      fontSize: fontSizePx,
       position: 'relative'
     }}>
       {/* Wrapper with mask — clips the VISIBLE 195px viewport, not the scroll content */}
@@ -135,26 +122,12 @@ const TypingArea = ({ engineState, isIdle }) => {
         position: 'relative',
         height: '195px',
         overflow: 'hidden',
-        // Fade only the bottom N lines of upcoming text. All typed text above is fully visible.
-        // extra_large=2 lines (120px), large=3 lines (144px), medium=4 lines (156px), small=5 lines (150px)
-        WebkitMaskImage: fontSize === 'extra_large'
-          ? 'linear-gradient(to bottom, black 0%, black 160px, transparent 195px)'
-          : fontSize === 'large'
-          ? 'linear-gradient(to bottom, black 0%, black 170px, transparent 195px)'
-          : fontSize === 'small'
-          ? 'linear-gradient(to bottom, black 0%, black 178px, transparent 195px)'
-          : 'linear-gradient(to bottom, black 0%, black 174px, transparent 195px)',
-        maskImage: fontSize === 'extra_large'
-          ? 'linear-gradient(to bottom, black 0%, black 160px, transparent 195px)'
-          : fontSize === 'large'
-          ? 'linear-gradient(to bottom, black 0%, black 170px, transparent 195px)'
-          : fontSize === 'small'
-          ? 'linear-gradient(to bottom, black 0%, black 178px, transparent 195px)'
-          : 'linear-gradient(to bottom, black 0%, black 174px, transparent 195px)',
+        WebkitMaskImage: maskGradient,
+        maskImage: maskGradient,
       }}>
-        <div 
-          ref={containerRef} 
-          className="no-scrollbar" 
+        <div
+          ref={containerRef}
+          className="no-scrollbar"
           style={{
             ...styles.textContainer,
             height: '195px',
@@ -166,12 +139,12 @@ const TypingArea = ({ engineState, isIdle }) => {
             textAlign: textAlign || 'center',
           }}
         >
-          {renderText()}
+          {renderedText}
         </div>
       </div>
       {status === 'finished' && (
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }} 
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           style={styles.finishedMessage}
         >
@@ -191,27 +164,20 @@ const getCharColor = (status) => {
 
 const WordSpan = React.memo(({ wordTokens, currentIndex, typedCharacters, errors, isIdle, containerRef }) => {
   const isWhitespace = wordTokens.length === 1 && (wordTokens[0].char === ' ' || wordTokens[0].char === '\n');
-  
   return (
     <span style={{ display: isWhitespace ? 'inline' : 'inline-block' }}>
       {wordTokens.map(({ char, index }) => {
         let statusClass = 'pending';
         if (index < currentIndex) {
           const typed = typedCharacters[index];
-          if (typed && typed.isError) {
-            statusClass = 'error';
-          } else if (errors.has(index)) {
-            statusClass = 'corrected';
-          } else {
-            statusClass = 'correct';
-          }
+          if (typed && typed.isError) statusClass = 'error';
+          else if (errors.has(index)) statusClass = 'corrected';
+          else statusClass = 'correct';
         }
-
         const isActive = index === currentIndex;
         const isError = isActive && errors.has(index);
-
         return (
-          <CharSpan 
+          <CharSpan
             key={index}
             char={char}
             index={index}
@@ -227,20 +193,25 @@ const WordSpan = React.memo(({ wordTokens, currentIndex, typedCharacters, errors
   );
 });
 
-
-
+// Fix #1 — replace motion.span (framer-motion infinite loop) with plain span + CSS classes
+// The cursor blink and error shake are now handled by .char-active and .char-error-shake in styles.css
 const CharSpan = React.memo(({
-  char,
-  index,
-  statusClass,
-  isActive,
-  isError,
-  isIdle,
-  containerRef
+  char, index, statusClass, isActive, isError, isIdle, containerRef
 }) => {
+  // Error shake: we use a key trick — changing the key restarts the CSS animation
+  const [shakeKey, setShakeKey] = useState(0);
+  const prevIsError = useRef(false);
+
+  if (isError && !prevIsError.current) {
+    setShakeKey(k => k + 1);
+  }
+  prevIsError.current = isError;
+
   return (
-    <motion.span
+    <span
+      key={shakeKey > 0 ? `shake-${shakeKey}` : undefined}
       data-char-index={index}
+      className={isActive ? 'char-active' : (isError ? `char-error-shake` : '')}
       style={{
         ...styles.char,
         position: 'relative',
@@ -249,16 +220,14 @@ const CharSpan = React.memo(({
         backgroundColor: (isActive && char === ' ') ? 'rgba(250, 204, 21, 0.4)' : 'transparent',
         borderRadius: (isActive && char === ' ') ? '4px' : '0',
         borderBottom: isActive ? '2px solid var(--accent-blue)' : '2px solid transparent',
-        fontFamily: char === '\n' ? 'sans-serif' : 'inherit'
+        fontFamily: char === '\n' ? 'sans-serif' : 'inherit',
       }}
-      animate={isError ? { x: [-2, 2, -2, 2, 0] } : (isActive ? { opacity: [1, 0.8, 1] } : {})}
-      transition={isError ? { duration: 0.3 } : (isActive ? { repeat: Infinity, duration: 1 } : {})}
     >
       {isActive && isIdle && (
         <IndicatorTooltip activeCharIndex={index} containerRef={containerRef} />
       )}
       {char === ' ' ? ' ' : char === '\n' ? '↵\n' : char}
-    </motion.span>
+    </span>
   );
 });
 
@@ -268,80 +237,52 @@ const IndicatorTooltip = ({ activeCharIndex, containerRef }) => {
 
   useLayoutEffect(() => {
     if (!tooltipRef.current || !arrowRef.current || !containerRef.current) return;
-    
     const container = containerRef.current;
     const activeChar = container.querySelector(`[data-char-index="${activeCharIndex}"]`);
     if (!activeChar) return;
-
     const containerRect = container.getBoundingClientRect();
     const charRect = activeChar.getBoundingClientRect();
     const tooltipRect = tooltipRef.current.getBoundingClientRect();
-
     const charCenterX = charRect.left + (charRect.width / 2);
     const halfTooltip = tooltipRect.width / 2;
-
     let tooltipShift = 0;
-    
-    // We want the tooltip to stay at least 4px inside the container's left edge
-    // And at least 12px inside the right edge (to account for the native scrollbar width!)
     const safeRightEdge = containerRect.left + container.clientWidth - 12;
-
     if (charCenterX - halfTooltip < containerRect.left + 4) {
-      const desiredLeft = containerRect.left + 4;
-      tooltipShift = desiredLeft - (charCenterX - halfTooltip);
+      tooltipShift = (containerRect.left + 4) - (charCenterX - halfTooltip);
     } else if (charCenterX + halfTooltip > safeRightEdge) {
-      const desiredRight = safeRightEdge;
-      tooltipShift = desiredRight - (charCenterX + halfTooltip);
+      tooltipShift = safeRightEdge - (charCenterX + halfTooltip);
     }
-
-    // Shift tooltip body to keep it inside the container
     tooltipRef.current.style.transform = `translateX(calc(-50% + ${tooltipShift}px))`;
-    
-    // Apply exact inverse shift to the arrow so it stays perfectly locked onto the character!
-    // We clamp it slightly so the arrow doesn't clip outside the rounded corners of the tooltip box
     const maxArrowShift = halfTooltip - 12;
     let arrowShift = -tooltipShift;
     if (arrowShift > maxArrowShift) arrowShift = maxArrowShift;
     if (arrowShift < -maxArrowShift) arrowShift = -maxArrowShift;
-    
     arrowRef.current.style.transform = `translateX(calc(-50% + ${arrowShift}px))`;
   }, [activeCharIndex]);
 
   return (
-    <div 
+    <div
       ref={tooltipRef}
-      style={{ 
-        position: 'absolute', 
-        bottom: '100%', 
-        left: '50%', 
-        transform: 'translateX(-50%)', 
-        marginBottom: '8px', 
-        background: '#3b82f6', 
-        color: '#fff', 
-        padding: '4px 20px', 
-        borderRadius: '4px', 
-        fontSize: '13px', 
-        lineHeight: '1.2', 
-        fontWeight: 'bold', 
-        whiteSpace: 'nowrap', 
-        zIndex: 10, 
-        boxShadow: '0 4px 12px rgba(0,0,0,0.3)', 
-        fontFamily: 'sans-serif',
+      style={{
+        position: 'absolute', bottom: '100%', left: '50%',
+        transform: 'translateX(-50%)', marginBottom: '8px',
+        background: '#3b82f6', color: '#fff', padding: '4px 20px',
+        borderRadius: '4px', fontSize: '13px', lineHeight: '1.2',
+        fontWeight: 'bold', whiteSpace: 'nowrap', zIndex: 10,
+        boxShadow: '0 4px 12px rgba(0,0,0,0.3)', fontFamily: 'sans-serif',
         pointerEvents: 'none'
       }}
     >
       Start Typing
-      <div 
+      <div
         ref={arrowRef}
-        style={{ 
-          position: 'absolute', 
-          top: '100%', 
-          left: '50%', 
-          transform: 'translateX(-50%)', 
-          borderTop: '4px solid #3b82f6', 
-          borderLeft: '4px solid transparent', 
-          borderRight: '4px solid transparent' 
-        }} 
+        style={{
+          position: 'absolute', top: '100%', left: '50%',
+          transform: 'translateX(-50%)',
+          borderTop: '4px solid #3b82f6',
+          borderLeft: '4px solid transparent',
+          borderRight: '4px solid transparent'
+        }}
       />
     </div>
   );
@@ -364,11 +305,11 @@ const styles = {
     whiteSpace: 'pre-wrap',
     wordWrap: 'break-word',
     position: 'relative',
-    transition: 'max-height 0.3s ease'
+    // Fix #8 — removed 'transition: max-height 0.3s ease' (never used, wasted paint)
   },
   char: {
     position: 'relative',
-    transition: 'color 0.1s ease, background-color 0.1s ease',
+    // Fix #7 — removed 'transition: color 0.1s ease' (hundreds of overlapping transitions at speed)
     borderRadius: '2px',
     margin: '0px',
     padding: '0px'

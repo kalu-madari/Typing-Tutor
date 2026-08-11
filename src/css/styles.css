@@ -1389,6 +1389,28 @@ body.app-fullscreen .lesson-layout {
   100% { transform: translateX(300%); }
 }
 
+/* Typing area — cursor blink (replaces framer-motion repeat:Infinity on hot path) */
+@keyframes char-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.7; }
+}
+.char-active {
+  animation: char-blink 1s ease infinite;
+}
+
+/* Typing area — error shake (replaces framer-motion keyframes on hot path) */
+@keyframes char-shake {
+  0%,100% { transform: translateX(0); }
+  20%     { transform: translateX(-2px); }
+  40%     { transform: translateX(2px); }
+  60%     { transform: translateX(-2px); }
+  80%     { transform: translateX(2px); }
+}
+.char-error-shake {
+  animation: char-shake 0.3s ease;
+}
+
+
 /* --------------------------------------------------------------------------
    Animations utilities
    -------------------------------------------------------------------------- */

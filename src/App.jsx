@@ -887,8 +887,11 @@ const AltCodesModal = ({ onClose }) => {
 
 const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext, hasPrev, onClose }) => {
   const { engineState, stats, altCodeState, isIdle } = useTypingEngine(lesson.text, krutidev010Layout, lesson.type);
+  // Fix #4/#5 — use stable selectors instead of full store subscription
   const storeState = useAppStore();
-  
+  const showVirtualKeyboard = useAppStore(s => s.showVirtualKeyboard);
+  const updateSetting = useAppStore(s => s.updateSetting);
+
   const [soundMenuOpen, setSoundMenuOpen] = React.useState(false);
   const [settingsMenuOpen, setSettingsMenuOpen] = React.useState(false);
   const [paletteMenuOpen, setPaletteMenuOpen] = React.useState(false);
@@ -908,7 +911,6 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
     }
   }, [engineState?.status, lesson.id, onComplete, stats, engineState?.totalTypedChars]);
 
-
   const isFinished = engineState?.status === 'finished';
 
   React.useEffect(() => {
@@ -924,20 +926,18 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
     }
   }, [isFinished, hasNext, onNext]);
 
-  // Ctrl+K shortcut to toggle virtual keyboard
-  // Use capture phase (true) so this runs BEFORE the typing engine listener,
-  // then stopImmediatePropagation kills it so the engine never sees the key.
+  // Fix #5 — Ctrl+K shortcut with stable deps so listener isn't re-registered every render
   React.useEffect(() => {
     const handleShortcut = (e) => {
       if (e.ctrlKey && e.key === 'k') {
         e.preventDefault();
         e.stopImmediatePropagation();
-        storeState.updateSetting('showVirtualKeyboard', !storeState.showVirtualKeyboard);
+        updateSetting('showVirtualKeyboard', !showVirtualKeyboard);
       }
     };
     window.addEventListener('keydown', handleShortcut, true);
     return () => window.removeEventListener('keydown', handleShortcut, true);
-  }, [storeState.showVirtualKeyboard]);
+  }, [showVirtualKeyboard, updateSetting]);
 
 
 
