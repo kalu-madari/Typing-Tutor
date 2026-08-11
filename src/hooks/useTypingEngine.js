@@ -9,6 +9,8 @@ export const useTypingEngine = (text, layout, lessonType) => {
   const [stats, setStats] = useState({ wpm: 0, accuracy: 100, timeInSeconds: 0 });
   const [isIdle, setIsIdle] = useState(false);
   const engineRef = useRef(null);
+  const clickAudioRef = useRef(null);
+  const errorAudioRef = useRef(null);
 
   // Fix #4 — use selectors so changing unrelated store fields doesn't re-run this hook
   // Fix #10 — use refs for sound flags so toggling sound doesn't destroy the engine
@@ -18,6 +20,15 @@ export const useTypingEngine = (text, layout, lessonType) => {
   const errorSoundsRef = useRef(errorSounds);
   useEffect(() => { soundEffectsRef.current = soundEffects; }, [soundEffects]);
   useEffect(() => { errorSoundsRef.current = errorSounds; }, [errorSounds]);
+  useEffect(() => {
+    const clickAudio = new Audio('/sounds/click.mp3');
+    const errorAudio = new Audio('/sounds/error.mp3');
+
+    clickAudio.preload = 'auto';
+    errorAudio.preload = 'auto';
+    clickAudioRef.current = clickAudio;
+    errorAudioRef.current = errorAudio;
+  }, []);
 
   useEffect(() => {
     const engine = new TypingEngine(text, layout, lessonType);
@@ -36,9 +47,17 @@ export const useTypingEngine = (text, layout, lessonType) => {
     // Fix #10 — onPlaySound reads from refs so sound prefs are always current
     engine.onPlaySound = (type) => {
       if (type === 'keystroke' && soundEffectsRef.current) {
-        // play subtle click
+        const audio = clickAudioRef.current;
+        if (!audio) return;
+        audio.currentTime = 0;
+        const playPromise = audio.play();
+        if (playPromise?.catch) playPromise.catch(() => {});
       } else if (type === 'error' && errorSoundsRef.current) {
-        // play error beep
+        const audio = errorAudioRef.current;
+        if (!audio) return;
+        audio.currentTime = 0;
+        const playPromise = audio.play();
+        if (playPromise?.catch) playPromise.catch(() => {});
       }
     };
 
