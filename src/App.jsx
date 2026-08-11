@@ -837,46 +837,23 @@ const SettingsView = () => {
 };
 
 const AltCodesModal = ({ onClose }) => {
-  const [allAltCodes, setAllAltCodes] = useState(null);
-  const [showAll, setShowAll] = useState(false);
+  const [codes, setCodes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleShowAll = async () => {
-    if (!allAltCodes) {
-      try {
-        const res = await fetch('/fonts/KrutiDev010_AltCodes.txt');
-        const text = await res.text();
+  React.useEffect(() => {
+    fetch('/fonts/KrutiDev010_AltCodes.txt')
+      .then(res => res.text())
+      .then(text => {
         const lines = text.split('\n').filter(l => l.trim() && l.includes('|') && !l.startsWith('AltCode'));
         const parsed = lines.map(line => {
           const [code, char] = line.split('|');
           return { code: code.replace('Alt+', '').trim(), char: char.trim() };
         });
-        setAllAltCodes(parsed);
-      } catch (err) {
-        console.error('Failed to load alt codes', err);
-        setAllAltCodes([]);
-      }
-    }
-    setShowAll(true);
-  };
-
-  const defaultCodes = [
-    { code: '0161', char: '¡', label: 'Chandrabindu' },
-    { code: '0197', char: 'Å', label: 'Bada U' },
-    { code: '0216', char: 'Ø', label: 'Kra' },
-    { code: '0170', char: 'ª', label: 'Tra' },
-    { code: '0221', char: 'Ý', label: 'Phra' },
-    { code: '0227', char: 'ã', label: 'Chha' },
-    { code: '0179', char: '³', label: 'Half Sha' },
-    { code: '0204', char: 'Ì', label: 'Rha' },
-    { code: '0205', char: 'Í', label: 'Rhha' },
-    { code: '0212', char: 'Ô', label: 'Dya' },
-    { code: '0217', char: 'Ù', label: 'Dwa' },
-    { code: '0214', char: 'Ö', label: 'Dhri' },
-    { code: '0190', char: '¾', label: 'Anga' },
-    { code: '0184', char: '¸', label: 'Shtha' }
-  ];
-
-  const displayCodes = showAll && allAltCodes ? allAltCodes : defaultCodes;
+        setCodes(parsed);
+      })
+      .catch(() => setCodes([]))
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.85)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }} onClick={onClose}>
@@ -885,27 +862,23 @@ const AltCodesModal = ({ onClose }) => {
           <h2 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <HelpCircle size={20} style={{ color: 'var(--brand)' }} /> KrutiDev Alt Codes Cheat Sheet
           </h2>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            {!showAll && (
-              <button className="btn btn-primary btn-sm" onClick={handleShowAll} style={{ padding: '6px 12px', fontSize: '12px' }}>
-                Show All
-              </button>
-            )}
-            <button className="icon-btn-plain" onClick={onClose} style={{ background: 'var(--bg-inset)', border: 'none', color: 'var(--text-muted)', borderRadius: '50%', padding: '6px', cursor: 'pointer' }}>
-              <CloseIcon size={18} />
-            </button>
-          </div>
+          <button className="icon-btn-plain" onClick={onClose} style={{ background: 'var(--bg-inset)', border: 'none', color: 'var(--text-muted)', borderRadius: '50%', padding: '6px', cursor: 'pointer' }}>
+            <CloseIcon size={18} />
+          </button>
         </div>
         <div className="no-scrollbar" style={{ padding: '24px', overflowY: 'auto', maxHeight: '60vh' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: '12px' }}>
-            {displayCodes.map((item, idx) => (
-              <div key={item.code + idx} style={{ background: 'var(--bg-inset)', padding: '12px', borderRadius: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', border: '1px solid var(--border-soft)' }}>
-                <div style={{ fontFamily: '"Kruti Dev 010", sans-serif', fontSize: '28px', color: 'var(--text-primary)' }}>{item.char}</div>
-                <div style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--brand)', fontFamily: 'monospace', letterSpacing: '0.5px' }}>Alt + {item.code}</div>
-                {item.label && <div style={{ fontSize: '11px', color: 'var(--text-muted)', textAlign: 'center' }}>{item.label}</div>}
-              </div>
-            ))}
-          </div>
+          {loading ? (
+            <div style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '20px' }}>Loading...</div>
+          ) : (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: '12px' }}>
+              {codes.map((item, idx) => (
+                <div key={item.code + idx} style={{ background: 'var(--bg-inset)', padding: '12px', borderRadius: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', border: '1px solid var(--border-soft)' }}>
+                  <div style={{ fontFamily: '"Kruti Dev 010", sans-serif', fontSize: '28px', color: 'var(--text-primary)' }}>{item.char}</div>
+                  <div style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--brand)', fontFamily: 'monospace', letterSpacing: '0.5px' }}>Alt + {item.code}</div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
