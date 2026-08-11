@@ -66,9 +66,6 @@ export const useTypingEngine = (text, layout, lessonType) => {
     const handleKeyDown = (e) => {
       if (!engineRef.current) return;
 
-      // Ignore any key combo with Ctrl — these are app shortcuts, not typing input
-      if (e.ctrlKey) return;
-
       if (e.key === 'Alt') {
         altCodeStr = "";
         setAltCodeState(altCodeStr);
