@@ -76,9 +76,9 @@ const VirtualKeyboard = ({ layout, engineState, altCodeState = "" }) => {
     }
     
     // Always highlight Alt
-    expectedKeys = [...expectedKeys, 'AltLeft', 'AltRight'];
+    expectedKeys = [...expectedKeys, 'AltLeft'];
     
-    // Highlight the next required number (offset by 2 because AltLeft/AltRight are at index 0 and 1)
+    // Highlight the next required number (offset by 2 because AltLeft is at index 0 and 1 in the sequence array)
     if (typedLength + 2 < sequence.length) {
       expectedKeys.push(sequence[typedLength + 2]);
     }
