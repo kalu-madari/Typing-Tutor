@@ -925,15 +925,18 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
   }, [isFinished, hasNext, onNext]);
 
   // Ctrl+K shortcut to toggle virtual keyboard
+  // Use capture phase (true) so this runs BEFORE the typing engine listener,
+  // then stopImmediatePropagation kills it so the engine never sees the key.
   React.useEffect(() => {
     const handleShortcut = (e) => {
       if (e.ctrlKey && e.key === 'k') {
         e.preventDefault();
+        e.stopImmediatePropagation();
         storeState.updateSetting('showVirtualKeyboard', !storeState.showVirtualKeyboard);
       }
     };
-    window.addEventListener('keydown', handleShortcut);
-    return () => window.removeEventListener('keydown', handleShortcut);
+    window.addEventListener('keydown', handleShortcut, true);
+    return () => window.removeEventListener('keydown', handleShortcut, true);
   }, [storeState.showVirtualKeyboard]);
 
 
