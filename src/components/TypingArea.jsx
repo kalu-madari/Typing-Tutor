@@ -83,13 +83,12 @@ const TypingArea = ({ engineState, isIdle }) => {
   const typedCharacters = engineState.typedCharacters || [];
 
   const renderText = () => {
-    // Virtualization: If text is huge, only render active components for a small window.
-    // The rest is rendered as raw strings so layout and scroll height remain perfect!
-    const MAX_WORDS = 150;
-    let windowStart = 0;
+    // Only virtualize UPCOMING text (ahead of cursor) — never drop typed words from the window.
+    // Memoized WordSpan behind cursor never re-renders so keeping them has zero perf cost.
+    const MAX_AHEAD = 160; // word-tokens ahead of cursor to render as interactive components
     let windowEnd = words.length;
 
-    if (words.length > MAX_WORDS) {
+    if (words.length > MAX_AHEAD) {
       // Find the current word index
       let currentWordIdx = 0;
       for (let i = 0; i < words.length; i++) {
@@ -98,39 +97,22 @@ const TypingArea = ({ engineState, isIdle }) => {
           break;
         }
       }
-      
-      windowStart = Math.max(0, currentWordIdx - 30);
-      windowEnd = Math.min(words.length, windowStart + MAX_WORDS);
-      
-      // Keep the window stable at the end
-      if (windowEnd === words.length) {
-        windowStart = Math.max(0, words.length - MAX_WORDS);
-      }
+      windowEnd = Math.min(words.length, currentWordIdx + MAX_AHEAD);
     }
-
-    const renderWords = words.slice(windowStart, windowEnd);
 
     return (
       <>
-        {windowStart > 0 && (
-          <span style={{ color: 'var(--text-secondary)' }}>
-            {engineText.slice(0, words[windowStart][0].index)}
-          </span>
-        )}
-        {renderWords.map((wordTokens, localIdx) => {
-          const wIdx = windowStart + localIdx;
-          return (
-            <WordSpan 
-              key={wIdx}
-              wordTokens={wordTokens}
-              currentIndex={currentIndex}
-              typedCharacters={typedCharacters}
-              errors={errors}
-              isIdle={isIdle}
-              containerRef={containerRef}
-            />
-          );
-        })}
+        {words.slice(0, windowEnd).map((wordTokens, wIdx) => (
+          <WordSpan 
+            key={wIdx}
+            wordTokens={wordTokens}
+            currentIndex={currentIndex}
+            typedCharacters={typedCharacters}
+            errors={errors}
+            isIdle={isIdle}
+            containerRef={containerRef}
+          />
+        ))}
         {windowEnd < words.length && (
           <span style={{ color: 'var(--text-secondary)' }}>
             {engineText.slice(words[windowEnd][0].index)}
