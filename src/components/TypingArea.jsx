@@ -225,26 +225,9 @@ const WordSpan = React.memo(({ wordTokens, currentIndex, typedCharacters, errors
       })}
     </span>
   );
-}, (prevProps, nextProps) => {
-  // If the lesson restarts, we must re-render everything
-  if (prevProps.typedCharacters.length > 0 && nextProps.typedCharacters.length === 0) return false;
-
-  const wordStart = prevProps.wordTokens[0].index;
-  const wordEnd = prevProps.wordTokens[prevProps.wordTokens.length - 1].index;
-
-  // We only re-render the word if the cursor was in it previously OR is in it currently.
-  const isCurrentlyActive = nextProps.currentIndex >= wordStart && nextProps.currentIndex <= wordEnd + 1;
-  const wasPreviouslyActive = prevProps.currentIndex >= wordStart && prevProps.currentIndex <= wordEnd + 1;
-
-  if (isCurrentlyActive || wasPreviouslyActive) return false;
-
-  // Also check if we skipped/backspaced across this word in one frame
-  const minCursor = Math.min(prevProps.currentIndex, nextProps.currentIndex);
-  const maxCursor = Math.max(prevProps.currentIndex, nextProps.currentIndex);
-  if (wordStart >= minCursor && wordEnd <= maxCursor) return false;
-
-  return true; // No need to re-render
 });
+
+
 
 const CharSpan = React.memo(({
   char,
