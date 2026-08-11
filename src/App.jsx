@@ -924,6 +924,19 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
     }
   }, [isFinished, hasNext, onNext]);
 
+  // Ctrl+K shortcut to toggle virtual keyboard
+  React.useEffect(() => {
+    const handleShortcut = (e) => {
+      if (e.ctrlKey && e.key === 'k') {
+        e.preventDefault();
+        storeState.updateSetting('showVirtualKeyboard', !storeState.showVirtualKeyboard);
+      }
+    };
+    window.addEventListener('keydown', handleShortcut);
+    return () => window.removeEventListener('keydown', handleShortcut);
+  }, [storeState.showVirtualKeyboard]);
+
+
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', background: 'var(--bg-primary)' }}>
@@ -943,7 +956,7 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
           <button className="icon-btn-plain" title="Restart" onClick={onRestart} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
             <RotateCcw size={20} />
           </button>
-          <button className="icon-btn-plain" title="Virtual Keyboard" onClick={() => storeState.updateSetting('showVirtualKeyboard', !storeState.showVirtualKeyboard)} style={{ background: 'transparent', border: 'none', color: storeState.showVirtualKeyboard ? 'var(--accent-blue)' : 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
+          <button className="icon-btn-plain" title="Virtual Keyboard (Ctrl+K)" onClick={() => storeState.updateSetting('showVirtualKeyboard', !storeState.showVirtualKeyboard)} style={{ background: 'transparent', border: 'none', color: storeState.showVirtualKeyboard ? 'var(--accent-blue)' : 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
             <KeyboardIcon size={20} />
           </button>
           <button className="icon-btn-plain" title="Alt Codes Cheat Sheet" onClick={() => setShowAltCodes(true)} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '8px' }}>
