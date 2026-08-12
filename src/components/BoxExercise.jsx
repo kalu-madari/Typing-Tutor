@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAppStore } from '../store/useAppStore';
 
 const BoxExercise = ({ engineState }) => {
-  const store = useAppStore();
-  const { fontSize } = store;
+  const fontSize = useAppStore(s => s.fontSize);
+  const [wrongChar, setWrongChar] = useState(null);
+  const prevIncorrect = useRef(engineState?.incorrectChars || 0);
+
+  // Flash the wrong character for 400ms whenever a new error is made
+  useEffect(() => {
+    const current = engineState?.incorrectChars || 0;
+    if (current > prevIncorrect.current && engineState?.lastTypedChar) {
+      setWrongChar(engineState.lastTypedChar);
+      const t = setTimeout(() => setWrongChar(null), 400);
+      prevIncorrect.current = current;
+      return () => clearTimeout(t);
+    }
+    prevIncorrect.current = current;
+  }, [engineState?.incorrectChars, engineState?.lastTypedChar]);
 
   if (!engineState || !engineState.text) return null;
 
@@ -77,7 +90,7 @@ const BoxExercise = ({ engineState }) => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     style={{ 
-                      color: getTextColor(statusClass),
+                      color: isActive && wrongChar ? 'var(--danger)' : getTextColor(statusClass),
                       fontSize: isSpace ? '20px' : (fontSize === 'large' ? '36px' : fontSize === 'small' ? '24px' : '30px'),
                       position: 'relative',
                       display: 'flex',
@@ -87,7 +100,9 @@ const BoxExercise = ({ engineState }) => {
                       height: '100%'
                     }}
                   >
-                    {isSpace ? (char === '\n' ? '↵' : '␣') : char}
+                    {isActive && wrongChar
+                      ? wrongChar  
+                      : isSpace ? (char === '\n' ? '↵' : '␣') : char}
                     
                     {(statusClass === 'correct' || statusClass === 'corrected') && (
                       <motion.div
