@@ -80,15 +80,24 @@ const BoxExercise = ({ engineState }) => {
                   fontFamily: isSpace ? 'sans-serif' : '"Kruti Dev 010", sans-serif',
                   borderRadius: '12px'
                 }}
-                animate={isError ? { x: [-4, 4, -4, 4, 0] } : (isActive ? { scale: [1, 1.05, 1] } : { scale: 1 })}
-                transition={isError ? { duration: 0.3 } : (isActive ? { repeat: Infinity, duration: 1.5 } : { duration: 0.2 })}
+                animate={
+                  (isActive && wrongChar)
+                    ? { x: [-6, 6, -5, 5, -3, 3, 0], scale: [1, 1.08, 1] }
+                    : isActive ? { scale: [1, 1.05, 1] } : { scale: 1 }
+                }
+                transition={
+                  (isActive && wrongChar)
+                    ? { duration: 0.35, ease: 'easeInOut' }
+                    : isActive ? { repeat: Infinity, duration: 1.5 } : { duration: 0.2 }
+                }
               >
                 <AnimatePresence mode="wait">
                   <motion.span
-                    key="char"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+                    key={isActive && wrongChar ? `wrong-${wrongChar}` : 'char'}
+                    initial={isActive && wrongChar ? { scale: 0.4, opacity: 0 } : { opacity: 0 }}
+                    animate={isActive && wrongChar ? { scale: [0.4, 1.35, 1], opacity: 1 } : { opacity: 1, scale: 1 }}
+                    exit={isActive && wrongChar ? { scale: 0.6, opacity: 0 } : { opacity: 0 }}
+                    transition={isActive && wrongChar ? { duration: 0.25, ease: 'easeOut' } : { duration: 0.1 }}
                     style={{ 
                       color: isActive && wrongChar ? 'var(--danger)' : getTextColor(statusClass),
                       fontSize: isSpace ? '20px' : (fontSize === 'large' ? '36px' : fontSize === 'small' ? '24px' : '30px'),
@@ -97,7 +106,8 @@ const BoxExercise = ({ engineState }) => {
                       alignItems: 'center',
                       justifyContent: 'center',
                       width: '100%',
-                      height: '100%'
+                      height: '100%',
+                      fontWeight: isActive && wrongChar ? 'bold' : 'normal',
                     }}
                   >
                     {isActive && wrongChar
