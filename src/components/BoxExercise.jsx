@@ -64,7 +64,7 @@ const BoxExercise = ({ engineState }) => {
                   borderColor: getBorderColor(statusClass),
                   borderWidth: (statusClass === 'active' || statusClass === 'active-error') ? '3px' : '2px',
                   boxShadow: (statusClass === 'active' || statusClass === 'active-error') ? `0 0 20px ${getBorderColor(statusClass)}, inset 0 0 8px ${getBorderColor(statusClass)}` : 'none',
-                  fontFamily: (statusClass === 'correct' || statusClass === 'corrected') ? 'sans-serif' : (isSpace ? 'sans-serif' : '"Kruti Dev 010", sans-serif'),
+                  fontFamily: isSpace ? 'sans-serif' : '"Kruti Dev 010", sans-serif',
                   borderRadius: '12px'
                 }}
                 animate={isError ? { x: [-4, 4, -4, 4, 0] } : (isActive ? { scale: [1, 1.05, 1] } : { scale: 1 })}
