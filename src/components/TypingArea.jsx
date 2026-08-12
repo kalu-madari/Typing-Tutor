@@ -38,6 +38,32 @@ const TypingArea = ({ engineState, isIdle }) => {
     });
   }, [currentIndex, engineText, isIdle]);
 
+  // Wrong char flash — pure DOM manipulation, zero React re-renders
+  const prevIncorrect = useRef(0);
+  useLayoutEffect(() => {
+    const current = engineState?.incorrectChars || 0;
+    if (current > prevIncorrect.current && engineState?.lastTypedChar && containerRef.current) {
+      const activeEl = containerRef.current.querySelector(`[data-char-index="${currentIndex}"]`);
+      if (activeEl) {
+        const originalText = activeEl.textContent;
+        const wrongKey = engineState.lastTypedChar;
+        activeEl.textContent = wrongKey;
+        activeEl.classList.add('char-wrong-flash');
+        activeEl.style.color = 'var(--danger)';
+        activeEl.style.fontWeight = 'bold';
+        const t = setTimeout(() => {
+          activeEl.textContent = originalText;
+          activeEl.classList.remove('char-wrong-flash');
+          activeEl.style.color = '';
+          activeEl.style.fontWeight = '';
+        }, 300);
+        prevIncorrect.current = current;
+        return () => clearTimeout(t);
+      }
+    }
+    prevIncorrect.current = current;
+  }, [engineState?.incorrectChars]);
+
   // Parse text into word tokens — only recomputes when text changes
   const words = useMemo(() => {
     if (!textIsString) return [];
