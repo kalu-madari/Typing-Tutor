@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useState, useMemo } from 'react';
+import React, { useRef, useLayoutEffect, useState, useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useAppStore } from '../store/useAppStore';
 
@@ -285,6 +285,7 @@ const CharSpan = React.memo(({
 }) => {
   // Error shake: we use a key trick — changing the key restarts the CSS animation
   const [shakeKey, setShakeKey] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
   const prevIsError = useRef(false);
 
   if (isError && !prevIsError.current) {
@@ -292,22 +293,31 @@ const CharSpan = React.memo(({
   }
   prevIsError.current = isError;
 
+  useEffect(() => {
+    if (isActive && isError && lastTypedChar) {
+      setShowPopup(true);
+      const t = setTimeout(() => setShowPopup(false), 200);
+      return () => clearTimeout(t);
+    } else {
+      setShowPopup(false);
+    }
+  }, [isActive, isError, lastTypedChar, shakeKey]);
+
   let displayChar = char;
   let color = getCharColor(statusClass);
   let isHidden = false;
 
-  if (mode === 'two-box-top') {
+  if (mode === 'classic') {
+    if (index < currentIndex && typedChar && typedChar.isError) {
+      displayChar = typedChar.char;
+    }
+  } else if (mode === 'two-box-top') {
     color = 'var(--text-primary)';
   } else if (mode === 'two-box-bottom') {
     if (index > currentIndex) {
       isHidden = true;
     } else if (index === currentIndex) {
-      if (lastTypedChar) {
-        displayChar = lastTypedChar;
-        color = 'var(--danger)';
-      } else {
-        isHidden = true;
-      }
+      isHidden = true;
     } else {
       if (typedChar) {
         displayChar = typedChar.char;
@@ -336,6 +346,30 @@ const CharSpan = React.memo(({
       {isActive && isIdle && mode !== 'two-box-bottom' && (
         <IndicatorTooltip activeCharIndex={index} containerRef={containerRef} />
       )}
+      
+      {showPopup && mode !== 'two-box-bottom' && (
+        <span style={{
+          position: 'absolute',
+          bottom: '100%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          marginBottom: '4px',
+          color: 'var(--danger)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--danger)',
+          padding: '2px 8px',
+          borderRadius: '4px',
+          fontSize: '0.8em',
+          pointerEvents: 'none',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+          zIndex: 20,
+          whiteSpace: 'nowrap',
+          fontFamily: 'sans-serif'
+        }}>
+          {lastTypedChar === ' ' ? 'Space' : (lastTypedChar === '\n' ? '↵' : lastTypedChar)}
+        </span>
+      )}
+
       {displayChar === ' ' ? ' ' : displayChar === '\n' ? '↵\n' : displayChar}
     </span>
   );
