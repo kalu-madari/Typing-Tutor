@@ -112,6 +112,7 @@ function App() {
     // 2. Update stats
     const currentStore = useAppStore.getState();
     currentStore.updateStreak();
+    currentStore.updateLessonStats(id, stats.wpm, stats.accuracy);
     if (stats.wpm > currentStore.bestWpm) currentStore.updateStat('bestWpm', stats.wpm);
     if (stats.accuracy === 100) currentStore.incrementPerfectLessons();
     if (totalCharsTyped) currentStore.incrementTotalTypedChars(totalCharsTyped);
@@ -138,7 +139,7 @@ function App() {
 
       <main id="main-content">
         {currentView === 'dashboard' && <DashboardView setCurrentView={setCurrentView} onStart={startLesson} currentLesson={currentLesson} completedLessons={completedLessons} allLessons={allLessons} setTargetLesson={setTargetLesson} store={store} />}
-        {currentView === 'lessons' && <LessonsView lessons={allLessons} onStart={startLesson} completedLessons={completedLessons} targetLesson={targetLesson} setTargetLesson={setTargetLesson} />}
+        {currentView === 'lessons' && <LessonsView lessons={allLessons} onStart={startLesson} completedLessons={completedLessons} targetLesson={targetLesson} setTargetLesson={setTargetLesson} store={store} />}
         {currentView === 'session' && (
           <section id="view-lesson-detail" className="view active" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: 0 }}>
             <TypingSession 
@@ -290,7 +291,7 @@ const DashboardView = ({ setCurrentView, onStart, currentLesson, completedLesson
   );
 };
 
-const LessonsView = ({ lessons, onStart, completedLessons, targetLesson, setTargetLesson }) => {
+const LessonsView = ({ lessons, onStart, completedLessons, targetLesson, setTargetLesson, store }) => {
   const [expandedChapter, setExpandedChapter] = useState(targetLesson ? targetLesson.chapterId : null);
 
   useEffect(() => {
@@ -384,6 +385,17 @@ const LessonsView = ({ lessons, onStart, completedLessons, targetLesson, setTarg
                     <div className="lesson-info" style={{ flex: 1 }}>
                       <div className="lesson-item-title" style={{ fontSize: '17.5px' }}>{lesson.title}</div>
                       <div className="lesson-desc" style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{lesson.description}</div>
+                      <div style={{ fontSize: '12px', marginTop: '6px', color: isCompleted ? 'var(--text-primary)' : 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        {isCompleted && store?.lessonStats?.[lesson.id] ? (
+                          <span style={{ display: 'flex', gap: '12px', fontWeight: '500' }}>
+                            <span>Best: <span style={{ color: 'var(--success)' }}>{store.lessonStats[lesson.id].bestWpm} WPM</span></span>
+                            <span>Acc: <span style={{ color: 'var(--accent-blue)' }}>{store.lessonStats[lesson.id].bestAccuracy}%</span></span>
+                          </span>
+                        ) : (
+                          <span style={{ opacity: 0.7 }}>Not attempted</span>
+                        )}
+                      </div>
                     </div>
                     <button className="btn btn-primary btn-sm" onClick={(e) => { e.stopPropagation(); onStart(lesson); }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '32px', height: '32px', padding: 0, borderRadius: '50%' }}>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" style={{ marginLeft: '2px' }}><polygon points="5 3 19 12 5 21 5 3"/></svg>

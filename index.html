@@ -11,7 +11,7 @@
           var state = JSON.parse(localStorage.getItem('krutidev-settings-storage'));
           var theme = (state && state.state && state.state.theme) || 'dark';
           document.documentElement.setAttribute('data-theme', theme);
-          if (theme === 'dark') document.documentElement.style.backgroundColor = '#0f172a';
+          if (theme === 'dark') document.documentElement.style.backgroundColor = '#000000';
           else document.documentElement.style.backgroundColor = '#ffffff';
         } catch(e) {
           document.documentElement.style.backgroundColor = '#0f172a';
@@ -24,7 +24,7 @@
       #initial-loader {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
         display: flex; flex-direction: column; align-items: center; justify-content: center;
-        background-color: var(--bg-primary, #0f172a);
+        background-color: var(--bg-primary, #222222);
         color: var(--text-primary, #f8fafc);
         z-index: 999999;
         font-family: system-ui, -apple-system, sans-serif;
