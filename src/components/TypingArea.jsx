@@ -6,63 +6,78 @@ import { useAppStore } from '../store/useAppStore';
 const TypingArea = ({ engineState, isIdle }) => {
   const fontSize = useAppStore(s => s.fontSize);
   const textAlign = useAppStore(s => s.textAlign);
+  const typingMode = useAppStore(s => s.typingMode) || 'classic';
   const containerRef = useRef(null);
+  const bottomContainerRef = useRef(null);
 
   // Declare these BEFORE any hooks that reference them
   const engineText = engineState?.text;
   const textIsString = typeof engineText === 'string';
   const currentIndex = engineState?.currentIndex;
 
+  const { status } = engineState || {};
+
+  // Auto-scroll to active character
   useLayoutEffect(() => {
-    if (!engineText) return;
-    // Only scroll at word boundaries to avoid layout thrashing on every keystroke
-    const prevChar = currentIndex > 0 ? engineText[currentIndex - 1] : null;
-    const isBoundary = currentIndex === 0 || prevChar === ' ' || prevChar === '\n' || isIdle;
-    if (!isBoundary) return;
+    if (!isIdle && status === 'running') {
+      const doScroll = (cRef) => {
+        if (!cRef?.current) return;
+        const activeEl = cRef.current.querySelector(`[data-char-index="${currentIndex}"]`);
+        if (activeEl) {
+          const containerRect = cRef.current.getBoundingClientRect();
+          const activeRect = activeEl.getBoundingClientRect();
+          const relativeTop = activeRect.top - containerRect.top;
+          
+          if (relativeTop < 20 || relativeTop > containerRect.height - 40) {
+            cRef.current.scrollTo({
+              top: cRef.current.scrollTop + relativeTop - (containerRect.height / 2) + (activeRect.height / 2),
+              behavior: 'smooth'
+            });
+          }
+        }
+      };
 
-    requestAnimationFrame(() => {
-      if (!containerRef.current || currentIndex === undefined) return;
-      const container = containerRef.current;
-      const activeElement = container.querySelector(`[data-char-index="${currentIndex}"]`);
-      if (!activeElement) return;
-      const containerRect = container.getBoundingClientRect();
-      const activeRect = activeElement.getBoundingClientRect();
-      if (activeRect.top === 0 && activeRect.bottom === 0) return;
-      const TOP_PADDING = 35;
-      const BOTTOM_PADDING = 35;
-      if (activeRect.top < containerRect.top + TOP_PADDING) {
-        container.scrollTop -= (containerRect.top + TOP_PADDING) - activeRect.top;
-      } else if (activeRect.bottom > containerRect.bottom - BOTTOM_PADDING) {
-        container.scrollTop += activeRect.bottom - (containerRect.bottom - BOTTOM_PADDING);
+      doScroll(containerRef);
+      if (typingMode === 'two-box') {
+        doScroll(bottomContainerRef);
       }
-    });
-  }, [currentIndex, engineText, isIdle]);
+    }
+  }, [currentIndex, engineText, isIdle, typingMode, status]);
 
-  // Wrong char flash — pure DOM manipulation, zero React re-renders
+  // Wrong char flash — pure DOM manipulation for classic mode
   const prevIncorrect = useRef(0);
   useLayoutEffect(() => {
+    if (typingMode !== 'classic') return;
     const current = engineState?.incorrectChars || 0;
     if (current > prevIncorrect.current && engineState?.lastTypedChar && containerRef.current) {
       const activeEl = containerRef.current.querySelector(`[data-char-index="${currentIndex}"]`);
       if (activeEl) {
-        const originalText = activeEl.textContent;
         const wrongKey = engineState.lastTypedChar;
-        activeEl.textContent = wrongKey;
-        activeEl.classList.add('char-wrong-flash');
-        activeEl.style.color = 'var(--danger)';
-        activeEl.style.fontWeight = 'bold';
-        const t = setTimeout(() => {
-          activeEl.textContent = originalText;
-          activeEl.classList.remove('char-wrong-flash');
-          activeEl.style.color = '';
-          activeEl.style.fontWeight = '';
-        }, 300);
-        prevIncorrect.current = current;
-        return () => clearTimeout(t);
+        let overlay = activeEl.querySelector('.wrong-overlay');
+        if (!overlay) {
+          overlay = document.createElement('span');
+          overlay.className = 'wrong-overlay';
+          overlay.style.position = 'absolute';
+          overlay.style.left = '50%';
+          overlay.style.top = '100%';
+          overlay.style.transform = 'translate(-50%, -50%)';
+          overlay.style.color = 'var(--danger)';
+          overlay.style.fontWeight = 'bold';
+          overlay.style.pointerEvents = 'none';
+          overlay.style.zIndex = '10';
+          overlay.style.textShadow = '0 0 4px var(--bg-app), 0 0 8px var(--bg-app)';
+          activeEl.appendChild(overlay);
+        }
+        overlay.textContent = wrongKey;
+        
+        activeEl.classList.remove('char-error-shake');
+        // trigger reflow
+        void activeEl.offsetWidth;
+        activeEl.classList.add('char-error-shake');
       }
     }
     prevIncorrect.current = current;
-  }, [engineState?.incorrectChars]);
+  }, [engineState?.incorrectChars, engineState?.lastTypedChar, currentIndex, typingMode]);
 
   // Parse text into word tokens — only recomputes when text changes
   const words = useMemo(() => {
@@ -84,8 +99,6 @@ const TypingArea = ({ engineState, isIdle }) => {
   // ALL HOOKS MUST BE DECLARED ABOVE THIS LINE
   if (!engineState || !textIsString) return null;
 
-  const { status } = engineState;
-
   // Fix #3 — stable errors reference: only a new Set when content actually changes
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const errors = engineState.errors || new Set();
@@ -105,7 +118,7 @@ const TypingArea = ({ engineState, isIdle }) => {
   // Fix #6 — memoize rendered text so O(n) word scan doesn't run on every render
   // NOTE: this is intentionally inside the component body (after early-return) but
   // React rules allow useMemo calls only at the top level. We use a helper instead.
-  const renderedText = (() => {
+  const renderText = (mode, cRef) => {
     const MAX_AHEAD = 160;
     let windowEnd = words.length;
     if (words.length > MAX_AHEAD) {
@@ -125,17 +138,19 @@ const TypingArea = ({ engineState, isIdle }) => {
             typedCharacters={typedCharacters}
             errors={errors}
             isIdle={isIdle}
-            containerRef={containerRef}
+            containerRef={cRef}
+            mode={mode}
+            lastTypedChar={engineState.lastTypedChar}
           />
         ))}
         {windowEnd < words.length && (
-          <span style={{ color: 'var(--text-secondary)' }}>
+          <span style={{ color: mode === 'two-box-top' ? 'var(--text-primary)' : (mode === 'two-box-bottom' ? 'transparent' : 'var(--text-secondary)') }}>
             {engineText.slice(words[windowEnd][0].index)}
           </span>
         )}
       </>
     );
-  })();
+  };
 
   return (
     <div className="glass-panel" style={{
@@ -143,31 +158,71 @@ const TypingArea = ({ engineState, isIdle }) => {
       fontSize: fontSizePx,
       position: 'relative'
     }}>
-      {/* Wrapper with mask — clips the VISIBLE 195px viewport, not the scroll content */}
-      <div style={{
-        position: 'relative',
-        height: '195px',
-        overflow: 'hidden',
-        WebkitMaskImage: maskGradient,
-        maskImage: maskGradient,
-      }}>
-        <div
-          ref={containerRef}
-          className="no-scrollbar"
-          style={{
-            ...styles.textContainer,
-            height: '195px',
-            lineHeight: '1.5em',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            padding: '4px',
-            paddingTop: '45px',
-            textAlign: textAlign || 'center',
-          }}
-        >
-          {renderedText}
+      {typingMode === 'classic' ? (
+        <div style={{
+          position: 'relative',
+          height: '195px',
+          overflow: 'hidden',
+          WebkitMaskImage: maskGradient,
+          maskImage: maskGradient,
+        }}>
+          <div
+            ref={containerRef}
+            className="no-scrollbar"
+            style={{
+              ...styles.textContainer,
+              height: '195px',
+              lineHeight: '1.5em',
+              overflowY: 'auto',
+              overflowX: 'hidden',
+              padding: '4px',
+              paddingTop: '45px',
+              paddingLeft: '8px', // Fix padding for clipping
+              paddingRight: '8px',
+              textAlign: textAlign || 'center',
+            }}
+          >
+            {renderText('classic', containerRef)}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div
+            ref={containerRef}
+            className="no-scrollbar"
+            style={{
+              ...styles.textContainer,
+              border: '1px solid var(--border-soft)',
+              borderRadius: '8px',
+              height: '135px',
+              overflowY: 'auto',
+              padding: '16px',
+              paddingLeft: '24px',
+              textAlign: textAlign || 'left',
+              lineHeight: '1.5em'
+            }}
+          >
+            {renderText('two-box-top', containerRef)}
+          </div>
+          <div
+            ref={bottomContainerRef}
+            className="no-scrollbar"
+            style={{
+              ...styles.textContainer,
+              border: '1px solid var(--border-soft)',
+              borderRadius: '8px',
+              height: '135px',
+              overflowY: 'auto',
+              padding: '16px',
+              paddingLeft: '24px',
+              textAlign: textAlign || 'left',
+              lineHeight: '1.5em'
+            }}
+          >
+            {renderText('two-box-bottom', bottomContainerRef)}
+          </div>
+        </div>
+      )}
       {status === 'finished' && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -188,7 +243,7 @@ const getCharColor = (status) => {
   return 'var(--text-secondary)';
 };
 
-const WordSpan = React.memo(({ wordTokens, currentIndex, typedCharacters, errors, isIdle, containerRef }) => {
+const WordSpan = React.memo(({ wordTokens, currentIndex, typedCharacters, errors, isIdle, containerRef, mode, lastTypedChar }) => {
   const isWhitespace = wordTokens.length === 1 && (wordTokens[0].char === ' ' || wordTokens[0].char === '\n');
   return (
     <span style={{ display: isWhitespace ? 'inline' : 'inline-block' }}>
@@ -207,11 +262,15 @@ const WordSpan = React.memo(({ wordTokens, currentIndex, typedCharacters, errors
             key={index}
             char={char}
             index={index}
+            currentIndex={currentIndex}
             statusClass={statusClass}
             isActive={isActive}
             isError={isError}
             isIdle={isIdle}
             containerRef={containerRef}
+            mode={mode}
+            lastTypedChar={lastTypedChar}
+            typedChar={typedCharacters[index]}
           />
         );
       })}
@@ -222,7 +281,7 @@ const WordSpan = React.memo(({ wordTokens, currentIndex, typedCharacters, errors
 // Fix #1 — replace motion.span (framer-motion infinite loop) with plain span + CSS classes
 // The cursor blink and error shake are now handled by .char-active and .char-error-shake in styles.css
 const CharSpan = React.memo(({
-  char, index, statusClass, isActive, isError, isIdle, containerRef
+  char, index, currentIndex, statusClass, isActive, isError, isIdle, containerRef, mode, lastTypedChar, typedChar
 }) => {
   // Error shake: we use a key trick — changing the key restarts the CSS animation
   const [shakeKey, setShakeKey] = useState(0);
@@ -233,26 +292,51 @@ const CharSpan = React.memo(({
   }
   prevIsError.current = isError;
 
+  let displayChar = char;
+  let color = getCharColor(statusClass);
+  let isHidden = false;
+
+  if (mode === 'two-box-top') {
+    color = 'var(--text-primary)';
+  } else if (mode === 'two-box-bottom') {
+    if (index > currentIndex) {
+      isHidden = true;
+    } else if (index === currentIndex) {
+      if (lastTypedChar) {
+        displayChar = lastTypedChar;
+        color = 'var(--danger)';
+      } else {
+        isHidden = true;
+      }
+    } else {
+      if (typedChar) {
+        displayChar = typedChar.char;
+        color = typedChar.isError ? 'var(--danger)' : 'var(--text-primary)';
+      }
+    }
+  }
+
   return (
     <span
       key={shakeKey > 0 ? `shake-${shakeKey}` : undefined}
       data-char-index={index}
-      className={isActive ? 'char-active' : (isError ? `char-error-shake` : '')}
+      className={isActive && mode !== 'two-box-bottom' ? 'char-active' : (isError && mode === 'classic' ? `char-error-shake` : '')}
       style={{
         ...styles.char,
         position: 'relative',
-        color: isActive ? '#eab308' : getCharColor(statusClass),
-        textShadow: isActive ? '0 0 8px rgba(250, 204, 21, 0.4)' : 'none',
-        backgroundColor: (isActive && char === ' ') ? 'rgba(250, 204, 21, 0.4)' : 'transparent',
-        borderRadius: (isActive && char === ' ') ? '4px' : '0',
-        borderBottom: isActive ? '2px solid var(--accent-blue)' : '2px solid transparent',
-        fontFamily: char === '\n' ? 'sans-serif' : 'inherit',
+        color: (isActive && mode === 'classic') ? '#eab308' : (isActive && mode === 'two-box-top' ? 'var(--brand-hover)' : color),
+        textShadow: (isActive && mode === 'classic') ? '0 0 8px rgba(250, 204, 21, 0.4)' : 'none',
+        backgroundColor: (isActive && displayChar === ' ') ? (mode === 'classic' ? 'rgba(250, 204, 21, 0.4)' : 'var(--bg-active)') : 'transparent',
+        borderRadius: (isActive && displayChar === ' ') ? '4px' : '0',
+        borderBottom: (isActive && mode !== 'two-box-bottom') ? '2px solid var(--accent-blue)' : '2px solid transparent',
+        fontFamily: displayChar === '\n' ? 'sans-serif' : 'inherit',
+        visibility: isHidden ? 'hidden' : 'visible'
       }}
     >
-      {isActive && isIdle && (
+      {isActive && isIdle && mode !== 'two-box-bottom' && (
         <IndicatorTooltip activeCharIndex={index} containerRef={containerRef} />
       )}
-      {char === ' ' ? ' ' : char === '\n' ? '↵\n' : char}
+      {displayChar === ' ' ? ' ' : displayChar === '\n' ? '↵\n' : displayChar}
     </span>
   );
 });

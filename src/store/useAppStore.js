@@ -6,6 +6,7 @@ export const useAppStore = create(
     (set) => ({
       // Settings
       theme: 'dark',
+      typingMode: 'classic',
       fontSize: 'medium',
       textAlign: 'left',
       soundEffects: true,
@@ -30,6 +31,7 @@ export const useAppStore = create(
       unlockedAchievements: [],
       bookmarks: [],
       practiceResults: {},
+      lessonStats: {},
 
       // Actions
       updateStreak: () => set((state) => {
@@ -61,6 +63,20 @@ export const useAppStore = create(
         updated[lessonId] = [...updated[lessonId], { ...result, date: Date.now() }];
         return { ...state, practiceResults: updated };
       }),
+      updateLessonStats: (lessonId, wpm, accuracy) => set((state) => {
+        const currentStats = state.lessonStats?.[lessonId] || { bestWpm: 0, bestAccuracy: 0 };
+        return {
+          ...state,
+          lessonStats: {
+            ...state.lessonStats,
+            [lessonId]: {
+              bestWpm: Math.max(currentStats.bestWpm, wpm),
+              bestAccuracy: Math.max(currentStats.bestAccuracy, accuracy),
+              lastPlayed: Date.now()
+            }
+          }
+        };
+      }),
       toggleBookmark: (id) => set((state) => {
         const bookmarks = state.bookmarks || [];
         if (bookmarks.includes(id)) {
@@ -83,6 +99,7 @@ export const useAppStore = create(
           unlockedAchievements: [],
           bookmarks: [],
           practiceResults: {},
+          lessonStats: {},
         };
       }),
     }),

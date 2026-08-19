@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { RotateCcw, X, CheckCircle, XCircle } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
+import { useTypingEngine } from '../hooks/useTypingEngine';
 
 /**
  * KDPH (Key Depressions Per Hour) formula used in HC exams:
@@ -34,16 +35,20 @@ const PracticeSession = ({ lesson, onClose }) => {
   const maxMarks      = lesson.maxMarks      ?? 25;
   const passingMarks  = lesson.passingMarks  ?? 10;
 
+  const containerRef = useRef(null);
+
+  // ── Engine ─────────────────────────────────────────────────────────
+  const [engineKey, setEngineKey] = useState(0);
+  const { engineState } = useTypingEngine(lesson.text, 'krutidev010', 'practice');
+  const engineStatus = engineState?.status || 'idle';
+
   // ── State ──────────────────────────────────────────────────────────
-  const [typedText, setTypedText] = useState('');
   const [timeLeft,  setTimeLeft]  = useState(PRACTICE_TIME_LIMIT);
-  const [status,    setStatus]    = useState('idle'); // idle | running | finished
   const [results,   setResults]   = useState(null);
-  const textareaRef = useRef(null);
 
   // ── Timer ──────────────────────────────────────────────────────────
   useEffect(() => {
-    if (status !== 'running') return;
+    if (engineStatus !== 'running') return;
     const timer = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) { clearInterval(timer); finishTest(); return 0; }
@@ -51,14 +56,27 @@ const PracticeSession = ({ lesson, onClose }) => {
       });
     }, 1000);
     return () => clearInterval(timer);
-  }, [status]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [engineStatus]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (engineStatus === 'finished' && !results) {
+      finishTest();
+    }
+  }, [engineStatus, results]);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [engineState?.typedCharacters?.length, engineState?.lastTypedChar]);
 
   // ── Finish test ────────────────────────────────────────────────────
   const finishTest = () => {
-    setStatus('finished');
 
+    const typedCharsArr = engineState?.typedCharacters || [];
+    const typedTextStr = typedCharsArr.map(t => t.char).join('');
     const refWords  = lesson.text.trim().split(/\s+/);
-    const userWords = typedText.trim().split(/\s+/).filter(w => w.length > 0);
+    const userWords = typedTextStr.trim().split(/\s+/).filter(w => w.length > 0);
 
     // ── Word stats ──
     let correctWords = 0, wrongWords = 0;
@@ -69,14 +87,9 @@ const PracticeSession = ({ lesson, onClose }) => {
     const skippedWords = Math.max(0, refWords.length - userWords.length);
 
     // ── Char stats ──
-    const refChars  = lesson.text.split('');
-    const userChars = typedText.split('');
-    let correctChars = 0, wrongChars = 0;
-    for (let i = 0; i < userChars.length; i++) {
-      if (userChars[i] === refChars[i]) correctChars++;
-      else wrongChars++;
-    }
-    const skippedChars = Math.max(0, refChars.length - userChars.length);
+    const correctChars = engineState?.correctChars || 0;
+    const wrongChars = engineState?.incorrectChars || 0;
+    const skippedChars = Math.max(0, lesson.text.length - typedCharsArr.length);
 
     // ── Timing ──
     const timeUsedSec = PRACTICE_TIME_LIMIT - timeLeft;
@@ -95,7 +108,7 @@ const PracticeSession = ({ lesson, onClose }) => {
       correctWords, wrongWords, skippedWords,
       totalTypedWords: userWords.length,
       correctChars, wrongChars, skippedChars,
-      totalTypedChars: userChars.length,
+      totalTypedChars: typedCharsArr.length,
       timeUsedSec,
       netKdph,
       maxMarks,
@@ -103,24 +116,6 @@ const PracticeSession = ({ lesson, onClose }) => {
       obtainedMarks,
       passed,
     });
-  };
-
-  // ── Input handlers ─────────────────────────────────────────────────
-  const handleKeyDown = (e) => {
-    if (['Backspace', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
-      e.preventDefault();
-    }
-    if (status === 'idle' && e.key.length === 1) {
-      setStatus('running');
-    }
-  };
-
-  const handleChange = (e) => {
-    if (status === 'finished') return;
-    setTypedText(e.target.value);
-    if (e.target.value.length >= lesson.text.length) {
-      finishTest();
-    }
   };
 
   // ── Helpers ────────────────────────────────────────────────────────
@@ -131,11 +126,9 @@ const PracticeSession = ({ lesson, onClose }) => {
   };
 
   const handleRestart = () => {
-    setTypedText('');
+    setEngineKey(k => k + 1);
     setTimeLeft(PRACTICE_TIME_LIMIT);
-    setStatus('idle');
     setResults(null);
-    setTimeout(() => textareaRef.current?.focus(), 50);
   };
 
   const handleSubmit = () => {
@@ -148,7 +141,7 @@ const PracticeSession = ({ lesson, onClose }) => {
   // ══════════════════════════════════════════════════════════════════
   // RESULTS SCREEN
   // ══════════════════════════════════════════════════════════════════
-  if (status === 'finished' && results) {
+  if ((engineStatus === 'finished' || results) && results) {
     const marksColor = results.passed ? 'var(--success)' : 'var(--danger)';
 
     return (
@@ -249,12 +242,11 @@ const PracticeSession = ({ lesson, onClose }) => {
   // ══════════════════════════════════════════════════════════════════
   return (
     <div className="practice-session fade-in" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '20px' }}>
-      {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexShrink: 0 }}>
+      <div key={engineKey} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexShrink: 0 }}>
         <div>
           <h2 style={{ margin: 0, fontSize: '1.2rem' }}>{lesson.title}</h2>
           <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-            Strict Mode · No Backspace · Pass: {passingMarks}/{maxMarks} marks
+            Strict Mode · Backspace: {store.allowBackspace ? 'Allowed' : 'Disabled'} · Pass: {passingMarks}/{maxMarks} marks
           </span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
@@ -289,28 +281,26 @@ const PracticeSession = ({ lesson, onClose }) => {
         {/* BOTTOM: User input */}
         <div className="glass-panel" style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative' }}>
           <div style={{ position: 'absolute', top: 8, right: 12, fontSize: '10px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', zIndex: 10 }}>
-            Your Typing {status === 'idle' && <span style={{ color: 'var(--brand)' }}>· Start typing to begin timer</span>}
+            Your Typing {engineStatus === 'idle' && <span style={{ color: 'var(--brand)' }}>· Start typing to begin timer</span>}
           </div>
-          <textarea
-            ref={textareaRef}
-            value={typedText}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            onPaste={(e) => e.preventDefault()}
-            onDrop={(e) => e.preventDefault()}
-            onMouseDown={(e) => e.preventDefault()}
-            disabled={status === 'finished'}
-            autoFocus
-            spellCheck="false"
-            autoComplete="off"
-            autoCorrect="off"
-            placeholder=""
+          <div 
+            ref={containerRef}
             style={{
-              flex: 1, width: '100%', resize: 'none', border: 'none', background: 'transparent',
+              flex: 1, width: '100%', overflowY: 'auto',
               padding: '28px 24px', fontFamily: '"Kruti Dev 010", sans-serif', fontSize: '28px', lineHeight: '1.9',
-              color: 'var(--text-primary)', outline: 'none',
+              color: 'var(--text-primary)',
             }}
-          />
+          >
+            {engineState?.typedCharacters.map((t, idx) => (
+              <span key={idx} style={{ color: t.isError ? 'var(--danger)' : 'var(--text-primary)' }}>
+                {t.char}
+              </span>
+            ))}
+            {engineState?.lastTypedChar && (
+              <span style={{ color: 'var(--danger)', fontWeight: 'bold' }}>{engineState.lastTypedChar}</span>
+            )}
+            <span style={{ borderRight: '2px solid var(--accent-blue)', animation: 'blink 1s step-end infinite' }} />
+          </div>
         </div>
       </div>
     </div>

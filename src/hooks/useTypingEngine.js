@@ -129,28 +129,8 @@ export const useTypingEngine = (text, layout, lessonType) => {
         }
 
         if (/^[0-9]$/.test(digit)) {
-          if (engineRef.current && engineRef.current.status !== 'finished') {
-            const state = engineRef.current.getState();
-            const nextChar = state.text[state.currentIndex];
-
-            if (nextChar && altCodesMap[nextChar]) {
-              const sequence = altCodesMap[nextChar];
-              const expectedStr = sequence.slice(2).map(k => k.replace('Numpad', '')).join('');
-              if (digit !== expectedStr[altCodeStr.length]) {
-                altCodeStr = "";
-                setAltCodeState(altCodeStr);
-                e.preventDefault();
-                engineRef.current.handleKeyPress('WRONG_ALT_DIGIT');
-                return;
-              }
-            } else {
-              altCodeStr = "";
-              setAltCodeState(altCodeStr);
-              e.preventDefault();
-              engineRef.current.handleKeyPress('WRONG_ALT_DIGIT');
-              return;
-            }
-          }
+          // Removed the restrictive check against nextChar and WRONG_ALT_DIGIT.
+          // Alt-codes should generate the char and let the engine validate it naturally.
 
           altCodeStr += digit;
           setAltCodeState(altCodeStr);

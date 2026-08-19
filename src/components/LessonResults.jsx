@@ -34,12 +34,13 @@ const LargeGauge = ({ value, label, subLabel, sideLabel, sideLabelPos, max, dela
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const safeMax = Math.max(max, 1);
-    const targetProgress = Math.min(value / safeMax, 1);
+    const safeValue = value || 0;
+    const safeMax = Math.max(max || 1, 1);
+    const targetProgress = Math.min(safeValue / safeMax, 1);
     
-    const controls = animate(0, value, {
+    const controls = animate(0, safeValue, {
       duration: 1.5,
-      delay: delay,
+      delay: delay || 0,
       ease: "easeOut",
       onUpdate(val) {
         setDisplayValue(Math.round(val));
@@ -141,9 +142,10 @@ const DurationGauge = ({ seconds, delay }) => {
   const [displaySeconds, setDisplaySeconds] = useState(0);
 
   useEffect(() => {
-    const controls = animate(0, seconds, {
+    const safeSeconds = seconds || 0;
+    const controls = animate(0, safeSeconds, {
       duration: 1.5,
-      delay: delay,
+      delay: delay || 0,
       ease: "easeOut",
       onUpdate(val) {
         setDisplaySeconds(Math.round(val));

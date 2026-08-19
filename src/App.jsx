@@ -27,7 +27,9 @@ function App() {
     return new Set();
   });
 
+  const [targetChapter, setTargetChapter] = useState(null);
   const [targetLesson, setTargetLesson] = useState(null);
+  const [autoFullscreen, setAutoFullscreen] = useState(false);
 
   useEffect(() => {
     // Migrate old 'vscode-dark' to 'dark' for existing users
@@ -35,6 +37,22 @@ function App() {
     document.documentElement.setAttribute('data-theme', currentTheme);
     if (store.theme === 'vscode-dark') store.updateSetting('theme', 'dark');
   }, [store.theme]);
+
+  const requestFullscreenIfNeeded = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => {
+        console.warn(`Error attempting to enable fullscreen: ${err.message}`);
+      });
+      setAutoFullscreen(true);
+    }
+  };
+
+  const exitFullscreenIfNeeded = () => {
+    if (autoFullscreen && document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+      setAutoFullscreen(false);
+    }
+  };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -65,6 +83,7 @@ function App() {
   }, []);
 
   const startLesson = (lesson) => {
+    requestFullscreenIfNeeded();
     setCurrentLessonIndex(allLessons.findIndex(l => l.id === lesson.id));
     store.updateStat('continueLessonId', lesson.id);
     setCurrentView('session');
@@ -75,6 +94,11 @@ function App() {
     if (mainContent) {
       mainContent.scrollTo({ top: 0, behavior: 'instant' });
     }
+  };
+
+  const handleCloseSession = () => {
+    exitFullscreenIfNeeded();
+    setCurrentView('dashboard');
   };
 
   const hasPrev = currentLessonIndex > 0;
@@ -138,8 +162,8 @@ function App() {
       )}
 
       <main id="main-content">
-        {currentView === 'dashboard' && <DashboardView setCurrentView={setCurrentView} onStart={startLesson} currentLesson={currentLesson} completedLessons={completedLessons} allLessons={allLessons} setTargetLesson={setTargetLesson} store={store} />}
-        {currentView === 'lessons' && <LessonsView lessons={allLessons} onStart={startLesson} completedLessons={completedLessons} targetLesson={targetLesson} setTargetLesson={setTargetLesson} store={store} />}
+        {currentView === 'dashboard' && <DashboardView setCurrentView={setCurrentView} onStart={startLesson} currentLesson={currentLesson} completedLessons={completedLessons} allLessons={allLessons} setTargetChapter={setTargetChapter} store={store} />}
+        {currentView === 'lessons' && <LessonsView lessons={allLessons} onStart={startLesson} completedLessons={completedLessons} targetLesson={targetLesson} setTargetLesson={setTargetLesson} targetChapter={targetChapter} setTargetChapter={setTargetChapter} store={store} />}
         {currentView === 'session' && (
           <section id="view-lesson-detail" className="view active" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: 0 }}>
             <TypingSession 
@@ -152,6 +176,7 @@ function App() {
               hasNext={hasNext}
               hasPrev={hasPrev}
               onClose={() => {
+                exitFullscreenIfNeeded();
                 setTargetLesson(currentLesson);
                 setCurrentView('lessons');
               }}
@@ -291,11 +316,11 @@ const DashboardView = ({ setCurrentView, onStart, currentLesson, completedLesson
   );
 };
 
-const LessonsView = ({ lessons, onStart, completedLessons, targetLesson, setTargetLesson, store }) => {
-  const [expandedChapter, setExpandedChapter] = useState(targetLesson ? targetLesson.chapterId : null);
+const LessonsView = ({ lessons, onStart, completedLessons, targetLesson, setTargetLesson, targetChapter, setTargetChapter, store }) => {
+  const [expandedChapter, setExpandedChapter] = useState(targetLesson ? targetLesson.chapterId : (targetChapter || null));
 
   useEffect(() => {
-    if (targetLesson !== null) {
+    if (targetLesson) {
       setExpandedChapter(targetLesson.chapterId);
       
       setTimeout(() => {
@@ -319,6 +344,19 @@ const LessonsView = ({ lessons, onStart, completedLessons, targetLesson, setTarg
     }
   }, [targetLesson, setTargetLesson]);
   
+  useEffect(() => {
+    if (targetChapter) {
+      setExpandedChapter(targetChapter);
+      
+      setTimeout(() => {
+        const chapterEl = document.getElementById(`chapter-card-${targetChapter}`);
+        if (chapterEl) chapterEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+
+      setTargetChapter(null);
+    }
+  }, [targetChapter, setTargetChapter]);
+
   const chapters = getChapters();
   
   return (
@@ -426,8 +464,24 @@ const PracticeView = ({ store }) => {
   const toggleSet = (setId) =>
     setExpandedSets(prev => ({ ...prev, [setId]: !prev[setId] }));
 
+  const startExercise = (exercise) => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+      setAutoFullscreen(true);
+    }
+    setActiveExercise(exercise);
+  };
+
+  const handleClosePractice = () => {
+    if (autoFullscreen && document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+      setAutoFullscreen(false);
+    }
+    setActiveExercise(null);
+  };
+
   if (activeExercise) {
-    return <PracticeSession lesson={activeExercise} onClose={() => setActiveExercise(null)} />;
+    return <PracticeSession lesson={activeExercise} onClose={handleClosePractice} />;
   }
 
   const groups = exercises.reduce((acc, ex) => {
@@ -505,7 +559,7 @@ const PracticeView = ({ store }) => {
                                   {bestResult ? `${bestResult.obtainedMarks?.toFixed(2) ?? '--'} / ${maxMarks}` : '--'}
                                 </div>
                               </div>
-                              <button className="btn btn-primary btn-sm" onClick={() => setActiveExercise(exercise)}>Start Test</button>
+                              <button className="btn btn-primary btn-sm" onClick={() => startExercise(exercise)}>Start Test</button>
                             </div>
                           </div>
                         );
@@ -701,6 +755,20 @@ const SettingsView = () => {
               options={[
                 { value: 'dark', label: 'Dark' },
                 { value: 'light', label: 'Light' }
+              ]}
+            />
+          </div>
+          <div className="setting-item">
+            <div className="setting-info">
+              <span className="setting-label">Typing Area Mode</span>
+              <span className="setting-desc">Choose the layout of the typing interface</span>
+            </div>
+            <RoundedSelect
+              value={store.typingMode || 'classic'}
+              onChange={(val) => store.updateSetting('typingMode', val)}
+              options={[
+                { value: 'classic', label: 'Classic (Single Box)' },
+                { value: 'two-box', label: 'Two-Box (Split)' }
               ]}
             />
           </div>
@@ -1074,19 +1142,23 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
                 </div>
                 
                 {/* Border line */}
-                <div style={{ width: '100%', height: '1px', background: 'var(--border-soft)', marginTop: '20px', marginBottom: '15px' }} />
+                {storeState.typingMode === 'classic' && (
+                  <div style={{ width: '100%', height: '1px', background: 'var(--border-soft)', marginTop: '20px', marginBottom: '15px' }} />
+                )}
                 
                 {/* Live Speed + Accuracy inline */}
-                <div style={{ display: 'flex', gap: '60px', marginBottom: '20px', color: 'var(--text-muted)', fontFamily: 'var(--font-ui)' }}>
-                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
-                      <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '11px', opacity: 0.7 }}>Speed</span>
-                      <span style={{ fontSize: '28px', color: 'var(--text-primary)', fontWeight: 'bold' }}>{stats.wpm} <span style={{ fontSize: '14px', color: 'var(--text-muted)', fontWeight: 'normal' }}>WPM</span></span>
-                   </div>
-                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
-                      <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '11px', opacity: 0.7 }}>Accuracy</span>
-                      <span style={{ fontSize: '28px', color: 'var(--text-primary)', fontWeight: 'bold' }}>{stats.accuracy}<span style={{ fontSize: '16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>%</span></span>
-                   </div>
-                </div>
+                {storeState.typingMode === 'classic' && (
+                  <div style={{ display: 'flex', gap: '60px', marginBottom: '20px', color: 'var(--text-muted)', fontFamily: 'var(--font-ui)' }}>
+                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                        <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '11px', opacity: 0.7 }}>Speed</span>
+                        <span style={{ fontSize: '28px', color: 'var(--text-primary)', fontWeight: 'bold' }}>{stats.wpm} <span style={{ fontSize: '14px', color: 'var(--text-muted)', fontWeight: 'normal' }}>WPM</span></span>
+                     </div>
+                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                        <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '11px', opacity: 0.7 }}>Accuracy</span>
+                        <span style={{ fontSize: '28px', color: 'var(--text-primary)', fontWeight: 'bold' }}>{stats.accuracy}<span style={{ fontSize: '16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>%</span></span>
+                     </div>
+                  </div>
+                )}
               </div>
             )}
           </div>

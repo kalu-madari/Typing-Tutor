@@ -73,20 +73,18 @@ export class TypingEngine {
     
     if (key === 'Backspace') return;
 
+    let actualKey = key;
+    if (actualKey === "'") actualKey = "*";
+    if (actualKey === '"') actualKey = String.fromCharCode(223);
+
     const targetChar = this.text[this.currentIndex];
     
-    if (key === 'Enter' && targetChar !== '\n') {
+    if (actualKey === 'Enter' && targetChar !== '\n') {
       return;
     }
 
-    // If blockOnError is active and we've reached the limit, ONLY allow the correct character
-    const isCorrect = (targetChar === '\n' && key === 'Enter') || (key === targetChar);
+    const isCorrect = (targetChar === '\n' && actualKey === 'Enter') || (actualKey === targetChar);
     
-    if (!isCorrect && blockOnError && this.currentConsecutiveErrors >= maxErrorsToBlock && key !== 'WRONG_ALT_DIGIT') {
-      if (this.onPlaySound) this.onPlaySound('error');
-      return; // Ignore the keystroke completely
-    }
-
     this.totalTypedChars++;
 
     if (isCorrect) {
@@ -95,6 +93,7 @@ export class TypingEngine {
       this.correctChars++;
       this.currentIndex++;
       this.currentConsecutiveErrors = 0;
+      this.lastTypedChar = null;
       if (this.onPlaySound) this.onPlaySound('keystroke');
 
       if (this.currentIndex >= this.text.length) {
@@ -104,17 +103,20 @@ export class TypingEngine {
       }
     } else {
       // Incorrect
-      this.lastTypedChar = key;
+      this.lastTypedChar = actualKey;
       this.incorrectChars++;
       this.errors.add(this.currentIndex);
       this.currentConsecutiveErrors++;
       if (this.onPlaySound) this.onPlaySound('error');
       
-      if (moveOnError && this.currentConsecutiveErrors >= maxErrorsToSkip && key !== 'WRONG_ALT_DIGIT') {
+      if (blockOnError && this.currentConsecutiveErrors >= maxErrorsToBlock) {
+        // Do nothing (block advancement)
+      } else if (moveOnError && this.currentConsecutiveErrors >= maxErrorsToSkip) {
         // Force skip the character
-        this.typedCharacters.push({ char: key, isError: true });
+        this.typedCharacters.push({ char: actualKey, isError: true });
         this.currentIndex++;
         this.currentConsecutiveErrors = 0;
+        this.lastTypedChar = null;
         
         if (this.currentIndex >= this.text.length) {
           this.status = 'finished';
