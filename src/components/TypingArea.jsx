@@ -7,6 +7,7 @@ const TypingArea = ({ engineState, isIdle }) => {
   const fontSize = useAppStore(s => s.fontSize);
   const textAlign = useAppStore(s => s.textAlign);
   const typingMode = useAppStore(s => s.typingMode) || 'classic';
+  const showVirtualKeyboard = useAppStore(s => s.showVirtualKeyboard);
   const containerRef = useRef(null);
   const bottomContainerRef = useRef(null);
 
@@ -194,7 +195,7 @@ const TypingArea = ({ engineState, isIdle }) => {
               ...styles.textContainer,
               border: '1px solid var(--border-soft)',
               borderRadius: '8px',
-              height: '135px',
+              height: showVirtualKeyboard ? '135px' : 'min(300px, 35vh)',
               overflowY: 'auto',
               padding: '16px',
               paddingLeft: '24px',
@@ -211,7 +212,7 @@ const TypingArea = ({ engineState, isIdle }) => {
               ...styles.textContainer,
               border: '1px solid var(--border-soft)',
               borderRadius: '8px',
-              height: '135px',
+              height: showVirtualKeyboard ? '135px' : 'min(300px, 35vh)',
               overflowY: 'auto',
               padding: '16px',
               paddingLeft: '24px',
