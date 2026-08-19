@@ -15,8 +15,6 @@ export const useAppStore = create(
       highlightFingers: true,
       timerMode: 'none', // none, 1min, 3min, 5min
       allowBackspace: false,
-      moveOnError: false,
-      maxErrorsToSkip: 3,
       blockOnError: false,
       maxErrorsToBlock: 3,
 

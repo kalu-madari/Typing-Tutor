@@ -824,30 +824,6 @@ const SettingsView = () => {
           </div>
           <div className="setting-item">
             <div className="setting-info">
-              <span className="setting-label">Move On Error</span>
-              <span className="setting-desc">Automatically move cursor forward after making a mistake</span>
-            </div>
-            <Switch checked={store.moveOnError} onChange={(val) => store.updateSetting('moveOnError', val)} />
-          </div>
-          {store.moveOnError && (
-            <div className="setting-item">
-              <div className="setting-info">
-                <span className="setting-label">Max Errors to Skip</span>
-                <span className="setting-desc">Number of consecutive errors before skipping character</span>
-              </div>
-              <RoundedSelect
-                value={store.maxErrorsToSkip}
-                onChange={(val) => store.updateSetting('maxErrorsToSkip', parseInt(val, 10))}
-                options={[
-                  { value: 1, label: '1' },
-                  { value: 2, label: '2' },
-                  { value: 3, label: '3' }
-                ]}
-              />
-            </div>
-          )}
-          <div className="setting-item">
-            <div className="setting-info">
               <span className="setting-label">Block On Error</span>
               <span className="setting-desc">Block typing completely after making multiple mistakes</span>
             </div>
@@ -1099,13 +1075,6 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
             {settingsMenuOpen && (
                <div className="glass-card" style={{ position: 'absolute', top: '100%', right: 0, marginTop: '8px', padding: '16px', width: '240px', zIndex: 50, display: 'flex', flexDirection: 'column', gap: '12px', borderRadius: '12px', boxShadow: '0 10px 25px rgba(0,0,0,0.5)' }}>
                  <Switch checked={storeState.allowBackspace} onChange={val => storeState.updateSetting('allowBackspace', val)} label="Backspace" />
-                 <Switch checked={storeState.moveOnError} onChange={val => storeState.updateSetting('moveOnError', val)} label="Move on error" />
-                 {storeState.moveOnError && (
-                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '8px', borderTop: '1px solid var(--border-color)' }}>
-                     <span style={{ fontSize: '13px', color: 'var(--text-primary)' }}>Max errors:</span>
-                     <RoundedSelect className="rselect-small" value={storeState.maxErrorsToSkip} onChange={(val) => storeState.updateSetting('maxErrorsToSkip', parseInt(val, 10))} options={[{ value: 1, label: '1' }, { value: 2, label: '2' }, { value: 3, label: '3' }]} />
-                   </div>
-                 )}
                  <Switch checked={storeState.blockOnError} onChange={val => storeState.updateSetting('blockOnError', val)} label="Block on error" />
                  {storeState.blockOnError && (
                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '8px', borderTop: '1px solid var(--border-color)' }}>

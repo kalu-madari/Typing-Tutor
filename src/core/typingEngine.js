@@ -49,11 +49,12 @@ export class TypingEngine {
       this.lastInteractionTime = now;
     }
 
-    let { allowBackspace, moveOnError, maxErrorsToSkip, blockOnError, maxErrorsToBlock } = useAppStore.getState();
+    let { allowBackspace, blockOnError, maxErrorsToBlock } = useAppStore.getState();
 
-    // Box practice strictly bans move on error
+    // Box practice strictly bans moving on error
     if (this.lessonType === 'box_practice') {
-      moveOnError = false;
+      blockOnError = true;
+      maxErrorsToBlock = 1;
     }
 
     // Ignore modifier keys like Shift, Control, Alt
@@ -102,20 +103,18 @@ export class TypingEngine {
         if (this.onFinish) this.onFinish(this.getState());
       }
     } else {
-      // Incorrect
       this.lastTypedChar = actualKey;
       this.incorrectChars++;
       this.errors.add(this.currentIndex);
       this.currentConsecutiveErrors++;
       if (this.onPlaySound) this.onPlaySound('error');
       
-      if (blockOnError && this.currentConsecutiveErrors >= maxErrorsToBlock) {
-        // Do nothing (block advancement)
-      } else if (moveOnError && this.currentConsecutiveErrors >= maxErrorsToSkip) {
-        // Force skip the character
+      const shouldBlock = blockOnError && this.currentConsecutiveErrors >= maxErrorsToBlock;
+      
+      if (!shouldBlock) {
+        // We move on error!
         this.typedCharacters.push({ char: actualKey, isError: true });
         this.currentIndex++;
-        this.currentConsecutiveErrors = 0;
         this.lastTypedChar = null;
         
         if (this.currentIndex >= this.text.length) {
@@ -123,6 +122,8 @@ export class TypingEngine {
           this.endTime = Date.now();
           if (this.onFinish) this.onFinish(this.getState());
         }
+      } else {
+        // Block advancement (do nothing, stay on current index)
       }
     }
 
