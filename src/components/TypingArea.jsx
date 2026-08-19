@@ -316,7 +316,7 @@ const CharSpan = React.memo(({
   let color = getCharColor(statusClass);
   let isHidden = false;
 
-  if (mode !== 'two-box-bottom' && tempDisplayChar) {
+  if (mode === 'classic' && tempDisplayChar) {
     displayChar = tempDisplayChar;
     color = 'var(--danger)';
   } else {
