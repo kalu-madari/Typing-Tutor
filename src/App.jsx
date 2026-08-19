@@ -1082,15 +1082,17 @@ const TypingSession = ({ lesson, onComplete, onNext, onPrev, onRestart, hasNext,
                      <RoundedSelect className="rselect-small" value={storeState.maxErrorsToBlock} onChange={(val) => storeState.updateSetting('maxErrorsToBlock', parseInt(val, 10))} options={[{ value: 1, label: '1' }, { value: 2, label: '2' }, { value: 3, label: '3' }, { value: 5, label: '5' }]} />
                    </div>
                  )}
-                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '8px', borderTop: '1px solid var(--border-color)' }}>
-                   <span style={{ fontSize: '13px', color: 'var(--text-primary)' }}>View Mode:</span>
-                   <RoundedSelect 
-                     className="rselect-small" 
-                     value={storeState.typingMode || 'classic'} 
-                     onChange={(val) => storeState.updateSetting('typingMode', val)} 
-                     options={[{ value: 'classic', label: 'Classic' }, { value: 'two-box', label: 'Two-Box' }]} 
-                   />
-                 </div>
+                 {lesson?.type !== 'box_practice' && (
+                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '8px', borderTop: '1px solid var(--border-color)' }}>
+                     <span style={{ fontSize: '13px', color: 'var(--text-primary)' }}>View Mode:</span>
+                     <RoundedSelect 
+                       className="rselect-small" 
+                       value={storeState.typingMode || 'classic'} 
+                       onChange={(val) => storeState.updateSetting('typingMode', val)} 
+                       options={[{ value: 'classic', label: 'Classic' }, { value: 'two-box', label: 'Two-Box' }]} 
+                     />
+                   </div>
+                 )}
                </div>
             )}
           </div>
