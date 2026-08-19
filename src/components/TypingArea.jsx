@@ -198,6 +198,7 @@ const TypingArea = ({ engineState, isIdle }) => {
               height: showVirtualKeyboard ? '135px' : 'min(300px, 35vh)',
               overflowY: 'auto',
               padding: '16px',
+              paddingTop: '40px',
               paddingLeft: '24px',
               textAlign: textAlign || 'left',
               lineHeight: '1.5em'
