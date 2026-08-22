@@ -308,7 +308,10 @@ const CharSpan = React.memo(({
     if (charToShow) {
       setTempDisplayChar(charToShow);
       const timer = setTimeout(() => setTempDisplayChar(null), 200);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+        setTempDisplayChar(null);
+      };
     }
   }, [isActive, isError, lastTypedChar, typedChar]);
 
