@@ -111,6 +111,7 @@ const TypingArea = ({ engineState, isIdle }) => {
               containerRef={cRef}
               mode={mode}
               lastTypedChar={isWordActive ? engineState.lastTypedChar : null}
+              totalErrors={isWordActive ? (engineState.incorrectChars || 0) : 0}
             />
           );
         })}
@@ -215,7 +216,7 @@ const getCharColor = (status) => {
   return 'var(--text-secondary)';
 };
 
-const WordSpanComponent = ({ wordTokens, currentIndex, typedCharacters, errors, isIdle, containerRef, mode, lastTypedChar }) => {
+const WordSpanComponent = ({ wordTokens, currentIndex, typedCharacters, errors, isIdle, containerRef, mode, lastTypedChar, totalErrors }) => {
   const isWhitespace = wordTokens.length === 1 && (wordTokens[0].char === ' ' || wordTokens[0].char === '\n');
   return (
     <span style={{ display: isWhitespace ? 'inline' : 'inline-block' }}>
@@ -243,6 +244,7 @@ const WordSpanComponent = ({ wordTokens, currentIndex, typedCharacters, errors, 
             mode={mode}
             lastTypedChar={lastTypedChar}
             typedChar={typedCharacters[index]}
+            totalErrors={isActive ? totalErrors : 0}
           />
         );
       })}
@@ -270,21 +272,24 @@ const WordSpan = React.memo(WordSpanComponent, areWordSpanEqual);
 // Fix #1 — replace motion.span (framer-motion infinite loop) with plain span + CSS classes
 // The cursor blink and error shake are now handled by .char-active and .char-error-shake in styles.css
 const CharSpan = React.memo(({
-  char, index, currentIndex, statusClass, isActive, isError, isIdle, containerRef, mode, lastTypedChar, typedChar
+  char, index, currentIndex, statusClass, isActive, isError, isIdle, containerRef, mode, lastTypedChar, typedChar, totalErrors
 }) => {
   // Error shake: we use a key trick — changing the key restarts the CSS animation
   const [shakeKey, setShakeKey] = useState(0);
   const prevIsError = useRef(false);
   const prevTypedCharRef = useRef(typedChar);
+  const prevErrors = useRef(totalErrors);
   const [tempDisplayChar, setTempDisplayChar] = useState(null);
 
-  if (isError && !prevIsError.current) {
+  if (isError && (!prevIsError.current || (isActive && totalErrors > prevErrors.current))) {
     setShakeKey(k => k + 1);
   }
   prevIsError.current = isError;
+  prevErrors.current = totalErrors;
 
   useEffect(() => {
     let charToShow = null;
+    // By including totalErrors in dependencies, this re-evaluates even if lastTypedChar is identical!
     if (isActive && isError && lastTypedChar) {
       charToShow = lastTypedChar;
     } else if (typedChar && typedChar.isError && !prevTypedCharRef.current) {
@@ -300,7 +305,7 @@ const CharSpan = React.memo(({
         setTempDisplayChar(null);
       };
     }
-  }, [isActive, isError, lastTypedChar, typedChar]);
+  }, [isActive, isError, lastTypedChar, typedChar, totalErrors]);
 
   let displayChar = char;
   let color = getCharColor(statusClass);
