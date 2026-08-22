@@ -16,7 +16,7 @@ export const useAppStore = create(
       timerMode: 'none', // none, 1min, 3min, 5min
       allowBackspace: false,
       blockOnError: false,
-      maxErrorsToBlock: 3,
+      maxErrorsToBlock: 1,
 
       // Progress Stats (mirrored from DB for quick UI access)
       continueLessonId: null,
