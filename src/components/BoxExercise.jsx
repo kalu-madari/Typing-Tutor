@@ -16,7 +16,10 @@ const BoxExercise = ({ engineState }) => {
       setShakeKey(k => k + 1); // changing key restarts CSS animation
       const t = setTimeout(() => setWrongChar(null), 400);
       prevIncorrect.current = current;
-      return () => clearTimeout(t);
+      return () => {
+        clearTimeout(t);
+        setWrongChar(null);
+      };
     }
     prevIncorrect.current = current;
   }, [engineState?.incorrectChars, engineState?.lastTypedChar]);
@@ -94,7 +97,8 @@ const BoxExercise = ({ engineState }) => {
                   className="wrong-char-pop"
                   style={{
                     color: 'var(--danger)',
-                    fontSize: isSpace ? '20px' : charFontSize,
+                    fontSize: (wrongChar === ' ' || wrongChar === '\n') ? '20px' : charFontSize,
+                    fontFamily: (wrongChar === ' ' || wrongChar === '\n') ? 'sans-serif' : '"Kruti Dev 010", sans-serif',
                     fontWeight: 'bold',
                     display: 'flex',
                     alignItems: 'center',

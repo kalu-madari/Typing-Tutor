@@ -131,19 +131,22 @@ const TypingArea = ({ engineState, isIdle }) => {
     }
     return (
       <>
-        {words.slice(0, windowEnd).map((wordTokens, wIdx) => (
-          <WordSpan
-            key={wIdx}
-            wordTokens={wordTokens}
-            currentIndex={currentIndex}
-            typedCharacters={typedCharacters}
-            errors={errors}
-            isIdle={isIdle}
-            containerRef={cRef}
-            mode={mode}
-            lastTypedChar={engineState.lastTypedChar}
-          />
-        ))}
+        {words.slice(0, windowEnd).map((wordTokens, wIdx) => {
+          const isWordActive = currentIndex >= wordTokens[0].index && currentIndex <= wordTokens[wordTokens.length - 1].index;
+          return (
+            <WordSpan
+              key={wIdx}
+              wordTokens={wordTokens}
+              currentIndex={currentIndex}
+              typedCharacters={typedCharacters}
+              errors={errors}
+              isIdle={isWordActive ? isIdle : false}
+              containerRef={cRef}
+              mode={mode}
+              lastTypedChar={isWordActive ? engineState.lastTypedChar : null}
+            />
+          );
+        })}
         {windowEnd < words.length && (
           <span style={{ color: mode === 'two-box-top' ? 'var(--text-primary)' : (mode === 'two-box-bottom' ? 'transparent' : 'var(--text-secondary)') }}>
             {engineText.slice(words[windowEnd][0].index)}
@@ -245,7 +248,7 @@ const getCharColor = (status) => {
   return 'var(--text-secondary)';
 };
 
-const WordSpan = React.memo(({ wordTokens, currentIndex, typedCharacters, errors, isIdle, containerRef, mode, lastTypedChar }) => {
+const WordSpanComponent = ({ wordTokens, currentIndex, typedCharacters, errors, isIdle, containerRef, mode, lastTypedChar }) => {
   const isWhitespace = wordTokens.length === 1 && (wordTokens[0].char === ' ' || wordTokens[0].char === '\n');
   return (
     <span style={{ display: isWhitespace ? 'inline' : 'inline-block' }}>
@@ -278,7 +281,24 @@ const WordSpan = React.memo(({ wordTokens, currentIndex, typedCharacters, errors
       })}
     </span>
   );
-});
+};
+
+const areWordSpanEqual = (prev, next) => {
+  if (prev.mode !== next.mode) return false;
+  if (next.currentIndex === 0 && prev.currentIndex > 0) return false;
+  
+  const wStart = prev.wordTokens[0].index;
+  const wEnd = prev.wordTokens[prev.wordTokens.length - 1].index;
+  
+  const prevActive = prev.currentIndex >= wStart && prev.currentIndex <= wEnd;
+  const nextActive = next.currentIndex >= wStart && next.currentIndex <= wEnd;
+  
+  if (prevActive || nextActive) return false;
+  
+  return true;
+};
+
+const WordSpan = React.memo(WordSpanComponent, areWordSpanEqual);
 
 // Fix #1 — replace motion.span (framer-motion infinite loop) with plain span + CSS classes
 // The cursor blink and error shake are now handled by .char-active and .char-error-shake in styles.css
