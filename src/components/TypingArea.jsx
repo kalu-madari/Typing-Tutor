@@ -309,6 +309,9 @@ const CharSpan = React.memo(({
 
   let displayChar = char;
   let color = getCharColor(statusClass);
+  if (isActive && mode === 'classic') color = '#eab308';
+  if (isActive && mode === 'two-box-top') color = 'var(--brand-hover)';
+  
   let isHidden = false;
 
   if (mode === 'classic' && tempDisplayChar) {
@@ -316,7 +319,8 @@ const CharSpan = React.memo(({
     color = 'var(--danger)';
   } else {
     if (mode === 'two-box-top') {
-      color = 'var(--text-primary)';
+      // Keep brand-hover color if active, otherwise text-primary
+      if (!isActive) color = 'var(--text-primary)';
     } else if (mode === 'two-box-bottom') {
       if (index > currentIndex) {
         isHidden = true;
@@ -339,7 +343,7 @@ const CharSpan = React.memo(({
       style={{
         ...styles.char,
         position: 'relative',
-        color: (isActive && mode === 'classic') ? '#eab308' : (isActive && mode === 'two-box-top' ? 'var(--brand-hover)' : color),
+        color: color,
         textShadow: (isActive && mode === 'classic') ? '0 0 8px rgba(250, 204, 21, 0.4)' : 'none',
         backgroundColor: (isActive && displayChar === ' ') ? (mode === 'classic' ? 'rgba(250, 204, 21, 0.4)' : 'var(--bg-active)') : 'transparent',
         borderRadius: (isActive && displayChar === ' ') ? '4px' : '0',
