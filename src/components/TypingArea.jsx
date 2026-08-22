@@ -47,39 +47,6 @@ const TypingArea = ({ engineState, isIdle }) => {
 
   // Wrong char flash — pure DOM manipulation for classic mode
   const prevIncorrect = useRef(0);
-  useLayoutEffect(() => {
-    if (typingMode !== 'classic') return;
-    const current = engineState?.incorrectChars || 0;
-    if (current > prevIncorrect.current && engineState?.lastTypedChar && containerRef.current) {
-      const activeEl = containerRef.current.querySelector(`[data-char-index="${currentIndex}"]`);
-      if (activeEl) {
-        const wrongKey = engineState.lastTypedChar;
-        let overlay = activeEl.querySelector('.wrong-overlay');
-        if (!overlay) {
-          overlay = document.createElement('span');
-          overlay.className = 'wrong-overlay';
-          overlay.style.position = 'absolute';
-          overlay.style.left = '50%';
-          overlay.style.top = '100%';
-          overlay.style.transform = 'translate(-50%, -50%)';
-          overlay.style.color = 'var(--danger)';
-          overlay.style.fontWeight = 'bold';
-          overlay.style.pointerEvents = 'none';
-          overlay.style.zIndex = '10';
-          overlay.style.textShadow = '0 0 4px var(--bg-app), 0 0 8px var(--bg-app)';
-          activeEl.appendChild(overlay);
-        }
-        overlay.textContent = wrongKey;
-        
-        activeEl.classList.remove('char-error-shake');
-        // trigger reflow
-        void activeEl.offsetWidth;
-        activeEl.classList.add('char-error-shake');
-      }
-    }
-    prevIncorrect.current = current;
-  }, [engineState?.incorrectChars, engineState?.lastTypedChar, currentIndex, typingMode]);
-
   // Parse text into word tokens — only recomputes when text changes
   const words = useMemo(() => {
     if (!textIsString) return [];
