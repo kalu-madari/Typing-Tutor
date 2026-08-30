@@ -2,7 +2,7 @@
 
 A modern, visually stunning typing tutor built to help users master the legacy **Kruti Dev 010** Hindi font layout. Built with React, Vite, and Framer Motion.
 
-## 🎯 Features
+## Features
 
 *   **Custom Typing Engine:** Built completely from scratch to accurately track legacy Hindi glyph combinations and matras without breaking text rendering. Strict case-sensitive tracking prevents accidental Shift/Caps Lock errors.
 *   **Interactive Virtual Keyboard:** A responsive on-screen keyboard that visually maps standard English keystrokes to their corresponding Hindi characters.
@@ -15,7 +15,7 @@ A modern, visually stunning typing tutor built to help users master the legacy *
 *   **Live Analytics:** Tracks your WPM (Words Per Minute), Accuracy percentage, and time spent in real-time.
 *   **Premium Glassmorphism UI:** A gorgeous dark-mode user interface with frosted glass components, glowing accents, and smooth transitions.
 
-## 🚀 Tech Stack
+## Tech Stack
 
 *   **Frontend:** React (JSX)
 *   **Build Tool:** Vite
@@ -23,7 +23,7 @@ A modern, visually stunning typing tutor built to help users master the legacy *
 *   **Styling:** Vanilla CSS (CSS Variables, Flexbox/Grid, Glassmorphism)
 *   **Font:** Kruti Dev 010 (Local Asset)
 
-## 🛠️ Getting Started
+## Getting Started
 
 ### Prerequisites
 Make sure you have Node.js installed on your machine.
@@ -48,7 +48,7 @@ Make sure you have Node.js installed on your machine.
    ```
 5. Open your browser and visit the local URL provided by Vite (usually `http://localhost:5173`).
 
-## 📚 Roadmap
+## Roadmap
 
 *   **Chapter 6:** Introduction to Shift Key variations and half-letters.
 *   **Chapter 7+:** Advanced paragraphs, number rows, and punctuation.
