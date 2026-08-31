@@ -75,8 +75,6 @@ export class TypingEngine {
     if (key === 'Backspace') return;
 
     let actualKey = key;
-    if (actualKey === "'") actualKey = "*";
-    if (actualKey === '"') actualKey = String.fromCharCode(223);
 
     const targetChar = this.text[this.currentIndex];
     
